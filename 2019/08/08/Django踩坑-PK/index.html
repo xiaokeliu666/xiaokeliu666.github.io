@@ -57,19 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="&amp;emsp;&amp;emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用python manage.py migrate对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。 报错分析在实际操作过程中我先后遇到如下两种报错信息:  意思是说我的mysqlclient版本过低，但是我在退出虚拟环境后通过pip list检查出版本是最新的，进入虚拟环境后就显示不出来">
-<meta name="keywords" content="踩坑,Python,Django">
+  <meta name="description" content="问题描述在《第一个Django应用》中，我根据教程总结了我对于Django应用开发过程的初步理解以及对应用开发步骤的梳理，在我尝试仅根据博文内容对应用进行复现的过程中出现了如下错误：这个错误出现在我进入polls主页后选择其中一项标题进行投票时，投票结束后跳转到了http://127.0.0.1:8000/polls/1/vote/，本来按道理应该是http://127.0.0.1:8000/po">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python踩坑：python manage.py migrate报错">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/01/Python踩坑：python-manage-py-migrate报错/index.html">
+<meta property="og:title" content="Django踩坑:PK">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/08/Django踩坑-PK/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用python manage.py migrate对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。 报错分析在实际操作过程中我先后遇到如下两种报错信息:  意思是说我的mysqlclient版本过低，但是我在退出虚拟环境后通过pip list检查出版本是最新的，进入虚拟环境后就显示不出来">
+<meta property="og:description" content="问题描述在《第一个Django应用》中，我根据教程总结了我对于Django应用开发过程的初步理解以及对应用开发步骤的梳理，在我尝试仅根据博文内容对应用进行复现的过程中出现了如下错误：这个错误出现在我进入polls主页后选择其中一项标题进行投票时，投票结束后跳转到了http://127.0.0.1:8000/polls/1/vote/，本来按道理应该是http://127.0.0.1:8000/po">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-04T04:27:27.858Z">
+<meta property="og:updated_time" content="2019-08-09T01:54:34.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python踩坑：python manage.py migrate报错">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用python manage.py migrate对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。 报错分析在实际操作过程中我先后遇到如下两种报错信息:  意思是说我的mysqlclient版本过低，但是我在退出虚拟环境后通过pip list检查出版本是最新的，进入虚拟环境后就显示不出来">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/01/Python踩坑：python-manage-py-migrate报错/">
+<meta name="twitter:title" content="Django踩坑:PK">
+<meta name="twitter:description" content="问题描述在《第一个Django应用》中，我根据教程总结了我对于Django应用开发过程的初步理解以及对应用开发步骤的梳理，在我尝试仅根据博文内容对应用进行复现的过程中出现了如下错误：这个错误出现在我进入polls主页后选择其中一项标题进行投票时，投票结束后跳转到了http://127.0.0.1:8000/polls/1/vote/，本来按道理应该是http://127.0.0.1:8000/po">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/08/Django踩坑-PK/">
 
 
 <script id="page.configurations">
@@ -78,7 +77,7 @@
   };
 </script>
 
-  <title>Python踩坑：python manage.py migrate报错 | Feb 1997</title>
+  <title>Django踩坑:PK | Feb 1997</title>
   
 
 
@@ -217,7 +216,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/01/Python踩坑：python-manage-py-migrate报错/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/08/Django踩坑-PK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +230,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Python踩坑：python manage.py migrate报错
+          <h1 class="post-title" itemprop="name headline">Django踩坑:PK
 
               
             
@@ -251,37 +250,12 @@
                 
               
 
-              <time title="创建时间：2019-08-01 23:58:06" itemprop="dateCreated datePublished" datetime="2019-08-01T23:58:06-04:00">2019-08-01</time>
+              <time title="创建时间：2019-08-08 20:52:45 / 修改时间：21:54:34" itemprop="dateCreated datePublished" datetime="2019-08-08T20:52:45-04:00">2019-08-08</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-04 00:27:27" itemprop="dateModified" datetime="2019-08-04T00:27:27-04:00">2019-08-04</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           <br/>
@@ -295,23 +269,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>&emsp;&emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用<code>python manage.py migrate</code>对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。</p>
-<h1 id="报错分析"><a href="#报错分析" class="headerlink" title="报错分析"></a>报错分析</h1><p>在实际操作过程中我先后遇到如下两种报错信息:</p>
-<ol>
-<li><p>意思是说我的mysqlclient版本过低，但是我在退出虚拟环境后通过<code>pip list</code>检查出版本是最新的，进入虚拟环境后就显示不出来了，pip也不能用，尝试了网上各种方法无果，猜想可能是我虚拟环境的配置出了问题，我觉得如果不在虚拟环境内进行数据迁移的话可能不会有问题，但是毕竟虚拟环境是Python开发神器，还是很想把虚拟环境配置好。<br> Stackoverflow上有一个人针对这个错误提供了一个方案，大致的思路是对虚拟环境下的后台mysql文件进行修改，在版本检测这一环节对检测到低于1.3.13版本的mysqlclient采取直接pass的措施，不捕捉异常，经测试有效。具体操作过程见参考引用中的链接。<br> 最后通过virtualenvwrapper创建虚拟环境解决了问题，将所有的虚拟环境目录全都集中起来，比如放到 ~/Envs/，并对不同的虚拟环境使用不同的目录来管理。并且，它还省去了每次开启虚拟环境时候的 source 操作，使得虚拟环境更加好用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlclient 1.3.13 or newer is required; you have 0.9.3</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在第一个问题解决后，我在新的虚拟环境重新配置，同样进行到<code>python manage.py migrate</code>步骤时出现了如下问题，意思是说我的SQL语法有问题，但是因为当时我只进行了一步<code>CREATE database</code>的操作，并且操作成功，所以排除我SQL语句错误的可能性。后来了解到Django 2.0已经停止了对MySQL 5.5的支持，而我系统安装的MySQL正好是5.5版本的，于是尝试用MySQL 5.7替换，最后问题得到解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.ProgrammingError: (1064, &quot;You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;(6) NOT NULL)&apos; at line 1&quot;)</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在<a href="https://xiaokeliu666.github.io/2019/08/04/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%AC%AC%E4%B8%80%E4%B8%AADjango%E5%BA%94%E7%94%A8/">《第一个Django应用》</a>中，我根据教程总结了我对于Django应用开发过程的初步理解以及对应用开发步骤的梳理，在我尝试仅根据博文内容对应用进行复现的过程中出现了如下错误：<br><a href="Django踩坑-PK/pk报错.png"></a><br>这个错误出现在我进入polls主页后选择其中一项标题进行投票时，投票结束后跳转到了<code>http://127.0.0.1:8000/polls/1/vote/</code>，本来按道理应该是<code>http://127.0.0.1:8000/polls/1/results/</code>，于是我将检查目标定在了/polls/views.py文件的vote()方法里，因为我在这个方法里设置了页面的跳转，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def vote(request, question_id):</span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    try:</span><br><span class="line">        selected_choice = question.choice_set.get(request.POST[&apos;choice&apos;])</span><br><span class="line">    except (KeyError, Choice.DoesNotExist):</span><br><span class="line">        return render(request, &apos;polls/detail.html&apos;, &#123;</span><br><span class="line">            &apos;question&apos;: question,</span><br><span class="line">            &apos;error_message&apos;: &quot;You didn&apos;t select a choice.&quot;,</span><br><span class="line">            &#125;)</span><br><span class="line">    else:</span><br><span class="line">        selected_choice.votes += 1</span><br><span class="line">        selected_choice.save()</span><br><span class="line">        return HttpResponseRedirect(reverse(&apos;polls:results&apos;, args=(question.id,)))</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<h1 id="参考引用"><a href="#参考引用" class="headerlink" title="参考引用"></a>参考引用</h1><p><a href="https://stackoverflow.com/questions/55657752/django-installing-mysqlclient-error-mysqlclient-1-3-13-or-newer-is-required" target="_blank" rel="noopener">Stackoverflow</a></p>
-<p><a href="https://www.jianshu.com/p/7ed2dfa86e90" target="_blank" rel="noopener">virtualenvwrapper的安装及使用</a></p>
-<p><a href="https://blog.csdn.net/sxingming/article/details/52601250" target="_blank" rel="noopener">Windows10系统下，彻底删除卸载MySQL</a></p>
-<hr>
-<h2 id="更新-2019-08-04"><a href="#更新-2019-08-04" class="headerlink" title="更新(2019-08-04)"></a>更新(2019-08-04)</h2><p>&emsp;&emsp;之前的学习都是跟着Github上的<a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener">Python-100-Days</a>操作的，全程用命令行Vim操作，用了一段时间觉得操作不是很方便，今天重新用Pycharm操作Django项目，另外为了避免之前的问题用的是Django自带的Sqlite数据库而不是Mysql，一路下来很顺畅。另外个人觉得Python-100-Days的教程太过笼统，更适合作为一个学习路线和查漏补缺。</p>
-<h2 id="参考引用-1"><a href="#参考引用-1" class="headerlink" title="参考引用"></a>参考引用</h2><p><a href="http://www.liujiangblog.com/course/django/" target="_blank" rel="noopener">刘江的博客教程</a></p>
+<h1 id="分析解决"><a href="#分析解决" class="headerlink" title="分析解决"></a>分析解决</h1><p>结合报错信息’not enough values to unpack(excepted 2, got 1)’，意思是在解包过程中少了一个数值，通过检察源码找到get()方法的信息：Perform the query and return a single object matching the given keyword arguments.通过给定的关键词语句执行查询并返回匹配的对象。request.POST是一个类似字典的对象，允许你通过键名访问提交的数据。本例中，request.POST[’choice’]返回被选择选项的ID，而ID是主键，因此改为<code>pk=request.POST[&#39;choice&#39;]</code>即可。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在创建一个新的models实例时，如果没有设置主键，那么Django会自动创建一个id字段作为该模型的主键，有时候用id和pk都能达到预期的效果，但是pk更加独立于真正的主键，也就是说不用在意主键是叫id或者是object_id。并且使用pk可以提高一致性，即便模型中有不同的主键。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p><a href="https://stackoverflow.com/questions/2165865/django-queries-id-vs-pk" target="_blank" rel="noopener">stackoverflow</a><br>李健.《Django 2.0入门与实践》.清华大学出版社</p>
+</blockquote>
 
     </div>
 
@@ -320,20 +285,10 @@
     
 
     <footer class="post-footer">
-          
-        
-        <div class="post-tags">
-            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
-          
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
-        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/07/31/Hexo配置优化/" rel="next" title="Hexo配置优化">
-                <i class="fa fa-chevron-left"></i> Hexo配置优化
+              <a href="/2019/08/04/Django学习笔记（一）：第一个Django应用/" rel="next" title="Django学习笔记（一）：第一个Django应用">
+                <i class="fa fa-chevron-left"></i> Django学习笔记（一）：第一个Django应用
               </a>
             
           </div>
@@ -341,10 +296,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/04/Django学习笔记（一）：第一个Django应用/" rel="prev" title="Django学习笔记（一）：第一个Django应用">
-                Django学习笔记（一）：第一个Django应用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -462,7 +413,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#报错分析"><span class="nav-number">1.</span> <span class="nav-text">报错分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考引用"><span class="nav-number">2.</span> <span class="nav-text">参考引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#更新-2019-08-04"><span class="nav-number">2.1.</span> <span class="nav-text">更新(2019-08-04)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考引用-1"><span class="nav-number">2.2.</span> <span class="nav-text">参考引用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析解决"><span class="nav-number">2.</span> <span class="nav-text">分析解决</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
