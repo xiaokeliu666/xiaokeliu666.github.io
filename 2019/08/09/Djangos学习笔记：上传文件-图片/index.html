@@ -57,24 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
-<meta name="keywords" content="踩坑,Hexo">
+  <meta name="description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
+<meta name="keywords" content="Python,Django,踩坑">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo踩坑:本地图片加载">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/index.html">
+<meta property="og:title" content="Djangos学习笔记：上传文件&#x2F;图片">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
+<meta property="og:description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%9C%89%E6%95%88%E8%B7%AF%E5%BE%84.png">
-<meta property="og:updated_time" content="2019-07-31T05:42:20.450Z">
+<meta property="og:updated_time" content="2019-08-13T03:02:27.926Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo踩坑:本地图片加载">
-<meta name="twitter:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
-<meta name="twitter:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/">
+<meta name="twitter:title" content="Djangos学习笔记：上传文件&#x2F;图片">
+<meta name="twitter:description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
 
 
 <script id="page.configurations">
@@ -83,7 +78,7 @@
   };
 </script>
 
-  <title>Hexo踩坑:本地图片加载 | Feb 1997</title>
+  <title>Djangos学习笔记：上传文件/图片 | Feb 1997</title>
   
 
 
@@ -222,7 +217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -236,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Hexo踩坑:本地图片加载
+          <h1 class="post-title" itemprop="name headline">Djangos学习笔记：上传文件/图片
 
               
             
@@ -256,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2019-07-30 23:22:06" itemprop="dateCreated datePublished" datetime="2019-07-30T23:22:06-04:00">2019-07-30</time>
+              <time title="创建时间：2019-08-09 22:58:56" itemprop="dateCreated datePublished" datetime="2019-08-09T22:58:56-04:00">2019-08-09</time>
             </span>
           
             
@@ -269,7 +264,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-31 01:42:20" itemprop="dateModified" datetime="2019-07-31T01:42:20-04:00">2019-07-31</time>
+                <time title="修改时间：2019-08-12 23:02:27" itemprop="dateModified" datetime="2019-08-12T23:02:27-04:00">2019-08-12</time>
               </span>
             
           
@@ -281,7 +276,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
 
                 
                 
@@ -300,22 +295,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h1><ol>
-<li>Windows10</li>
-<li>Hexo</li>
-<li>Github</li>
-</ol>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>&emsp;&emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+        <p>首先在根目录下的settings中添加配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, &apos;media&apos;)</span><br><span class="line">MEDIA_URL = &apos;/media/&apos;</span><br></pre></td></tr></table></figure>
 
-<p>安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片</p>
-<p>&emsp;&emsp;文档中采取的加载图片的代码为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](文章名/图片名.png)</span><br></pre></td></tr></table></figure>
+<p>这样上传的文件就会在media文件夹中</p>
+<p>Models.py中添加模型并完成迁移，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ImageStore(models.Model):</span><br><span class="line">    name = models.CharField(max_length=150, null=True)</span><br><span class="line">    img = models.ImageField(upload_to=&apos;img&apos;)  # 会上传至/media/img文件夹中，如不存在则会自动生成一个</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.name</span><br></pre></td></tr></table></figure>
 
-<p>&emsp;&emsp;我是用上述方法向文章中添加图片时出现本地无法加载的情况，在localhost:4000或是我部署到Github上的博客中都只能显示出一个小方框，无法读取图片。</p>
-<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑-本地图片加载/%E6%9C%89%E6%95%88%E8%B7%AF%E5%BE%84.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这个问题的解决方案并不完美，因为如果在部署之前先启动本地服务在localhost:4000上预览文章仍然无法加载图片，原因应该是部署过程中图片被上传到了github，新的图片路径指向的是github中图片的路径，但是经过测试发现在断网的情况下也能加载已经部署过的图片，所以这个解决方案暂时没有明显问题。</p>
+<p>上传图片功能需要安装Pillow:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure>
+
+<p>然后在admin.py中注册模型:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.site.register(ImageStore)</span><br></pre></td></tr></table></figure>
+
+<p>即可在管理员界面对图片进行上传，并且上传后图片会出现在文件夹中。</p>
+<p>目前还存在的问题是无法在管理员界面显示图片，如果直接点链接会跳转至一个新的无法到达的地址，原因是因为相应的路由地址我还没写。</p>
 
     </div>
 
@@ -327,15 +321,17 @@
           
         
         <div class="post-tags">
-            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/07/30/Hexo博客搭建/" rel="next" title="Hexo博客搭建">
-                <i class="fa fa-chevron-left"></i> Hexo博客搭建
+              <a href="/2019/08/08/Django踩坑-PK/" rel="next" title="Django踩坑:PK">
+                <i class="fa fa-chevron-left"></i> Django踩坑:PK
               </a>
             
           </div>
@@ -343,8 +339,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/07/31/Hexo配置优化/" rel="prev" title="Hexo配置优化">
-                Hexo配置优化 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/11/Django踩坑-dbshell报错/" rel="prev" title="Django踩坑：python manage.py dbshell报错">
+                Django踩坑：python manage.py dbshell报错 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -376,17 +372,8 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -454,23 +441,6 @@
 
         </div>
       </div>
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作环境"><span class="nav-number">1.</span> <span class="nav-text">操作环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析问题"><span class="nav-number">3.</span> <span class="nav-text">分析问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
