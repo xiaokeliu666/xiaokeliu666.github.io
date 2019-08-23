@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="Static介绍与用法&amp;emsp;&amp;emsp;通常来说，当创建类时，就是在描述那个类的对象的外观与行为。除非用new创建那个类的对象，否则，实际上并未获得任何对象。执行new来创建对象时，数据存储空间才被分配，其方法才供外界调用。&amp;emsp;&amp;emsp;有两种情形用上述方法是无解的。一种情形是，只想为某特定域分配单一存储空间，而不去考虑究竟要创建多少对象，甚至根本就不创建任何对象。另一种情形是，希">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-22T03:47:27.226Z">
+<meta property="og:updated_time" content="2019-08-23T02:36:20.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面经整理：Java基础">
 <meta name="twitter:description" content="Static介绍与用法&amp;emsp;&amp;emsp;通常来说，当创建类时，就是在描述那个类的对象的外观与行为。除非用new创建那个类的对象，否则，实际上并未获得任何对象。执行new来创建对象时，数据存储空间才被分配，其方法才供外界调用。&amp;emsp;&amp;emsp;有两种情形用上述方法是无解的。一种情形是，只想为某特定域分配单一存储空间，而不去考虑究竟要创建多少对象，甚至根本就不创建任何对象。另一种情形是，希">
@@ -251,11 +251,21 @@
                 
               
 
-              <time title="创建时间：2019-08-21 22:26:08 / 修改时间：23:47:27" itemprop="dateCreated datePublished" datetime="2019-08-21T22:26:08-04:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 22:26:08" itemprop="dateCreated datePublished" datetime="2019-08-21T22:26:08-04:00">2019-08-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-22 22:36:20" itemprop="dateModified" datetime="2019-08-22T22:36:20-04:00">2019-08-22</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -301,6 +311,8 @@
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <p>《JAVA编程思想第四版》</p>
 </blockquote>
+<hr>
+<p>Q:为什么main函数中不能定义static变量？<br>A:只有类才存在静态的变量，方法只能对静态变量的操作，不能在方法内试图定义静态变量。</p>
 
     </div>
 
