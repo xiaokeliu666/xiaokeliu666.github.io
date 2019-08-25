@@ -211,6 +211,122 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/08/Django踩坑-PK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/08/Django踩坑-PK/" class="post-title-link" itemprop="url">Django踩坑:PK</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-08 20:52:45" itemprop="dateCreated datePublished" datetime="2019-08-08T20:52:45-04:00">2019-08-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-11 16:41:54" itemprop="dateModified" datetime="2019-08-11T16:41:54-04:00">2019-08-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在<a href="https://xiaokeliu666.github.io/2019/08/04/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%AC%AC%E4%B8%80%E4%B8%AADjango%E5%BA%94%E7%94%A8/">《第一个Django应用》</a>中，我根据教程总结了我对于Django应用开发过程的初步理解以及对应用开发步骤的梳理，在我尝试仅根据博文内容对应用进行复现的过程中出现了如下错误：<br><a href="Django踩坑-PK/pk报错.png"></a><br>这个错误出现在我进入polls主页后选择其中一项标题进行投票时，投票结束后跳转到了<code>http://127.0.0.1:8000/polls/1/vote/</code>，本来按道理应该是<code>http://127.0.0.1:8000/polls/1/results/</code>，于是我将检查目标定在了/polls/views.py文件的vote()方法里，因为我在这个方法里设置了页面的跳转，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def vote(request, question_id):</span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    try:</span><br><span class="line">        selected_choice = question.choice_set.get(request.POST[&apos;choice&apos;])</span><br><span class="line">    except (KeyError, Choice.DoesNotExist):</span><br><span class="line">        return render(request, &apos;polls/detail.html&apos;, &#123;</span><br><span class="line">            &apos;question&apos;: question,</span><br><span class="line">            &apos;error_message&apos;: &quot;You didn&apos;t select a choice.&quot;,</span><br><span class="line">            &#125;)</span><br><span class="line">    else:</span><br><span class="line">        selected_choice.votes += 1</span><br><span class="line">        selected_choice.save()</span><br><span class="line">        return HttpResponseRedirect(reverse(&apos;polls:results&apos;, args=(question.id,)))</span><br></pre></td></tr></table></figure>
+
+<h1 id="分析解决"><a href="#分析解决" class="headerlink" title="分析解决"></a>分析解决</h1><p>结合报错信息’not enough values to unpack(excepted 2, got 1)’，意思是在解包过程中少了一个数值，通过检察源码找到get()方法的信息：Perform the query and return a single object matching the given keyword arguments.通过给定的关键词语句执行查询并返回匹配的对象。request.POST是一个类似字典的对象，允许你通过键名访问提交的数据。本例中，request.POST[’choice’]返回被选择选项的ID，而ID是主键，因此改为<code>pk=request.POST[&#39;choice&#39;]</code>即可。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在创建一个新的models实例时，如果没有设置主键，那么Django会自动创建一个id字段作为该模型的主键，有时候用id和pk都能达到预期的效果，但是pk更加独立于真正的主键，也就是说不用在意主键是叫id或者是object_id。并且使用pk可以提高一致性，即便模型中有不同的主键。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p><a href="https://stackoverflow.com/questions/2165865/django-queries-id-vs-pk" target="_blank" rel="noopener">stackoverflow</a><br>李健.《Django 2.0入门与实践》.清华大学出版社</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/04/Django学习笔记：第一个Django应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -940,7 +1056,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -986,7 +1102,9 @@
         
           
         
-        <span class="site-state-item-count">5</span>
+          
+        
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

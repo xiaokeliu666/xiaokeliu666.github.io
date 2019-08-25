@@ -57,19 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="django.shortcuts包整合了“跨越”MVC中很多层的方法和类。 render()1render(request,template_name,context=None,content_type=None,status=None,using=None)  将一个已有的模板和一个已有的字典结合起来并且返回一个带有被渲染的文本的HttpResponse对象。Django不提供返回Templat">
-<meta name="keywords" content="Python,Django">
+  <meta name="description" content="介绍在Java中，对象的销毁由GC(垃圾收集器)模块负责，并且那些没有被引用的对象是可以被垃圾收集的，垃圾收集器能够识别这类的对象。隔离岛：  对象1引用对象2和对象2引用对象1.对象1和对象2都不被任何其他对象引用。 通常来说隔离岛是一组互相引用但不被应用程序中其它活动的对象引用的对象。严格来说，即使一个没有被引用的对象也是一个隔离岛。例：1234567891011121314151617pub">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="官方文档:Django shortcut functions">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/16/官方文档-Django-shortcut-functions/index.html">
+<meta property="og:title" content="Java:隔离岛">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/24/Java-隔离岛/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="django.shortcuts包整合了“跨越”MVC中很多层的方法和类。 render()1render(request,template_name,context=None,content_type=None,status=None,using=None)  将一个已有的模板和一个已有的字典结合起来并且返回一个带有被渲染的文本的HttpResponse对象。Django不提供返回Templat">
+<meta property="og:description" content="介绍在Java中，对象的销毁由GC(垃圾收集器)模块负责，并且那些没有被引用的对象是可以被垃圾收集的，垃圾收集器能够识别这类的对象。隔离岛：  对象1引用对象2和对象2引用对象1.对象1和对象2都不被任何其他对象引用。 通常来说隔离岛是一组互相引用但不被应用程序中其它活动的对象引用的对象。严格来说，即使一个没有被引用的对象也是一个隔离岛。例：1234567891011121314151617pub">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-21T03:06:23.938Z">
+<meta property="og:image" content="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_1.png">
+<meta property="og:image" content="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_11.png">
+<meta property="og:image" content="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_12.png">
+<meta property="og:updated_time" content="2019-08-25T03:48:19.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="官方文档:Django shortcut functions">
-<meta name="twitter:description" content="django.shortcuts包整合了“跨越”MVC中很多层的方法和类。 render()1render(request,template_name,context=None,content_type=None,status=None,using=None)  将一个已有的模板和一个已有的字典结合起来并且返回一个带有被渲染的文本的HttpResponse对象。Django不提供返回Templat">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/16/官方文档-Django-shortcut-functions/">
+<meta name="twitter:title" content="Java:隔离岛">
+<meta name="twitter:description" content="介绍在Java中，对象的销毁由GC(垃圾收集器)模块负责，并且那些没有被引用的对象是可以被垃圾收集的，垃圾收集器能够识别这类的对象。隔离岛：  对象1引用对象2和对象2引用对象1.对象1和对象2都不被任何其他对象引用。 通常来说隔离岛是一组互相引用但不被应用程序中其它活动的对象引用的对象。严格来说，即使一个没有被引用的对象也是一个隔离岛。例：1234567891011121314151617pub">
+<meta name="twitter:image" content="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_1.png">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/24/Java-隔离岛/">
 
 
 <script id="page.configurations">
@@ -78,7 +82,7 @@
   };
 </script>
 
-  <title>官方文档:Django shortcut functions | Feb 1997</title>
+  <title>Java:隔离岛 | Feb 1997</title>
   
 
 
@@ -217,7 +221,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/16/官方文档-Django-shortcut-functions/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/24/Java-隔离岛/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +235,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">官方文档:Django shortcut functions
+          <h1 class="post-title" itemprop="name headline">Java:隔离岛
 
               
             
@@ -251,22 +255,27 @@
                 
               
 
-              <time title="创建时间：2019-08-16 21:38:33" itemprop="dateCreated datePublished" datetime="2019-08-16T21:38:33-04:00">2019-08-16</time>
+              <time title="创建时间：2019-08-24 21:14:52 / 修改时间：23:48:19" itemprop="dateCreated datePublished" datetime="2019-08-24T21:14:52-04:00">2019-08-24</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-20 23:06:23" itemprop="dateModified" datetime="2019-08-20T23:06:23-04:00">2019-08-20</time>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
               </span>
-            
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           <br/>
@@ -280,20 +289,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>django.shortcuts包整合了“跨越”MVC中很多层的方法和类。</p>
-<h1 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render(request,template_name,context=None,content_type=None,status=None,using=None)</span><br></pre></td></tr></table></figure>
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>在Java中，对象的销毁由GC(垃圾收集器)模块负责，并且那些没有被引用的对象是可以被垃圾收集的，垃圾收集器能够识别这类的对象。<br>隔离岛：</p>
+<ul>
+<li>对象1引用对象2和对象2引用对象1.对象1和对象2都不被任何其他对象引用。</li>
+<li>通常来说隔离岛是一组互相引用但不被应用程序中其它活动的对象引用的对象。严格来说，即使一个没有被引用的对象也是一个隔离岛。<br>例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    Test i;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Test t1 = new Test();</span><br><span class="line">        Test t2 = new Test();</span><br><span class="line"></span><br><span class="line">        t1.i = t2;</span><br><span class="line">        t2.i = t1;</span><br><span class="line">        t1 = null;</span><br><span class="line">        t2 = null;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void finalize() throws Throwable&#123;</span><br><span class="line">        System.out.println(&quot;Finalize method called&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>将一个已有的模板和一个已有的字典结合起来并且返回一个带有被渲染的文本的HttpResponse对象。<br>Django不提供返回TemplateResponse的快捷方式因为render()和TemplateResponse的构造器一样方便。</p>
-<h2 id="必须参数"><a href="#必须参数" class="headerlink" title="必须参数"></a>必须参数</h2><ol>
-<li>request<br>&emsp;&emsp;用来生成这个response的request对象。</li>
-<li>template_name<br>&emsp;&emsp;要使用的模板或模板序列的全名。如果给了一个序列，那么将会使用第一个已存在的模板。</li>
-</ol>
-<h2 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h2><ol>
-<li>context<br>&emsp;&emsp;一个字典，里面的值被加入模板文本中。默认情况下这是一个空字典。如果字典中的值是可调用的，视图会在渲染模板之前调用它。</li>
-<li>context_type<br>&emsp;&emsp;The MIME type to use for the resulting document. Defaults to the value of the DEFAULT_CONTENT_TYPE setting.</li>
-<li>status<br>&emsp;&emsp;响应状态码，默认为200。</li>
-<li>using<br>&emsp;&emsp;用来加载模板的模板引擎的名字。</li>
-</ol>
+</li>
+</ul>
+<p>输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Finalize method called</span><br><span class="line">Finalize method called</span><br></pre></td></tr></table></figure>
+
+<p>分析:<br>在销毁一个对象之前，垃圾收集器对一个对象最多调用一次finalize方法。<br>在上例中finalize方法被调用两次的理由是因为两个对象都有资格被垃圾收集。这是因为我们在执行<code>t2=null</code>之后没有任何对t1和t2的外部引用。<br>我们只有内部的互相引用(在Test类的实例变量i中)。我们没有办法去调用两个对象的实例变量。所以不能再次调用任何一个对象。<br>直到t2.i = t1: 每个对象都有外部引用t1和t2。<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_1.png" alt><br>t1 = null: 通过t2.i和t2分别到达每个对象<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_11.png" alt><br>t2 = null: 没有办法到达任何一个对象<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_12.png" alt><br>现在，两个对象都有资格被垃圾手机，因为我们没有办法调用他们了。这通常被称为隔离岛。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p><a href="https://www.geeksforgeeks.org/island-of-isolation-in-java/" target="_blank" rel="noopener">GeeksforGeeks</a></p>
+</blockquote>
 
     </div>
 
@@ -305,15 +314,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/Django/" rel="tag"># Django</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/14/Django踩坑-数据迁移遇到的问题/" rel="next" title="Django踩坑:数据迁移遇到的问题">
-                <i class="fa fa-chevron-left"></i> Django踩坑:数据迁移遇到的问题
+              <a href="/2019/08/23/Java-GC机制/" rel="next" title="Java:GC机制">
+                <i class="fa fa-chevron-left"></i> Java:GC机制
               </a>
             
           </div>
@@ -321,10 +328,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/19/Django-模型访问/" rel="prev" title="Django:模型访问">
-                Django:模型访问 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -448,7 +451,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#render"><span class="nav-number">1.</span> <span class="nav-text">render()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#必须参数"><span class="nav-number">1.1.</span> <span class="nav-text">必须参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选参数"><span class="nav-number">1.2.</span> <span class="nav-text">可选参数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
