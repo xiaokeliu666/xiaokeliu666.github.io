@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
-<meta name="keywords" content="Python,Django,踩坑">
+  <meta name="description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Djangos学习笔记：上传文件&#x2F;图片">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/index.html">
+<meta property="og:title" content="Java：protected提供包访问权限">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
+<meta property="og:description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-13T03:02:27.926Z">
+<meta property="og:updated_time" content="2019-08-26T01:47:38.048Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Djangos学习笔记：上传文件&#x2F;图片">
-<meta name="twitter:description" content="首先在根目录下的settings中添加配置: 12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos;  这样上传的文件就会在media文件夹中 Models.py中添加模型并完成迁移，例如： 123456class ImageStore(models.Model):    nam">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
+<meta name="twitter:title" content="Java：protected提供包访问权限">
+<meta name="twitter:description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Djangos学习笔记：上传文件/图片 | Feb 1997</title>
+  <title>Java：protected提供包访问权限 | Feb 1997</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Djangos学习笔记：上传文件/图片
+          <h1 class="post-title" itemprop="name headline">Java：protected提供包访问权限
 
               
             
@@ -251,21 +251,11 @@
                 
               
 
-              <time title="创建时间：2019-08-09 22:58:56" itemprop="dateCreated datePublished" datetime="2019-08-09T22:58:56-04:00">2019-08-09</time>
+              <time title="创建时间：2019-08-25 21:29:28 / 修改时间：21:47:38" itemprop="dateCreated datePublished" datetime="2019-08-25T21:29:28-04:00">2019-08-25</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-12 23:02:27" itemprop="dateModified" datetime="2019-08-12T23:02:27-04:00">2019-08-12</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -276,7 +266,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
 
                 
                 
@@ -295,21 +285,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>首先在根目录下的settings中添加配置:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, &apos;media&apos;)</span><br><span class="line">MEDIA_URL = &apos;/media/&apos;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。<br>当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,<br>父类代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package 01;</span><br><span class="line"></span><br><span class="line">public class Cookie &#123;</span><br><span class="line">    public Cookie()&#123;</span><br><span class="line">        System.out.println(&quot;Cookie constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void bite()&#123;</span><br><span class="line">        System.out.println(&quot;bite&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样上传的文件就会在media文件夹中</p>
-<p>Models.py中添加模型并完成迁移，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ImageStore(models.Model):</span><br><span class="line">    name = models.CharField(max_length=150, null=True)</span><br><span class="line">    img = models.ImageField(upload_to=&apos;img&apos;)  # 会上传至/media/img文件夹中，如不存在则会自动生成一个</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.name</span><br></pre></td></tr></table></figure>
+<p>子类代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package 02;</span><br><span class="line">import 01.Cookie;  // 导入父类所在的包</span><br><span class="line"></span><br><span class="line">public class ChocolateChip extends Cookie&#123;</span><br><span class="line">    public ChocolateChip()&#123;</span><br><span class="line">        System.out.println(&quot;ChocolateChip constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public void chomp()&#123;</span><br><span class="line">        bite();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ChocolateChip x = new ChocolateChip();</span><br><span class="line">        x.chomp();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上传图片功能需要安装Pillow:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure>
+<p>错误信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error:(9, 9) java: 找不到符号</span><br><span class="line">符号:   方法 bite()</span><br><span class="line">位置: 类 com.demo.xliu294.ChocolateChip</span><br></pre></td></tr></table></figure>
 
-<p>然后在admin.py中注册模型:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.site.register(ImageStore)</span><br></pre></td></tr></table></figure>
-
-<p>即可在管理员界面对图片进行上传，并且上传后图片会出现在文件夹中。</p>
-<p>目前还存在的问题是无法在管理员界面显示图片，如果直接点链接会跳转至一个新的无法到达的地址，原因是因为相应的路由地址我还没写。</p>
+<p>假设我们现在希望子类可以继承来自另外一个包的父类中的方法，可以将父类中的该方法设置为public或者protected，但是如果把它指定为public的话，所有的人都有了访问权限，这样是不合适的。但是如果改成protected的话，子类中的bite()就可以访问了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果创建了一个新包，并自另一个包中继承类，那么唯一可以访问的成员就是源包中的public成员。（当然，如果在同一个包内执行继承工作，就可以操纵所有的拥有包访问权限的成员。）有时，基类的创建者会希望有某个特定成员，把对它的访问权限赋予派生类而不是所有类。这就需要protected来完成这一工作。protected也提供包访问权限，也就是说，相同包内的其他类可以访问protected元素。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p>《Java编程思想》</p>
+</blockquote>
 
     </div>
 
@@ -321,17 +310,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
-            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/08/Django踩坑-PK/" rel="next" title="Django踩坑:PK">
-                <i class="fa fa-chevron-left"></i> Django踩坑:PK
+              <a href="/2019/08/25/Java踩坑：初始化顺序/" rel="next" title="Java踩坑：初始化顺序">
+                <i class="fa fa-chevron-left"></i> Java踩坑：初始化顺序
               </a>
             
           </div>
@@ -339,10 +324,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/11/Django踩坑-dbshell报错/" rel="prev" title="Django踩坑：python manage.py dbshell报错">
-                Django踩坑：python manage.py dbshell报错 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -372,8 +353,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -447,6 +437,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
