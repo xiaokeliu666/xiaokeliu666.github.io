@@ -57,19 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="问题说明求以下输出： 12345678910111213141516171819202122232425public class Window &amp;#123;    Window(int marker)&amp;#123;        System.out.println(&amp;quot;Window(&amp;quot; + marker + &amp;quot;)&amp;quot;);    &amp;#125;&amp;#125;publi">
-<meta name="keywords" content="踩坑,Java">
+  <meta name="description" content="介绍复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为继承。 组合将对象引用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java踩坑：初始化顺序">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/25/Java踩坑：初始化顺序/index.html">
+<meta property="og:title" content="Java:代码复用">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/27/Java-代码复用/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="问题说明求以下输出： 12345678910111213141516171819202122232425public class Window &amp;#123;    Window(int marker)&amp;#123;        System.out.println(&amp;quot;Window(&amp;quot; + marker + &amp;quot;)&amp;quot;);    &amp;#125;&amp;#125;publi">
+<meta property="og:description" content="介绍复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为继承。 组合将对象引用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-26T01:47:40.789Z">
+<meta property="og:updated_time" content="2019-08-28T01:47:42.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java踩坑：初始化顺序">
-<meta name="twitter:description" content="问题说明求以下输出： 12345678910111213141516171819202122232425public class Window &amp;#123;    Window(int marker)&amp;#123;        System.out.println(&amp;quot;Window(&amp;quot; + marker + &amp;quot;)&amp;quot;);    &amp;#125;&amp;#125;publi">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/25/Java踩坑：初始化顺序/">
+<meta name="twitter:title" content="Java:代码复用">
+<meta name="twitter:description" content="介绍复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为继承。 组合将对象引用">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/27/Java-代码复用/">
 
 
 <script id="page.configurations">
@@ -78,7 +77,7 @@
   };
 </script>
 
-  <title>Java踩坑：初始化顺序 | Feb 1997</title>
+  <title>Java:代码复用 | Feb 1997</title>
   
 
 
@@ -217,7 +216,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java踩坑：初始化顺序/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/27/Java-代码复用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +230,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Java踩坑：初始化顺序
+          <h1 class="post-title" itemprop="name headline">Java:代码复用
 
               
             
@@ -251,27 +250,12 @@
                 
               
 
-              <time title="创建时间：2019-08-25 15:21:00 / 修改时间：21:47:40" itemprop="dateCreated datePublished" datetime="2019-08-25T15:21:00-04:00">2019-08-25</time>
+              <time title="创建时间：2019-08-27 21:06:22 / 修改时间：21:47:42" itemprop="dateCreated datePublished" datetime="2019-08-27T21:06:22-04:00">2019-08-27</time>
             </span>
           
             
 
             
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           <br/>
@@ -285,16 +269,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h1><p>求以下输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class Window &#123;</span><br><span class="line">    Window(int marker)&#123;</span><br><span class="line">        System.out.println(&quot;Window(&quot; + marker + &quot;)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class House &#123;</span><br><span class="line">    Window w1 = new Window(1);</span><br><span class="line">    House()&#123;</span><br><span class="line">        System.out.println(&quot;House()&quot;);</span><br><span class="line">        w3 = new Window(33);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w2 = new Window(2);</span><br><span class="line">    void f()&#123;</span><br><span class="line">        System.out.println(&quot;f()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w3 = new Window(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class OrderOfInitialization &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        House h = new House();</span><br><span class="line">        h.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。<br>实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。<br>实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为继承。</p>
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>将对象引用置于新类中即可。例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class WaterSource &#123;</span><br><span class="line">    private String s;</span><br><span class="line">    WaterSource() &#123;</span><br><span class="line">        System.out.println(&quot;WaterSource()&quot;);</span><br><span class="line">        s = &quot;Constructed&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class SprinklerSystem &#123;</span><br><span class="line">    private String valve1, valve2, valve3, valve4;</span><br><span class="line">    private WaterSource source = new WaterSource();</span><br><span class="line">    private int i;</span><br><span class="line">    private float f;</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return</span><br><span class="line">                &quot;valve1 = &quot; + valve1 + &quot; &quot; +</span><br><span class="line">                &quot;valve2 = &quot; + valve2 + &quot; &quot; +</span><br><span class="line">                &quot;valve3 = &quot; + valve3 + &quot; &quot; +</span><br><span class="line">                &quot;valve4 = &quot; + valve4 + &quot;\n&quot; +</span><br><span class="line">                &quot;i = &quot; + i + &quot; &quot; + &quot;f = &quot; + f + &quot; &quot; +</span><br><span class="line">                &quot;source = &quot; + source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SprinklerSystem sprinklers = new SprinklerSystem();</span><br><span class="line">        System.out.println(sprinklers);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="错误答案"><a href="#错误答案" class="headerlink" title="错误答案"></a>错误答案</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">House()</span><br><span class="line">Window(3)</span><br><span class="line">Window(33)</span><br><span class="line">Window(1)</span><br><span class="line">Window(2)</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WaterSource()</span><br><span class="line">valve1 = null valve2 = null valve3 = null valve4 = null</span><br><span class="line">i = 0 f = 0.0 source = Constructed</span><br></pre></td></tr></table></figure>
 
-<h2 id="错误思路"><a href="#错误思路" class="headerlink" title="错误思路"></a>错误思路</h2><p>从主函数出发创建一个House类对象h，构造函数会在创建对象的同时执行，找到House类的构造函数，先输出House()，因为w3是个没被声明的变量，所以先运行了<code>Window w3 = new Window(3)</code>输出Window(3)然后再完成构造函数，输出Window(33)，然后按照顺序完成以下输出。</p>
-<h1 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Window(1)</span><br><span class="line">Window(2)</span><br><span class="line">Window(3)</span><br><span class="line">House()</span><br><span class="line">Window(33)</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在类的内部，变量定义的先后顺序决定了初始化的顺序。即使变量定义散布于方法定义之间，它们仍旧会在任何方法（包括构造器）被调用之前得到初始化。在House类中，故意把几个Window对象的定义散布到各处，以整明它们全都会在调用构造器或其他方法之前得到初始化。此外，w3在构造期内再次被初始化。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实在意识到如果构造函数先执行的话<code>w3 = new Window(33)</code>这一句中的w3是一个没有被声明的变量时就觉得不太对，但还是没有找出正确的思路。后来在尝试别的情况时把这一句注释掉了，输出顺序还是不变，只是少了一句Window(33)</p>
 
     </div>
 
@@ -303,18 +284,10 @@
     
 
     <footer class="post-footer">
-          
-        
-        <div class="post-tags">
-            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/24/Java-隔离岛/" rel="next" title="Java:隔离岛">
-                <i class="fa fa-chevron-left"></i> Java:隔离岛
+              <a href="/2019/08/26/Java-JVM分代/" rel="next" title="Java:JVM分代">
+                <i class="fa fa-chevron-left"></i> Java:JVM分代
               </a>
             
           </div>
@@ -322,10 +295,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/25/Java：protected提供访问权限/" rel="prev" title="Java：protected提供包访问权限">
-                Java：protected提供包访问权限 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -449,7 +418,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题说明"><span class="nav-number">1.</span> <span class="nav-text">问题说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误答案"><span class="nav-number">2.</span> <span class="nav-text">错误答案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#错误思路"><span class="nav-number">2.1.</span> <span class="nav-text">错误思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确答案"><span class="nav-number">3.</span> <span class="nav-text">正确答案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">3.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合"><span class="nav-number">2.</span> <span class="nav-text">组合</span></a></li></ol></div>
             
 
           </div>

@@ -211,6 +211,96 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/27/Java-代码复用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/27/Java-代码复用/" class="post-title-link" itemprop="url">Java:代码复用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 21:06:22 / 修改时间：21:47:42" itemprop="dateCreated datePublished" datetime="2019-08-27T21:06:22-04:00">2019-08-27</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。<br>实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。<br>实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为继承。</p>
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>将对象引用置于新类中即可。例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class WaterSource &#123;</span><br><span class="line">    private String s;</span><br><span class="line">    WaterSource() &#123;</span><br><span class="line">        System.out.println(&quot;WaterSource()&quot;);</span><br><span class="line">        s = &quot;Constructed&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class SprinklerSystem &#123;</span><br><span class="line">    private String valve1, valve2, valve3, valve4;</span><br><span class="line">    private WaterSource source = new WaterSource();</span><br><span class="line">    private int i;</span><br><span class="line">    private float f;</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return</span><br><span class="line">                &quot;valve1 = &quot; + valve1 + &quot; &quot; +</span><br><span class="line">                &quot;valve2 = &quot; + valve2 + &quot; &quot; +</span><br><span class="line">                &quot;valve3 = &quot; + valve3 + &quot; &quot; +</span><br><span class="line">                &quot;valve4 = &quot; + valve4 + &quot;\n&quot; +</span><br><span class="line">                &quot;i = &quot; + i + &quot; &quot; + &quot;f = &quot; + f + &quot; &quot; +</span><br><span class="line">                &quot;source = &quot; + source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SprinklerSystem sprinklers = new SprinklerSystem();</span><br><span class="line">        System.out.println(sprinklers);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WaterSource()</span><br><span class="line">valve1 = null valve2 = null valve3 = null valve4 = null</span><br><span class="line">i = 0 f = 0.0 source = Constructed</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/26/Java-JVM分代/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1299,117 +1389,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/13/（译）related_name in models.py/" class="post-title-link" itemprop="url">（译）"related_name" in models.py</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-13 12:42:56 / 修改时间：13:11:57" itemprop="dateCreated datePublished" datetime="2019-08-13T12:42:56-04:00">2019-08-13</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <blockquote>
-<p>原文链接:<a href="https://www.reddit.com/r/django/comments/76a7uw/related_name_in_modelspy/" target="_blank" rel="noopener">reddit</a></p>
-</blockquote>
-<p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    name = models.CharFeild(max_length=128)</span><br><span class="line"></span><br><span class="line">class Book(modesl.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;如果你有一个Book实例，你可以通过对应的field访问它的分类。并且，如果你有一个分类的实例，默认情况下Django会添加一个叫做”book_set”的属性，这个属性返回该分类下所有书的集合，因此可以进行如下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from tst.models import Category, Book</span><br><span class="line">category = Category.objects.get(pk=1)</span><br><span class="line">print(&quot;Books in &quot;+category.name)</span><br><span class="line">for book in category.book_set.all():</span><br><span class="line">    print(book.name)</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;book_set是一个django默认给我们构造的属性，通过外键的related_name属性可以给这个属性换个名字，比如说如果用<code>category = models.ForeighKey(Category, related_name=&#39;book_collection&#39;)</code>定义一个分类，我可以用<code>category.book_collection.all()</code>而不是<code>category.book_set.all()</code>。<br>&emsp;&emsp;大多数情况下都不需要修改related_name，而且django默认的x_set很好记。然而有一种情况下必须要用related_name：当你有多个从一个模型到另一个模型的外键时。这种情况下可能会产生冲突（因为django会尝试给同一个模型创建两个x_set属性）。<br>&emsp;&emsp;例如，如果我的Book模型如下（有一个分类和一个子分类）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category)</span><br><span class="line">    sub_category = models.ForeignKey(Category)</span><br></pre></td></tr></table></figure>
-
-<p>于是模型不会生效除非你给一个（或两个）外键related_name属性，因此冲突就解决了。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Books(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, related_name=&apos;book_category_set&apos;)</span><br><span class="line">    sub_category = models.ForeignKey(Category, related_name=&apos;book_sub_category_set&apos;)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1450,7 +1429,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
