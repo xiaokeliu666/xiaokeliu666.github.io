@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="原文链接:reddit  &amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name =">
-<meta name="keywords" content="Django,Python">
+  <meta name="description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
+<meta name="keywords" content="Python,Django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="（译）&quot;related_name&quot; in models.py">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="原文链接:reddit  &amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name =">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-13T17:11:57.498Z">
+<meta property="og:updated_time" content="2019-08-29T18:48:56.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（译）&quot;related_name&quot; in models.py">
-<meta name="twitter:description" content="原文链接:reddit  &amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name =">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/">
 
 
@@ -251,11 +251,21 @@
                 
               
 
-              <time title="创建时间：2019-08-13 12:42:56 / 修改时间：13:11:57" itemprop="dateCreated datePublished" datetime="2019-08-13T12:42:56-04:00">2019-08-13</time>
+              <time title="创建时间：2019-08-13 12:42:56" itemprop="dateCreated datePublished" datetime="2019-08-13T12:42:56-04:00">2019-08-13</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 14:48:56" itemprop="dateModified" datetime="2019-08-29T14:48:56-04:00">2019-08-29</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -285,10 +295,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>原文链接:<a href="https://www.reddit.com/r/django/comments/76a7uw/related_name_in_modelspy/" target="_blank" rel="noopener">reddit</a></p>
-</blockquote>
-<p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：</p>
+        <p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    name = models.CharFeild(max_length=128)</span><br><span class="line"></span><br><span class="line">class Book(modesl.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;如果你有一个Book实例，你可以通过对应的field访问它的分类。并且，如果你有一个分类的实例，默认情况下Django会添加一个叫做”book_set”的属性，这个属性返回该分类下所有书的集合，因此可以进行如下操作：</p>
@@ -299,6 +306,9 @@
 
 <p>于是模型不会生效除非你给一个（或两个）外键related_name属性，因此冲突就解决了。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Books(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, related_name=&apos;book_category_set&apos;)</span><br><span class="line">    sub_category = models.ForeignKey(Category, related_name=&apos;book_sub_category_set&apos;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="原文连接"><a href="#原文连接" class="headerlink" title="原文连接"></a>原文连接</h1><p><a href="https://www.reddit.com/r/django/comments/76a7uw/related_name_in_modelspy/" target="_blank" rel="noopener">Reddit</a></p>
+
     </div>
 
     
@@ -309,9 +319,9 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
           
         </div>
         <div class="post-nav">
@@ -358,8 +368,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -374,7 +393,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -433,6 +452,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文连接"><span class="nav-number">1.</span> <span class="nav-text">原文连接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>

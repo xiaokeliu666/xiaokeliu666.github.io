@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
+  <meta name="description" content="问题描述&amp;emsp;&amp;emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。&amp;emsp;&amp;emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;pub">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java：protected提供包访问权限">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
+<meta property="og:description" content="问题描述&amp;emsp;&amp;emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。&amp;emsp;&amp;emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;pub">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-26T01:47:38.048Z">
+<meta property="og:updated_time" content="2019-08-29T18:55:17.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：protected提供包访问权限">
-<meta name="twitter:description" content="问题描述Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;public class Cookie &amp;#123;">
+<meta name="twitter:description" content="问题描述&amp;emsp;&amp;emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。&amp;emsp;&amp;emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,父类代码： 12345678910package 01;pub">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/">
 
 
@@ -251,11 +251,21 @@
                 
               
 
-              <time title="创建时间：2019-08-25 21:29:28 / 修改时间：21:47:38" itemprop="dateCreated datePublished" datetime="2019-08-25T21:29:28-04:00">2019-08-25</time>
+              <time title="创建时间：2019-08-25 21:29:28" itemprop="dateCreated datePublished" datetime="2019-08-25T21:29:28-04:00">2019-08-25</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 14:55:17" itemprop="dateModified" datetime="2019-08-29T14:55:17-04:00">2019-08-29</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -285,7 +295,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。<br>当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,<br>父类代码：</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。<br>&emsp;&emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,<br>父类代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package 01;</span><br><span class="line"></span><br><span class="line">public class Cookie &#123;</span><br><span class="line">    public Cookie()&#123;</span><br><span class="line">        System.out.println(&quot;Cookie constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void bite()&#123;</span><br><span class="line">        System.out.println(&quot;bite&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>子类代码：</p>
@@ -294,8 +304,8 @@
 <p>错误信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error:(9, 9) java: 找不到符号</span><br><span class="line">符号:   方法 bite()</span><br><span class="line">位置: 类 com.demo.xliu294.ChocolateChip</span><br></pre></td></tr></table></figure>
 
-<p>假设我们现在希望子类可以继承来自另外一个包的父类中的方法，可以将父类中的该方法设置为public或者protected，但是如果把它指定为public的话，所有的人都有了访问权限，这样是不合适的。但是如果改成protected的话，子类中的bite()就可以访问了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果创建了一个新包，并自另一个包中继承类，那么唯一可以访问的成员就是源包中的public成员。（当然，如果在同一个包内执行继承工作，就可以操纵所有的拥有包访问权限的成员。）有时，基类的创建者会希望有某个特定成员，把对它的访问权限赋予派生类而不是所有类。这就需要protected来完成这一工作。protected也提供包访问权限，也就是说，相同包内的其他类可以访问protected元素。</p>
+<p>&emsp;&emsp;假设我们现在希望子类可以继承来自另外一个包的父类中的方法，可以将父类中的该方法设置为public或者protected，但是如果把它指定为public的话，所有的人都有了访问权限，这样是不合适的。但是如果改成protected的话，子类中的bite()就可以访问了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;如果创建了一个新包，并自另一个包中继承类，那么唯一可以访问的成员就是源包中的public成员。（当然，如果在同一个包内执行继承工作，就可以操纵所有的拥有包访问权限的成员。）有时，基类的创建者会希望有某个特定成员，把对它的访问权限赋予派生类而不是所有类。这就需要protected来完成这一工作。protected也提供包访问权限，也就是说，相同包内的其他类可以访问protected元素。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p>《Java编程思想》</p>
 </blockquote>
@@ -324,8 +334,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/26/Java-JVM分代/" rel="prev" title="Java:JVM分代">
-                Java:JVM分代 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/27/Java：代码复用/" rel="prev" title="Java：代码复用">
+                Java：代码复用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -382,7 +392,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
