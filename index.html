@@ -414,7 +414,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-02 22:54:09" itemprop="dateModified" datetime="2019-09-02T22:54:09-04:00">2019-09-02</time>
+                <time title="修改时间：2019-09-02 23:51:50" itemprop="dateModified" datetime="2019-09-02T23:51:50-04:00">2019-09-02</time>
               </span>
             
           
@@ -432,7 +432,15 @@
       
           
             <p>这几天把《Java编程思想》中的第八章多态看了几遍，感觉相比其它两大特性（封装、继承）而言，多态更抽象，更难理解，运用起来更加灵活，当然这只是我目前而言的感受，在以后可能会有更深入的理解，现在能做的只有先把书中学到的东西先记录下来巩固一下，以后有新的收获再更新。</p>
-<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>多态通过分离做什么和怎么做，从另一角度将接口和实现分离开来。多态不但能够改善代码的组织结构和可读性，还能够创建可扩展的程序——即无论在项目最初创建时还是在需要添加新功能时都可以“生长”的程序。<br>“封装”通过合并特征和行为来创建新的数据类型。“实现隐藏”则通过将细节“私有化”把接口和实现分离开来。</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>多态通过分离做什么和怎么做，从另一角度将接口和实现分离开来。多态不但能够改善代码的组织结构和可读性，还能够创建可扩展的程序——即无论在项目最初创建时还是在需要添加新功能时都可以“生长”的程序。<br>“封装”通过合并特征和行为来创建新的数据类型。“实现隐藏”则通过将细节“私有化”把接口和实现分离开来。而多态的作用则是消除类型之间的耦合关系。多态方法调用允许一种类型表现出与其他相似类型之间的区别，只要它们都是从同一个基类导出来的，多态也称作动态绑定、后期绑定或运行时绑定。</p>
+<h1 id="向上整型"><a href="#向上整型" class="headerlink" title="向上整型"></a>向上整型</h1><p>对象既可以作为它自己本身的类型使用，也可以作为它的基类型使用。把某个对象的引用视为对其基类型的引用的做法被称作向上转型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public enum Note &#123;</span><br><span class="line">    MIDDLE_C, C_SHARP, B_FLAT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Instrument &#123;</span><br><span class="line">    // 基类乐器，方法play()</span><br><span class="line">    public void play(Note n) &#123;</span><br><span class="line">        // 输出&quot;Instrument.play()&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Wind extends Instrument &#123;</span><br><span class="line">    // 管乐器类继承乐器基类，并重写了play()方法</span><br><span class="line">    public void play(Note n) &#123;</span><br><span class="line">        // 输出&quot;Wind.play()&quot; + n</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Music &#123;</span><br><span class="line">    public static void tune(Instrument i) &#123;</span><br><span class="line">        // tune()方法：乐器对象调用play()，默认参数为Note.MIDDLE_C</span><br><span class="line">        i.play(Note.MIDDLE_C)</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Wind flute = new Wind();</span><br><span class="line">        tune(flute); //向上转型</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Wind.play() MIDDLE_C</span><br></pre></td></tr></table></figure>
+
+<p>分析：<br>Music类中的tune()方法的参数列表中接受的参数是乐器类的对象，但是主函数中我们传入的对象是Wind类的，但是仍然输出了正确的结果，这就是向上转型的多态。从Wind向上转型到Instrument可能会”缩小“接口，但不会比Instrument的全部接口更窄。</p>
+<p># </p>
 
           
         
