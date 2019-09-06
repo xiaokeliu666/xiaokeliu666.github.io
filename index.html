@@ -414,7 +414,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-04 17:10:11" itemprop="dateModified" datetime="2019-09-04T17:10:11-04:00">2019-09-04</time>
+                <time title="修改时间：2019-09-05 21:15:56" itemprop="dateModified" datetime="2019-09-05T21:15:56-04:00">2019-09-05</time>
               </span>
             
           
@@ -457,7 +457,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FakeWind.play()MIDDLE_C</span><br></pre></td></tr></table></figure>
 
 <p>分析：多层继承并不会影响结果的正确输出。<br>总结：我们所做的代码修改，不会对程序中其他不应受到影响的部分产生破坏。换句话说，多态是一项让程序员“将改变的事物与未变的事物分离开来”的重要技术。</p>
-<h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><h2 id="覆盖私有方法"><a href="#覆盖私有方法" class="headerlink" title="覆盖私有方法"></a>覆盖私有方法</h2>
+<h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><h2 id="覆盖私有方法"><a href="#覆盖私有方法" class="headerlink" title="覆盖私有方法"></a>覆盖私有方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class PrivateOverride &#123;</span><br><span class="line">    private void f() &#123;</span><br><span class="line">        System.out.println(&quot;private f()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        PrivateOverride po = new Derived();</span><br><span class="line">        po.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Derived extends PrivateOverride &#123;</span><br><span class="line">    public void f() &#123;</span><br><span class="line">        System.out.println(&quot;public f()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private f()</span><br></pre></td></tr></table></figure>
+
+<p>分析：Derived类为PrivateOverride类的子类，并且尝试重写f()方法。主函数中用PrivateOverride引用指向一个Derived对象，根据之前的向上转型原则，我们期待的输出应该是”public f()”，但是输出是”private f()”。原因在于private方法被自动认为是final方法，而且对导出类是屏蔽的。因此，在这种情况下，Derived类中的f()方法就是一个全新的方法；既然基类中的f()方法在子类Derived中不可见，因此也不能被重载。<br>结论：只有非private方法才可以被覆盖；但是还需要密切注意覆盖private方法的现象，这时虽然编译器不会报错，但是也不会按照我们所期望的来执行。确切的说，在导出类中，对于基类中的private方法，最好采用不同的名字。<br>思考：如果想达到期望输出，可以把基类中的f()方法改成public或者private，这样子类就可以覆盖。或者把子类中的f()方法改名，并且在主函数中重新调用即可。</p>
+<h2 id="域与静态方法"><a href="#域与静态方法" class="headerlink" title="域与静态方法"></a>域与静态方法</h2><p>只有普通的方法调用是可以多态的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Super &#123;</span><br><span class="line">    public int field = 0;</span><br><span class="line">    public int getField() &#123;return field;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Sub extends Super &#123;</span><br><span class="line">    public int field = 1;</span><br><span class="line">    public int getField() &#123;return field;&#125;</span><br><span class="line">    public int getSupperField() &#123; return super.field;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class FieldAccess &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Super sup = new Sub();</span><br><span class="line">        System.out.println(&quot;sup.field = &quot; + sup.field + &quot;, sup.getField() = &quot; + sup.getField());</span><br><span class="line">        Sub sub = new Sub();</span><br><span class="line">        System.out.println(&quot;sub.field = &quot; + sub.field + &quot;, sub.getField() = &quot; + sub.getField() + &quot;, sub.getSupperFiled() = &quot; + sub.getSupperField());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sup.field = 0, sup.getField() = 1</span><br><span class="line">sub.field = 1, sub.getField() = 1, sub.getSupperFiled() = 0</span><br></pre></td></tr></table></figure>
+
+<p>分析：<br>在Java中，成员变量是静态绑定因为Java不允许对成员变量执行多态操作。<br>当Sub对象转型为Super引用时，任何域访问操作都将由编译器解析，因此不是多态的（多态是在运行过程中进行动态绑定）。在这个例子中，虚拟机为Super.field和Sub.field分配了不同的存储空间(在堆内存中)。这样，Sub实际上包含两个称为field的域。然而，在引用Sub中的field时所产生的默认域并非Super版本的域。因此，为了得到Super.field，必须显示的指明super.field。<br>总结：<br>以上这种访问方法无疑是非常易混淆的，因此实际开发中通常会将所有的域都设置成private</p>
+
           
         
       
