@@ -211,6 +211,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/04/Django学习笔记：第一个Django应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/04/Django学习笔记：第一个Django应用/" class="post-title-link" itemprop="url">Django学习笔记：第一个Django应用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-04 23:10:19" itemprop="dateCreated datePublished" datetime="2019-08-04T23:10:19-04:00">2019-08-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-15 14:29:24" itemprop="dateModified" datetime="2019-08-15T14:29:24-04:00">2019-08-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h1><h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject mysite  # mysite为工程名</span><br></pre></td></tr></table></figure>
+
+<p>此时的文件目录结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>mysite/</strong>: 整个项目的容器，没有太大意义，名字可以随意更改</li>
+<li><strong>manage.py</strong>: 命令行工具，用来管理Django项目</li>
+<li><strong>mysite/</strong>: 当前Django工程所使用的Python包</li>
+<li><strong>__init__.py</strong>: 表明当前文件夹是一个Python包</li>
+<li><strong>settings.py</strong>: 配置文件</li>
+<li><strong>urls.py</strong>: 路由配置文件</li>
+<li><strong>wsgi.py</strong>: 兼容WSGI的Web服务入口</li>
+</ul>
+<h2 id="运行工程"><a href="#运行工程" class="headerlink" title="运行工程"></a>运行工程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><p><strong>工程(Project)和程序(App):</strong> 应用程序是真正工作的组件，例如一个博客系统或者投票系统。工程师包含网站配置信息和应用程序等的集合，一个工程可以包含多个应用程序，而一个应用程序可以属于多个工程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp polls  # 创建一个名为polls的投票程序</span><br></pre></td></tr></table></figure>
+
+<p>polls的目录结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">polls\</span><br><span class="line">    __init__.py</span><br><span class="line">    admin.py</span><br><span class="line">    apps.py</span><br><span class="line">    migrations/</span><br><span class="line">        __init__.py</span><br><span class="line">    models.py</span><br><span class="line">    tests.py</span><br><span class="line">views.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置数据库以及创建模型"><a href="#配置数据库以及创建模型" class="headerlink" title="配置数据库以及创建模型"></a>配置数据库以及创建模型</h2><p>&emsp;&emsp;使用Django自带的数据库SQLite。</p>
+<p>&emsp;&emsp;现在，我们来定义模型model，模型本质上就是数据库表的布局，再附加一些元数据。<br>&emsp;&emsp;Django通过自定义Python类的形式来定义具体的模型，每个模型的物理存在方式就是一个Python的类Class，每一个类都是django.db.models.Model的子类。每一个字段都是Field类的一个实例，例如用于保存字符数据的CharField和用于保存时间类型的DateTimeField，它们告诉Django每一个字段保存的数据类型。每个模型代表数据库中的一张表，每个类的实例代表数据表中的一行数据，类中的每个变量代表数据表中的一列字段。<br>&emsp;&emsp;Django通过模型，将Python代码和数据库操作结合起来，实现对SQL查询语言的封装。也就是说，你可以不会管理数据库，可以不会SQL语言，你同样能通过Python的代码进行数据库的操作。Django通过ORM对数据库进行操作，奉行代码优先的理念，将Python程序员和数据库管理员进行分工解耦。<br>&emsp;&emsp;示例代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># polls/models.py</span><br><span class="line"></span><br><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Question(models.Model):</span><br><span class="line">    question_text = models.CharField(max_length=200)</span><br><span class="line">    pub_date = models.DateTimeField(&apos;date published&apos;)  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Choice(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)</span><br><span class="line">    choice_text = models.CharField(max_length=200)</span><br><span class="line">    votes = models.IntegerField(default=0)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可以在每个Field中使用一个可选的第一位置参数用于提供一个人类可读的字段名，让你的模型更友好，更易读，并且将被作为文档的一部分来增强代码的可读性，如例子中的pub_date。<br>&emsp;&emsp;使用ForeignKey定义了一个外键关系。它告诉Django，每一个Choice关联到一个对应的Question（注意要将外键写在‘多’的一方）。Django支持通用的数据关系：一对一，多对一和多对多，如例子中的question。</p>
+<h2 id="启用模型"><a href="#启用模型" class="headerlink" title="启用模型"></a>启用模型</h2><p>&emsp;&emsp;把polls加入mysite/settings.py中的INSTALLED_APPS让项目知道该应用的存在。<br>&emsp;&emsp;运行命令<code>$ python manage.py makemigrations polls</code>将数据模型的改动保存为一个’migration’<br>&emsp;&emsp;运行命令<code>$ python manage.py migrate</code>对数据库执行真正的迁移动作。在这一步中会自动生成表，表明为“应用名_模型名（小写）”的组合，自动添加主键id并且按照惯例在外键字段名上附加“_id”。</p>
+<h2 id="开发视图"><a href="#开发视图" class="headerlink" title="开发视图"></a>开发视图</h2><p>&emsp;&emsp;Django的视图是负责页面展示的重要模块，用于处理网站业务逻辑。<br>&emsp;&emsp;打开polls/view.py文件，每个视图至少做两件事之一：返回一个包含请求页面的HttpResponse对象或者弹出一个类似Http404的异常。其它的则自己定义。<br>&emsp;&emsp;render()方法： 从Django.shortcuts导入render，将加载模板、传递参数、返回HttpResponse对象整合一起。第一个位置参数是请求对象(就是view函数的第一个参数)，第二个参数是模板，第三个参数是字典，包含需要传递给模板的数据。最后render函数返回一个经过字典数据渲染过的模板封装而成的HttpResponse对象。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def index(request):</span><br><span class="line">    latest_question_list = Question.objects.order_by(&apos;-pub_date&apos;)[:5]</span><br><span class="line">    context = &#123;&apos;latest_question_list&apos;: latest_question_list&#125;</span><br><span class="line">    return render(request, &apos;polls/index.html&apos;, context)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;创建视图后，为了能够访问它，需要在URL中添加路由映射。在polls中创建文件urls.py:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.urls import path</span><br><span class="line">from . import views</span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&apos;&apos;, views.index, name=&apos;index&apos;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;接下来需要在根目录的urls.py中引用polls/urls.py，修改mysite/urls.py:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from django.contrib import admin</span><br><span class="line">from django.urls import include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&apos;polls/&apos;, include(&apos;polls.urls&apos;)),</span><br><span class="line">    path(&apos;admin/&apos;, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;上面代码中include()方法可以用来引用其他URLconfs(urls.py)。出了admin.site.urls之外，在任何时候都应该使用include()方法引用其他路由模块。</p>
+<h2 id="模板系统"><a href="#模板系统" class="headerlink" title="模板系统"></a>模板系统</h2><p>&emsp;&emsp;Django提供的模板系统可以解耦视图和模板之间的硬连接。<br>&emsp;&emsp;首先，在polls目录下创建一个新的templates目录，Django会在它里面查找模板文件。<br>&emsp;&emsp;项目的 TEMPLATES配置项描述了 Django 如何载入和渲染模板。默认的设置文件设置了 DjangoTemplates 后端，并将 APP_DIRS设置成了 True。这一选项将会让 DjangoTemplates 在每个 INSTALLED_APPS 文件夹中寻找 “templates” 子目录。这就是为什么尽管我们没有像在第二部分中那样修改 DIRS 设置，Django 也能正确找到 polls 的模板位置的原因。<br>&emsp;&emsp;在templates目录中，再创建一个新的子目录名叫polls，进入该子目录，创建一个新的html文件index.html。换句话说，你的模板文件应该是polls/templates/polls/index.html。因为 Django 会寻找到对应的app_directories ，所以你只需要使用polls/index.html就可以引用到这一模板了。<br>&emsp;&emsp;在视图view.py中通过render()向模板中的页面传递的上下文变量可以直接使用，例如在detail()视图里通过<code>return render(request, &#39;polls/detail.html&#39;, {&#39;question&#39;: question})</code>传递的question在模板polls/detail.html中通过<code>question.question_text</code>使用</p>
+<h2 id="后台管理"><a href="#后台管理" class="headerlink" title="后台管理"></a>后台管理</h2><p>&emsp;&emsp;运行命令<code>$ python manage.py createsuperuser</code>创建一个可以登录admin站点的用户，填入所需信息后通过<a href="http://127.0.0.1:8000/admin/即可访问。" target="_blank" rel="noopener">http://127.0.0.1:8000/admin/即可访问。</a><br>随后为了让应用的信息可以在后台显示，打开polls/admin.py注册投票应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from django.contrib import admin</span><br><span class="line">from .models import Question</span><br><span class="line"></span><br><span class="line">admin.site.register(Question)</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p>李健.《Django 2.0入门与实践》.清华大学出版社<br><a href="http://www.liujiangblog.com/" target="_blank" rel="noopener">刘江的博客教程</a></p>
+</blockquote>
+<hr>
+<h1 id="更新-2019-08-15"><a href="#更新-2019-08-15" class="headerlink" title="更新 2019-08-15"></a>更新 2019-08-15</h1><h2 id="使用MySQL的配置方案"><a href="#使用MySQL的配置方案" class="headerlink" title="使用MySQL的配置方案"></a>使用MySQL的配置方案</h2><p>./settings.py:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    DATABASES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,</span><br><span class="line">        &apos;NAME&apos;: &apos;NewTest&apos;,</span><br><span class="line">        &apos;HOST&apos;: &apos;127.0.0.1&apos;,</span><br><span class="line">        &apos;USER&apos;: &apos;root&apos;,</span><br><span class="line">        &apos;PASSWORD&apos;: &apos;pwd&apos;,</span><br><span class="line">        &apos;PORT&apos;: &apos;3306&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="记载数据库驱动"><a href="#记载数据库驱动" class="headerlink" title="记载数据库驱动"></a>记载数据库驱动</h2><p>./<strong>init</strong>.py:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()  # 完成数据库的驱动加载</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决mysqlclient版本问题"><a href="#解决mysqlclient版本问题" class="headerlink" title="解决mysqlclient版本问题"></a>解决mysqlclient版本问题</h2><p>base.py 中搜索:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">version = Database.version_info</span><br></pre></td></tr></table></figure>
+
+<p>行内添加一个pass</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raise ImproperlyConfigured(&apos;mysqlclient 1.3.13 or newer is required; you have %s.&apos; % Database.version)</span><br></pre></td></tr></table></figure>
+
+<p>如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if version &lt; (1, 3, 13):</span><br><span class="line">   pass</span><br><span class="line">   &apos;&apos;&apos;</span><br><span class="line">   raise ImproperlyConfigured(</span><br><span class="line">       &apos;mysqlclient 1.3.13 or newer is required; you have %s.&apos;</span><br><span class="line">       % Database.__version__</span><br><span class="line">   )</span><br><span class="line">   &apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>保存关闭并打开 operations.py搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query = query.decode(errors=&apos;replace&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>decode换为encode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query = query.encode(errors=&apos;replace&apos;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>使用MySQL要注意自己创建数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE &lt;NAME&gt;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/01/Django踩坑：python-manage-py-migrate报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -762,7 +940,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
