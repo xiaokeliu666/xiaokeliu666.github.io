@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
+  <meta name="description" content="Definition A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with exper">
 <meta name="keywords" content="Machine Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Machine Learning Basics">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/09/11/Machine-Learning-Basics/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
+<meta property="og:description" content="Definition A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with exper">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-13T18:08:20.078Z">
+<meta property="og:updated_time" content="2019-09-13T18:16:27.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basics">
-<meta name="twitter:description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
+<meta name="twitter:description" content="Definition A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with exper">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/09/11/Machine-Learning-Basics/">
 
 
@@ -264,7 +264,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-13 14:08:20" itemprop="dateModified" datetime="2019-09-13T14:08:20-04:00">2019-09-13</time>
+                <time title="修改时间：2019-09-13 14:16:27" itemprop="dateModified" datetime="2019-09-13T14:16:27-04:00">2019-09-13</time>
               </span>
             
           
@@ -296,25 +296,22 @@
 
       
         <h1 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h1><blockquote>
-<p>A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$.</p>
-</blockquote>
+<p>A computer program is said to learn from experience <em>E</em> with respect to some class of tasks <em>T</em> and performance measure <em>P</em> if its performance at tasks in <em>T</em>, as measured by <em>P</em>, improves with experience <em>E</em>.</p>
 <h2 id="The-Task-T"><a href="#The-Task-T" class="headerlink" title="The Task, T"></a>The Task, <em>T</em></h2><p>Machine learning tasks are usually described in terms of how the machine learning system should process an example. An example is a collection of features that have been quantitatively measured from some object or event that we want the machine learning system to process.</p>
 <h2 id="The-Performance-Measure-P"><a href="#The-Performance-Measure-P" class="headerlink" title="The Performance Measure, P"></a>The Performance Measure, <em>P</em></h2><p>Performance measure is designed to quantitatively evaluate the abilities of a machine learning algorithm. For example, when we are designing a machine learning algorithm for a classification task, the accuracy of model will be measured.<br>In order to get an objective measurement, test set, a set of data that separate from training data, is used to evaluate the machine learning system.</p>
 <h2 id="The-Experience-E"><a href="#The-Experience-E" class="headerlink" title="The Experience, E"></a>The Experience, <em>E</em></h2><ul>
 <li>Unsupervised learning algorithms experience a dataset containing many features, then learn useful properties of the structure of this dataset.</li>
 <li>Supervised learning algorithms experience a dataset containing features, but each example is also associated with a label or target.</li>
 </ul>
+</blockquote>
 <h1 id="Main-Classes-of-ML-Problems"><a href="#Main-Classes-of-ML-Problems" class="headerlink" title="Main Classes of ML Problems"></a>Main Classes of ML Problems</h1><ul>
-<li><p>Supervised Learning<br>  Supervised learning is the machine learning task of learning a function that maps an input to an output based on example input-output pairs. It infers a function from labeled training data consisting of a set of training examples.<br>  Example: Regression(predict the price of house)</p>
-</li>
+<li>Supervised Learning<br>  Supervised learning is the machine learning task of learning a function that maps an input to an output based on example input-output pairs. It infers a function from labeled training data consisting of a set of training examples.<br>  Example: Regression(predict the price of house)</li>
 <li><p>Unsupervised Learning<br>  Unsupervised learning is a type of machine learning algorithm used to draw inferences from datasets consisting of input data without labeled responses.<br>  Example: Generating realistic images(given a dataset of faces and generate a new face)</p>
 </li>
 <li><p>Reinforcement Learning<br>  Reinforcement learning is an area of machine learning concerned with how software agents ought to take actions in an environment so as to maximize some notion of cumulative reward.<br>  Example: AlphaGo(play against environment)</p>
 </li>
 </ul>
-<h1 id="Concept-of-Model"><a href="#Concept-of-Model" class="headerlink" title="Concept of Model"></a>Concept of Model</h1><p>A model is a restricet family H of hypotheses.<br>For example, MNIST is a labeled database of handwritten digits, if we try to recognize digit 1 and digit 2 by comparing the amount of brightpixels like </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if brightpixel(x) &lt; c:</span><br><span class="line">    f(x) = 1</span><br><span class="line">else:</span><br><span class="line">    f(x) = 2</span><br></pre></td></tr></table></figure>
-
+<h1 id="Concept-of-Model"><a href="#Concept-of-Model" class="headerlink" title="Concept of Model"></a>Concept of Model</h1><p>A model is a restricet family H of hypotheses.<br>For example, MNIST is a labeled database of handwritten digits, if we try to recognize digit 1 and digit 2 by comparing the amount of brightpixels like<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if brightpixel(x) &lt; c:</span><br><span class="line">    f(x) = 1</span><br><span class="line">else:</span><br><span class="line">    f(x) = 2</span><br></pre></td></tr></table></figure></p>
 <p>where <code>x</code> is the image and <code>c</code> is a constant varied from 0 to 28*28 since the size of image is 28*28. In this example, the collection of potential c is a model.</p>
 <h1 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h1><p>A model is usually characterized by a loss function L($\theta$) over the space $\Theta$ of model parameters $\theta$.<br>In general, loss functions are used to describe how bad data fits the model. With the definition of loss functions, the problem of learning can be reduced to find<br> $\hat\theta$ := arg min $\theta$ \cdots<br> $\sqrt{x}$</p>
 

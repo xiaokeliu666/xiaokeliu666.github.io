@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
-<meta name="keywords" content="Django,Python">
+  <meta name="description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFie">
+<meta name="keywords" content="Python,Django">
 <meta property="og:type" content="article">
 <meta property="og:title" content="（译）&quot;related_name&quot; in models.py">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFie">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-08-29T18:48:56.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（译）&quot;related_name&quot; in models.py">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下： 123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFi">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：123456class Category(models.Model):    name = models.CharFeild(max_length=128)class Book(modesl.Model):    name = models.CharFie">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/">
 
 
@@ -295,18 +295,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    name = models.CharFeild(max_length=128)</span><br><span class="line"></span><br><span class="line">class Book(modesl.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;如果你有一个Book实例，你可以通过对应的field访问它的分类。并且，如果你有一个分类的实例，默认情况下Django会添加一个叫做”book_set”的属性，这个属性返回该分类下所有书的集合，因此可以进行如下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from tst.models import Category, Book</span><br><span class="line">category = Category.objects.get(pk=1)</span><br><span class="line">print(&quot;Books in &quot;+category.name)</span><br><span class="line">for book in category.book_set.all():</span><br><span class="line">    print(book.name)</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;book_set是一个django默认给我们构造的属性，通过外键的related_name属性可以给这个属性换个名字，比如说如果用<code>category = models.ForeighKey(Category, related_name=&#39;book_collection&#39;)</code>定义一个分类，我可以用<code>category.book_collection.all()</code>而不是<code>category.book_set.all()</code>。<br>&emsp;&emsp;大多数情况下都不需要修改related_name，而且django默认的x_set很好记。然而有一种情况下必须要用related_name：当你有多个从一个模型到另一个模型的外键时。这种情况下可能会产生冲突（因为django会尝试给同一个模型创建两个x_set属性）。<br>&emsp;&emsp;例如，如果我的Book模型如下（有一个分类和一个子分类）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category)</span><br><span class="line">    sub_category = models.ForeignKey(Category)</span><br></pre></td></tr></table></figure>
-
-<p>于是模型不会生效除非你给一个（或两个）外键related_name属性，因此冲突就解决了。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Books(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, related_name=&apos;book_category_set&apos;)</span><br><span class="line">    sub_category = models.ForeignKey(Category, related_name=&apos;book_sub_category_set&apos;)</span><br></pre></td></tr></table></figure>
-
+        <p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    name = models.CharFeild(max_length=128)</span><br><span class="line"></span><br><span class="line">class Book(modesl.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;如果你有一个Book实例，你可以通过对应的field访问它的分类。并且，如果你有一个分类的实例，默认情况下Django会添加一个叫做”book_set”的属性，这个属性返回该分类下所有书的集合，因此可以进行如下操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from tst.models import Category, Book</span><br><span class="line">category = Category.objects.get(pk=1)</span><br><span class="line">print(&quot;Books in &quot;+category.name)</span><br><span class="line">for book in category.book_set.all():</span><br><span class="line">    print(book.name)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;book_set是一个django默认给我们构造的属性，通过外键的related_name属性可以给这个属性换个名字，比如说如果用<code>category = models.ForeighKey(Category, related_name=&#39;book_collection&#39;)</code>定义一个分类，我可以用<code>category.book_collection.all()</code>而不是<code>category.book_set.all()</code>。<br>&emsp;&emsp;大多数情况下都不需要修改related_name，而且django默认的x_set很好记。然而有一种情况下必须要用related_name：当你有多个从一个模型到另一个模型的外键时。这种情况下可能会产生冲突（因为django会尝试给同一个模型创建两个x_set属性）。<br>&emsp;&emsp;例如，如果我的Book模型如下（有一个分类和一个子分类）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category)</span><br><span class="line">    sub_category = models.ForeignKey(Category)</span><br></pre></td></tr></table></figure></p>
+<p>于是模型不会生效除非你给一个（或两个）外键related_name属性，因此冲突就解决了。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Books(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, related_name=&apos;book_category_set&apos;)</span><br><span class="line">    sub_category = models.ForeignKey(Category, related_name=&apos;book_sub_category_set&apos;)</span><br></pre></td></tr></table></figure></p>
 <h1 id="原文连接"><a href="#原文连接" class="headerlink" title="原文连接"></a>原文连接</h1><p><a href="https://www.reddit.com/r/django/comments/76a7uw/related_name_in_modelspy/" target="_blank" rel="noopener">Reddit</a></p>
 
     </div>
@@ -319,9 +311,9 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
           
         </div>
         <div class="post-nav">

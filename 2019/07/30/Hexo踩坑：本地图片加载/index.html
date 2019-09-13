@@ -57,23 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
+  <meta name="description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行1npm install hexo-asset-image --save 安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片">
 <meta name="keywords" content="踩坑,Hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo踩坑：本地图片加载">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
+<meta property="og:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行1npm install hexo-asset-image --save 安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%9C%89%E6%95%88%E8%B7%AF%E5%BE%84.png">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/无效路径.png">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/错误配置路径.png">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/正确配置路径.png">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/有效路径.png">
 <meta property="og:updated_time" content="2019-08-29T19:11:17.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo踩坑：本地图片加载">
-<meta name="twitter:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行 1npm install hexo-asset-image --save  安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放">
-<meta name="twitter:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png">
+<meta name="twitter:description" content="操作环境 Windows10 Hexo Github  问题&amp;emsp;&amp;emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行1npm install hexo-asset-image --save 安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片">
+<meta name="twitter:image" content="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/无效路径.png">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/">
 
 
@@ -305,16 +305,12 @@
 <li>Hexo</li>
 <li>Github</li>
 </ol>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>&emsp;&emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>&emsp;&emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure></p>
 <p>安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片</p>
-<p>&emsp;&emsp;文档中采取的加载图片的代码为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](文章名/图片名.png)</span><br></pre></td></tr></table></figure>
-
+<p>&emsp;&emsp;文档中采取的加载图片的代码为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](文章名/图片名.png)</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;我是用上述方法向文章中添加图片时出现本地无法加载的情况，在localhost:4000或是我部署到Github上的博客中都只能显示出一个小方框，无法读取图片。</p>
-<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%97%A0%E6%95%88%E8%B7%AF%E5%BE%84.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%E8%B7%AF%E5%BE%84.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/%E6%9C%89%E6%95%88%E8%B7%AF%E5%BE%84.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
+<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/无效路径.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/错误配置路径.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/正确配置路径.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/有效路径.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这个问题的解决方案并不完美，因为如果在部署之前先启动本地服务在localhost:4000上预览文章仍然无法加载图片，原因应该是部署过程中图片被上传到了github，新的图片路径指向的是github中图片的路径，但是经过测试发现在断网的情况下也能加载已经部署过的图片，所以这个解决方案暂时没有明显问题。</p>
 
     </div>
