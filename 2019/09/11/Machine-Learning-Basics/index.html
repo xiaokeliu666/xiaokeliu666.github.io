@@ -57,14 +57,18 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Machine Learning Basics">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/09/11/Machine-Learning-Basics/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-12T02:35:31.701Z">
+<meta property="og:updated_time" content="2019-09-13T02:44:06.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basics">
+<meta name="twitter:description" content="Definition A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/09/11/Machine-Learning-Basics/">
 
 
@@ -250,6 +254,35 @@
               <time title="创建时间：2019-09-11 22:35:31" itemprop="dateCreated datePublished" datetime="2019-09-11T22:35:31-04:00">2019-09-11</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-12 22:44:06" itemprop="dateModified" datetime="2019-09-12T22:44:06-04:00">2019-09-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           <br/>
 
@@ -262,7 +295,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h1><blockquote>
+<p>A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$.</p>
+</blockquote>
+<h2 id="The-Task-T"><a href="#The-Task-T" class="headerlink" title="The Task, $T$"></a>The Task, $T$</h2><p>Machine learning tasks are usually described in terms of how the machine learning system should process an example. An example is a collection of features that have been quantitatively measured from some object or event that we want the machine learning system to process.</p>
+<h2 id="The-Performance-Measure-P"><a href="#The-Performance-Measure-P" class="headerlink" title="The Performance Measure, $P$"></a>The Performance Measure, $P$</h2><p>Performance measure is designed to quantitatively evaluate the abilities of a machine learning algorithm. For example, when we are designing a machine learning algorithm for a classification task, the accuracy of model will be measured.<br>In order to get an objective measurement, test set, a set of data that separate from training data, is used to evaluate the machine learning system.</p>
+<h2 id="The-Experience-E"><a href="#The-Experience-E" class="headerlink" title="The Experience, $E$"></a>The Experience, $E$</h2><ul>
+<li>Unsupervised learning algorithms experience a dataset containing many features, then learn useful properties of the structure of this dataset.</li>
+<li>Supervised learning algorithms experience a dataset containing features, but each example is also associated with a label or target.</li>
+</ul>
+<h1 id="Main-Classes-of-ML-Problems"><a href="#Main-Classes-of-ML-Problems" class="headerlink" title="Main Classes of ML Problems"></a>Main Classes of ML Problems</h1><ul>
+<li><p>Supervised Learning<br>  Supervised learning is the machine learning task of learning a function that maps an input to an output based on example input-output pairs. It infers a function from labeled training data consisting of a set of training examples.<br>  Example: Regression(predict the price of house)</p>
+</li>
+<li><p>Unsupervised Learning<br>  Unsupervised learning is a type of machine learning algorithm used to draw inferences from datasets consisting of input data without labeled responses.<br>  Example: Generating realistic images(given a dataset of faces and generate a new face)</p>
+</li>
+<li><p>Reinforcement Learning<br>  Reinforcement learning is an area of machine learning concerned with how software agents ought to take actions in an environment so as to maximize some notion of cumulative reward.<br>  Example: AlphaGo(play against environment)</p>
+</li>
+</ul>
+<h1 id="Concept-of-Model"><a href="#Concept-of-Model" class="headerlink" title="Concept of Model"></a>Concept of Model</h1><p>A model is a restricet family H of hypotheses.<br>For example, MNIST is a labeled database of handwritten digits, if we try to recognize digit 1 and digit 2 by comparing the amount of brightpixels like </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if brightpixel(x) &lt; c:</span><br><span class="line">    f(x) = 1</span><br><span class="line">else:</span><br><span class="line">    f(x) = 2</span><br></pre></td></tr></table></figure>
+
+<p>where <code>x</code> is the image and <code>c</code> is a constant varied from 0 to 28*28 since the size of image is 28*28. In this example, the collection of potential c is a model.</p>
+<h1 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h1><p>In general, loss functions are used to describe how bad data fits the model.</p>
+
     </div>
 
     
@@ -270,6 +325,12 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
               <a href="/2019/09/08/Photonic-Networks-Introduction/" rel="next" title="Photonic Networks:Introduction">
@@ -310,8 +371,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,7 +419,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -378,7 +450,9 @@
         
           
         
-        <span class="site-state-item-count">7</span>
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -389,6 +463,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Definition"><span class="nav-number">1.</span> <span class="nav-text">Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Task-T"><span class="nav-number">1.1.</span> <span class="nav-text">The Task, $T$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Performance-Measure-P"><span class="nav-number">1.2.</span> <span class="nav-text">The Performance Measure, $P$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Experience-E"><span class="nav-number">1.3.</span> <span class="nav-text">The Experience, $E$</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Classes-of-ML-Problems"><span class="nav-number">2.</span> <span class="nav-text">Main Classes of ML Problems</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Concept-of-Model"><span class="nav-number">3.</span> <span class="nav-text">Concept of Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Loss-Functions"><span class="nav-number">4.</span> <span class="nav-text">Loss Functions</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
