@@ -211,6 +211,92 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/16/Python踩坑：Pycharm中使用Pytorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/16/Python踩坑：Pycharm中使用Pytorch/" class="post-title-link" itemprop="url">Python踩坑：Pycharm中使用Pytorch</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-16 20:44:47 / 修改时间：20:55:30" itemprop="dateCreated datePublished" datetime="2019-09-16T20:44:47-04:00">2019-09-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>尝试使用<code>pip install pytorch</code>指令在pycharm中使用Pytorch框架失败</p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>在anaconda中使用<code>conda install pytorch torchvision cudatoolkit=10.0 -c pytorch</code>指令安装pytorch后，再在Pycharm中创建新project的时候使用anaconda的环境即可</p>
+<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>最近Anaconda官网上好像只能下载到3.7版本的了，所以在此之前我创建了一个版本为3.6的虚拟环境(py36)，因此在创建project时导入anaconda的环境需要导入虚拟环境目录下的python文件（D:\Anaconda3\envs\py36\python.exe）</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/15/CSI-5138-Homework-Exercise-I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -339,7 +425,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-13 14:36:47" itemprop="dateModified" datetime="2019-09-13T14:36:47-04:00">2019-09-13</time>
+                <time title="修改时间：2019-09-16 20:55:34" itemprop="dateModified" datetime="2019-09-16T20:55:34-04:00">2019-09-16</time>
               </span>
             
           
@@ -389,123 +475,10 @@
 </ul>
 <h1 id="Concept-of-Model"><a href="#Concept-of-Model" class="headerlink" title="Concept of Model"></a>Concept of Model</h1><p>A model is a restrict family H of hypotheses.<br>For example, MNIST is a labeled database of handwritten digits, if we try to recognize digit 1 and digit 2 by comparing the amount of brightpixels like<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if brightpixel(x) &lt; c:</span><br><span class="line">    f(x) = 1</span><br><span class="line">else:</span><br><span class="line">    f(x) = 2</span><br></pre></td></tr></table></figure></p>
 <p>where <code>x</code> is the image and <code>c</code> is a constant varied from 0 to 28*28 since the size of image is 28*28. In this example, the collection of potential c is a model.</p>
-<h1 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h1><p>A model is usually characterized by a loss function L($\theta$) over the space $\Theta$ of model parameters $\theta$.<br>In general, loss functions are used to describe how bad data fits the model. With the definition of loss functions, the problem of learning can be reduced to find<br> $\hat\theta$ := arg min $\theta$ \cdots<br> $\sqrt{x}$</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/08/Photonic-Networks-Introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/08/Photonic-Networks-Introduction/" class="post-title-link" itemprop="url">Photonic Networks:Introduction</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-08 22:13:00" itemprop="dateCreated datePublished" datetime="2019-09-08T22:13:00-04:00">2019-09-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-09-11 22:33:41" itemprop="dateModified" datetime="2019-09-11T22:33:41-04:00">2019-09-11</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Photonic-Networks/" itemprop="url" rel="index"><span itemprop="name">Photonic Networks</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Communication-Networks"><a href="#Communication-Networks" class="headerlink" title="Communication Networks"></a>Communication Networks</h1><p>Public networks are networks operated by service providers, or carriers, as they are often called. In contrast to public networks, private networks are networks owned and operated by corporations for their internal use.</p>
-<p>In many cases, the carrier owns the facilities(for example, fiber links) and equipment deployed inside the network. Fiber is deployed in many different ways today——buried underground, strung on overhead poles, and buried beside oil and gas pipelines and railroad tracks.</p>
-<p><strong>Local-area networks(LANs)</strong>:networks within buildings spanning at most a few kilometers are called local-area networks(LANs).</p>
-<p><strong>Access</strong>:The access network extends from a central office out to individual businesses or homes (typically, groups of homes rather than individual homes at this time). The access network’s reach is typically a few kilometers, and it mostly collects traffic from customer locations into the carrier network. </p>
-<p><strong>Metropolitan-area networks(MANs)</strong>:those that span a campus or metropolitan area, typically tens to a few hundred kilometers, are called metropolitan-area networks (MANs).</p>
-<p><strong>Long-haul</strong>:the long-haul network interconnects different cities or regions and spans hundreds to thousands of kilometers between central offices.</p>
-<h1 id="Telecom-Network-Architecture"><a href="#Telecom-Network-Architecture" class="headerlink" title="Telecom Network Architecture"></a>Telecom Network Architecture</h1><p><img src="//xiaokeliu666.github.io/2019/09/08/Photonic-Networks-Introduction/Architecture.png" alt></p>
-
+<h1 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h1><p>A model is usually characterized by a loss function L($\theta$) over the space $\Theta$ of model parameters $\theta$.<br>In general, loss functions are used to describe how bad data fits the model. With the definition of loss functions, the problem of learning can be reduced to find<br>    $\hat\theta$ := arg min L($\theta$)</p>
+<pre><code>\dots
+\boldsymbol{x} \in \mathbb{R}^{n}
+</code></pre>
           
         
       
@@ -1411,9 +1384,7 @@
         
           
         
-          
-        
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1442,9 +1413,7 @@
         
           
         
-          
-        
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1528,9 +1497,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
       
