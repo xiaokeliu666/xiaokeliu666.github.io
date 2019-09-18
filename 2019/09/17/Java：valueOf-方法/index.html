@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="之前讨论过Java的代码复用问题，其中提到了组合、继承和代理三中复用方法。在进一步了解这三种方法的使用场景时，首先需要鉴别类之间的关系。 is-ais-a：该关系依赖于继承。如果A是B，那么B就是A的基类。比如土豆是蔬菜，公交车是载具，灯泡是电器等等。继承的一个性质就是继承是单向的，比如说公寓是建筑物，但是不是所有建筑物都是公寓。 has-ahas-a：这种关系称为组合。如果A中有B，那么B就是A">
+  <meta name="description" content="问题引入1234567891011121314public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        // 这里应该输出两个true，实际输出的却是两个false        // 请查找、思考并修复numberEquals方法中的问题        System.out.println(n">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java：is-a和has-a">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/29/Java：is-a和has-a/index.html">
+<meta property="og:title" content="Java：valueOf()方法">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/09/17/Java：valueOf-方法/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="之前讨论过Java的代码复用问题，其中提到了组合、继承和代理三中复用方法。在进一步了解这三种方法的使用场景时，首先需要鉴别类之间的关系。 is-ais-a：该关系依赖于继承。如果A是B，那么B就是A的基类。比如土豆是蔬菜，公交车是载具，灯泡是电器等等。继承的一个性质就是继承是单向的，比如说公寓是建筑物，但是不是所有建筑物都是公寓。 has-ahas-a：这种关系称为组合。如果A中有B，那么B就是A">
+<meta property="og:description" content="问题引入1234567891011121314public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        // 这里应该输出两个true，实际输出的却是两个false        // 请查找、思考并修复numberEquals方法中的问题        System.out.println(n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T19:13:02.886Z">
+<meta property="og:updated_time" content="2019-09-18T01:36:26.009Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java：is-a和has-a">
-<meta name="twitter:description" content="之前讨论过Java的代码复用问题，其中提到了组合、继承和代理三中复用方法。在进一步了解这三种方法的使用场景时，首先需要鉴别类之间的关系。 is-ais-a：该关系依赖于继承。如果A是B，那么B就是A的基类。比如土豆是蔬菜，公交车是载具，灯泡是电器等等。继承的一个性质就是继承是单向的，比如说公寓是建筑物，但是不是所有建筑物都是公寓。 has-ahas-a：这种关系称为组合。如果A中有B，那么B就是A">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/29/Java：is-a和has-a/">
+<meta name="twitter:title" content="Java：valueOf()方法">
+<meta name="twitter:description" content="问题引入1234567891011121314public class Main &amp;#123;    public static void main(String[] args) &amp;#123;        // 这里应该输出两个true，实际输出的却是两个false        // 请查找、思考并修复numberEquals方法中的问题        System.out.println(n">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/09/17/Java：valueOf-方法/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Java：is-a和has-a | Feb 1997</title>
+  <title>Java：valueOf()方法 | Feb 1997</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/29/Java：is-a和has-a/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/17/Java：valueOf-方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Java：is-a和has-a
+          <h1 class="post-title" itemprop="name headline">Java：valueOf()方法
 
               
             
@@ -251,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2019-08-29 10:41:34 / 修改时间：15:13:02" itemprop="dateCreated datePublished" datetime="2019-08-29T10:41:34-04:00">2019-08-29</time>
+              <time title="创建时间：2019-09-17 21:20:45 / 修改时间：21:36:26" itemprop="dateCreated datePublished" datetime="2019-09-17T21:20:45-04:00">2019-09-17</time>
             </span>
           
             
@@ -285,9 +285,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>之前讨论过Java的代码复用问题，其中提到了组合、继承和代理三中复用方法。在进一步了解这三种方法的使用场景时，首先需要鉴别类之间的关系。</p>
-<h1 id="is-a"><a href="#is-a" class="headerlink" title="is-a"></a>is-a</h1><p>is-a：该关系依赖于继承。如果A是B，那么B就是A的基类。<br>比如土豆是蔬菜，公交车是载具，灯泡是电器等等。继承的一个性质就是继承是单向的，比如说公寓是建筑物，但是不是所有建筑物都是公寓。</p>
-<h1 id="has-a"><a href="#has-a" class="headerlink" title="has-a"></a>has-a</h1><p>has-a：这种关系称为组合。如果A中有B，那么B就是A的组成部分。<br>一个类的实例有指向另一个类的索引或者同一个类的其他实例。比如汽车有引擎，狗有尾巴等等。</p>
+        <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 这里应该输出两个true，实际输出的却是两个false</span><br><span class="line">        // 请查找、思考并修复numberEquals方法中的问题</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;+1234&quot;));</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;1234&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 判断两个字符串是否包含相等的数字</span><br><span class="line">    // 例如a为&quot;+1234&quot;，b为&quot;1234&quot;，返回true</span><br><span class="line">    public static boolean numberEquals(String a, String b) &#123;</span><br><span class="line">        return Integer.valueOf(a) == Integer.valueOf(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><p>通过查看valueOf()方法的源码查看方法的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static Integer valueOf(int i) &#123;</span><br><span class="line">        if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">            return IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">        return new Integer(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果输入的整型参数在[IntegerCache.low, IntegerCache.high]中，那么直接从缓存中拿，反之new Integer()。这一点在将源代码中的<code>1234</code>都改成<code>123</code>后输出两个true后得到了证实</p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>把valueOf()方法替换成parseInt()方法即可，parseInt()返回的是基本类型int。</p>
 
     </div>
 
@@ -304,8 +305,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/27/Java：代码复用/" rel="next" title="Java：代码复用">
-                <i class="fa fa-chevron-left"></i> Java：代码复用
+              <a href="/2019/09/16/Python踩坑：Pycharm中使用Pytorch/" rel="next" title="Python踩坑：Pycharm中使用Pytorch">
+                <i class="fa fa-chevron-left"></i> Python踩坑：Pycharm中使用Pytorch
               </a>
             
           </div>
@@ -313,10 +314,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/30/Java：多态/" rel="prev" title="Java：多态">
-                Java：多态 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -444,7 +441,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#is-a"><span class="nav-number">1.</span> <span class="nav-text">is-a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#has-a"><span class="nav-number">2.</span> <span class="nav-text">has-a</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题分析"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a></li></ol></div>
             
 
           </div>
