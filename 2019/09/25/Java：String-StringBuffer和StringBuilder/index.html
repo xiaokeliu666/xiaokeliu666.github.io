@@ -57,14 +57,18 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="StringString源码：1234567891011121314public String() &amp;#123;        this.value = &amp;quot;&amp;quot;.value;    &amp;#125;    /**    * Initializes a newly created &amp;#123;@code String&amp;#125; object so that it represents">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Java：String,StringBuffer和StringBuilder">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/09/25/Java：String-StringBuffer和StringBuilder/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="StringString源码：1234567891011121314public String() &amp;#123;        this.value = &amp;quot;&amp;quot;.value;    &amp;#125;    /**    * Initializes a newly created &amp;#123;@code String&amp;#125; object so that it represents">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-26T02:55:14.779Z">
+<meta property="og:updated_time" content="2019-09-27T03:31:40.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：String,StringBuffer和StringBuilder">
+<meta name="twitter:description" content="StringString源码：1234567891011121314public String() &amp;#123;        this.value = &amp;quot;&amp;quot;.value;    &amp;#125;    /**    * Initializes a newly created &amp;#123;@code String&amp;#125; object so that it represents">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/09/25/Java：String-StringBuffer和StringBuilder/">
 
 
@@ -250,6 +254,35 @@
               <time title="创建时间：2019-09-25 22:55:14" itemprop="dateCreated datePublished" datetime="2019-09-25T22:55:14-04:00">2019-09-25</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-26 23:31:40" itemprop="dateModified" datetime="2019-09-26T23:31:40-04:00">2019-09-26</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           <br/>
 
@@ -262,7 +295,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><p>String源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public String() &#123;</span><br><span class="line">        this.value = &quot;&quot;.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * Initializes a newly created &#123;@code String&#125; object so that it represents</span><br><span class="line">    * the same sequence of characters as the argument; in other words, the</span><br><span class="line">    * newly created string is a copy of the argument string. Unless an</span><br><span class="line">    * explicit copy of &#123;@code original&#125; is needed, use of this constructor is</span><br><span class="line">    * unnecessary since Strings are immutable.</span><br><span class="line">    *</span><br><span class="line">    * @param  original</span><br><span class="line">    *         A &#123;@code String&#125;</span><br><span class="line">    */</span><br></pre></td></tr></table></figure></p>
+<p>String类中每一个看起来会修改String值得方法，实际上都是创建了一个全新的String对象。每当把String对象作为方法的参数时，都会复制一份引用，而该引用所指的对象其实一直待在单一的物理位置上。</p>
+<h1 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h1>
     </div>
 
     
@@ -270,6 +305,12 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
               <a href="/2019/09/23/HashMap的底层实现/" rel="next" title="HashMap的底层实现">
@@ -310,8 +351,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -391,6 +441,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#String"><span class="nav-number">1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StringBuffer"><span class="nav-number">2.</span> <span class="nav-text">StringBuffer</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
