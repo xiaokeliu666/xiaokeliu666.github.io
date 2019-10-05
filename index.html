@@ -260,7 +260,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-01 00:28:22" itemprop="dateModified" datetime="2019-10-01T00:28:22-04:00">2019-10-01</time>
+                <time title="修改时间：2019-10-04 23:46:00" itemprop="dateModified" datetime="2019-10-04T23:46:00-04:00">2019-10-04</time>
               </span>
             
           
@@ -302,9 +302,10 @@
 <li><p>value用来存储字符序列中的字符。这是一个动态数组，当存储容量不足时，会对它进行扩容。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AbstractStringBuilder(int capacity) &#123;</span><br><span class="line">        value = new char[capacity];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>count表示value数组中已存储的字符数。</p>
+<li><p>count表示value数组中已存储的字符数。<br>StringBuffer类将所有操作字符序列的方法都添加了 synchronized 关键字来修饰，因此，StringBuffer类是线程安全的。</p>
 </li>
 </ol>
+<h1 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h1><p>StringBuilder和StringBuffer的源码中，定义和操作几乎都是一样的，唯一的区别是StringBuffer是线程安全的，在单线程的情况下StringBuilder比StringBuffer要快。</p>
 
           
         
