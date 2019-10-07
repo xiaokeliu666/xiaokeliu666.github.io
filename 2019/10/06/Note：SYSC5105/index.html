@@ -57,14 +57,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Feb 1997">
-<meta property="og:url" content="http://xiaokeliu666.github.io/tags/Java/index.html">
+  <meta name="description" content="Three conditions necessary to observe the failureReachability: The location(s) in the program that contain fault must be reachedInfection: The state of the program must be incorrectPropagation: The in">
+<meta name="keywords" content="课堂笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Note：SYSC5105">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/10/06/Note：SYSC5105/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="Three conditions necessary to observe the failureReachability: The location(s) in the program that contain fault must be reachedInfection: The state of the program must be incorrectPropagation: The in">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-07T03:15:25.397Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feb 1997">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/tags/Java/">
+<meta name="twitter:title" content="Note：SYSC5105">
+<meta name="twitter:description" content="Three conditions necessary to observe the failureReachability: The location(s) in the program that contain fault must be reachedInfection: The state of the program must be incorrectPropagation: The in">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/10/06/Note：SYSC5105/">
 
 
 <script id="page.configurations">
@@ -73,7 +78,7 @@
   };
 </script>
 
-  <title>标签: Java | Feb 1997</title>
+  <title>Note：SYSC5105 | Feb 1997</title>
   
 
 
@@ -112,7 +117,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -158,7 +163,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
       
     
 
@@ -201,320 +206,118 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block tag">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/06/Note：SYSC5105/">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Java<small>标签</small>
-        </h1>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Note：SYSC5105
+
+              
+            
+          </h1>
         
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/25/Java：String-StringBuffer和StringBuilder/" itemprop="url">
+              
+                
+              
+
+              <time title="创建时间：2019-10-06 23:11:11 / 修改时间：23:15:25" itemprop="dateCreated datePublished" datetime="2019-10-06T23:11:11-04:00">2019-10-06</time>
+            </span>
+          
             
-              <span itemprop="name">Java：String,StringBuffer和StringBuilder</span>
+
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-25T22:55:14-04:00"
-              content="2019-09-25">
-          09-25
-        </time>
-      </div>
+          <br/>
 
-    </header>
-  </article>
+        </div>
+      </header>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><strong>Three conditions necessary to observe the failure</strong><br><strong>Reachability</strong>: The location(s) in the program that contain fault must be reached<br><strong>Infection</strong>: The state of the program must be incorrect<br><strong>Propagation</strong>: The infected state must be propagated to cause some unexpected result/output</p>
+<p><strong>Observability</strong>: How easy to observe the behavior of a program in terms of the outputs, effect on the environment including hardware and software components<br><strong>Controllability</strong>: How easy it is to proveid a program with the needed inputs</p>
+<p><strong>Test driver</strong>: executes a test case or a test suite/set<br><strong>Stub</strong>: replaces a called component, simulates a piece of code not yet ready<br><strong>Oracle</strong>: assists in deciding whether a test outcome is successful or not, comparing the actual output against expected output; deciding what output is expected, given the test inputs of a test case</p>
+<p><strong>Tech to reduce the number of inputs</strong>:<br>Testing criteria group input elements into classes<br>One input is selected in each class<br>Criteria are used to decide which test inputs to use<br>Criteria are used to decide when to stop testing</p>
+<p><strong>Black box</strong>:<br>Scales up - works for a function/class/system/packet<br>Don’t know how much of the system is being tested<br><strong>White box</strong>:<br>Based on control and data flow<br>Not Scales up - mostly applicable at unit and integration testing levels<br>Be confident about how much of the system is being tested</p>
+<p><strong>Selection criterion</strong>:<br>generate values to satisfy the criterion<br><strong>Coverage criterion</strong>:<br>Evaluate coverage achieved by externally generated test values/ cases</p>
+<p><strong>Verification</strong>:<br>The process of evaluating a system or component to determine whether the products of a given development phase satisfies the conditions imposed at the start of that phase.<br>Checking whether the system adheres to properties termed as verification properties<br><strong>Validation</strong>:<br>The process of evaluating a system or component during or at the end of the development process to determine whether it satisfies specified requirements.</p>
+<p><strong>Fault</strong>: a deficit in a system<br><strong>Error</strong>: some part of the system entered an unexpected state<br>Failure: the delivered service deviated from what the system is intended for</p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/17/Java：valueOf-方法/" itemprop="url">
-            
-              <span itemprop="name">Java：valueOf()方法</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-17T21:20:45-04:00"
-              content="2019-09-17">
-          09-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/07/Java：静态代码块、构造代码块、构造函数以及Java类初始化顺序/" itemprop="url">
-            
-              <span itemprop="name">Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-07T12:13:46-04:00"
-              content="2019-09-07">
-          09-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/31/Java：前期绑定和后期绑定/" itemprop="url">
-            
-              <span itemprop="name">Java：前期绑定和后期绑定</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-31T20:29:20-04:00"
-              content="2019-08-31">
-          08-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/29/Java：is-a和has-a/" itemprop="url">
-            
-              <span itemprop="name">Java：is-a和has-a</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-29T10:41:34-04:00"
-              content="2019-08-29">
-          08-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/25/Java：protected提供访问权限/" itemprop="url">
-            
-              <span itemprop="name">Java：protected提供包访问权限</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-25T21:29:28-04:00"
-              content="2019-08-25">
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/25/Java踩坑：初始化顺序/" itemprop="url">
-            
-              <span itemprop="name">Java踩坑：初始化顺序</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-25T15:21:00-04:00"
-              content="2019-08-25">
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/24/Java：隔离岛/" itemprop="url">
-            
-              <span itemprop="name">Java：隔离岛</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-24T21:14:52-04:00"
-              content="2019-08-24">
-          08-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/23/Java：GC机制/" itemprop="url">
-            
-              <span itemprop="name">Java：GC机制</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-23T22:19:18-04:00"
-              content="2019-08-23">
-          08-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/21/Java：Static关键字/" itemprop="url">
-            
-              <span itemprop="name">Java：Static关键字</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-21T22:26:08-04:00"
-              content="2019-08-21">
-          08-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/课堂笔记/" rel="tag"># 课堂笔记</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/09/25/Java：String-StringBuffer和StringBuilder/" rel="next" title="Java：String,StringBuffer和StringBuilder">
+                <i class="fa fa-chevron-left"></i> Java：String,StringBuffer和StringBuilder
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -664,6 +467,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
