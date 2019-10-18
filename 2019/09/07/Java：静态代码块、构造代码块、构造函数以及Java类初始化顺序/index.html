@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="问题引入&amp;emsp;&amp;emsp;今天在做笔试题时遇到这样一个问题：1234567891011121314public class Test &amp;#123;        static Test t1 = new Test();        &amp;#123;            System.out.println(&amp;quot;blockA&amp;quot;);        &amp;#125;        s">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-07T18:06:16.237Z">
+<meta property="og:updated_time" content="2019-10-18T23:32:01.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序">
 <meta name="twitter:description" content="问题引入&amp;emsp;&amp;emsp;今天在做笔试题时遇到这样一个问题：1234567891011121314public class Test &amp;#123;        static Test t1 = new Test();        &amp;#123;            System.out.println(&amp;quot;blockA&amp;quot;);        &amp;#125;        s">
@@ -251,11 +251,21 @@
                 
               
 
-              <time title="创建时间：2019-09-07 12:13:46 / 修改时间：14:06:16" itemprop="dateCreated datePublished" datetime="2019-09-07T12:13:46-04:00">2019-09-07</time>
+              <time title="创建时间：2019-09-07 12:13:46" itemprop="dateCreated datePublished" datetime="2019-09-07T12:13:46-04:00">2019-09-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-18 19:32:01" itemprop="dateModified" datetime="2019-10-18T19:32:01-04:00">2019-10-18</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -292,8 +302,8 @@
 <li>用static申明，JVM加载类时执行，仅执行一次，执行完成便销毁。</li>
 <li>静态代码块的执行优先级高于非静态的初始化块。</li>
 </ul>
-<h1 id="非静态代码块"><a href="#非静态代码块" class="headerlink" title="非静态代码块"></a>非静态代码块</h1><h2 id="什么是非静态代码块？"><a href="#什么是非静态代码块？" class="headerlink" title="什么是非静态代码块？"></a>什么是非静态代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="它有什么特点？-1"><a href="#它有什么特点？-1" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><p>&emsp;&emsp;执行的时候如果有非静态代码块，先执行静态代码块再执行非静态代码块，它可以初始化类的实例变量。非静态初始化块会在构造函数执行时，构造函数主体代码执行之前被运行。</p>
+<h1 id="构造代码块"><a href="#构造代码块" class="headerlink" title="构造代码块"></a>构造代码块</h1><h2 id="什么是构造代码块？"><a href="#什么是构造代码块？" class="headerlink" title="什么是构造代码块？"></a>什么是构造代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="它有什么特点？-1"><a href="#它有什么特点？-1" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><p>&emsp;&emsp;构造代码块的作用是给对象进行初始化，只有当对象创建才会执行，且执行顺序优于构造函数。并且不同于构造函数，构造代码块针对所有的对象，而构造函数针对对应的对象。</p>
 <h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>&emsp;&emsp;构造函数只有在建立对象的时候在会调用与之相应的构造函数，不建立对象是不会运行构造函数的。一个对象建立，构造函数只运行一次，而一般方法可以被该对象调用多次。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
 <li>静态块其实就是给类初始化的，而构造代码块是给对象初始化的。</li>
@@ -466,7 +476,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态代码块"><span class="nav-number">2.</span> <span class="nav-text">静态代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是静态代码块？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是静态代码块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有什么特点？"><span class="nav-number">2.2.</span> <span class="nav-text">它有什么特点？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非静态代码块"><span class="nav-number">3.</span> <span class="nav-text">非静态代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是非静态代码块？"><span class="nav-number">3.1.</span> <span class="nav-text">什么是非静态代码块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有什么特点？-1"><span class="nav-number">3.2.</span> <span class="nav-text">它有什么特点？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数"><span class="nav-number">4.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态代码块"><span class="nav-number">2.</span> <span class="nav-text">静态代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是静态代码块？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是静态代码块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有什么特点？"><span class="nav-number">2.2.</span> <span class="nav-text">它有什么特点？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造代码块"><span class="nav-number">3.</span> <span class="nav-text">构造代码块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是构造代码块？"><span class="nav-number">3.1.</span> <span class="nav-text">什么是构造代码块？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有什么特点？-1"><span class="nav-number">3.2.</span> <span class="nav-text">它有什么特点？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数"><span class="nav-number">4.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
