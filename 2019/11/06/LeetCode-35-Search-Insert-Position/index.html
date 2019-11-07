@@ -57,18 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="Collection和Map接口Java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念：Collection和Map。书中提到这样一行代码List&amp;lt;Apple&amp;gt; apples = new ArrayList&amp;lt;Apple&amp;gt;并配上说明：ArrayList向上转型为List。读到这里我很迷惑，难道不是所有的容器都继承自Collection或者Map接口吗，为什么还会有">
+  <meta name="description" content="Problem DescriptionGiven a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You may assume no duplicat">
+<meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java：集合">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/11/01/Java：集合/index.html">
+<meta property="og:title" content="LeetCode:35.Search Insert Position">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/11/06/LeetCode-35-Search-Insert-Position/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="Collection和Map接口Java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念：Collection和Map。书中提到这样一行代码List&amp;lt;Apple&amp;gt; apples = new ArrayList&amp;lt;Apple&amp;gt;并配上说明：ArrayList向上转型为List。读到这里我很迷惑，难道不是所有的容器都继承自Collection或者Map接口吗，为什么还会有">
+<meta property="og:description" content="Problem DescriptionGiven a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You may assume no duplicat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-02T02:01:35.318Z">
+<meta property="og:updated_time" content="2019-11-06T19:21:47.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java：集合">
-<meta name="twitter:description" content="Collection和Map接口Java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念：Collection和Map。书中提到这样一行代码List&amp;lt;Apple&amp;gt; apples = new ArrayList&amp;lt;Apple&amp;gt;并配上说明：ArrayList向上转型为List。读到这里我很迷惑，难道不是所有的容器都继承自Collection或者Map接口吗，为什么还会有">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/11/01/Java：集合/">
+<meta name="twitter:title" content="LeetCode:35.Search Insert Position">
+<meta name="twitter:description" content="Problem DescriptionGiven a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You may assume no duplicat">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-35-Search-Insert-Position/">
 
 
 <script id="page.configurations">
@@ -77,7 +78,7 @@
   };
 </script>
 
-  <title>Java：集合 | Feb 1997</title>
+  <title>LeetCode:35.Search Insert Position | Feb 1997</title>
   
 
 
@@ -216,7 +217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/01/Java：集合/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-35-Search-Insert-Position/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -230,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Java：集合
+          <h1 class="post-title" itemprop="name headline">LeetCode:35.Search Insert Position
 
               
             
@@ -250,12 +251,27 @@
                 
               
 
-              <time title="创建时间：2019-11-01 21:48:06 / 修改时间：22:01:35" itemprop="dateCreated datePublished" datetime="2019-11-01T21:48:06-04:00">2019-11-01</time>
+              <time title="创建时间：2019-11-06 14:16:40 / 修改时间：14:21:47" itemprop="dateCreated datePublished" datetime="2019-11-06T14:16:40-05:00">2019-11-06</time>
             </span>
           
             
 
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           <br/>
@@ -269,7 +285,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Collection和Map接口"><a href="#Collection和Map接口" class="headerlink" title="Collection和Map接口"></a>Collection和Map接口</h1><p>Java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念：Collection和Map。<br>书中提到这样一行代码<code>List&lt;Apple&gt; apples = new ArrayList&lt;Apple&gt;</code>并配上说明：ArrayList向上转型为List。读到这里我很迷惑，难道不是所有的容器都继承自Collection或者Map接口吗，为什么还会有一个List是ArrayList的父类呢？<br>通过查找资料得到这样两张图表述了Collection和Map两个大接口及其子接口的关系。</p>
+        <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
+<p>You may assume no duplicates in the array.</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><ol>
+<li>Going through the array</li>
+<li>Try to find an index i where nums[i] == target and return the i</li>
+<li>If step 2 failed, try to find an index i where nums[i] &gt; target. Notieced that the array is sorted and if we have to insert a digit before nums[i], the index of the digit should be i as well, then we have to break from the loop, otherwise the position will be wrong</li>
+<li>There is a possibility that the target is bigger than the biggest one in the array, then the index to insert should be the value of nums.length.</li>
+</ol>
+<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> public int searchInsert(int[] nums, int target) &#123;</span><br><span class="line">    int res = 0;</span><br><span class="line"></span><br><span class="line">    for (int i = 0; i &lt; nums.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(nums[i] == target || nums[i] &gt; target)&#123;</span><br><span class="line">            res = i;</span><br><span class="line">            break;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            res = nums.length;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -278,10 +302,16 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/10/21/Java：泛型/" rel="next" title="Java：泛型">
-                <i class="fa fa-chevron-left"></i> Java：泛型
+              <a href="/2019/11/06/LeetCode-27-Remove-Element/" rel="next" title="LeetCode:27.Remove Element">
+                <i class="fa fa-chevron-left"></i> LeetCode:27.Remove Element
               </a>
             
           </div>
@@ -289,8 +319,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/" rel="prev" title="LeetCode:26.Remove Duplicates from Sorted Array">
-                LeetCode:26.Remove Duplicates from Sorted Array <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/06/LeetCode-53-Maximum-Subarray/" rel="prev" title="LeetCode:53.Maximum Subarray">
+                LeetCode:53.Maximum Subarray <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -422,7 +452,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Collection和Map接口"><span class="nav-number">1.</span> <span class="nav-text">Collection和Map接口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Problem-Description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Analysis"><span class="nav-number">2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Right-Code"><span class="nav-number">3.</span> <span class="nav-text">Right Code</span></a></li></ol></div>
             
 
           </div>
