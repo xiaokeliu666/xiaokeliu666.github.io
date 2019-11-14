@@ -1004,8 +1004,8 @@
 <p>安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片</p>
 <p>&emsp;&emsp;文档中采取的加载图片的代码为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](文章名/图片名.png)</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;我是用上述方法向文章中添加图片时出现本地无法加载的情况，在localhost:4000或是我部署到Github上的博客中都只能显示出一个小方框，无法读取图片。</p>
-<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="Hexo踩坑-本地图片加载/无效路径.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="Hexo踩坑-本地图片加载/错误配置路径.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="Hexo踩坑-本地图片加载/正确配置路径.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="Hexo踩坑-本地图片加载/有效路径.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
+<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/无效路径.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/错误配置路径.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/正确配置路径.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/有效路径.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这个问题的解决方案并不完美，因为如果在部署之前先启动本地服务在localhost:4000上预览文章仍然无法加载图片，原因应该是部署过程中图片被上传到了github，新的图片路径指向的是github中图片的路径，但是经过测试发现在断网的情况下也能加载已经部署过的图片，所以这个解决方案暂时没有明显问题。</p>
 
           
@@ -1129,13 +1129,13 @@
 <p>安装Hexo，通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure></p>
 <p>确认安装并且可以得知Hexo是基于Nodejs的。</p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>   安装Nodejs和Git后要将它们添加进系统环境变量中，如图所示：</p>
-<p>   <img src="Hexo博客搭建/环境变量.png" alt></p>
+<p>   <img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/环境变量.png" alt></p>
 <h1 id="使用Hexo搭建博客"><a href="#使用Hexo搭建博客" class="headerlink" title="使用Hexo搭建博客"></a>使用Hexo搭建博客</h1><h2 id="创建本地目录"><a href="#创建本地目录" class="headerlink" title="创建本地目录"></a>创建本地目录</h2><ol>
 <li>新建一个文件夹，假设取名为Blog</li>
 <li>通过GitBash进入该文件夹，使用命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init  # 初始化一个博客</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>该指令会自动Clone所需文件，结果如图<br><img src="Hexo博客搭建/初始化.png" alt></p>
+<p>该指令会自动Clone所需文件，结果如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/初始化.png" alt></p>
 <h2 id="启动博客"><a href="#启动博客" class="headerlink" title="启动博客"></a>启动博客</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s  # 启动服务</span><br></pre></td></tr></table></figure></p>
 <p>博客会在localhost:4000被启动</p>
 <h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new (文章名)</span><br></pre></td></tr></table></figure></p>
@@ -1145,7 +1145,7 @@
 <h1 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h1><h2 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h2><p>   新建一个Repository，必须以“用户名.github.io”的格式命名</p>
 <h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>   使用命令<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure></p>
 <p>   安装插件使博客可以部署到Github</p>
-<h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><p>   编辑Blog目录下的文件_config.yml(可以使用Vim, notepad++等)<br>   <img src="Hexo博客搭建/配置文件.png" alt></p>
+<h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><p>   编辑Blog目录下的文件_config.yml(可以使用Vim, notepad++等)<br>   <img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/配置文件.png" alt></p>
 <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d  # 部署</span><br></pre></td></tr></table></figure></p>
 <p>就会自动部署到github，可能会要求输入github的账号和密码，也可以通过SSH完成Git与Github的绑定。<br>部署成功后本地文件会上传到Github的仓库里，直接通过仓库名作为地址就可以访问，到此已经部署成功。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这次搭建实验总体顺利，文中有部分内容没有具体讲到，例如Git与Github的绑定，读者都可以在网上找到相应的教程，感谢B站UP主<a href="https://www.bilibili.com/video/av44544186?from=search&amp;seid=13144773842957588840" target="_blank" rel="noopener">CodeSheep</a>的讲解视频，更多细节可以参考上述视频。</p>

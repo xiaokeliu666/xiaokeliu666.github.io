@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="介绍 在 C/C++中，编程者需要同时负责对象的创建与销毁。通常情况下编程者会忘记销毁无用的对象。由于这种忽视，在某个时间点可能会没有足够的内存空间去创建新的对象从而导致整个程序因为内存溢出而终止。 在Java中，编程者不需要关心哪个对象不会再被用上。垃圾收集器会销毁这些对象。 垃圾收集器是守护线程的最好例子因为它总是在后台运行。 垃圾收集器的主要目的是通过摧毁不可到达的对象从而释放内存堆。重要术">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/Java-GC机制/reference.png">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/reference.png">
 <meta property="og:updated_time" content="2019-08-29T19:03:35.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：GC机制">
 <meta name="twitter:description" content="介绍 在 C/C++中，编程者需要同时负责对象的创建与销毁。通常情况下编程者会忘记销毁无用的对象。由于这种忽视，在某个时间点可能会没有足够的内存空间去创建新的对象从而导致整个程序因为内存溢出而终止。 在Java中，编程者不需要关心哪个对象不会再被用上。垃圾收集器会销毁这些对象。 垃圾收集器是守护线程的最好例子因为它总是在后台运行。 垃圾收集器的主要目的是通过摧毁不可到达的对象从而释放内存堆。重要术">
-<meta name="twitter:image" content="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/Java-GC机制/reference.png">
+<meta name="twitter:image" content="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/reference.png">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/">
 
 
@@ -307,7 +307,7 @@
 <li>不可到达的对象(Unreachable objects): 如果一个对象没有任何指向它的索引那么我们称之为不可到达的对象。同样注意到属于隔离岛一部分的对象也是不可到达的。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer i = new Integer(4);</span><br><span class="line">// 通过i中的索引，这个新的整型对象是可到达的</span><br><span class="line">i = null;</span><br><span class="line">// 那个整型对象不可到达了</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><img src="Java-GC机制/reference.png" alt="img"></p>
+<p><img src="//xiaokeliu666.github.io/2019/08/23/Java：GC机制/reference.png" alt="img"></p>
 <ol>
 <li>垃圾收集的合格性(Eligibility for garbage collection)：如果一个对象是不可到达的，那么就可以被垃圾收集。在上图中，在<code>i = null;</code>之后堆空间中的整型对象4就可以被垃圾收集了。</li>
 </ol>
