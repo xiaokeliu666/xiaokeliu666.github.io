@@ -57,15 +57,18 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap的底层实现">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/09/23/HashMap的底层实现/index.html">
+  <meta name="description" content="Generate a state machine Create a txt file and write code  Change the suffix .txt into .sm Download SMC Command Line: java -jar Smc.jar -java Seminar.sm, a new java file ‘SeminarContext.java’ created">
+<meta property="og:type" content="article">
+<meta property="og:title" content="State-based Testing">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2019/11/19/State-based-Testing/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="Generate a state machine Create a txt file and write code  Change the suffix .txt into .sm Download SMC Command Line: java -jar Smc.jar -java Seminar.sm, a new java file ‘SeminarContext.java’ created">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-24T00:17:31.856Z">
+<meta property="og:updated_time" content="2019-11-20T04:07:18.348Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HashMap的底层实现">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/09/23/HashMap的底层实现/">
+<meta name="twitter:title" content="State-based Testing">
+<meta name="twitter:description" content="Generate a state machine Create a txt file and write code  Change the suffix .txt into .sm Download SMC Command Line: java -jar Smc.jar -java Seminar.sm, a new java file ‘SeminarContext.java’ created">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/11/19/State-based-Testing/">
 
 
 <script id="page.configurations">
@@ -74,7 +77,7 @@
   };
 </script>
 
-  <title>HashMap的底层实现 | Feb 1997</title>
+  <title>State-based Testing | Feb 1997</title>
   
 
 
@@ -213,7 +216,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/23/HashMap的底层实现/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/19/State-based-Testing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -227,7 +230,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">HashMap的底层实现
+          <h1 class="post-title" itemprop="name headline">State-based Testing
 
               
             
@@ -247,8 +250,12 @@
                 
               
 
-              <time title="创建时间：2019-09-23 20:17:31" itemprop="dateCreated datePublished" datetime="2019-09-23T20:17:31-04:00">2019-09-23</time>
+              <time title="创建时间：2019-11-19 23:00:57 / 修改时间：23:07:18" itemprop="dateCreated datePublished" datetime="2019-11-19T23:00:57-05:00">2019-11-19</time>
             </span>
+          
+            
+
+            
           
 
           <br/>
@@ -262,7 +269,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Generate-a-state-machine"><a href="#Generate-a-state-machine" class="headerlink" title="Generate a state machine"></a>Generate a state machine</h1><ol>
+<li>Create a txt file and write code </li>
+<li>Change the suffix .txt into .sm</li>
+<li>Download SMC</li>
+<li>Command Line: <code>java -jar Smc.jar -java Seminar.sm</code>, a new java file ‘SeminarContext.java’ created</li>
+<li>Command Line: <code>java -jar Smc.jar -graph Seminar.sm</code>, a new dot file ‘Seminar_sm.dot’ created</li>
+<li>Download Graphviz and do configuration</li>
+<li>Command Line: <code>Tpng Seminar_sm.dot -o Seminar.png</code>, a new png file ‘Seminar.png’ created</li>
+</ol>
+
     </div>
 
     
@@ -272,8 +288,8 @@
     <footer class="post-footer">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/09/20/LeetCode-1-Two-Sum/" rel="next" title="LeetCode: 1.Two Sum">
-                <i class="fa fa-chevron-left"></i> LeetCode: 1.Two Sum
+              <a href="/2019/11/06/LeetCode-53-Maximum-Subarray/" rel="next" title="LeetCode:53.Maximum Subarray">
+                <i class="fa fa-chevron-left"></i> LeetCode:53.Maximum Subarray
               </a>
             
           </div>
@@ -281,10 +297,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/09/25/Java：String-StringBuffer和StringBuilder/" rel="prev" title="Java：String,StringBuffer和StringBuilder">
-                Java：String,StringBuffer和StringBuilder <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -314,8 +326,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -395,6 +416,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Generate-a-state-machine"><span class="nav-number">1.</span> <span class="nav-text">Generate a state machine</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
