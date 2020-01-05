@@ -211,6 +211,110 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/31/Hexo配置优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/31/Hexo配置优化/" class="post-title-link" itemprop="url">Hexo配置优化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-31 01:11:02 / 修改时间：01:38:40" itemprop="dateCreated datePublished" datetime="2019-07-31T01:11:02-04:00">2019-07-31</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Hexo的配置文件中有很多可以自定义修改的值，以及Github上有很多Hexo的主题可供下载，本文记录一下当前博客的修改过程，因为崇尚简洁而且不懂前端，所以没有太多花哨的优化。</p>
+<h1 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h1><p>该博客使用的是<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">NexT主题</a>，在GitBash中进入博客文件夹后使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<p>即可将主题下载到themes文件夹中，在这里也能找到主题所对应的配置文件。</p>
+<h1 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h1><p>Vim中打开Hexo的配置文件(_config.yml)，对以下项目进行了修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: Feb 1997  </span><br><span class="line">subtitle: Overtime and overdue</span><br><span class="line">author: Feb 1997  </span><br><span class="line">language: zh-CN  # 将主题的语言设定为中文</span><br><span class="line">theme: next  # 将主题设置为next</span><br></pre></td></tr></table></figure></p>
+<h1 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h1><p>Vim中打开NexT的配置文件(_config.yml)，对一下项目进行了修改:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tags: /tags/ || tags  # 菜单显示标签</span><br><span class="line">categories: /categories/ || th  # 菜单显示分类</span><br><span class="line">scheme: Pisces  # 选择主题的风格</span><br><span class="line">avatar:</span><br><span class="line">      url: /images/avatar.jpg  # 头像图片在 /source/images 里面</span><br><span class="line">      rounded: true  # 把头像设置成圆形展示</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;原模板已经很简洁了，因此在原主题的基础上没有太多的变动。更多油画不仅局限于配置文件的改动，很多前端的代码也可以改动以达到各种效果，网上已经有了很多分享，这里就不一一尝试了。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -506,7 +610,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -640,6 +744,8 @@
 
 
   
+    
+      
     
       
     
