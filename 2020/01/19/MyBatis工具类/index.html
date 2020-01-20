@@ -57,19 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="Problem DescriptionGiven a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must">
-<meta name="keywords" content="LeetCode">
+  <meta name="description" content="每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。从 XML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode:26.Remove Duplicates from Sorted Array">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/index.html">
+<meta property="og:title" content="MyBatis工具类">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/01/19/MyBatis工具类/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="Problem DescriptionGiven a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must">
+<meta property="og:description" content="每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。从 XML">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T18:35:17.793Z">
+<meta property="og:updated_time" content="2020-01-20T00:12:59.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode:26.Remove Duplicates from Sorted Array">
-<meta name="twitter:description" content="Problem DescriptionGiven a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/">
+<meta name="twitter:title" content="MyBatis工具类">
+<meta name="twitter:description" content="每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。从 XML">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/01/19/MyBatis工具类/">
 
 
 <script id="page.configurations">
@@ -78,7 +77,7 @@
   };
 </script>
 
-  <title>LeetCode:26.Remove Duplicates from Sorted Array | Feb 1997</title>
+  <title>MyBatis工具类 | Feb 1997</title>
   
 
 
@@ -217,7 +216,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/MyBatis工具类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +230,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">LeetCode:26.Remove Duplicates from Sorted Array
+          <h1 class="post-title" itemprop="name headline">MyBatis工具类
 
               
             
@@ -251,37 +250,12 @@
                 
               
 
-              <time title="创建时间：2019-11-04 23:39:38" itemprop="dateCreated datePublished" datetime="2019-11-04T23:39:38-05:00">2019-11-04</time>
+              <time title="创建时间：2020-01-19 12:33:02 / 修改时间：19:12:59" itemprop="dateCreated datePublished" datetime="2020-01-19T12:33:02-05:00">2020-01-19</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-06 13:35:17" itemprop="dateModified" datetime="2019-11-06T13:35:17-05:00">2019-11-06</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           <br/>
@@ -295,14 +269,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int c = nums.length;</span><br><span class="line">    for(int i = 0; i &lt; nums.length-1; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i+1])</span><br><span class="line">            c--;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Your input [1,1,2]<br>Output [1,1]<br>Expected [1,2]</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I ignored the requirement that requirement of removing the duplicates, and I worte this only to return the length of array without duplicates which means the array wasn’t changed actually.</p>
-<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The reason why i was wrong is not doing the modification on array. Besides return the length of array without duplicates, I still have to change the order of digits in the array.</p>
-<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Considering the size of an array cannot change, and the clarification in the example said “It doesn’t matter what values are set beyond the returned length”, so what I have to do is move the digit towards if it didn’t show up before and put the repeated digit backward.<br>Obviously, the first digit is unchanged no matter how does array look like since the array is sorted. We can start from the second one whose index is 1.<br>We can use two cursors: index and i, and both of index and i starts from the value of 1. Then we set a loop, when we get into the loop, compare the nums[i] with nums[i-1], if they are the same, i move to the next digit while index doesn’t move, otherwise the nums[index] will be updated with the value of nums[i] and both of i and index move to the next digit.<br>The advantage of this method is we can guarantee that the order before the index is always right and no duplicates. </p>
-<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int index = 1;</span><br><span class="line">    for (int i = 1; i &lt; nums.length; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i-1])&#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[index] = nums[i];</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    return index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。<br>从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用类路径下的资源文件进行配置。 但是也可以使用任意的输入流（InputStream）实例，包括字符串形式的文件路径或者 file:// 的 URL 形式的文件路径来配置。MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，可使从 classpath 或其他位置加载资源文件更加容易。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String resource = &quot;org/mybatis/example/mybatis-config.xml&quot;;</span><br><span class="line">InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br></pre></td></tr></table></figure></p>
+<p>以上内容来自<a href="https://mybatis.org/mybatis-3/zh/getting-started.html" target="_blank" rel="noopener">MyBatis官方文档</a></p>
+<p>简而言之就是再用MyBatis框架连接数据库时，需要创建SqlSessionFactory。因此为了避免编写重复代码，通常将这一步骤封装成一个工具类。以下是我写的工具类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 首先用一个专门的utils包来装工具类</span><br><span class="line">    package com.xliu.utils;</span><br><span class="line"></span><br><span class="line">    import org.apache.ibatis.io.Resources;</span><br><span class="line">    import org.apache.ibatis.session.SqlSession;</span><br><span class="line">    import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">    import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">    import java.io.IOException;</span><br><span class="line">    import java.io.InputStream;</span><br><span class="line"></span><br><span class="line">    public class MybatisUtil &#123;</span><br><span class="line">        private static SqlSessionFactory sqlSessionFactory;</span><br><span class="line">        static &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                // 官方文档上的代码，要注意配置文件的路径</span><br><span class="line">                String resource = &quot;config.xml&quot;;</span><br><span class="line">                InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">                sqlSessionFactory= new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 以上步骤帮助我们创建了sqlSessionFactory,以下方法获得SqlSession的实例。</span><br><span class="line">        public static SqlSession getSqlSession() &#123;</span><br><span class="line">            return sqlSessionFactory.openSession();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>SqlSession完全包含了面向数据库执行SQL命令所需的所有方法。可以通过SqlSession实例来直接执行已映射的SQL语句。</p>
+
     </div>
 
     
@@ -310,16 +281,10 @@
     
 
     <footer class="post-footer">
-          
-        
-        <div class="post-tags">
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-          
-        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/11/01/Java：集合/" rel="next" title="Java：集合">
-                <i class="fa fa-chevron-left"></i> Java：集合
+              <a href="/2020/01/19/Spring-Boot学习笔记-一/" rel="next" title="Spring Boot学习笔记(一)">
+                <i class="fa fa-chevron-left"></i> Spring Boot学习笔记(一)
               </a>
             
           </div>
@@ -327,8 +292,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/11/06/LeetCode-27-Remove-Element/" rel="prev" title="LeetCode:27.Remove Element">
-                LeetCode:27.Remove Element <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/19/MyBatis执行SQL语句/" rel="prev" title="MyBatis执行SQL语句">
+                MyBatis执行SQL语句 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -360,17 +325,8 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -452,23 +408,6 @@
 
         </div>
       </div>
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Problem-Description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wrong-Code"><span class="nav-number">2.</span> <span class="nav-text">Wrong Code</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-Information"><span class="nav-number">2.1.</span> <span class="nav-text">Error Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrong-Thinking"><span class="nav-number">2.2.</span> <span class="nav-text">Wrong Thinking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-Did-I-Correct-the-Code"><span class="nav-number">3.</span> <span class="nav-text">How Did I Correct the Code</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">3.1.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Right-Code"><span class="nav-number">3.3.</span> <span class="nav-text">Right Code</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
