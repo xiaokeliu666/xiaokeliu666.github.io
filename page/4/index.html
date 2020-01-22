@@ -211,6 +211,277 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/27/Java：代码复用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/27/Java：代码复用/" class="post-title-link" itemprop="url">Java：代码复用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 21:06:22" itemprop="dateCreated datePublished" datetime="2019-08-27T21:06:22-04:00">2019-08-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-14 14:08:55" itemprop="dateModified" datetime="2019-10-14T14:08:55-04:00">2019-10-14</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>&emsp;&emsp;复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。<br>&emsp;&emsp;实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。<br>&emsp;&emsp;实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为<strong>继承</strong>。</p>
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>&emsp;&emsp;将对象引用置于新类中即可。例如我现在有两个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Wheel &#123;</span><br><span class="line">    void run()&#123;</span><br><span class="line">        System.out.println(&quot;run&quot;);  // 车轮类的功能是run</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Light &#123;</span><br><span class="line">    void lit() &#123;</span><br><span class="line">        System.out.println(&quot;lit&quot;);  // 车灯类的功能是lit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我现在有一个新的类Car，需要同时有run和lit的功能，此时应当使用组合，这样我就可以在Car类中同时拥有两个类的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Car &#123;</span><br><span class="line">    private Wheel wheel;</span><br><span class="line">    private Light light;</span><br><span class="line"></span><br><span class="line">    public Car(Wheel wheel, Light light) &#123;</span><br><span class="line">        this.wheel = wheel;</span><br><span class="line">        this.light = light;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        wheel.run();</span><br><span class="line">        light.lit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Wheel wheel = new Wheel();</span><br><span class="line">        Light light = new Light();</span><br><span class="line">        Car car = new Car(wheel, light);</span><br><span class="line">        car.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="继承与代理"><a href="#继承与代理" class="headerlink" title="继承与代理"></a>继承与代理</h1><p>&emsp;&emsp;Java中的继承是一个类继承另一个类的性质的过程。比如一个新的类我们称之为衍生类或子类，继承了之前就存在的我们称之为父类、超类或者基类的类的属性和行为。<br>&emsp;&emsp;代理仅仅是把任务传递给别的类。</p>
+<ul>
+<li>代理可以是继承的替代品</li>
+<li>代理意味着你将其他类的对象作为实例变量传递信息给指定的实例</li>
+<li>很多情况下代理比继承好因为代理让你去考虑你所传递的每个信息，因为实例属于一个已知的类而不是一个新的类，并且不强迫你去接受父类的所有方法：你可以只提供有用的方法</li>
+<li>代理可以被看作对象之间的关系因为一个对象转发相应的方法调用给另一个对象，这叫做代理</li>
+<li>代理的主要优势是运行时间的灵活性——代理可以很容易地改变运行时间。但是和继承不同，代理并不被主流的面向对象语言所支持，而且它不易于动多态。<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class RealPrinter&#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        System.out.println(&quot;The delegate&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Printer &#123;</span><br><span class="line">    RealPrinter p = new RealPrinter();</span><br><span class="line"></span><br><span class="line">    void print() &#123;</span><br><span class="line">        p.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Tester &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Printer printer = new Printer();</span><br><span class="line">        printer.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The delegate</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;当使用代理时，只需要调用一些必须要用的类，不用关心是怎么实现的，只需要知道你调用的那个类知道要做什么。<br>&emsp;&emsp;同样的代码用继承来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class RealPrinter &#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        System.out.println(&quot;Printing Data&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Printer extends RealPrinter &#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        super.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Tester &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Printer printer = new Printer();</span><br><span class="line">        printer.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Printing Data</span><br></pre></td></tr></table></figure></p>
+<p>什么时候该用什么？<br>这里举几个例子来说明什么时候用代理什么时候用继承：<br>假设你的类叫B，是A的子类，那么如果：</p>
+<ul>
+<li>你想表达(is-a)关系，用继承</li>
+<li>你想把类直接传递到一个现有的需要A的API那么就用继承</li>
+<li>你想改进A，但是A已经是终点并且不能再被继承了，那你就要用组合和代理</li>
+</ul>
+<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>&emsp;&emsp;首先想一想，组合是怎么工作的。我们把对象引用放在新的类里，这就意味着我们可以通过组合语法，在一个类中拥有多个指向其他类的引用。<br>&emsp;&emsp;其次想一想继承是如何工作的，继承通过extends关键词，可以接过父类中所有的属性和方法，但是由于Java是不支持多继承的，所以一个类只能继承一个父类。<br>&emsp;&emsp;根据特性我们可以总结一下继承和组合的优缺点：<br><strong>继承</strong><br>优点：</p>
+<ul>
+<li>支持扩展；</li>
+<li>被复用的代码易于修改</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>父类的实现细节都暴露给了子类，破坏了封装性；</li>
+<li>当父类代码修改时，子类也要修改，增加了维护的难度；</li>
+<li>子类缺乏独立性，与父类的耦合度高；</li>
+<li>不支持动态拓展，在编译期就决定了父类。</li>
+</ul>
+<p><strong>组合</strong><br>优点：</p>
+<ul>
+<li>被包括的对象内部实现细节对外不可见，封装性好；</li>
+<li>整体类与局部类松耦合，相互独立；</li>
+<li>支持扩展；</li>
+<li>每个类只负责一项业务；</li>
+<li>支持动态扩展，可在运行时根据具体对象选择不同类型的组合对象(扩展性比继承好)</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>创建整体类对象时，需要创建所有局部类对象。导致系统对象很多。    </li>
+</ul>
+<p>&emsp;&emsp;关于代理，《Java编程思想》中对代理有这样一句描述：这是继承与组合之间的中庸之道。在代理类中可以创建某功能的类，调用类的一些方法获得该类的部分特性。比如说我有一个飞机类，飞机有向各个方向运动的方法，还有发射导弹的方法。我可以通过在代理类中只调用（就像组合）运动方法的方法来避免暴露发射导弹的方法，同时代理类中暴露了其他运动的方法（就像继承）。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/riskys/article/details/54988442" target="_blank" rel="noopener">csdn</a></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/25/Java：protected提供访问权限/" class="post-title-link" itemprop="url">Java：protected提供包访问权限</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-25 21:29:28" itemprop="dateCreated datePublished" datetime="2019-08-25T21:29:28-04:00">2019-08-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 14:55:17" itemprop="dateModified" datetime="2019-08-29T14:55:17-04:00">2019-08-29</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。<br>&emsp;&emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,<br>父类代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package 01;</span><br><span class="line"></span><br><span class="line">public class Cookie &#123;</span><br><span class="line">    public Cookie()&#123;</span><br><span class="line">        System.out.println(&quot;Cookie constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void bite()&#123;</span><br><span class="line">        System.out.println(&quot;bite&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>子类代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package 02;</span><br><span class="line">import 01.Cookie;  // 导入父类所在的包</span><br><span class="line"></span><br><span class="line">public class ChocolateChip extends Cookie&#123;</span><br><span class="line">    public ChocolateChip()&#123;</span><br><span class="line">        System.out.println(&quot;ChocolateChip constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public void chomp()&#123;</span><br><span class="line">        bite();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ChocolateChip x = new ChocolateChip();</span><br><span class="line">        x.chomp();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>错误信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error:(9, 9) java: 找不到符号</span><br><span class="line">符号:   方法 bite()</span><br><span class="line">位置: 类 com.demo.xliu294.ChocolateChip</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;假设我们现在希望子类可以继承来自另外一个包的父类中的方法，可以将父类中的该方法设置为public或者protected，但是如果把它指定为public的话，所有的人都有了访问权限，这样是不合适的。但是如果改成protected的话，子类中的bite()就可以访问了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;如果创建了一个新包，并自另一个包中继承类，那么唯一可以访问的成员就是源包中的public成员。（当然，如果在同一个包内执行继承工作，就可以操纵所有的拥有包访问权限的成员。）有时，基类的创建者会希望有某个特定成员，把对它的访问权限赋予派生类而不是所有类。这就需要protected来完成这一工作。protected也提供包访问权限，也就是说，相同包内的其他类可以访问protected元素。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p>《Java编程思想》</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java踩坑：初始化顺序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1188,246 +1459,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/12/Django学习笔记：模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/12/Django学习笔记：模型/" class="post-title-link" itemprop="url">Django学习笔记：模型搭建</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-12 23:01:40" itemprop="dateCreated datePublished" datetime="2019-08-12T23:01:40-04:00">2019-08-12</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-20 23:04:11" itemprop="dateModified" datetime="2019-08-20T23:04:11-04:00">2019-08-20</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="模型简介"><a href="#模型简介" class="headerlink" title="模型简介"></a>模型简介</h1><p>&emsp;&emsp;模型是一个用于表示数据的Python类，包含基本的数据字段和行为，在Django中，通常一个模型就代表一个数据库表。模型继承自django.db.models.Model, 模型的每一个属性代表一个数据表的列。<br>&emsp;&emsp;例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line">class Person(models.Model):</span><br><span class="line">    first_name = models.CharField(max_length=30)</span><br><span class="line">    last_name = models.CharField(max_length=30)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;需要注意的是django根据模型所属应用程序生成数据库表明，命名规则：<strong>应用程序名_模型名</strong>，Django会自动添加id字段作为数据库表的主键。</p>
-<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><p>&emsp;&emsp;个人对模型部分的理解是对数据库的操作，models.py文件中的所有操作都可以找到与之对应的数据库操作，只不过有特有的字段名称。而在编辑好模型后进行的数据迁移操作实际上就是将models.py里面的翻译成脚本，然后通过执行脚本文件对数据库进行操作从而生成当前APP所需要用到的数据库。</p>
-<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><p>&emsp;&emsp;字段是一系列数据表列的定义。字段名字中不能出现连续的两个下划线，因为连续的两个下划线是Django数据库API的特殊语法。</p>
-<h2 id="常用字段"><a href="#常用字段" class="headerlink" title="常用字段"></a>常用字段</h2><ol>
-<li>AutoField<br>根据已有的ID自动增长，常用作主键，一般情况下会自动创建。</li>
-<li>BooleanField<br>字段值只包含True和False，默认情况下对应HTML的复选框：<input type="checkbox" ...></li>
-<li>CharField<br>保存不太长的字符串（超长字段建议使用TextField）。必须给出CharField.max_length属性值，默认情况下对应HTML的文本框：<input type="text" ...>。</li>
-<li>DateField<br>日期类型，对应Python中的datetime.date类型。参数有：<br>auto_now:每当保存数据(Save())时都会更新时间为当前时间且不能被重写。<br>auto_now_add: 只有在数据第一次创建时才会保存当前时间且不能被重写。</li>
-<li>DateTimeField<br>日期时间类型，对应Python中的datetime.datetime类型，参数与DateField一样。默认情况下对应HTML的复选框：<input type="checkbox" ...>。</li>
-<li>EmailField<br>可以验证有效邮件地址的CharField。</li>
-<li>FileField<br>文件上传控件，可选参数：<br>upload_to：文件上传后保存位置（在settings.py中设置MEDIA_ROOT,upload_to所指定的路径会拼接在MEDIA_ROOT之后）<br>storage：负责文件存储的Python类，用于存储和提取文件。</li>
-<li>ImageField<br>包含FileField的全部属性与方法，但是仅允许上传图片类型的文件，额外两个可选属性:<br>height_field: 高度<br>width_field: 宽度</li>
-<li>TextField<br>超长文本类型</li>
-<li>URLField<br>只接受URL字符串的CharField类型。</li>
-</ol>
-<h2 id="通用属性"><a href="#通用属性" class="headerlink" title="通用属性"></a>通用属性</h2><ol>
-<li>null<br>&emsp;&emsp;默认为True，保存模型后数据库的对应字段中保存空。<br>&emsp;&emsp;文本型字段尽可能不用null属性，因为当时用默认值null时，数据库中就可能出现两种空数据：NULL和空字符串，而Django默认使用空字符串。</li>
-<li>blank<br>默认值为False，当设置为True时字段值允许为空</li>
-<li><p>choices<br>属性值为一个<strong>可迭代对象</strong>，如列表或元组，迭代对象的每个成员包括两个字符串，第一个值作为字段值保存到数据库中，第二个值用于提高字段的可读性。例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">YEAR_IN_SCHOOL_CHOIECES = (</span><br><span class="line">    (&apos;FR&apos;, &apos;Freshman&apos;),</span><br><span class="line">    (&apos;SO&apos;, &apos;Sophomore&apos;),</span><br><span class="line">    (&apos;JR&apos;, &apos;Junior&apos;),</span><br><span class="line">    (&apos;SR&apos;, &apos;Senior&apos;),</span><br><span class="line">)  # 定义一个元组</span><br><span class="line"></span><br><span class="line">year_in_school = models.CharField(</span><br><span class="line">    max_length = 2,</span><br><span class="line">    choices = YEAR_IN_SCHOOL_CHOICES,  # 直接引用元组</span><br><span class="line">    default = &apos;Freshman&apos;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>default<br>设置字段默认值。属性值可以是字符串也可以是方法。默认值<strong>不可以是可变对象</strong>，如列表。</p>
-</li>
-<li>primary_key<br>将字段设置为数据表主键。如果模型中任何字段都不包含primary_key=True属性，会自动添加一个字段作为主键。</li>
-<li>verbose_name<br>类似于字段的说明。<br>除了ForeignKey、ManyToManyField、OneToOneField三种字段类型外，其他字段类型都包含一个默认的verbose_name属性，可以直接在字段属性列表的第一位输入文本作为verbose_name属性值，如未给出则会将字段名作为verbose_name（字段名如果包含下划线会换成空格）。<h2 id="个人理解-1"><a href="#个人理解-1" class="headerlink" title="个人理解"></a>个人理解</h2>模型对应数据库的表，那么字段就对应表的列。</li>
-</ol>
-<h1 id="元属性"><a href="#元属性" class="headerlink" title="元属性"></a>元属性</h1><p>通过在模型中添加一个叫做Meta的子类定义。</p>
-<h2 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h2><p><code>abstract = True</code>，当前模型将成为一个抽象类。</p>
-<h2 id="ordering"><a href="#ordering" class="headerlink" title="ordering"></a>ordering</h2><p>该属性是一个元组、列表或者查询表达式。定义了显示的顺序。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;模型的构建对应数据库的构建，这次只记录了目前为止用过的一些知识，还有很多字段、属性、元属性尚未涉及，以后碰到了再继续补充。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/11/Django踩坑-dbshell报错/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/11/Django踩坑-dbshell报错/" class="post-title-link" itemprop="url">Django踩坑：python manage.py dbshell报错</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-11 16:23:18 / 修改时间：16:50:44" itemprop="dateCreated datePublished" datetime="2019-08-11T16:23:18-04:00">2019-08-11</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;之前为了避免麻烦，Django的数据库配置用的都是自带的sqlite，今天尝试用Pycharm进行数据库的可视化，但是sqlite好像用不了，而且网上的相关资料比较少，于是还是改用MySQL。<br>&emsp;&emsp;省略掉<code>settings.py</code>中对数据库的配置过程，最后在我新建模型并完成迁移操作后，我在pycharm的终端使用命令行<figure class="highlight python"><figcaption><span>manage.py dbshell```，出现错误信息:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">    CommandError: You appear <span class="keyword">not</span> to have the ‘mysql’ program installed <span class="keyword">or</span> on your path.</span><br></pre></td></tr></table></figure></p>
-<p>大意是指路径中找不到mysql。</p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>&emsp;&emsp;找到Mysql所在的文件夹的bin目录，添加至系统环境变量的Path即可，例如：D:\mysql-5.7.27-winx64\bin<br>&emsp;&emsp;测试是否生效的方法就是打开CMD，输入<code>mysql -hroot -ppwd</code>即可直接进入数据库，其中root是用户名，pwd是密码。<br>&emsp;&emsp;最后一部是重启pycharm，我在没重启的之前还是会报错，应该是重启之后配置才生效的。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1468,7 +1499,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1524,7 +1555,9 @@
         
           
         
-        <span class="site-state-item-count">9</span>
+          
+        
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
