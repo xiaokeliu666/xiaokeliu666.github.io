@@ -57,14 +57,21 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Feb 1997">
-<meta property="og:url" content="http://xiaokeliu666.github.io/tags/踩坑/index.html">
+  <meta name="description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
+<meta name="keywords" content="MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis:生命周期和作用域">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png">
+<meta property="og:updated_time" content="2020-01-23T03:28:34.161Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feb 1997">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/tags/踩坑/">
+<meta name="twitter:title" content="MyBatis:生命周期和作用域">
+<meta name="twitter:description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
+<meta name="twitter:image" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/">
 
 
 <script id="page.configurations">
@@ -73,7 +80,7 @@
   };
 </script>
 
-  <title>标签: 踩坑 | Feb 1997</title>
+  <title>MyBatis:生命周期和作用域 | Feb 1997</title>
   
 
 
@@ -112,7 +119,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -158,7 +165,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
       
     
 
@@ -201,239 +208,123 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block tag">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>踩坑<small>标签</small>
-        </h1>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">MyBatis:生命周期和作用域
+
+              
+            
+          </h1>
         
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/25/Java踩坑：初始化顺序/" itemprop="url">
+              
+                
+              
+
+              <time title="创建时间：2020-01-22 21:02:04 / 修改时间：22:28:34" itemprop="dateCreated datePublished" datetime="2020-01-22T21:02:04-05:00">2020-01-22</time>
+            </span>
+          
             
-              <span itemprop="name">Java踩坑：初始化顺序</span>
+
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-25T15:21:00-04:00"
-              content="2019-08-25">
-          08-25
-        </time>
-      </div>
+          <br/>
 
-    </header>
-  </article>
+        </div>
+      </header>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><img src="//xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png" alt><br>上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。</p>
+<p>生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。</p>
+<h1 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h1><ul>
+<li>一旦创建了SqlSessionFactory，就不再需要它了</li>
+<li>局部变量<h1 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h1></li>
+<li>说白了就是可以想象为：数据库连接池</li>
+<li>SqlSessionFactory一旦被创建就应该在应用的运行期间一直存在，没有任何理由丢弃它或者重新创建另一个实例</li>
+<li>因此SqlSessionFactory的最佳作用域是应用作用域</li>
+<li>最简单的就是单例模式或者静态单例模式<h1 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h1></li>
+<li>连接到连接池的一个请求</li>
+<li>SqlSession的实例不是线程安全的，因此是不能共享大，所以它的最佳作用域是请求或方法作用域</li>
+<li>用完之后需要赶紧关闭，否则资源被占用</li>
+</ul>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/14/Django踩坑：数据迁移遇到的问题/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：数据迁移遇到的问题</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-14T22:43:46-04:00"
-              content="2019-08-14">
-          08-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/11/Django踩坑-dbshell报错/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：python manage.py dbshell报错</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-11T16:23:18-04:00"
-              content="2019-08-11">
-          08-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/09/Djangos学习笔记：上传文件-图片/" itemprop="url">
-            
-              <span itemprop="name">Djangos学习笔记：上传文件/图片</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-09T22:58:56-04:00"
-              content="2019-08-09">
-          08-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/08/Django踩坑：PK/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：PK</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-08T20:52:45-04:00"
-              content="2019-08-08">
-          08-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/01/Django踩坑：python-manage-py-migrate报错/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：python manage.py migrate报错</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-01T23:58:06-04:00"
-              content="2019-08-01">
-          08-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/07/30/Hexo踩坑：本地图片加载/" itemprop="url">
-            
-              <span itemprop="name">Hexo踩坑：本地图片加载</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-07-30T23:22:06-04:00"
-              content="2019-07-30">
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/01/22/MyBatis映射器/" rel="next" title="MyBatis:映射器">
+                <i class="fa fa-chevron-left"></i> MyBatis:映射器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -448,8 +339,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -533,6 +433,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSessionFactoryBuilder"><span class="nav-number">1.</span> <span class="nav-text">SqlSessionFactoryBuilder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSessionFactory"><span class="nav-number">2.</span> <span class="nav-text">SqlSessionFactory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSession"><span class="nav-number">3.</span> <span class="nav-text">SqlSession</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -585,6 +502,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
