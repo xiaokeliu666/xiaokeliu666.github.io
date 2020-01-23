@@ -211,6 +211,119 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/19/Java：Lambda表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/19/Java：Lambda表达式/" class="post-title-link" itemprop="url">Java：Lambda表达式</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 23:01:38" itemprop="dateCreated datePublished" datetime="2019-10-19T23:01:38-04:00">2019-10-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-20 00:21:24" itemprop="dateModified" datetime="2019-10-20T00:21:24-04:00">2019-10-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>今天在学习过程中写了这样一段代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">interface Game &#123; boolean move(); &#125;</span><br><span class="line">interface GameFactory &#123; Game getGame(); &#125;</span><br><span class="line"></span><br><span class="line">class Checkers implements Game &#123;</span><br><span class="line">    private int moves = 0;</span><br><span class="line">    private static final int MOVES =3;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean move() &#123;</span><br><span class="line">        System.out.println(&quot;Checkers move &quot; + moves);</span><br><span class="line">        return ++moves != MOVES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static GameFactory factory = new GameFactory() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Game getGame() &#123;</span><br><span class="line">            return new Checkers();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时编译器在<code>new GameFactory()</code>处提醒 Anonymous new GameFactory() can be replaced with lambda。点击后整个方法块被<code>public static GameFactory factory = () -&gt; new Checkers();</code>所替代，这就是lambda表达式。</p>
+<h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><p>Lambda表达式，也可称为闭包，它是推动Java 8 发布的最重要新特性。<br>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）。使用Lambda表达式可以是代码变的更加简洁紧凑。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>Lambda表达式的语法格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; expression</span><br><span class="line">或</span><br><span class="line">(parameters) -&gt;&#123; statements; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据语法回到之前的例子:<code>public static GameFactory factory = () -&gt; new Checkers();</code>表示的就是不需要参数，返回值为一个Checkers对象。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/17/Java：内部类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1157,146 +1270,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/31/Java：前期绑定和后期绑定/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/31/Java：前期绑定和后期绑定/" class="post-title-link" itemprop="url">Java：前期绑定和后期绑定</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-31 20:29:20" itemprop="dateCreated datePublished" datetime="2019-08-31T20:29:20-04:00">2019-08-31</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-09-01 21:17:04" itemprop="dateModified" datetime="2019-09-01T21:17:04-04:00">2019-09-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="程序绑定"><a href="#程序绑定" class="headerlink" title="程序绑定"></a>程序绑定</h2><p>&emsp;&emsp;绑定指的是一个方法的调用与方法所在的类（方法主体）关联起来。对Java来说，绑定分为静态绑定和动态绑定；或者叫做前期绑定和后期绑定。</p>
-<h2 id="静态绑定"><a href="#静态绑定" class="headerlink" title="静态绑定"></a>静态绑定</h2><p>&emsp;&emsp;编译器在编译的时候就能解析的绑定叫做静态绑定或者前期绑定，Java当中的方法只有final，static和private方法是前期绑定。</p>
-<p><strong>为什么static,final和private方法总是静态绑定的？</strong><br>&emsp;&emsp;静态绑定在性能方面更好（不需要额外开销）。编译器知道这些方法不能被重写并且一直都可以被本地类的对象访问。因此编译器很轻松就能确定类的对象（肯定是本地类），所以被这种方法绑定是静态的。<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class NewClass &#123;</span><br><span class="line">    public static class superclass &#123;</span><br><span class="line">        static void print()&#123;</span><br><span class="line">            System.out.println(&quot;print in superclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class subclass extends superclass &#123;</span><br><span class="line">        static void print() &#123;</span><br><span class="line">            System.out.println(&quot;print in subclass.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        superclass A = new superclass();</span><br><span class="line">        superclass B = new subclass();  // 如果把此处的引用改成subclass，输出的就是&quot;print in subclass&quot;</span><br><span class="line">        A.print();</span><br><span class="line">        B.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print in superclass</span><br><span class="line">print in superclass</span><br></pre></td></tr></table></figure></p>
-<p>分析：</p>
-<ul>
-<li>我们创建了一个subclass的对象和一个superclass的对象，并且引用了superclass</li>
-<li>superclass的print方法是静态的，编译器知道它不会在子类中被重写，因此编译器在编译期间知道要调用哪种打印方法，因此不存在歧义</li>
-</ul>
-<h2 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h2><p>&emsp;&emsp;在动态绑定中编译器不决定调用的方法，因为对象无法知道它是属于方法所在的那个类，还是属于那个类的导出类。重写是动态绑定的一个完美例子。在重写中子类和父类都有同样的方法。例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class NewClass &#123;</span><br><span class="line">    // 和上一个代码的区别在于print()方法不再static了</span><br><span class="line">    public static class superclass &#123;</span><br><span class="line">        void print()&#123;</span><br><span class="line">            System.out.println(&quot;print in superclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class subclass extends superclass &#123;</span><br><span class="line">        void print() &#123;</span><br><span class="line">            System.out.println(&quot;print in subclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        superclass A = new superclass();</span><br><span class="line">        superclass B = new subclass();</span><br><span class="line">        A.print();</span><br><span class="line">        B.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print in superclass</span><br><span class="line">print in subclass</span><br></pre></td></tr></table></figure></p>
-<p>分析：</p>
-<ul>
-<li>这个代码中的方法不是静态的</li>
-<li>编译过程中，编译器不知道哪一个print方法被调用了，因为编译器只通过引用变量而不是对象类型来引用，于是绑定会被延迟到运行时而且因此对应版本的print会被根据对象类型调用</li>
-</ul>
-<p><strong>重点</strong></p>
-<ul>
-<li>private, final和静态成员（方法和变量）用静态绑定，然而对虚拟方法（Java方法默认为虚拟方法）绑定是在运行时基于运行时对象完成的</li>
-<li>静态绑定使用类型信息用于绑定然而动态绑定用对象来解析绑定</li>
-<li>重载方法通过静态绑定被解析（当有很多个同名方法时决定调用哪一个）然而重写方法用动态绑定</li>
-</ul>
-<hr>
-<p>Q：<br>以下代码中发生了什么？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Animal</span><br><span class="line">&#123;</span><br><span class="line">    void eat()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;Animal is eating&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog extends Animal</span><br><span class="line">&#123;</span><br><span class="line">    void eat()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;Dog is eating&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String args[])</span><br><span class="line">&#123;</span><br><span class="line">    Animal a=new Animal();</span><br><span class="line">    a.eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>A：<br>这个例子是一个动态绑定，因为a的类型实在运行时被确定的，于是相似的方法被调用了<br>现在假设有以下两个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void callEat(Animal animal) &#123;</span><br><span class="line">    System.out.println(&quot;Animal is eating&quot;);</span><br><span class="line">&#125;</span><br><span class="line">public static void callEat(Dog dog) &#123;</span><br><span class="line">    System.out.println(&quot;Dog is eating&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>把main方法改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String args[])</span><br><span class="line">&#123;</span><br><span class="line">    Animal a = new Dog();</span><br><span class="line">    callEat(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出会是<code>Animal is eating</code>，因为对<code>callEat</code>的调用是静态绑定，编译器只知道a是一种Animal。</p>
-<hr>
-<p>参考</p>
-<blockquote>
-<p><a href="https://www.geeksforgeeks.org/static-vs-dynamic-binding-in-java/" target="_blank" rel="noopener">Geeksforgeeks</a><br><a href="https://stackoverflow.com/questions/16647590/static-binding-and-dynamic-binding" target="_blank" rel="noopener">stackoverflow</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1337,7 +1310,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
