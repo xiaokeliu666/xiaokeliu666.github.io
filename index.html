@@ -211,6 +211,85 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/28/Spring-Note-0-IOC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/28/Spring-Note-0-IOC/" class="post-title-link" itemprop="url">Spring Note 0: IOC</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-28 15:49:19" itemprop="dateCreated datePublished" datetime="2020-03-28T15:49:19-04:00">2020-03-28</time>
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/25/MySQL笔记：基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -247,7 +326,7 @@
                 
               
 
-              <time title="创建时间：2020-03-25 16:13:53 / 修改时间：16:15:59" itemprop="dateCreated datePublished" datetime="2020-03-25T16:13:53-04:00">2020-03-25</time>
+              <time title="创建时间：2020-03-25 16:13:53 / 修改时间：21:36:05" itemprop="dateCreated datePublished" datetime="2020-03-25T16:13:53-04:00">2020-03-25</time>
             </span>
           
             
@@ -267,8 +346,121 @@
 
       
           
-            <p>- <code>SHOW COLIMNS FROM customers;</code></p>
-<p>+———————+—————-+———+——-+————-+————————+<br>| Field        | Type      | Null | Key | Default | Extra          |<br>+———————+—————-+———+——-+————-+————————+<br>| cust_id      | int(11)   | NO   | PRI | NULL    | auto_increment |<br>| cust_name    | char(50)  | NO   |     | NULL    |                |<br>| cust_address | char(50)  | YES  |     | NULL    |                |<br>| cust_city    | char(50)  | YES  |     | NULL    |                |<br>| cust_state   | char(5)   | YES  |     | NULL    |                |<br>| cust_zip     | char(10)  | YES  |     | NULL    |                |<br>| cust_country | char(50)  | YES  |     | NULL    |                |<br>| cust_contact | char(50)  | YES  |     | NULL    |                |<br>| cust_email   | char(255) | YES  |     | NULL    |                |<br>+———————+—————-+———+——-+————-+————————+</p>
+            <h4 id="SHOW"><a href="#SHOW" class="headerlink" title="SHOW"></a>SHOW</h4><p>输入：<br> <code>SHOW COLUMNS FROM customers;</code><br> <code>DESCRIBE customers;</code><br>输出：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Field</th>
+<th>Type</th>
+<th>Null</th>
+<th>Key</th>
+<th>Default</th>
+<th>Extra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>cust_id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_name</td>
+<td>char(50)</td>
+<td>NO</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_address</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_city</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_state</td>
+<td>char(5)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_zip</td>
+<td>char(10)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_country</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_contact</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_email</td>
+<td>char(255)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>SHOW COLUMNS</code> 返回表的信息，包括字段名、数据类型等，与<code>DESCRIBE</code>等价。</p>
+<ul>
+<li><code>SHOW STATUS</code>：显示广泛的服务器状态信息；</li>
+<li><code>SHOW CREATE DATABSE</code>,<code>SHOW CREATE TABLE</code>：显示创建特定数据库或表的MySQL语句</li>
+<li><code>SHOW GRANTS</code>：显示授予用户（所有用户或特定用户）的安全权限</li>
+<li><code>SHOW ERRORS</code>,<code>SHOW WARNINGS</code>：显示服务器错误或警告消息<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><code>SELECT prod_name FROM products;</code>：products表中名为prod_name的列<br><code>SELECT prod_id,prod_name,prod_price FROM products;</code>：products表中指定的3列<br><code>SELECT * FROM products;</code>：通配符(*)返回表中所有列<br><code>SELECT DISTINCT vend_id FROM products;</code>：<code>DISTINCT</code>只返回不同的值，如果<code>ven_id</code>中有重复的会被省略<br><code>SELECT prod_name FROM products LIMIT 5;</code>：<code>LIMIT 5</code>指示返回不多于5行<br><code>SELECT prod_name FROM products LIMIT 5,3;</code>：从第5行开始再输出3行<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><code>SELECT prod_name FROM products ORDER BY prod_name;</code>：对prod_name列以字母顺序排序<br><code>SELECT prod_id, prod_price, prod_name FROM products ORDER BY prod_price, prod_name;</code>：当多个行具有相同的prod_price值时才对产品按prod_name进行排序。<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code>：<code>DESC</code>指定prod_price降序排序<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code></li>
+</ul>
 
           
         
@@ -1056,99 +1248,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/Spring-Boot学习笔记-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/19/Spring-Boot学习笔记-一/" class="post-title-link" itemprop="url">Spring Boot学习笔记(一)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-19 00:42:17 / 修改时间：12:27:45" itemprop="dateCreated datePublished" datetime="2020-01-19T00:42:17-05:00">2020-01-19</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><ol>
-<li>新建一个Module-&gt;Spring Initializr</li>
-<li>Dependencies: Spring Web, JDBC API, MyBatis Framework, MySQL Driver</li>
-<li><code>pom.xml</code> 文件中已经把依赖配置好了</li>
-</ol>
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>application.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server.port=8080  // 服务端口</span><br><span class="line"></span><br><span class="line"># jdbc</span><br><span class="line">spring.datasource.password=pwd // 数据库密码</span><br><span class="line">spring.datasource.username=root // 数据库用户</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&amp;serverTimezone=GMT-5 // 数据库url记得要在3306后面写数据库的名字，serverTimezone也要手动设置，不然可能会报错</span><br><span class="line"></span><br><span class="line"># mybatis</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*Mapper.xml  // 读取mapper目录下所有以Mapper.xml结尾的文件，即映射器文件的位置</span><br><span class="line">mybatis.configuration.map-underscore-to-camel-case=true // MySQL一般定义字段用下划线表示，该配置项就是指将带有下划线的表字段映射为驼峰格式的实体类属性</span><br></pre></td></tr></table></figure></p>
-<h1 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h1><p>controller层负责具体的业务模块流程的控制，在此层要调用service层的接口实现业务逻辑</p>
-<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><p>服务是一个相对独立的功能模块，主要负责业务逻辑应用设计。首先也要设计接口，然后再设计其实现该接口的类。这样我们就可以在应用中调用service接口进行业务处理。service层业务实现，具体调用到已经定义的Mapper的接口，封装service层的业务逻辑有利于通用的业务逻辑的独立性和重复利用性 。</p>
-<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p>通常我们在mapper层里面写接口，里面有与数据打交道的方法。SQL语句通常写在mapper文件里面的</p>
-<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p>bean实体类，映射数据库中的表，里面有表的属性以及get/set方法</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1189,7 +1288,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1249,7 +1348,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

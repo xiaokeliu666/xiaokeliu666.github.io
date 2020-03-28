@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="- SHOW COLIMNS FROM customers; +———————+—————-+———+——-+————-+————————+| Field        | Type      | Null | Key | Default | Extra          |+———————+—————-+———+——-+————-+————————+| cust_id      | int(11">
+  <meta name="description" content="SHOW输入： SHOW COLUMNS FROM customers; DESCRIBE customers;输出：      Field Type Null Key Default Extra      cust_id int(11) NO PRI NULL auto_increment     cust_name char(50) NO  NULL      cust_address cha">
 <meta name="keywords" content="Database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL笔记：基础">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2020/03/25/MySQL笔记：基础/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="- SHOW COLIMNS FROM customers; +———————+—————-+———+——-+————-+————————+| Field        | Type      | Null | Key | Default | Extra          |+———————+—————-+———+——-+————-+————————+| cust_id      | int(11">
+<meta property="og:description" content="SHOW输入： SHOW COLUMNS FROM customers; DESCRIBE customers;输出：      Field Type Null Key Default Extra      cust_id int(11) NO PRI NULL auto_increment     cust_name char(50) NO  NULL      cust_address cha">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-25T20:15:59.562Z">
+<meta property="og:updated_time" content="2020-03-26T01:36:05.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL笔记：基础">
-<meta name="twitter:description" content="- SHOW COLIMNS FROM customers; +———————+—————-+———+——-+————-+————————+| Field        | Type      | Null | Key | Default | Extra          |+———————+—————-+———+——-+————-+————————+| cust_id      | int(11">
+<meta name="twitter:description" content="SHOW输入： SHOW COLUMNS FROM customers; DESCRIBE customers;输出：      Field Type Null Key Default Extra      cust_id int(11) NO PRI NULL auto_increment     cust_name char(50) NO  NULL      cust_address cha">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2020/03/25/MySQL笔记：基础/">
 
 
@@ -251,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2020-03-25 16:13:53 / 修改时间：16:15:59" itemprop="dateCreated datePublished" datetime="2020-03-25T16:13:53-04:00">2020-03-25</time>
+              <time title="创建时间：2020-03-25 16:13:53 / 修改时间：21:36:05" itemprop="dateCreated datePublished" datetime="2020-03-25T16:13:53-04:00">2020-03-25</time>
             </span>
           
             
@@ -270,8 +270,121 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>- <code>SHOW COLIMNS FROM customers;</code></p>
-<p>+———————+—————-+———+——-+————-+————————+<br>| Field        | Type      | Null | Key | Default | Extra          |<br>+———————+—————-+———+——-+————-+————————+<br>| cust_id      | int(11)   | NO   | PRI | NULL    | auto_increment |<br>| cust_name    | char(50)  | NO   |     | NULL    |                |<br>| cust_address | char(50)  | YES  |     | NULL    |                |<br>| cust_city    | char(50)  | YES  |     | NULL    |                |<br>| cust_state   | char(5)   | YES  |     | NULL    |                |<br>| cust_zip     | char(10)  | YES  |     | NULL    |                |<br>| cust_country | char(50)  | YES  |     | NULL    |                |<br>| cust_contact | char(50)  | YES  |     | NULL    |                |<br>| cust_email   | char(255) | YES  |     | NULL    |                |<br>+———————+—————-+———+——-+————-+————————+</p>
+        <h4 id="SHOW"><a href="#SHOW" class="headerlink" title="SHOW"></a>SHOW</h4><p>输入：<br> <code>SHOW COLUMNS FROM customers;</code><br> <code>DESCRIBE customers;</code><br>输出：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Field</th>
+<th>Type</th>
+<th>Null</th>
+<th>Key</th>
+<th>Default</th>
+<th>Extra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>cust_id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_name</td>
+<td>char(50)</td>
+<td>NO</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_address</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_city</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_state</td>
+<td>char(5)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_zip</td>
+<td>char(10)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_country</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_contact</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_email</td>
+<td>char(255)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>SHOW COLUMNS</code> 返回表的信息，包括字段名、数据类型等，与<code>DESCRIBE</code>等价。</p>
+<ul>
+<li><code>SHOW STATUS</code>：显示广泛的服务器状态信息；</li>
+<li><code>SHOW CREATE DATABSE</code>,<code>SHOW CREATE TABLE</code>：显示创建特定数据库或表的MySQL语句</li>
+<li><code>SHOW GRANTS</code>：显示授予用户（所有用户或特定用户）的安全权限</li>
+<li><code>SHOW ERRORS</code>,<code>SHOW WARNINGS</code>：显示服务器错误或警告消息<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><code>SELECT prod_name FROM products;</code>：products表中名为prod_name的列<br><code>SELECT prod_id,prod_name,prod_price FROM products;</code>：products表中指定的3列<br><code>SELECT * FROM products;</code>：通配符(*)返回表中所有列<br><code>SELECT DISTINCT vend_id FROM products;</code>：<code>DISTINCT</code>只返回不同的值，如果<code>ven_id</code>中有重复的会被省略<br><code>SELECT prod_name FROM products LIMIT 5;</code>：<code>LIMIT 5</code>指示返回不多于5行<br><code>SELECT prod_name FROM products LIMIT 5,3;</code>：从第5行开始再输出3行<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><code>SELECT prod_name FROM products ORDER BY prod_name;</code>：对prod_name列以字母顺序排序<br><code>SELECT prod_id, prod_price, prod_name FROM products ORDER BY prod_price, prod_name;</code>：当多个行具有相同的prod_price值时才对产品按prod_name进行排序。<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code>：<code>DESC</code>指定prod_price降序排序<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code></li>
+</ul>
 
     </div>
 
@@ -297,6 +410,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/03/28/Spring-Note-0-IOC/" rel="prev" title="Spring Note 0: IOC">
+                Spring Note 0: IOC <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -326,8 +443,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -342,7 +468,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -402,7 +528,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -413,6 +541,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#SHOW"><span class="nav-number">1.</span> <span class="nav-text">SHOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">2.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序"><span class="nav-number">3.</span> <span class="nav-text">排序</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
