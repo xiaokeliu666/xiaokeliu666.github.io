@@ -670,7 +670,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-28 13:25:27" itemprop="dateModified" datetime="2020-03-28T13:25:27-04:00">2020-03-28</time>
+                <time title="修改时间：2020-03-28 17:09:19" itemprop="dateModified" datetime="2020-03-28T17:09:19-04:00">2020-03-28</time>
               </span>
             
           
@@ -687,7 +687,9 @@
 
       
           
-            <h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?<br>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.<br>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
+            <h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?</p>
+<p>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.</p>
+<p>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
 
           
         
