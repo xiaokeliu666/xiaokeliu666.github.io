@@ -211,6 +211,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/20/LeetCode-1-Two-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/20/LeetCode-1-Two-Sum/" class="post-title-link" itemprop="url">LeetCode: 1.Two Sum</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-20 23:01:00" itemprop="dateCreated datePublished" datetime="2019-09-20T23:01:00-04:00">2019-09-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 13:35:26" itemprop="dateModified" datetime="2019-11-06T13:35:26-05:00">2019-11-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i =0; i &lt;nums.length; i++)&#123;</span><br><span class="line">            hashMap.put(nums[i], i);</span><br><span class="line">            if(hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = i;</span><br><span class="line">                res[1] = hashMap.get(target-nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>When nums= [3, 3], target = 6，expected outcome is[0, 1]，but [1, 1].</p>
+<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I was trying to store the array into a hashmap. Considering that hashmap can only get value from key, so I put the value of array at the place of K while incremental i is V.<br>Then reason why I was wrong was not considering the situation of repeated numbers. During the debugging I found that the size of hashMap is 1 when the nums=[3,3] which means key is unique in hashMap.</p>
+<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The key of making mistake is ignoring the situation of repeated numbers in array, so directely transform array into hashmap by reversing the index to value  is not feasible since the repeated numbers won’t be stored twice in hashmap as a key.</p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Given that the input would have exactly one solution, and the same element won’t be used twice, situation like multi-resolution and non-resolution will not be considered.<br>Because hashMap can get value by key, we still need hashmap to do this but in another way.<br>Instead of transforming the array into hashmap one time, I decide to use <code>hashMap.containskey(target-nums[i])</code> to search the hashmap, if returns false, then I put this number into the hashmap instead, otherwise we can get the right answer.<br>If the number is repeated but still cannot find the answer, then it means the resolution is not unique which doesn’t obey the rule of question. For example: nums = [3, 3, 6], target = 9. Obviously, the solution is not unique.</p>
+<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">            if (hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = hashMap.get(target - nums[i]);</span><br><span class="line">                res[1] = i;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                hashMap.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/17/Java：valueOf-方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/17/Java：valueOf-方法/" class="post-title-link" itemprop="url">Java：valueOf()方法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-17 21:20:45" itemprop="dateCreated datePublished" datetime="2019-09-17T21:20:45-04:00">2019-09-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-23 23:29:56" itemprop="dateModified" datetime="2019-09-23T23:29:56-04:00">2019-09-23</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 这里应该输出两个true，实际输出的却是两个false</span><br><span class="line">        // 请查找、思考并修复numberEquals方法中的问题</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;+1234&quot;));</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;1234&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 判断两个字符串是否包含相等的数字</span><br><span class="line">    // 例如a为&quot;+1234&quot;，b为&quot;1234&quot;，返回true</span><br><span class="line">    public static boolean numberEquals(String a, String b) &#123;</span><br><span class="line">        return Integer.valueOf(a) == Integer.valueOf(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><p>通过查看valueOf()方法的源码查看方法的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static Integer valueOf(int i) &#123;</span><br><span class="line">        if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">            return IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">        return new Integer(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Integer的作者在写这个类时，为了避免重复创建对象，对Integer值做了缓存，如果输入的整型参数在[IntegerCache.low, IntegerCache.high]内，那么直接返回缓存好的对象，反之new一个新的对象Integer()。<br>那么缓存的内容是什么呢？看一下IntegerCache这个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">private static class IntegerCache &#123;</span><br><span class="line">        static final int low = -128;</span><br><span class="line">        static final int high;</span><br><span class="line">        static final Integer cache[];</span><br><span class="line"></span><br><span class="line">        static &#123;</span><br><span class="line">            // high value may be configured by property</span><br><span class="line">            int h = 127;</span><br><span class="line">            String integerCacheHighPropValue =</span><br><span class="line">                sun.misc.VM.getSavedProperty(&quot;java.lang.Integer.IntegerCache.high&quot;);</span><br><span class="line">            if (integerCacheHighPropValue != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    int i = parseInt(integerCacheHighPropValue);</span><br><span class="line">                    i = Math.max(i, 127);</span><br><span class="line">                    // Maximum array size is Integer.MAX_VALUE</span><br><span class="line">                    h = Math.min(i, Integer.MAX_VALUE - (-low) -1);</span><br><span class="line">                &#125; catch( NumberFormatException nfe) &#123;</span><br><span class="line">                    // If the property cannot be parsed into an int, ignore it.</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            high = h;</span><br><span class="line"></span><br><span class="line">            cache = new Integer[(high - low) + 1];</span><br><span class="line">            int j = low;</span><br><span class="line">            for(int k = 0; k &lt; cache.length; k++)</span><br><span class="line">                cache[k] = new Integer(j++);</span><br><span class="line"></span><br><span class="line">            // range [-128, 127] must be interned (JLS7 5.1.7)</span><br><span class="line">            assert IntegerCache.high &gt;= 127;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IntegerCache() &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上代码中首先检查虚拟机里有没有相应的配置，如果有，取该值，反之取默认的127。然后创建缓存数组，并给数组初始化值。这是一个内部静态类，该类只能在Integer这个类的内部访问，这个类在初始化的时候，回去加载JVM的配置，如果有值，就用配置的值初始化缓存数组，否则就缓存-128到127之间的值。</p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>把valueOf()方法替换成parseInt()方法即可，parseInt()返回的是基本类型int。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/16/Python踩坑：Pycharm中使用Pytorch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1178,239 +1406,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java踩坑：初始化顺序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/25/Java踩坑：初始化顺序/" class="post-title-link" itemprop="url">Java踩坑：初始化顺序</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-25 15:21:00" itemprop="dateCreated datePublished" datetime="2019-08-25T15:21:00-04:00">2019-08-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-09-06 16:54:48" itemprop="dateModified" datetime="2019-09-06T16:54:48-04:00">2019-09-06</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h1><p>求以下输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class Window &#123;</span><br><span class="line">    Window(int marker)&#123;</span><br><span class="line">        System.out.println(&quot;Window(&quot; + marker + &quot;)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class House &#123;</span><br><span class="line">    Window w1 = new Window(1);</span><br><span class="line">    House()&#123;</span><br><span class="line">        System.out.println(&quot;House()&quot;);</span><br><span class="line">        w3 = new Window(33);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w2 = new Window(2);</span><br><span class="line">    void f()&#123;</span><br><span class="line">        System.out.println(&quot;f()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w3 = new Window(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class OrderOfInitialization &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        House h = new House();</span><br><span class="line">        h.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="错误答案"><a href="#错误答案" class="headerlink" title="错误答案"></a>错误答案</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">House()</span><br><span class="line">Window(3)</span><br><span class="line">Window(33)</span><br><span class="line">Window(1)</span><br><span class="line">Window(2)</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
-<h2 id="错误思路"><a href="#错误思路" class="headerlink" title="错误思路"></a>错误思路</h2><p>从主函数出发创建一个House类对象h，构造函数会在创建对象的同时执行，找到House类的构造函数，先输出House()，因为w3是个没被声明的变量，所以先运行了<code>Window w3 = new Window(3)</code>输出Window(3)然后再完成构造函数，输出Window(33)，然后按照顺序完成以下输出。</p>
-<h1 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Window(1)</span><br><span class="line">Window(2)</span><br><span class="line">Window(3)</span><br><span class="line">House()</span><br><span class="line">Window(33)</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在类的内部，变量定义的先后顺序决定了初始化的顺序。即使变量定义散布于方法定义之间，它们仍旧会在任何方法（包括构造器）被调用之前得到初始化。在House类中，故意把几个Window对象的定义散布到各处，以整明它们全都会在调用构造器或其他方法之前得到初始化。此外，w3在构造期内再次被初始化。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实在意识到如果构造函数先执行的话<code>w3 = new Window(33)</code>这一句中的w3是一个没有被声明的变量时就觉得不太对，但还是没有找出正确的思路。后来在尝试别的情况时把这一句注释掉了，输出顺序还是不变，只是少了一句Window(33)。</p>
-<hr>
-<h1 id="2019-09-06"><a href="#2019-09-06" class="headerlink" title="2019-09-06"></a>2019-09-06</h1><p>今天在学习多态的过程中又遇到了一个初始化顺序的问题，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Glyph &#123;</span><br><span class="line">    public void draw() &#123;</span><br><span class="line">        System.out.println(&quot;Glyph.draw()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Glyph() &#123;</span><br><span class="line">        System.out.println(&quot;Glyph() before draw()&quot;);</span><br><span class="line">        draw();</span><br><span class="line">        System.out.println(&quot;Glyph() after draw()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class RoundGlyph extends Glyph &#123;</span><br><span class="line">    private int radius = 1;</span><br><span class="line">    RoundGlyph(int r) &#123;</span><br><span class="line">        radius = r;</span><br><span class="line">        System.out.println(&quot;RoundGlyph.RoundGlyph().radius = &quot; + radius);</span><br><span class="line">    &#125;</span><br><span class="line">    public void draw() &#123;</span><br><span class="line">        System.out.println(&quot;RoundGlyph.draw().radius = &quot; + radius);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PolyConstructors &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new RoundGlyph(5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>错误答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glyph() before draw()</span><br><span class="line">RoundGlyph.draw().radius = 1</span><br><span class="line">Glyph() after draw()</span><br><span class="line">RoundGlyph.RoundGlyph.radius = 5</span><br></pre></td></tr></table></figure></p>
-<p>错误思路：<br>首先调用基类构造器，考虑到新创建的对象是RoundGlyph()类的，我认为此处的draw()方法应该已经被覆盖，应该调用子类的draw方法，radius的值在子类中被初始化为1，因此得到了第二行的输出。最后再调用子类构造器的主体，输出第四行。<br>正确答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glyph() before draw()</span><br><span class="line">RoundGlyph.draw().radius = 0</span><br><span class="line">Glyph() after draw()</span><br><span class="line">RoundGlyph.RoundGlyph.radius = 5</span><br></pre></td></tr></table></figure></p>
-<p>正确思路：除了第二行radius的值以外都对了。初始化的实际过程是：1）在其他任何事物发生之前，将分配给对象的存储空间初始化为二进制的0。2）如前所述那样调用基类构造器。此时，调用被覆盖后的draw()方法（需要在调用RoundGlyph构造器之前调用），由于步骤1的缘故，我们此时会发现radius的值为0。3）按照声明的顺序调用成员的初始化方法。4）调用导出类的构造器主体。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/24/Java：隔离岛/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/24/Java：隔离岛/" class="post-title-link" itemprop="url">Java：隔离岛</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-24 21:14:52" itemprop="dateCreated datePublished" datetime="2019-08-24T21:14:52-04:00">2019-08-24</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-29 15:04:26" itemprop="dateModified" datetime="2019-08-29T15:04:26-04:00">2019-08-29</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>&emsp;&emsp;在Java中，对象的销毁由GC(垃圾收集器)模块负责，并且那些没有被引用的对象是可以被垃圾收集的，垃圾收集器能够识别这类的对象。<br>&emsp;&emsp;隔离岛：<br>&emsp;&emsp;- 对象1引用对象2和对象2引用对象1.对象1和对象2都不被任何其他对象引用。<br>&emsp;&emsp;- 通常来说隔离岛是一组互相引用但不被应用程序中其它活动的对象引用的对象。严格来说，即使一个没有被引用的对象也是一个隔离岛。<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    Test i;  // 类里定义了一个对象引用</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Test t1 = new Test();</span><br><span class="line">        Test t2 = new Test();</span><br><span class="line"></span><br><span class="line">        t1.i = t2;</span><br><span class="line">        t2.i = t1;</span><br><span class="line">        t1 = null;</span><br><span class="line">        t2 = null;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void finalize() throws Throwable&#123;</span><br><span class="line">        System.out.println(&quot;Finalize method called&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Finalize method called</span><br><span class="line">Finalize method called</span><br></pre></td></tr></table></figure></p>
-<p>分析:<br>&emsp;&emsp;在销毁一个对象之前，垃圾收集器对一个对象最多调用一次finalize方法,在上例中finalize方法被调用两次的理由是因为两个对象都有资格被垃圾收集。这是因为我们在执行<code>t2=null</code>之后没有任何对t1和t2的外部引用。<br>&emsp;&emsp;我们只有内部的互相引用(在Test类的实例变量i中)。我们没有办法去调用两个对象的实例变量。所以不能再次调用任何一个对象。<br>&emsp;&emsp;我们在Test类里面创建了一个属性Test i，主函数中创建了两个Test类型的对象，并且用两个引用t1和t2去指向这两个对象，然后通过t1.i去访问t2，通过t2.i去访问t1，直到t2.i = t1: 每个对象都有外部引用t1和t2。这里需要记住的是t1和t2仅仅是引用，真正的对象在图中是以圈表示的,下图中t1指向一个对象，这个对象中有属性i，通过t1这个对象的属性i指向另一个对象，也就是t2指向的对象，反之亦然：<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_1.png" alt><br>&emsp;&emsp;t1 = null: 此时引用t1已经不指向任何对象，但是对象还是存在的，只不过通过t2.i可以到达之前t1指向的对象，通过t2可以直接访问另一个对象：<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_11.png" alt><br>&emsp;&emsp;t2 = null: 分析过程和上一步相同，此时没有办法到达任何一个对象：<br><img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Untitled_12.png" alt><br>&emsp;&emsp;现在，两个对象都有资格被垃圾收集，因为我们没有办法调用他们了。这通常被称为隔离岛。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
-<p><a href="https://www.geeksforgeeks.org/island-of-isolation-in-java/" target="_blank" rel="noopener">GeeksforGeeks</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1451,7 +1446,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
