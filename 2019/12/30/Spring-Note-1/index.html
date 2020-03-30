@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="UserDao userdao = new UserDaoImpl();UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by UserDaoImpl userdaoimpl = new UserDaoImpl(), but why we do">
+  <meta name="description" content="Spring makes programming Java quicker, easier, and safer for everybody.   以上这句话引用自Spring官网，用于回答问题”Why Spring?”， Spring提高编程效率的一个主要原因就是IOC（Inversion of Control），那么在了解IOC之前需要先了解传统的三层架构。 使用IOC之前根据我目前的理解，">
 <meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Note 1">
+<meta property="og:title" content="Spring Note 0: IOC">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2019/12/30/Spring-Note-1/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="UserDao userdao = new UserDaoImpl();UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by UserDaoImpl userdaoimpl = new UserDaoImpl(), but why we do">
+<meta property="og:description" content="Spring makes programming Java quicker, easier, and safer for everybody.   以上这句话引用自Spring官网，用于回答问题”Why Spring?”， Spring提高编程效率的一个主要原因就是IOC（Inversion of Control），那么在了解IOC之前需要先了解传统的三层架构。 使用IOC之前根据我目前的理解，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-29T03:29:31.900Z">
+<meta property="og:updated_time" content="2020-03-30T03:32:28.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Note 1">
-<meta name="twitter:description" content="UserDao userdao = new UserDaoImpl();UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by UserDaoImpl userdaoimpl = new UserDaoImpl(), but why we do">
+<meta name="twitter:title" content="Spring Note 0: IOC">
+<meta name="twitter:description" content="Spring makes programming Java quicker, easier, and safer for everybody.   以上这句话引用自Spring官网，用于回答问题”Why Spring?”， Spring提高编程效率的一个主要原因就是IOC（Inversion of Control），那么在了解IOC之前需要先了解传统的三层架构。 使用IOC之前根据我目前的理解，">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2019/12/30/Spring-Note-1/">
 
 
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Spring Note 1 | Feb 1997</title>
+  <title>Spring Note 0: IOC | Feb 1997</title>
   
 
 
@@ -231,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Spring Note 1
+          <h1 class="post-title" itemprop="name headline">Spring Note 0: IOC
 
               
             
@@ -264,7 +264,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-28 23:29:31" itemprop="dateModified" datetime="2020-03-28T23:29:31-04:00">2020-03-28</time>
+                <time title="修改时间：2020-03-29 23:32:28" itemprop="dateModified" datetime="2020-03-29T23:32:28-04:00">2020-03-29</time>
               </span>
             
           
@@ -280,9 +280,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?</p>
-<p>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.</p>
-<p>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
+        <blockquote>
+<p>Spring makes programming Java quicker, easier, and safer for everybody. </p>
+</blockquote>
+<p>以上这句话引用自Spring官网，用于回答问题”Why Spring?”， Spring提高编程效率的一个主要原因就是IOC（Inversion of Control），那么在了解IOC之前需要先了解传统的三层架构。</p>
+<h1 id="使用IOC之前"><a href="#使用IOC之前" class="headerlink" title="使用IOC之前"></a>使用IOC之前</h1><p>根据我目前的理解，三层架构即为dao层，service层，controller层。在此举个例子介绍。</p>
+<h2 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h2><p>接口UserDao:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface UserDao &#123;</span><br><span class="line">    void getUser();  // 获取用户的方法，待实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现类UserDaoImpl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class UserDaoImpl implements UserDao &#123;</span><br><span class="line">    public void getUser() &#123;</span><br><span class="line">        System.out.println(&quot;获取用户信息&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现类UserDaoMysqlImpl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class UserDaoMysqlImpl implements UserDao&#123;</span><br><span class="line">    public void getUser() &#123;</span><br><span class="line">        System.out.println(&quot;Mysql获取用户信息&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以此类推可以有很多种实现的方式。</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>因为目前对service层的理解不够深，所以关于Service层的作用，网上搜集到以下说法：</p>
+<ol>
+<li>粗略的理解就是对一个或多个DAO进行的再次封装，封装成一个服务</li>
+<li>dao层用与和底层的数据库打交道，因此只要是不和数据库打交道的都放在service层</li>
+</ol>
+<p>接口类UserService:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface UserService &#123;</span><br><span class="line">    void getUser();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现类UserServiceImpl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    UserDao userDao = new UserDaoMysqlImpl();</span><br><span class="line">    public void getUser() &#123;</span><br><span class="line">        userDao.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>本来应该是Controller类的，但是这里暂时用测试类。<br>MyTest:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class MyTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        UserServiceImpl userService=new UserServiceImpl();</span><br><span class="line">        userService.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mysql获取用户信息</span><br></pre></td></tr></table></figure></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>以上方法应该是最初级三层架构的方法：流程大概是用户只需要调用服务层中的类，服务层再去调用底层的dao。</p>
+<p>假设现在需要添加需求：Oracle获取用户信息。我需要做以下操作：1. Dao层添加新的实现UserDaoOracleImpl; 2.Service层实现类中创建的实体要改成 new UserOracleImpl()以调用Dao层的Oracle实现；</p>
+<p>在此方法中创建对象的控制权在Service层中。</p>
+<hr>
+<h1 id="控制反转"><a href="#控制反转" class="headerlink" title="控制反转"></a>控制反转</h1><p>Dao层不变，Service层中加入Set方法</p>
+<h2 id="Service-1"><a href="#Service-1" class="headerlink" title="Service"></a>Service</h2><p>实现类ServiceImpl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    UserDao userDao;</span><br><span class="line"></span><br><span class="line">    public void setUserDao(UserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void getUser() &#123;</span><br><span class="line">        userDao.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h1><p>MyTest:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        UserServiceImpl userService = new UserServiceImpl();</span><br><span class="line">        userService.setUserDao(new UserDaoMysqlImpl());</span><br><span class="line">        userService.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mysql获取用户信息</span><br></pre></td></tr></table></figure></p>
+<h1 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h1><p>三层架构的调用顺序不变，但是在service层中引入set方法，那么将具体使用哪一个dao的实现类的控制权交付到了用户端。在IOC之前，这个控制权相当于写死在Service层中，我们希望尽可能少地更改底层的代码，使用IOC后，我们只需要在MyTest中通过改变setUserDao的参数即可改变实现的方法。</p>
+<hr>
+<h1 id="IOC本质"><a href="#IOC本质" class="headerlink" title="IOC本质"></a>IOC本质</h1><p>控制反转IOC本质是一种设计思想，依赖注入DI是一种实现的方法，没有IOC的程序中，我们使用面向对象编程，对象的创建与对象之间的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方。</p>
+<p>在Spring中实现控制反转的IOC容器，其实现方式是依赖注入。</p>
 
     </div>
 
@@ -308,8 +335,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/01/01/Spring-Note-2-p-namespace-c-namespace/" rel="prev" title="Spring Note 2: p-namespace & c-namespace">
-                Spring Note 2: p-namespace & c-namespace <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/01/Spring-Note-2-p-namespace-c-namespace/" rel="prev" title="Spring Note 1: p-namespace & c-namespace">
+                Spring Note 1: p-namespace & c-namespace <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -449,7 +476,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UserDao-userdao-new-UserDaoImpl"><span class="nav-number">1.</span> <span class="nav-text">UserDao userdao = new UserDaoImpl();</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用IOC之前"><span class="nav-number">1.</span> <span class="nav-text">使用IOC之前</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dao"><span class="nav-number">1.1.</span> <span class="nav-text">Dao</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service"><span class="nav-number">1.2.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">1.3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">1.4.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制反转"><span class="nav-number">2.</span> <span class="nav-text">控制反转</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-1"><span class="nav-number">2.1.</span> <span class="nav-text">Service</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试-1"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析-1"><span class="nav-number">4.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC本质"><span class="nav-number">5.</span> <span class="nav-text">IOC本质</span></a></li></ol></div>
             
 
           </div>
