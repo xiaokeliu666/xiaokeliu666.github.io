@@ -211,6 +211,207 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/25/Java：String-StringBuffer和StringBuilder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/25/Java：String-StringBuffer和StringBuilder/" class="post-title-link" itemprop="url">Java：String,StringBuffer和StringBuilder</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-25 22:55:14" itemprop="dateCreated datePublished" datetime="2019-09-25T22:55:14-04:00">2019-09-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-04 23:46:00" itemprop="dateModified" datetime="2019-10-04T23:46:00-04:00">2019-10-04</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><p>源码分析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public String() &#123;</span><br><span class="line">        this.value = &quot;&quot;.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * Initializes a newly created &#123;@code String&#125; object so that it represents</span><br><span class="line">    * the same sequence of characters as the argument; in other words, the</span><br><span class="line">    * newly created string is a copy of the argument string. Unless an</span><br><span class="line">    * explicit copy of &#123;@code original&#125; is needed, use of this constructor is</span><br><span class="line">    * unnecessary since Strings are immutable.</span><br><span class="line">    *</span><br><span class="line">    * @param  original</span><br><span class="line">    *         A &#123;@code String&#125;</span><br><span class="line">    */</span><br></pre></td></tr></table></figure></p>
+<p>String类中每一个看起来会修改String值得方法，实际上都是创建了一个全新的String对象。每当把String对象作为方法的参数时，都会复制一份引用，而该引用所指的对象其实一直待在单一的物理位置上。这就是为什么我们说String类是不可变的(immutable)。</p>
+<h1 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h1><p>源码分析：<br>定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public final class StringBuffer</span><br><span class="line">    extends AbstractStringBuilder</span><br><span class="line">    implements java.io.Serializable, CharSequence</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>StringBuffer类被final修饰，因此不能继承。<br>此类的父类是AbstractStringBuilder，AbstractStringBuilder类中具体实现了可变字符序列的一系列操作，比如append()、insert()、delete()、replace()、charAt()方法等。<br>此类实现了两个接口，Serializable表示该类的对象可以被序列化，CharSequence的接口提供了几个对字符序列进行只读访问的方法，例如length()、charAt()、subSequence()、toString()方法等。</p>
+<p>主要变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * A cache of the last value returned by toString. Cleared</span><br><span class="line">     * whenever the StringBuffer is modified.</span><br><span class="line">     */</span><br><span class="line">    private transient char[] toStringCache;</span><br><span class="line"></span><br><span class="line">// AbstractStringBuilder.java</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * The value is used for character storage.</span><br><span class="line">     */</span><br><span class="line">    char[] value;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * The count is the number of characters used.</span><br><span class="line">     */</span><br><span class="line">    int count;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>toStringCache用来缓存toString()方法返回的最近一次的value数组中的字符。当修改StringBuffer对象时会被清除。</li>
+<li><p>value用来存储字符序列中的字符。这是一个动态数组，当存储容量不足时，会对它进行扩容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AbstractStringBuilder(int capacity) &#123;</span><br><span class="line">        value = new char[capacity];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>count表示value数组中已存储的字符数。<br>StringBuffer类将所有操作字符序列的方法都添加了 synchronized 关键字来修饰，因此，StringBuffer类是线程安全的。</p>
+</li>
+</ol>
+<h1 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h1><p>StringBuilder和StringBuffer的源码中，定义和操作几乎都是一样的，唯一的区别是StringBuffer是线程安全的，在单线程的情况下StringBuilder比StringBuffer要快。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/23/HashMap的底层实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/23/HashMap的底层实现/" class="post-title-link" itemprop="url">HashMap的底层实现</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 20:17:31" itemprop="dateCreated datePublished" datetime="2019-09-23T20:17:31-04:00">2019-09-23</time>
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/20/LeetCode-1-Two-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1135,277 +1336,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/27/Java：代码复用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/27/Java：代码复用/" class="post-title-link" itemprop="url">Java：代码复用</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-27 21:06:22" itemprop="dateCreated datePublished" datetime="2019-08-27T21:06:22-04:00">2019-08-27</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-10-14 14:08:55" itemprop="dateModified" datetime="2019-10-14T14:08:55-04:00">2019-10-14</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>&emsp;&emsp;复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对之加以改变是不够的，它还必须能够做更多的事情。<br>&emsp;&emsp;实现代码复用的第一种方法：只需在新的类中产生现有类的对象。由于新的类是由现有类的对象所组成，所以这种方法称为组合。<br>&emsp;&emsp;实现代码复用的第二种方法：按照现有类的类型来创建新类。无需改变现有类的形式，采用现有类的形式并在其中添加新代码。这种方式称为<strong>继承</strong>。</p>
-<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>&emsp;&emsp;将对象引用置于新类中即可。例如我现在有两个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Wheel &#123;</span><br><span class="line">    void run()&#123;</span><br><span class="line">        System.out.println(&quot;run&quot;);  // 车轮类的功能是run</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Light &#123;</span><br><span class="line">    void lit() &#123;</span><br><span class="line">        System.out.println(&quot;lit&quot;);  // 车灯类的功能是lit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我现在有一个新的类Car，需要同时有run和lit的功能，此时应当使用组合，这样我就可以在Car类中同时拥有两个类的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Car &#123;</span><br><span class="line">    private Wheel wheel;</span><br><span class="line">    private Light light;</span><br><span class="line"></span><br><span class="line">    public Car(Wheel wheel, Light light) &#123;</span><br><span class="line">        this.wheel = wheel;</span><br><span class="line">        this.light = light;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        wheel.run();</span><br><span class="line">        light.lit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Wheel wheel = new Wheel();</span><br><span class="line">        Light light = new Light();</span><br><span class="line">        Car car = new Car(wheel, light);</span><br><span class="line">        car.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="继承与代理"><a href="#继承与代理" class="headerlink" title="继承与代理"></a>继承与代理</h1><p>&emsp;&emsp;Java中的继承是一个类继承另一个类的性质的过程。比如一个新的类我们称之为衍生类或子类，继承了之前就存在的我们称之为父类、超类或者基类的类的属性和行为。<br>&emsp;&emsp;代理仅仅是把任务传递给别的类。</p>
-<ul>
-<li>代理可以是继承的替代品</li>
-<li>代理意味着你将其他类的对象作为实例变量传递信息给指定的实例</li>
-<li>很多情况下代理比继承好因为代理让你去考虑你所传递的每个信息，因为实例属于一个已知的类而不是一个新的类，并且不强迫你去接受父类的所有方法：你可以只提供有用的方法</li>
-<li>代理可以被看作对象之间的关系因为一个对象转发相应的方法调用给另一个对象，这叫做代理</li>
-<li>代理的主要优势是运行时间的灵活性——代理可以很容易地改变运行时间。但是和继承不同，代理并不被主流的面向对象语言所支持，而且它不易于动多态。<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class RealPrinter&#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        System.out.println(&quot;The delegate&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Printer &#123;</span><br><span class="line">    RealPrinter p = new RealPrinter();</span><br><span class="line"></span><br><span class="line">    void print() &#123;</span><br><span class="line">        p.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Tester &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Printer printer = new Printer();</span><br><span class="line">        printer.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The delegate</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;当使用代理时，只需要调用一些必须要用的类，不用关心是怎么实现的，只需要知道你调用的那个类知道要做什么。<br>&emsp;&emsp;同样的代码用继承来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class RealPrinter &#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        System.out.println(&quot;Printing Data&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Printer extends RealPrinter &#123;</span><br><span class="line">    void print() &#123;</span><br><span class="line">        super.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Tester &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Printer printer = new Printer();</span><br><span class="line">        printer.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Printing Data</span><br></pre></td></tr></table></figure></p>
-<p>什么时候该用什么？<br>这里举几个例子来说明什么时候用代理什么时候用继承：<br>假设你的类叫B，是A的子类，那么如果：</p>
-<ul>
-<li>你想表达(is-a)关系，用继承</li>
-<li>你想把类直接传递到一个现有的需要A的API那么就用继承</li>
-<li>你想改进A，但是A已经是终点并且不能再被继承了，那你就要用组合和代理</li>
-</ul>
-<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>&emsp;&emsp;首先想一想，组合是怎么工作的。我们把对象引用放在新的类里，这就意味着我们可以通过组合语法，在一个类中拥有多个指向其他类的引用。<br>&emsp;&emsp;其次想一想继承是如何工作的，继承通过extends关键词，可以接过父类中所有的属性和方法，但是由于Java是不支持多继承的，所以一个类只能继承一个父类。<br>&emsp;&emsp;根据特性我们可以总结一下继承和组合的优缺点：<br><strong>继承</strong><br>优点：</p>
-<ul>
-<li>支持扩展；</li>
-<li>被复用的代码易于修改</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>父类的实现细节都暴露给了子类，破坏了封装性；</li>
-<li>当父类代码修改时，子类也要修改，增加了维护的难度；</li>
-<li>子类缺乏独立性，与父类的耦合度高；</li>
-<li>不支持动态拓展，在编译期就决定了父类。</li>
-</ul>
-<p><strong>组合</strong><br>优点：</p>
-<ul>
-<li>被包括的对象内部实现细节对外不可见，封装性好；</li>
-<li>整体类与局部类松耦合，相互独立；</li>
-<li>支持扩展；</li>
-<li>每个类只负责一项业务；</li>
-<li>支持动态扩展，可在运行时根据具体对象选择不同类型的组合对象(扩展性比继承好)</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>创建整体类对象时，需要创建所有局部类对象。导致系统对象很多。    </li>
-</ul>
-<p>&emsp;&emsp;关于代理，《Java编程思想》中对代理有这样一句描述：这是继承与组合之间的中庸之道。在代理类中可以创建某功能的类，调用类的一些方法获得该类的部分特性。比如说我有一个飞机类，飞机有向各个方向运动的方法，还有发射导弹的方法。我可以通过在代理类中只调用（就像组合）运动方法的方法来避免暴露发射导弹的方法，同时代理类中暴露了其他运动的方法（就像继承）。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/riskys/article/details/54988442" target="_blank" rel="noopener">csdn</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/25/Java：protected提供访问权限/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/25/Java：protected提供访问权限/" class="post-title-link" itemprop="url">Java：protected提供包访问权限</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-25 21:29:28" itemprop="dateCreated datePublished" datetime="2019-08-25T21:29:28-04:00">2019-08-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-29 14:55:17" itemprop="dateModified" datetime="2019-08-29T14:55:17-04:00">2019-08-29</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;Java类中的属性在不指定访问权限，即private、protected或者public的情况下被称为“默认访问模式”，该模式下，只允许在同一个包中访问。<br>&emsp;&emsp;当需要继承的类来自另外一个包(packet)时，如果父类中的方法是私有的或者是默认访问模式（即未指定的），那么子类是不能继承的,<br>父类代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package 01;</span><br><span class="line"></span><br><span class="line">public class Cookie &#123;</span><br><span class="line">    public Cookie()&#123;</span><br><span class="line">        System.out.println(&quot;Cookie constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void bite()&#123;</span><br><span class="line">        System.out.println(&quot;bite&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>子类代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package 02;</span><br><span class="line">import 01.Cookie;  // 导入父类所在的包</span><br><span class="line"></span><br><span class="line">public class ChocolateChip extends Cookie&#123;</span><br><span class="line">    public ChocolateChip()&#123;</span><br><span class="line">        System.out.println(&quot;ChocolateChip constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public void chomp()&#123;</span><br><span class="line">        bite();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ChocolateChip x = new ChocolateChip();</span><br><span class="line">        x.chomp();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>错误信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error:(9, 9) java: 找不到符号</span><br><span class="line">符号:   方法 bite()</span><br><span class="line">位置: 类 com.demo.xliu294.ChocolateChip</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;假设我们现在希望子类可以继承来自另外一个包的父类中的方法，可以将父类中的该方法设置为public或者protected，但是如果把它指定为public的话，所有的人都有了访问权限，这样是不合适的。但是如果改成protected的话，子类中的bite()就可以访问了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;如果创建了一个新包，并自另一个包中继承类，那么唯一可以访问的成员就是源包中的public成员。（当然，如果在同一个包内执行继承工作，就可以操纵所有的拥有包访问权限的成员。）有时，基类的创建者会希望有某个特定成员，把对它的访问权限赋予派生类而不是所有类。这就需要protected来完成这一工作。protected也提供包访问权限，也就是说，相同包内的其他类可以访问protected元素。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
-<p>《Java编程思想》</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1446,7 +1376,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

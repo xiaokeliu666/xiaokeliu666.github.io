@@ -211,6 +211,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/30/Spring-Note-7-component/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/30/Spring-Note-7-component/" class="post-title-link" itemprop="url">Spring Note 7: @component</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-30 16:57:59 / 修改时间：17:23:55" itemprop="dateCreated datePublished" datetime="2020-03-30T16:57:59-04:00">2020-03-30</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>之前提到在xml文件中，一个bean对应一个类，在MyTest中通过获取bean的方法来创建对象。现在介绍一个新的方法，通过使用注解<code>@Component</code>来代替bean。</p>
+<h1 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h1><p>使用注解<code>@Component</code>之前，先在xml文件中添加组件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;com.xliu.pojo&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>意思为自动扫描路径com.xliu.pojo中所有的<code>@Component</code>。<br>在pojo类前添加注解<code>@Component</code>意思是告诉Spring，我是一个pojo类，请将我注册到容器中。</p>
+<h1 id="使用前"><a href="#使用前" class="headerlink" title="使用前"></a>使用前</h1><p>假设我们有一个pojo类User.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;</span><br><span class="line">    public String name;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在xml中注册的bean为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;user&quot; class=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;name&quot; value=&quot;xliu&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>MyTest:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">    User user = (User) applicationContext.getBean(&quot;user&quot;);</span><br><span class="line">    System.out.println(user.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xliu</span><br></pre></td></tr></table></figure></p>
+<h1 id="使用后"><a href="#使用后" class="headerlink" title="使用后"></a>使用后</h1><p>User.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class User &#123;</span><br><span class="line">    @Value(&quot;xiaokeliu&quot;)</span><br><span class="line">    public String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>@Component</code>表示组件，注册到Spring中，<code>@Value</code>表示对属性name的赋值<br>applicationContext.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;com.xliu.pojo&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在xml文件中只需要这一行添加组件即可。<br>MyTest不变，结果输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xiaokeliu</span><br></pre></td></tr></table></figure></p>
+<p>事实证明，虽然在xml文件中我们没有显式地注册bean，但还是可以通过getBean来创建对象。</p>
+<h1 id="衍生注解"><a href="#衍生注解" class="headerlink" title="衍生注解"></a>衍生注解</h1><p><code>@Component</code> 有几个衍生注解，我们在web开发中，会按照MVC三层架构分层</p>
+<ul>
+<li>dao(@Repository)</li>
+<li>service(@Service)</li>
+<li>controller(@Controller)<br>功能和<code>@Component</code>一样，都是代表这个类注册到Spring容器中，装配。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/30/Spring-Note-6-beans作用域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/30/Spring-Note-6-beans作用域/" class="post-title-link" itemprop="url">Spring Note 6: beans作用域</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-30 01:27:01 / 修改时间：01:56:57" itemprop="dateCreated datePublished" datetime="2020-03-30T01:27:01-04:00">2020-03-30</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <blockquote>
+<p>When you create a bean definition, you create a recipe for creating actual instances of the class defined by that bean definition. The idea that a bean definition is a recipe is important, because it means that, as with a class, you can create many object instances from a single recipe.</p>
+<h1 id="singleton"><a href="#singleton" class="headerlink" title="singleton"></a>singleton</h1><p>假设beans.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean name=&quot;userService&quot; class=&quot;Service.UserServiceImpl&quot; scope=&quot;singleton&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>那么通过这个bean创建的对象，地址都是一样的。<br>MyTest.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UserService userService = (UserService) classPathXmlApplicationContext.getBean(&quot;userService&quot;);</span><br><span class="line">UserService userService2 = (UserService) classPathXmlApplicationContext.getBean(&quot;userService&quot;);</span><br><span class="line">System.out.println(userService==userService2);</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true</span><br></pre></td></tr></table></figure></p>
+<h1 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h1><p>同上，如果把bean中的scope属性的值改为prototype，那么每一次使用这个bean都会创建一个新的对象。<br>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">false</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>singleton在容器中，只被实例化一次，而prototype在容器中，调用几次，就被实例化几次；</li>
+<li>在AppplicationContext容器中，singleton在applicaitonContext.xml加载时就被预先实例化，而prototype必须在调用时才实例化</li>
+<li>singleton比prototype消耗性能，在web开发中，推荐使用singleton模式，在app开发中，推荐使用prototype模式。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/29/Spring-Note-5-构造函数注入/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -405,7 +600,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/28/Spring-Note-0-IOC/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/28/Spring-Note-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -422,7 +617,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/28/Spring-Note-0-IOC/" class="post-title-link" itemprop="url">Spring Note 3</a>
+                <a href="/2020/03/28/Spring-Note-3/" class="post-title-link" itemprop="url">Spring Note 3</a>
               
             
           </h1>
@@ -1080,188 +1275,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/20/MyBatis-模糊查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/20/MyBatis-模糊查询/" class="post-title-link" itemprop="url">MyBatis:模糊查询</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-20 16:04:35 / 修改时间：16:37:44" itemprop="dateCreated datePublished" datetime="2020-01-20T16:04:35-05:00">2020-01-20</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>假设我们要查询一个名字里带“张”的用户，sql语句应该这样写：<code>select * from user where name like &#39;%张%&#39;</code>。<br>在MyBatis里有两种方法</p>
-<h1 id="执行时传递通配符"><a href="#执行时传递通配符" class="headerlink" title="执行时传递通配符"></a>执行时传递通配符</h1><p>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加方法 --&gt;</span><br><span class="line">//    模糊查询</span><br><span class="line">    List&lt;User&gt; getUserLike(String value);</span><br></pre></td></tr></table></figure></p>
-<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加标签 --&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLike&quot; resultType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        select * from mybatis.user where name like #&#123;value&#125;;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void getUserLike() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; userList = mapper.getUserLike(&quot;%张%&quot;);</span><br><span class="line">        for (User user : userList) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="在Sql拼接中使用通配符"><a href="#在Sql拼接中使用通配符" class="headerlink" title="在Sql拼接中使用通配符"></a>在Sql拼接中使用通配符</h1><p>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加方法 --&gt;</span><br><span class="line">//    模糊查询</span><br><span class="line">    List&lt;User&gt; getUserLike(String value);</span><br></pre></td></tr></table></figure></p>
-<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加标签 --&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLike&quot; resultType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        select * from mybatis.user where name like &quot;%&quot;#&#123;value&#125;&quot;%&quot;;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void getUserLike() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; userList = mapper.getUserLike(&quot;张&quot;);</span><br><span class="line">        for (User user : userList) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>两种方法的区别在于通配符”%”到底应该由用户传入(方法一)还是应该在xml中拼接，这样用户只需要输入“张”即可。第二种方法的优点是可以防止Sql注入。</p>
-<h1 id="Sql注入"><a href="#Sql注入" class="headerlink" title="Sql注入"></a>Sql注入</h1><p>Sql注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。<br>在第一种方法中，用户对于将要执行的sql语句有较高的自由度，因为我们将<code>select * from user where name like</code>之后的内容都交给用户来写，那么用户可能可以执行非法操作。如果我们使用第二种方法，用户只有权限去输入通配符中间的值，大大降低了Sql注入的风险。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/20/MyBatis使用Map参数类型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/20/MyBatis使用Map参数类型/" class="post-title-link" itemprop="url">MyBatis:使用Map参数类型</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-20 15:10:40 / 修改时间：16:05:01" itemprop="dateCreated datePublished" datetime="2020-01-20T15:10:40-05:00">2020-01-20</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>上一篇文章中介绍了简单的CRUD语句，其中当我们需要根据Id更新name以及pwd字段时，传入的实际上是一个对象：<br>测试类中的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapper.updateUser(new User(2,&quot;Liu&quot;,&quot;password&quot;));</span><br></pre></td></tr></table></figure></p>
-<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">    update mybatis.user set name=#&#123;name&#125;, pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
-<p>想象一下当数据库的字段变得非常多的时候，假设一个用户同时拥有id,name,pwd,address,hobby,phone等多条属性时，再做上述操作传入对象时，我们需要填写所有的字段的值，即使我们的需求仅仅是根据id改用户的密码。<br>为了解决上述问题，我们可以使用Map作为参数的类型</p>
-<h1 id="使用Map参数"><a href="#使用Map参数" class="headerlink" title="使用Map参数"></a>使用Map参数</h1><p>已知Map是一个<key,value>的数据结构，我们可以将我们所需要用到的字段以及值存储进去，包括条件字段以及需要更新的字段。<br>回归上述情形，假设一条用户数据有很多个字段，而现在的需求是根据用户ID更改用户密码，因此我们只需要将这两个字段以及值存入Map中。<br>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一条方法 --&gt;</span><br><span class="line">    void updateUser2(Map&lt;String,Object&gt; map);</span><br></pre></td></tr></table></figure></key,value></p>
-<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一个标签 --&gt;</span><br><span class="line">    &lt;update id=&quot;updateUser2&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">        update mybatis.user set pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">   public void updateUser2() &#123;</span><br><span class="line">       </span><br><span class="line">       SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">       UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">       &lt;!-- 创建一个HashMap对象 --&gt;</span><br><span class="line">       HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">       &lt;!-- 添加K-V数据 --&gt;</span><br><span class="line">       map.put(&quot;id&quot;, 1);</span><br><span class="line">       map.put(&quot;pwd&quot;, &quot;password&quot;);</span><br><span class="line">       &lt;!-- 将map作为参数传入方法 --&gt;</span><br><span class="line">       mapper.updateUser2(map);</span><br><span class="line">       sqlSession.commit();</span><br><span class="line">       sqlSession.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Map传递参数，设置parameterType=”map”后，直接在sql中取出key即可：<code>update mybatis.user set pwd=#{pwd} where id=#{id};</code>。另外，此处#{}中可以用任意的名字，只要在创建map的时候和Key的名字统一就行。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1302,7 +1315,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

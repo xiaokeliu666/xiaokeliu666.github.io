@@ -211,6 +211,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/20/MyBatis-模糊查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/20/MyBatis-模糊查询/" class="post-title-link" itemprop="url">MyBatis:模糊查询</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-20 16:04:35 / 修改时间：16:37:44" itemprop="dateCreated datePublished" datetime="2020-01-20T16:04:35-05:00">2020-01-20</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>假设我们要查询一个名字里带“张”的用户，sql语句应该这样写：<code>select * from user where name like &#39;%张%&#39;</code>。<br>在MyBatis里有两种方法</p>
+<h1 id="执行时传递通配符"><a href="#执行时传递通配符" class="headerlink" title="执行时传递通配符"></a>执行时传递通配符</h1><p>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加方法 --&gt;</span><br><span class="line">//    模糊查询</span><br><span class="line">    List&lt;User&gt; getUserLike(String value);</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加标签 --&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLike&quot; resultType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        select * from mybatis.user where name like #&#123;value&#125;;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void getUserLike() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; userList = mapper.getUserLike(&quot;%张%&quot;);</span><br><span class="line">        for (User user : userList) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="在Sql拼接中使用通配符"><a href="#在Sql拼接中使用通配符" class="headerlink" title="在Sql拼接中使用通配符"></a>在Sql拼接中使用通配符</h1><p>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加方法 --&gt;</span><br><span class="line">//    模糊查询</span><br><span class="line">    List&lt;User&gt; getUserLike(String value);</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加标签 --&gt;</span><br><span class="line">    &lt;select id=&quot;getUserLike&quot; resultType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        select * from mybatis.user where name like &quot;%&quot;#&#123;value&#125;&quot;%&quot;;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void getUserLike() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; userList = mapper.getUserLike(&quot;张&quot;);</span><br><span class="line">        for (User user : userList) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>两种方法的区别在于通配符”%”到底应该由用户传入(方法一)还是应该在xml中拼接，这样用户只需要输入“张”即可。第二种方法的优点是可以防止Sql注入。</p>
+<h1 id="Sql注入"><a href="#Sql注入" class="headerlink" title="Sql注入"></a>Sql注入</h1><p>Sql注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。<br>在第一种方法中，用户对于将要执行的sql语句有较高的自由度，因为我们将<code>select * from user where name like</code>之后的内容都交给用户来写，那么用户可能可以执行非法操作。如果我们使用第二种方法，用户只有权限去输入通配符中间的值，大大降低了Sql注入的风险。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/20/MyBatis使用Map参数类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/20/MyBatis使用Map参数类型/" class="post-title-link" itemprop="url">MyBatis:使用Map参数类型</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-20 15:10:40 / 修改时间：16:05:01" itemprop="dateCreated datePublished" datetime="2020-01-20T15:10:40-05:00">2020-01-20</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>上一篇文章中介绍了简单的CRUD语句，其中当我们需要根据Id更新name以及pwd字段时，传入的实际上是一个对象：<br>测试类中的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapper.updateUser(new User(2,&quot;Liu&quot;,&quot;password&quot;));</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">    update mybatis.user set name=#&#123;name&#125;, pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
+<p>想象一下当数据库的字段变得非常多的时候，假设一个用户同时拥有id,name,pwd,address,hobby,phone等多条属性时，再做上述操作传入对象时，我们需要填写所有的字段的值，即使我们的需求仅仅是根据id改用户的密码。<br>为了解决上述问题，我们可以使用Map作为参数的类型</p>
+<h1 id="使用Map参数"><a href="#使用Map参数" class="headerlink" title="使用Map参数"></a>使用Map参数</h1><p>已知Map是一个<key,value>的数据结构，我们可以将我们所需要用到的字段以及值存储进去，包括条件字段以及需要更新的字段。<br>回归上述情形，假设一条用户数据有很多个字段，而现在的需求是根据用户ID更改用户密码，因此我们只需要将这两个字段以及值存入Map中。<br>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一条方法 --&gt;</span><br><span class="line">    void updateUser2(Map&lt;String,Object&gt; map);</span><br></pre></td></tr></table></figure></key,value></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一个标签 --&gt;</span><br><span class="line">    &lt;update id=&quot;updateUser2&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">        update mybatis.user set pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">   public void updateUser2() &#123;</span><br><span class="line">       </span><br><span class="line">       SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">       UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">       &lt;!-- 创建一个HashMap对象 --&gt;</span><br><span class="line">       HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">       &lt;!-- 添加K-V数据 --&gt;</span><br><span class="line">       map.put(&quot;id&quot;, 1);</span><br><span class="line">       map.put(&quot;pwd&quot;, &quot;password&quot;);</span><br><span class="line">       &lt;!-- 将map作为参数传入方法 --&gt;</span><br><span class="line">       mapper.updateUser2(map);</span><br><span class="line">       sqlSession.commit();</span><br><span class="line">       sqlSession.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Map传递参数，设置parameterType=”map”后，直接在sql中取出key即可：<code>update mybatis.user set pwd=#{pwd} where id=#{id};</code>。另外，此处#{}中可以用任意的名字，只要在创建map的时候和Key的名字统一就行。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/MyBatis执行SQL语句/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -603,7 +785,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/04/Spring-Note-3-Autowire/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/04/Spring-Note-2-Autowire/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -620,7 +802,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/01/04/Spring-Note-3-Autowire/" class="post-title-link" itemprop="url">Spring Note 2: Autowire</a>
+                <a href="/2020/01/04/Spring-Note-2-Autowire/" class="post-title-link" itemprop="url">Spring Note 2: Autowire</a>
               
             
           </h1>
@@ -652,7 +834,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-29 23:32:49" itemprop="dateModified" datetime="2020-03-29T23:32:49-04:00">2020-03-29</time>
+                <time title="修改时间：2020-03-30 16:58:55" itemprop="dateModified" datetime="2020-03-30T16:58:55-04:00">2020-03-30</time>
               </span>
             
           
@@ -669,7 +851,10 @@
 
       
           
-            <h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Dog.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Dog &#123;</span><br><span class="line">    public void shout() &#123;</span><br><span class="line">        System.out.println(&quot;wang&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>The Spring container can autowire relationships between collaborating beans. </p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Dog.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Dog &#123;</span><br><span class="line">    public void shout() &#123;</span><br><span class="line">        System.out.println(&quot;wang&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <p>Cat.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Cat &#123;</span><br><span class="line">    public void shout() &#123;</span><br><span class="line">        System.out.println(&quot;miao&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>People.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class People &#123;</span><br><span class="line">    private Cat cat;</span><br><span class="line">    private Dog dog;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;People&#123;&quot; +</span><br><span class="line">                &quot;cat=&quot; + cat +</span><br><span class="line">                &quot;, dog=&quot; + dog +</span><br><span class="line">                &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    public Cat getCat() &#123;return cat;&#125;</span><br><span class="line"></span><br><span class="line">    public void setCat(Cat cat) &#123;this.cat = cat;&#125;</span><br><span class="line"></span><br><span class="line">    public Dog getDog() &#123;return dog;&#125;</span><br><span class="line"></span><br><span class="line">    public void setDog(Dog dog) &#123;this.dog = dog;&#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;return name;&#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;this.name = name;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="Before-autowired"><a href="#Before-autowired" class="headerlink" title="Before autowired"></a>Before autowired</h1><p>Beans.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;cat&quot; class=&quot;com.xliu.pojo.Cat&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;dog&quot; class=&quot;com.xliu.pojo.Dog&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;people&quot; class=&quot;com.xliu.pojo.People&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;name&quot; value=&quot;xliu&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;dog&quot; ref=&quot;dog&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;cat&quot; ref=&quot;cat&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
@@ -686,6 +871,11 @@
 <p>  The disadvantage of byType is we can’t register two beans refer to the same class.</p>
 </li>
 </ul>
+<hr>
+<h1 id="Using-annotaion"><a href="#Using-annotaion" class="headerlink" title="Using annotaion"></a>Using annotaion</h1><p>Place <code>@Autowired</code> before the attribute in pojo, for example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private Cat cat;</span><br><span class="line">@Autowired</span><br><span class="line">private Dog dog;</span><br></pre></td></tr></table></figure></p>
+<p>Turn on the support for annotaion in xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:annotation-config/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>With such configuration, many lines can be omitted, we only need:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;people&quot; class=&quot;com.xliu.pojo.People&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>So, this method is based on byType</p>
 
           
         
@@ -713,7 +903,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/01/Spring-Note-2-p-namespace-c-namespace/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/01/Spring-Note-1-p-namespace-c-namespace/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -730,7 +920,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/01/01/Spring-Note-2-p-namespace-c-namespace/" class="post-title-link" itemprop="url">Spring Note 1: p-namespace & c-namespace</a>
+                <a href="/2020/01/01/Spring-Note-1-p-namespace-c-namespace/" class="post-title-link" itemprop="url">Spring Note 1: p-namespace & c-namespace</a>
               
             
           </h1>
@@ -822,7 +1012,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/12/30/Spring-Note-1/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/12/30/Spring-Note-0-IOC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -839,7 +1029,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/30/Spring-Note-1/" class="post-title-link" itemprop="url">Spring Note 0: IOC</a>
+                <a href="/2019/12/30/Spring-Note-0-IOC/" class="post-title-link" itemprop="url">Spring Note 0: IOC</a>
               
             
           </h1>
@@ -1032,225 +1222,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/19/State-based-Testing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/19/State-based-Testing/" class="post-title-link" itemprop="url">State-based Testing</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-19 23:00:57" itemprop="dateCreated datePublished" datetime="2019-11-19T23:00:57-05:00">2019-11-19</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-21 01:38:50" itemprop="dateModified" datetime="2019-11-21T01:38:50-05:00">2019-11-21</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Generate-a-state-machine"><a href="#Generate-a-state-machine" class="headerlink" title="Generate a state machine"></a>Generate a state machine</h1><ol>
-<li>Create a txt file and write code </li>
-<li>Change the suffix .txt into .sm</li>
-<li>Download SMC</li>
-<li>Command Line: <code>java -jar Smc.jar -java Seminar.sm</code>, a new java file ‘SeminarContext.java’ created</li>
-<li>Command Line: <code>java -jar Smc.jar -graph Seminar.sm</code>, a new dot file ‘Seminar_sm.dot’ created</li>
-<li>Download Graphviz and do configuration</li>
-<li>Command Line: <code>dot -Tpng Seminar_sm.dot -o Seminar.png</code>, a new png file ‘Seminar.png’ created</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-53-Maximum-Subarray/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/06/LeetCode-53-Maximum-Subarray/" class="post-title-link" itemprop="url">LeetCode:53.Maximum Subarray</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 15:54:16" itemprop="dateCreated datePublished" datetime="2019-11-06T15:54:16-05:00">2019-11-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-07 00:37:44" itemprop="dateModified" datetime="2019-11-07T00:37:44-05:00">2019-11-07</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">    int sum = nums[0];</span><br><span class="line">    for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp = nums[i];</span><br><span class="line">        for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">            temp += nums[j];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Input [-2,1]<br>Output -1<br>Expected 1</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>My program will stop entering the second layer loop when i = nums.length-1 which refer to the last digit. In this situation, when the sum has already been decided and cannot be changed anymore. So I have take this situation into account.</p>
-<h1 id="Correct-Code"><a href="#Correct-Code" class="headerlink" title="Correct Code"></a>Correct Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int sum = nums[0];</span><br><span class="line">        for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">            int temp = nums[i];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">                temp += nums[j];</span><br><span class="line">                if(temp&gt;sum)&#123;</span><br><span class="line">                    sum = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>Just take the situation into account and add another statement in the first layer loop</p>
-<h1 id="Better-Code"><a href="#Better-Code" class="headerlink" title="Better Code"></a>Better Code</h1><h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>Usually problem about optimization can be solved by dynamic programming. As for DP, the most important thing is finding the recursion within the problem.<br>In terms of this problem, we define the problem as <code>maxSubArray(int A[],int i)</code>. Assume we have the result of problem<code>maxSubArray(A, i-1)</code>, we can get a equation as:<br><code>maxSubArray(A,i) = maxSubArray(A,i-1)&gt;0?maxSubArray(A,i-1):0+A[i];</code><br>In short, if you know the solution of the maxSubArray which ends up with index i-1, there are two choices: 1. Start a new subarray from index i; 2. Expand the previous subarray with index i.</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int n = nums.length;</span><br><span class="line">        int res = nums[0];</span><br><span class="line">        int cmp = res;</span><br><span class="line">        for(int i = 1; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp = cmp;</span><br><span class="line">            res = Math.max(res+nums[i],nums[i]);</span><br><span class="line">            cmp = Math.max(res, temp);</span><br><span class="line">        &#125;</span><br><span class="line">        return cmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>res: biggest value if subarray ends up with nums[i]<br>cmp: biggest value so far</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1291,7 +1262,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
