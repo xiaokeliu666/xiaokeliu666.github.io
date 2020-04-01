@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="之前提到在xml文件中，一个bean对应一个类，在MyTest中通过获取bean的方法来创建对象。现在介绍一个新的方法，通过使用注解@Component来代替bean。 @Component使用注解@Component之前，先在xml文件中添加组件：1&amp;lt;context:component-scan base-package=&amp;quot;com.xliu.pojo&amp;quot;/&amp;gt; 意思为">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-30T21:23:55.525Z">
+<meta property="og:updated_time" content="2020-03-30T22:17:38.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Note 7: @component">
 <meta name="twitter:description" content="之前提到在xml文件中，一个bean对应一个类，在MyTest中通过获取bean的方法来创建对象。现在介绍一个新的方法，通过使用注解@Component来代替bean。 @Component使用注解@Component之前，先在xml文件中添加组件：1&amp;lt;context:component-scan base-package=&amp;quot;com.xliu.pojo&amp;quot;/&amp;gt; 意思为">
@@ -251,7 +251,7 @@
                 
               
 
-              <time title="创建时间：2020-03-30 16:57:59 / 修改时间：17:23:55" itemprop="dateCreated datePublished" datetime="2020-03-30T16:57:59-04:00">2020-03-30</time>
+              <time title="创建时间：2020-03-30 16:57:59 / 修改时间：18:17:38" itemprop="dateCreated datePublished" datetime="2020-03-30T16:57:59-04:00">2020-03-30</time>
             </span>
           
             
@@ -287,6 +287,7 @@
 <li>service(@Service)</li>
 <li>controller(@Controller)<br>功能和<code>@Component</code>一样，都是代表这个类注册到Spring容器中，装配。</li>
 </ul>
+<h1 id="XML与注解最佳实践"><a href="#XML与注解最佳实践" class="headerlink" title="XML与注解最佳实践"></a>XML与注解最佳实践</h1><p>XML用来管理bean，注解负责完成属性的注入。<br>那么XML文件中就只有一个一个<code>&lt;bean&gt;</code>，而给属性赋值则通过注解(@Value)实现。</p>
 
     </div>
 
@@ -312,6 +313,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/03/30/Spring-Note-8-JavaConfig/" rel="prev" title="Spring Note 8:JavaConfig">
+                Spring Note 8:JavaConfig <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -366,7 +371,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -449,7 +454,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Component"><span class="nav-number">1.</span> <span class="nav-text">@Component</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用前"><span class="nav-number">2.</span> <span class="nav-text">使用前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用后"><span class="nav-number">3.</span> <span class="nav-text">使用后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#衍生注解"><span class="nav-number">4.</span> <span class="nav-text">衍生注解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Component"><span class="nav-number">1.</span> <span class="nav-text">@Component</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用前"><span class="nav-number">2.</span> <span class="nav-text">使用前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用后"><span class="nav-number">3.</span> <span class="nav-text">使用后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#衍生注解"><span class="nav-number">4.</span> <span class="nav-text">衍生注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML与注解最佳实践"><span class="nav-number">5.</span> <span class="nav-text">XML与注解最佳实践</span></a></li></ol></div>
             
 
           </div>
