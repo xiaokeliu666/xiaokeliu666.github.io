@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="在JavaBean中，通常将属性设置为private，然后生成与属性对应的public setXXX(),public getXXX()。那么为什么要这么设计呢？     同一个类 同一个包 同一个包下的子类 不同包下的子类 不同包的非子类     public + + + +    protected + + +    private +        根据上表可以得知，将属性设置为privat">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java：为什么要get和set方法">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/04/04/Java：为什么要get和set方法/index.html">
+<meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="在JavaBean中，通常将属性设置为private，然后生成与属性对应的public setXXX(),public getXXX()。那么为什么要这么设计呢？     同一个类 同一个包 同一个包下的子类 不同包下的子类 不同包的非子类     public + + + +    protected + + +    private +        根据上表可以得知，将属性设置为privat">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-05T01:47:56.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java：为什么要get和set方法">
+<meta name="twitter:description" content="在JavaBean中，通常将属性设置为private，然后生成与属性对应的public setXXX(),public getXXX()。那么为什么要这么设计呢？     同一个类 同一个包 同一个包下的子类 不同包下的子类 不同包的非子类     public + + + +    protected + + +    private +        根据上表可以得知，将属性设置为privat">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/04/04/Java：为什么要get和set方法/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java：为什么要get和set方法 | Feb 1997</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Feb 1997</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Overtime and overdue</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/04/Java：为什么要get和set方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Java：为什么要get和set方法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-04 21:17:52 / 修改时间：21:47:56" itemprop="dateCreated datePublished" datetime="2020-04-04T21:17:52-04:00">2020-04-04</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在JavaBean中，通常将属性设置为private，然后生成与属性对应的public setXXX(),public getXXX()。那么为什么要这么设计呢？</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>同一个类</th>
+<th style="text-align:center">同一个包</th>
+<th style="text-align:right">同一个包下的子类</th>
+<th style="text-align:right">不同包下的子类</th>
+<th style="text-align:right">不同包的非子类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td style="text-align:center">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+</td>
+<td></td>
+</tr>
+<tr>
+<td>protected</td>
+<td style="text-align:center">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>private</td>
+<td style="text-align:center">+</td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+<td style="text-align:right"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>根据上表可以得知，将属性设置为private限制了外界对这个属性的直接访问操作，那么设置对应的get、set方法并设为public的意义就相当于给外界提供了访问的方法，而不是直接将属性暴露。</p>
+<p>引用Stackoverflow的答案：</p>
+<ul>
+<li>Encapsulation of behavior associated with getting or setting the property this allows additional functionality (like validation) to be added more easily later.</li>
+<li>Hiding the internal representation of the property while exposing a property using an alternative representation.</li>
+<li>Insulating your public interface from change - allowing the public interface to remain constant while the implementation changes without affecting existing consumers.</li>
+<li>Controlling the lifetime and memory management (disposal) semantics of the property - particularly important in non-managed memory environments (like C++ or Objective-C).</li>
+<li>Providing a debugging interception point for when a property changes at runtime - debugging when and where a property changed to a particular value can be quite difficult without this in some languages.</li>
+<li>Improved interoperability with libraries that are designed to operate against property getter/setters - Mocking, Serialization, and WPF come to mind.</li>
+<li>Allowing inheritors to change the semantics of how the property behaves and is exposed by overriding the getter/setter methods.</li>
+<li>Allowing the getter/setter to be passed around as lambda expressions rather than values.</li>
+<li>Getters and setters can allow different access levels - for example the get may be public, but the set could be protected.</li>
+</ul>
+<p>自己目前所理解的：</p>
+<ul>
+<li>实现java域变量的封装性和安全性</li>
+<li>可以对属性进行验证操作，比如age属性，在set中可以添加验证，如果输入的age小于0则抛出异常</li>
+<li>可以在debug的时候用到</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/03/30/Spring-Note-8-JavaConfig/" rel="next" title="Spring Note 8:JavaConfig">
+                <i class="fa fa-chevron-left"></i> Spring Note 8:JavaConfig
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Feb 1997">
+  <p class="site-author-name" itemprop="name">Feb 1997</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Feb 1997</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
