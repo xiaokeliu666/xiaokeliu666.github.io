@@ -57,21 +57,15 @@
   };
 </script>
 
-  <meta name="description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
-<meta name="keywords" content="MyBatis">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis:生命周期和作用域">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis:分页">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/04/08/MyBatis-分页/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png">
-<meta property="og:updated_time" content="2020-01-23T03:28:34.161Z">
+<meta property="og:updated_time" content="2020-04-08T18:46:26.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis:生命周期和作用域">
-<meta name="twitter:description" content="上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。 生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。 SqlSessionFactoryBuilder 一旦创建了SqlSessionFactory，">
-<meta name="twitter:image" content="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/">
+<meta name="twitter:title" content="MyBatis:分页">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/04/08/MyBatis-分页/">
 
 
 <script id="page.configurations">
@@ -80,7 +74,7 @@
   };
 </script>
 
-  <title>MyBatis:生命周期和作用域 | Feb 1997</title>
+  <title>MyBatis:分页 | Feb 1997</title>
   
 
 
@@ -219,7 +213,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/08/MyBatis-分页/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -233,7 +227,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">MyBatis:生命周期和作用域
+          <h1 class="post-title" itemprop="name headline">MyBatis:分页
 
               
             
@@ -253,12 +247,8 @@
                 
               
 
-              <time title="创建时间：2020-01-22 21:02:04 / 修改时间：22:28:34" itemprop="dateCreated datePublished" datetime="2020-01-22T21:02:04-05:00">2020-01-22</time>
+              <time title="创建时间：2020-04-08 14:46:26" itemprop="dateCreated datePublished" datetime="2020-04-08T14:46:26-04:00">2020-04-08</time>
             </span>
-          
-            
-
-            
           
 
           <br/>
@@ -272,20 +262,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="//xiaokeliu666.github.io/2020/01/22/MyBatis-生命周期和作用域/1.png" alt><br>上图为程序的执行顺序。配置文件config.xml创建SqlSessionFactoryBuilder,后者建造工厂SqlSessionFactory,工厂生产SqlSession，后者拿到Mapper（即Mapper.xml）。</p>
-<p>生命周期和作用域是至关重要的，因为错误的使用会导致非常严重的并发问题。</p>
-<h1 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h1><ul>
-<li>一旦创建了SqlSessionFactory，就不再需要它了</li>
-<li>局部变量<h1 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h1></li>
-<li>说白了就是可以想象为：数据库连接池</li>
-<li>SqlSessionFactory一旦被创建就应该在应用的运行期间一直存在，没有任何理由丢弃它或者重新创建另一个实例</li>
-<li>因此SqlSessionFactory的最佳作用域是应用作用域</li>
-<li>最简单的就是单例模式或者静态单例模式<h1 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h1></li>
-<li>连接到连接池的一个请求</li>
-<li>SqlSession的实例不是线程安全的，因此是不能共享大，所以它的最佳作用域是请求或方法作用域</li>
-<li>用完之后需要赶紧关闭，否则资源被占用</li>
-</ul>
-
+        
     </div>
 
     
@@ -293,16 +270,10 @@
     
 
     <footer class="post-footer">
-          
-        
-        <div class="post-tags">
-            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
-          
-        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2020/01/22/MyBatis映射器/" rel="next" title="MyBatis:映射器">
-                <i class="fa fa-chevron-left"></i> MyBatis:映射器
+              <a href="/2020/04/04/Java：为什么要get和set方法/" rel="next" title="Java：为什么要get和set方法">
+                <i class="fa fa-chevron-left"></i> Java：为什么要get和set方法
               </a>
             
           </div>
@@ -310,10 +281,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/01/22/MyBatis-resultMap/" rel="prev" title="MyBatis:resultMap">
-                MyBatis:resultMap <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -343,17 +310,8 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -441,23 +399,6 @@
 
         </div>
       </div>
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSessionFactoryBuilder"><span class="nav-number">1.</span> <span class="nav-text">SqlSessionFactoryBuilder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSessionFactory"><span class="nav-number">2.</span> <span class="nav-text">SqlSessionFactory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SqlSession"><span class="nav-number">3.</span> <span class="nav-text">SqlSession</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
 
     </div>
   </aside>
