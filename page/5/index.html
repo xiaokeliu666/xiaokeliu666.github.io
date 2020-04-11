@@ -211,6 +211,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/07/Java：静态代码块、构造代码块、构造函数以及Java类初始化顺序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/07/Java：静态代码块、构造代码块、构造函数以及Java类初始化顺序/" class="post-title-link" itemprop="url">Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-07 12:13:46" itemprop="dateCreated datePublished" datetime="2019-09-07T12:13:46-04:00">2019-09-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-18 19:32:01" itemprop="dateModified" datetime="2019-10-18T19:32:01-04:00">2019-10-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>&emsp;&emsp;今天在做笔试题时遇到这样一个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在以上代码中涉及到了静态代码块、构造代码块，之前没接触过这个概念，所以查资料记录学习了一下。</p>
+<h1 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h1><h2 id="什么是静态代码块？"><a href="#什么是静态代码块？" class="headerlink" title="什么是静态代码块？"></a>什么是静态代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="它有什么特点？"><a href="#它有什么特点？" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><ul>
+<li>用static申明，JVM加载类时执行，仅执行一次，执行完成便销毁。</li>
+<li>静态代码块的执行优先级高于非静态的初始化块。</li>
+</ul>
+<h1 id="构造代码块"><a href="#构造代码块" class="headerlink" title="构造代码块"></a>构造代码块</h1><h2 id="什么是构造代码块？"><a href="#什么是构造代码块？" class="headerlink" title="什么是构造代码块？"></a>什么是构造代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="它有什么特点？-1"><a href="#它有什么特点？-1" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><p>&emsp;&emsp;构造代码块的作用是给对象进行初始化，只有当对象创建才会执行，且执行顺序优于构造函数。并且不同于构造函数，构造代码块针对所有的对象，而构造函数针对对应的对象。</p>
+<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>&emsp;&emsp;构造函数只有在建立对象的时候在会调用与之相应的构造函数，不建立对象是不会运行构造函数的。一个对象建立，构造函数只运行一次，而一般方法可以被该对象调用多次。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>静态块其实就是给类初始化的，而构造代码块是给对象初始化的。</li>
+<li>静态代码块只会运行一次</li>
+<li>静态块中的变量是局部变量，与普通函数中的局部变量性质没有区别。</li>
+<li>一个类中可以有多个静态代码块，执行顺序按照位置决定。</li>
+<li>执行顺序优先级：静态块&gt;main()&gt;构造块&gt;构造方法</li>
+</ol>
+<hr>
+<p>回到上面的问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">blockA</span><br><span class="line">blockB</span><br><span class="line">blockA</span><br></pre></td></tr></table></figure></p>
+<p>分析：<br>&emsp;&emsp;t1也是静态变量，所以按照声明顺序执行，先创建对象t1，运行其构造代码块，输出blockA，之后运行静态代码块，输出blockB，最后运行main函数。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/06/Java：接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1377,126 +1506,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/21/Java：Static关键字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/21/Java：Static关键字/" class="post-title-link" itemprop="url">Java：Static关键字</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-21 22:26:08" itemprop="dateCreated datePublished" datetime="2019-08-21T22:26:08-04:00">2019-08-21</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-29 14:55:40" itemprop="dateModified" datetime="2019-08-29T14:55:40-04:00">2019-08-29</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Static介绍与用法"><a href="#Static介绍与用法" class="headerlink" title="Static介绍与用法"></a>Static介绍与用法</h1><p>&emsp;&emsp;通常来说，当创建类时，就是在描述那个类的对象的外观与行为。除非用new创建那个类的对象，否则，实际上并未获得任何对象。执行new来创建对象时，数据存储空间才被分配，其方法才供外界调用。<br>&emsp;&emsp;有两种情形用上述方法是无解的。一种情形是，只想为某特定域分配单一存储空间，而不去考虑究竟要创建多少对象，甚至根本就不创建任何对象。另一种情形是，希望某个方法不与包含它的类的任何对象关联在一起。也就是说，即使没有创建对象，也能调用这个方法。<br>&emsp;&emsp;通过static关键字可以满足这两方面的需要。当声明一个事物是static时，就意味着这个域或方法不会与包含它的那个类的任何对象实例关联在一起。所以，即使从未创建某个类的对任何对象，也可以调用其static方法或访问其static域。通常，你必须创建一个对象，并用它来访问数据或方法。因为非static域和方法必须知道他们一起运作的特定对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class StaticTest &#123;</span><br><span class="line">    static int i = 47;</span><br><span class="line">    int j = 47;</span><br><span class="line">    static void incrementi()&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    void incrementj()&#123;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        StaticTest st1 = new StaticTest();</span><br><span class="line">        StaticTest st2 = new StaticTest();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;st1.i: &quot; + st1.i);</span><br><span class="line">        System.out.println(&quot;st2.i: &quot; + st2.i);</span><br><span class="line"></span><br><span class="line">        st1.incrementi();</span><br><span class="line">        System.out.println(&quot;st1.incrementi()后的st1.i: &quot; + st1.i);</span><br><span class="line">        System.out.println(&quot;st1.incrementi()后的st2.i: &quot; + st2.i);</span><br><span class="line"></span><br><span class="line">        st1.incrementj();</span><br><span class="line">        System.out.println(&quot;st1.incrementj()后的st1.j: &quot; + st1.j);</span><br><span class="line">        System.out.println(&quot;st1.incrementj()后的st2.j: &quot; + st2.j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Output:</span><br><span class="line">st1.i: 47</span><br><span class="line">st2.i: 47</span><br><span class="line">st1.incrementi()后的st1.i: 48</span><br><span class="line">st1.incrementi()后的st2.i: 48</span><br><span class="line">st1.incrementj()后的st1.j: 48</span><br><span class="line">st1.incrementj()后的st2.j: 47</span><br></pre></td></tr></table></figure></p>
-<p>以上代码中i是静态变量，incrementi()是静态方法。创建两个对象并且只对其中一个执行incrementi()方法得出的输出中，两个对象的i属性都加了1。incrementj()不是静态方法，所以st1执行incrementj()后，st2的j值不变。</p>
-<p>&emsp;&emsp;将字段或方法设定为static，即使创建了两个StaticTest对象，StaticTest.i也只有一份存储空间，这两个对象公像一个i，上例中的st1.i和st2.j指向同一存储空间。</p>
-<p>引用static对象时可以通过类名直接引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StaticTest.i++</span><br></pre></td></tr></table></figure></p>
-<p>或者因为incrementi()是一个静态方法，也可以直接通过类调用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StaticTest.incrementi()</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;尽管当static作用于某个字段时，肯定会改变数据创建的方式（因为一个static字段对每个类来说都只有一份存储空间，而非static字段则是对每个对象有一个存储空间），但是如果static作用于某个方法，差别却没有那么大。static方法的一个重要用法就是在不创建任何对象的前提下就可以调用它，这一点对定义main()方法很重要，这个方法是运行一个应用时的一个入口点。</p>
-<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>&emsp;&emsp;对于Static的理解我个人认为重点是认识到Static的字段，不管创建多少个对象，字段都是指向同一个存储空间，也就是说都是同时改变的。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
-<p>《JAVA编程思想第四版》</p>
-</blockquote>
-<hr>
-<p>Q:为什么main函数中不能定义static变量？<br>A:只有类才存在静态的变量，方法只能对静态变量的操作，不能在方法内试图定义静态变量。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1537,7 +1546,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
