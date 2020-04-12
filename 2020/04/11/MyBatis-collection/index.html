@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。 场景创建student表：12345678CREATE TABLE `student` (     `id` INT(10) NOT NULL,     `name` VARCHAR(30) DEFAULT NULL,     `tid` I">
+<meta name="keywords" content="MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis:collection">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/index.html">
+<meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。 场景创建student表：12345678CREATE TABLE `student` (     `id` INT(10) NOT NULL,     `name` VARCHAR(30) DEFAULT NULL,     `tid` I">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-11T20:45:24.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis:collection">
+<meta name="twitter:description" content="和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。 场景创建student表：12345678CREATE TABLE `student` (     `id` INT(10) NOT NULL,     `name` VARCHAR(30) DEFAULT NULL,     `tid` I">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MyBatis:collection | Feb 1997</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Feb 1997</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Overtime and overdue</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">MyBatis:collection
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-11 16:03:12 / 修改时间：16:45:24" itemprop="dateCreated datePublished" datetime="2020-04-11T16:03:12-04:00">2020-04-11</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
+<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
+<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>根据teacher的id查出老师手下的所有学生</p>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select t.name tname, s.id sid, s.name sname</span><br><span class="line">from teacher t, student s</span><br><span class="line">where t.id=s.tid and t.id=#&#123;tid&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int tid;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private List&lt;Student&gt; students;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>与association的要求不同，此处的要求是根据老师的id属性去查询学生，因此构建实体类时也需要变化。</p>
+<h2 id="接口类"><a href="#接口类" class="headerlink" title="接口类"></a>接口类</h2><p>用了@Param(“tid”)后，xml中的输入也要注意用tid，xml中会进一步解释。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface TeacherMapper &#123;</span><br><span class="line">    Teacher getTeacher(@Param(&quot;tid&quot;) int id);</span><br><span class="line">    Teacher getTeacher2(@Param(&quot;tid&quot;) int id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="TeacherMapper-xml"><a href="#TeacherMapper-xml" class="headerlink" title="TeacherMapper.xml"></a>TeacherMapper.xml</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先根据输入的id查询老师，然后从根据tid查询出学生<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher&quot; resultMap=&quot;TeacherStudent&quot; &gt;</span><br><span class="line">&lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; column=&quot;id&quot; javaType=&quot;ArrayList&quot; ofType=&quot;Student&quot; select=&quot;getStudentByTeacherID&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getStudentByTeacherID&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select * from student where tid=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>此方法需要注意的是collection标签中的column对应的是Teacher类中的id属性（注意resultMap的type是Teacher），javaType应该写ArrayList，因为student属性是一个集合，ofType用于获取集合中的泛型。</p>
+<h3 id="结果集嵌套查询"><a href="#结果集嵌套查询" class="headerlink" title="结果集嵌套查询"></a>结果集嵌套查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher2&quot; resultMap=&quot;TeacherStudent2&quot;&gt;</span><br><span class="line">    select t.name tname, s.id sid, s.name sname</span><br><span class="line">    from teacher t, student s</span><br><span class="line">    &lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    where t.id=s.tid and t.id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent2&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;!-- 集合中泛型的信息，用ofType获取 --&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; ofType=&quot;Student&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;tid&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;/collection&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
+<p>同association，先查询出结果，然后再用resultMap进行说明。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/04/10/MyBatis-association/" rel="next" title="MyBatis:association">
+                <i class="fa fa-chevron-left"></i> MyBatis:association
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/04/11/MyBatis-动态SQL/" rel="prev" title="MyBatis:动态SQL">
+                MyBatis:动态SQL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Feb 1997">
+  <p class="site-author-name" itemprop="name">Feb 1997</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要求"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">3.</span> <span class="nav-text">MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis实现"><span class="nav-number">4.</span> <span class="nav-text">MyBatis实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实体类-pojo"><span class="nav-number">4.1.</span> <span class="nav-text">实体类(pojo)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口类"><span class="nav-number">4.2.</span> <span class="nav-text">接口类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TeacherMapper-xml"><span class="nav-number">4.3.</span> <span class="nav-text">TeacherMapper.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子查询"><span class="nav-number">4.3.1.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果集嵌套查询"><span class="nav-number">4.3.2.</span> <span class="nav-text">结果集嵌套查询</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Feb 1997</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

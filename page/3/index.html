@@ -211,6 +211,387 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/20/MyBatis使用Map参数类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/20/MyBatis使用Map参数类型/" class="post-title-link" itemprop="url">MyBatis:使用Map参数类型</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-20 15:10:40 / 修改时间：16:05:01" itemprop="dateCreated datePublished" datetime="2020-01-20T15:10:40-05:00">2020-01-20</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>上一篇文章中介绍了简单的CRUD语句，其中当我们需要根据Id更新name以及pwd字段时，传入的实际上是一个对象：<br>测试类中的方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapper.updateUser(new User(2,&quot;Liu&quot;,&quot;password&quot;));</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">    update mybatis.user set name=#&#123;name&#125;, pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
+<p>想象一下当数据库的字段变得非常多的时候，假设一个用户同时拥有id,name,pwd,address,hobby,phone等多条属性时，再做上述操作传入对象时，我们需要填写所有的字段的值，即使我们的需求仅仅是根据id改用户的密码。<br>为了解决上述问题，我们可以使用Map作为参数的类型</p>
+<h1 id="使用Map参数"><a href="#使用Map参数" class="headerlink" title="使用Map参数"></a>使用Map参数</h1><p>已知Map是一个<key,value>的数据结构，我们可以将我们所需要用到的字段以及值存储进去，包括条件字段以及需要更新的字段。<br>回归上述情形，假设一条用户数据有很多个字段，而现在的需求是根据用户ID更改用户密码，因此我们只需要将这两个字段以及值存入Map中。<br>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一条方法 --&gt;</span><br><span class="line">    void updateUser2(Map&lt;String,Object&gt; map);</span><br></pre></td></tr></table></figure></key,value></p>
+<p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加一个标签 --&gt;</span><br><span class="line">    &lt;update id=&quot;updateUser2&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">        update mybatis.user set pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">    &lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">   public void updateUser2() &#123;</span><br><span class="line">       </span><br><span class="line">       SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">       UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">       &lt;!-- 创建一个HashMap对象 --&gt;</span><br><span class="line">       HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">       &lt;!-- 添加K-V数据 --&gt;</span><br><span class="line">       map.put(&quot;id&quot;, 1);</span><br><span class="line">       map.put(&quot;pwd&quot;, &quot;password&quot;);</span><br><span class="line">       &lt;!-- 将map作为参数传入方法 --&gt;</span><br><span class="line">       mapper.updateUser2(map);</span><br><span class="line">       sqlSession.commit();</span><br><span class="line">       sqlSession.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Map传递参数，设置parameterType=”map”后，直接在sql中取出key即可：<code>update mybatis.user set pwd=#{pwd} where id=#{id};</code>。另外，此处#{}中可以用任意的名字，只要在创建map的时候和Key的名字统一就行。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/MyBatis执行SQL语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/19/MyBatis执行SQL语句/" class="post-title-link" itemprop="url">MyBatis:执行SQL语句</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-19 19:16:32" itemprop="dateCreated datePublished" datetime="2020-01-19T19:16:32-05:00">2020-01-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-20 16:05:37" itemprop="dateModified" datetime="2020-01-20T16:05:37-05:00">2020-01-20</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>我们已经完成工具类的设计，即从SqlSessionFactory中获取SqlSession，那么如何使用SqlSession来执行Sql语句呢？<br>假设我们现在已经有一张User表，并且里面存了一些信息，现在我想对这张表执行CRUD</p>
+<h1 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h1><p>传统方法中我们需要建立一个Dao包，在Dao包里面有接口以及接口实现类，每增加一个新的接口方法就需要新增一个实现类，实现类类里的方法就是对数据库的操作，增删改查之类的。</p>
+<h1 id="Mapper代理方法"><a href="#Mapper代理方法" class="headerlink" title="Mapper代理方法"></a>Mapper代理方法</h1><p>在这种方法中，接口类中每增加一个方法，只需要在xml中新增一个标签。<br>UserMapper.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    package com.xliu.dao;</span><br><span class="line"></span><br><span class="line">&lt;!-- User的实体类 --&gt;</span><br><span class="line">    import com.xliu.pojo.User;</span><br><span class="line"></span><br><span class="line">    import java.util.List;</span><br><span class="line"></span><br><span class="line">    public interface UserMapper &#123;</span><br><span class="line">        &lt;!-- 定义一个抽象方法getUser()，返回类型是一个User类型的List --&gt;</span><br><span class="line">        List&lt;User&gt; getUser();</span><br><span class="line">        //    根据Id查询用户</span><br><span class="line">        User getUserById(int id);</span><br><span class="line"></span><br><span class="line">        void addUser(User user);</span><br><span class="line"></span><br><span class="line">        void updateUser(User user);</span><br><span class="line"></span><br><span class="line">        void deleteUser(int id);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.xliu.dao.UserMapper&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;getUser&quot; resultType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        select * from mybatis.user</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=&quot;getUserById&quot; resultType=&quot;com.xliu.pojo.User&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        select * from mybatis.user where id = #&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">    &lt;insert id=&quot;addUser&quot; parameterType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        insert into mybatis.user (id, name, pwd) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;pwd&#125;);</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    &lt;update id=&quot;updateUser&quot; parameterType=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">        update mybatis.user set name=#&#123;name&#125;, pwd=#&#123;pwd&#125; where id=#&#123;id&#125;;</span><br><span class="line">    &lt;/update&gt;</span><br><span class="line"></span><br><span class="line">    &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">        delete from mybatis.user where id=#&#123;id&#125;;</span><br><span class="line">    &lt;/delete&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure></p>
+<p>UserMapper.xml文件中，namespace对应接口，select id对应接口(namespace)中的方法名，resultType对应Sql语句执行的返回类型，如果接口方法有输入值的话，则添加属性parameterType。<br>另外需要注意的是增删改查的SQL语句对应的标签是不同的。</p>
+<p>另外一定要记住，在/resources/config.xml中要添加Mapper.xml的映射：<br>config.xml:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">    &lt;!DOCTYPE configuration</span><br><span class="line">            PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">            &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">            &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">                &lt;transactionManager type=&quot;JDBC&quot;/&gt;</span><br><span class="line">                &lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">                    &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;</span><br><span class="line">                    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8&quot;/&gt;</span><br><span class="line">                    &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">                    &lt;property name=&quot;password&quot; value=&quot;pwd&quot;/&gt;</span><br><span class="line">                &lt;/dataSource&gt;</span><br><span class="line">            &lt;/environment&gt;</span><br><span class="line">        &lt;/environments&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 添加Mapper.xml的映射 --&gt;</span><br><span class="line">        &lt;mappers&gt;</span><br><span class="line">            &lt;mapper resource=&quot;com/xliu/dao/UserMapper.xml&quot;/&gt;</span><br><span class="line">        &lt;/mappers&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package com.xliu.dao;</span><br><span class="line"></span><br><span class="line">import com.xliu.pojo.User;</span><br><span class="line">import com.xliu.utils.MybatisUtil;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class UserMapperTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void test() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        try &#123;</span><br><span class="line">            UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">            List&lt;User&gt; userList = mapper.getUser();</span><br><span class="line">            for (User user : userList) &#123;</span><br><span class="line">                System.out.println(user);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;finally &#123;</span><br><span class="line">            sqlSession.close();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void testById() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line"></span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        User userById = mapper.getUserById(1);</span><br><span class="line">        System.out.println(userById);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void addUser() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line"></span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.addUser(new User(4,&quot;hha&quot;, &quot;pwd&quot;));</span><br><span class="line"></span><br><span class="line">//        增删改需要提交事务</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void updateUser() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.updateUser(new User(2,&quot;Liu&quot;,&quot;password&quot;));</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void deleteUser() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.deleteUser(4);</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要记住：执行完一次之后需要<code>sqlSession.close()</code>，增删改的语句需要提交事务<code>sqlSession.commit()</code></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/MyBatis工具类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/19/MyBatis工具类/" class="post-title-link" itemprop="url">MyBatis:工具类</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-19 12:33:02" itemprop="dateCreated datePublished" datetime="2020-01-19T12:33:02-05:00">2020-01-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-20 16:05:37" itemprop="dateModified" datetime="2020-01-20T16:05:37-05:00">2020-01-20</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。<br>从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用类路径下的资源文件进行配置。 但是也可以使用任意的输入流（InputStream）实例，包括字符串形式的文件路径或者 file:// 的 URL 形式的文件路径来配置。MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，可使从 classpath 或其他位置加载资源文件更加容易。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String resource = &quot;org/mybatis/example/mybatis-config.xml&quot;;</span><br><span class="line">InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br></pre></td></tr></table></figure></p>
+<p>以上内容来自<a href="https://mybatis.org/mybatis-3/zh/getting-started.html" target="_blank" rel="noopener">MyBatis官方文档</a></p>
+<p>简而言之就是再用MyBatis框架连接数据库时，需要创建SqlSessionFactory。因此为了避免编写重复代码，通常将这一步骤封装成一个工具类。以下是我写的工具类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 首先用一个专门的utils包来装工具类</span><br><span class="line">    package com.xliu.utils;</span><br><span class="line"></span><br><span class="line">    import org.apache.ibatis.io.Resources;</span><br><span class="line">    import org.apache.ibatis.session.SqlSession;</span><br><span class="line">    import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">    import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">    import java.io.IOException;</span><br><span class="line">    import java.io.InputStream;</span><br><span class="line"></span><br><span class="line">    public class MybatisUtil &#123;</span><br><span class="line">        private static SqlSessionFactory sqlSessionFactory;</span><br><span class="line">        static &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                // 官方文档上的代码，要注意配置文件的路径</span><br><span class="line">                String resource = &quot;config.xml&quot;;</span><br><span class="line">                InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">                sqlSessionFactory= new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 以上步骤帮助我们创建了sqlSessionFactory,以下方法获得SqlSession的实例。</span><br><span class="line">        public static SqlSession getSqlSession() &#123;</span><br><span class="line">            return sqlSessionFactory.openSession();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>SqlSession完全包含了面向数据库执行SQL命令所需的所有方法。可以通过SqlSession实例来直接执行已映射的SQL语句。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/Spring-Boot学习笔记-一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/19/Spring-Boot学习笔记-一/" class="post-title-link" itemprop="url">Spring Boot学习笔记(一)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-19 00:42:17 / 修改时间：12:27:45" itemprop="dateCreated datePublished" datetime="2020-01-19T00:42:17-05:00">2020-01-19</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><ol>
+<li>新建一个Module-&gt;Spring Initializr</li>
+<li>Dependencies: Spring Web, JDBC API, MyBatis Framework, MySQL Driver</li>
+<li><code>pom.xml</code> 文件中已经把依赖配置好了</li>
+</ol>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>application.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server.port=8080  // 服务端口</span><br><span class="line"></span><br><span class="line"># jdbc</span><br><span class="line">spring.datasource.password=pwd // 数据库密码</span><br><span class="line">spring.datasource.username=root // 数据库用户</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&amp;serverTimezone=GMT-5 // 数据库url记得要在3306后面写数据库的名字，serverTimezone也要手动设置，不然可能会报错</span><br><span class="line"></span><br><span class="line"># mybatis</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*Mapper.xml  // 读取mapper目录下所有以Mapper.xml结尾的文件，即映射器文件的位置</span><br><span class="line">mybatis.configuration.map-underscore-to-camel-case=true // MySQL一般定义字段用下划线表示，该配置项就是指将带有下划线的表字段映射为驼峰格式的实体类属性</span><br></pre></td></tr></table></figure></p>
+<h1 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h1><p>controller层负责具体的业务模块流程的控制，在此层要调用service层的接口实现业务逻辑</p>
+<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><p>服务是一个相对独立的功能模块，主要负责业务逻辑应用设计。首先也要设计接口，然后再设计其实现该接口的类。这样我们就可以在应用中调用service接口进行业务处理。service层业务实现，具体调用到已经定义的Mapper的接口，封装service层的业务逻辑有利于通用的业务逻辑的独立性和重复利用性 。</p>
+<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p>通常我们在mapper层里面写接口，里面有与数据打交道的方法。SQL语句通常写在mapper文件里面的</p>
+<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p>bean实体类，映射数据库中的表，里面有表的属性以及get/set方法</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/08/Proxy-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -851,448 +1232,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-53-Maximum-Subarray/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/06/LeetCode-53-Maximum-Subarray/" class="post-title-link" itemprop="url">LeetCode:53.Maximum Subarray</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 15:54:16" itemprop="dateCreated datePublished" datetime="2019-11-06T15:54:16-05:00">2019-11-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-07 00:37:44" itemprop="dateModified" datetime="2019-11-07T00:37:44-05:00">2019-11-07</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">    int sum = nums[0];</span><br><span class="line">    for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp = nums[i];</span><br><span class="line">        for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">            temp += nums[j];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Input [-2,1]<br>Output -1<br>Expected 1</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>My program will stop entering the second layer loop when i = nums.length-1 which refer to the last digit. In this situation, when the sum has already been decided and cannot be changed anymore. So I have take this situation into account.</p>
-<h1 id="Correct-Code"><a href="#Correct-Code" class="headerlink" title="Correct Code"></a>Correct Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int sum = nums[0];</span><br><span class="line">        for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">            int temp = nums[i];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">                temp += nums[j];</span><br><span class="line">                if(temp&gt;sum)&#123;</span><br><span class="line">                    sum = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>Just take the situation into account and add another statement in the first layer loop</p>
-<h1 id="Better-Code"><a href="#Better-Code" class="headerlink" title="Better Code"></a>Better Code</h1><h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>Usually problem about optimization can be solved by dynamic programming. As for DP, the most important thing is finding the recursion within the problem.<br>In terms of this problem, we define the problem as <code>maxSubArray(int A[],int i)</code>. Assume we have the result of problem<code>maxSubArray(A, i-1)</code>, we can get a equation as:<br><code>maxSubArray(A,i) = maxSubArray(A,i-1)&gt;0?maxSubArray(A,i-1):0+A[i];</code><br>In short, if you know the solution of the maxSubArray which ends up with index i-1, there are two choices: 1. Start a new subarray from index i; 2. Expand the previous subarray with index i.</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int n = nums.length;</span><br><span class="line">        int res = nums[0];</span><br><span class="line">        int cmp = res;</span><br><span class="line">        for(int i = 1; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp = cmp;</span><br><span class="line">            res = Math.max(res+nums[i],nums[i]);</span><br><span class="line">            cmp = Math.max(res, temp);</span><br><span class="line">        &#125;</span><br><span class="line">        return cmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>res: biggest value if subarray ends up with nums[i]<br>cmp: biggest value so far</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-35-Search-Insert-Position/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/06/LeetCode-35-Search-Insert-Position/" class="post-title-link" itemprop="url">LeetCode:35.Search Insert Position</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 14:16:40 / 修改时间：14:21:47" itemprop="dateCreated datePublished" datetime="2019-11-06T14:16:40-05:00">2019-11-06</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
-<p>You may assume no duplicates in the array.</p>
-<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><ol>
-<li>Going through the array</li>
-<li>Try to find an index i where nums[i] == target and return the i</li>
-<li>If step 2 failed, try to find an index i where nums[i] &gt; target. Notieced that the array is sorted and if we have to insert a digit before nums[i], the index of the digit should be i as well, then we have to break from the loop, otherwise the position will be wrong</li>
-<li>There is a possibility that the target is bigger than the biggest one in the array, then the index to insert should be the value of nums.length.</li>
-</ol>
-<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> public int searchInsert(int[] nums, int target) &#123;</span><br><span class="line">    int res = 0;</span><br><span class="line"></span><br><span class="line">    for (int i = 0; i &lt; nums.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(nums[i] == target || nums[i] &gt; target)&#123;</span><br><span class="line">            res = i;</span><br><span class="line">            break;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            res = nums.length;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-27-Remove-Element/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/06/LeetCode-27-Remove-Element/" class="post-title-link" itemprop="url">LeetCode:27.Remove Element</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 13:16:44 / 修改时间：13:34:53" itemprop="dateCreated datePublished" datetime="2019-11-06T13:16:44-05:00">2019-11-06</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
-<p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
-<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>Same as the Question 26, change the array and only part of them is required.<br>Try the same thinking as Question 26.<br>Use two cursors, 1(int index) is for index and 1(int i) is for going through all the elements.<br>If only the nums[i] does not equal to the target value, put it at the nums[index]</p>
-<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int removeElement(int[] nums, int val) &#123;</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">            if (nums[i] != val) &#123;</span><br><span class="line">                nums[index++] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return index;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/" class="post-title-link" itemprop="url">LeetCode:26.Remove Duplicates from Sorted Array</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-04 23:39:38" itemprop="dateCreated datePublished" datetime="2019-11-04T23:39:38-05:00">2019-11-04</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-06 13:35:17" itemprop="dateModified" datetime="2019-11-06T13:35:17-05:00">2019-11-06</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int c = nums.length;</span><br><span class="line">    for(int i = 0; i &lt; nums.length-1; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i+1])</span><br><span class="line">            c--;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Your input [1,1,2]<br>Output [1,1]<br>Expected [1,2]</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I ignored the requirement that requirement of removing the duplicates, and I worte this only to return the length of array without duplicates which means the array wasn’t changed actually.</p>
-<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The reason why i was wrong is not doing the modification on array. Besides return the length of array without duplicates, I still have to change the order of digits in the array.</p>
-<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Considering the size of an array cannot change, and the clarification in the example said “It doesn’t matter what values are set beyond the returned length”, so what I have to do is move the digit towards if it didn’t show up before and put the repeated digit backward.<br>Obviously, the first digit is unchanged no matter how does array look like since the array is sorted. We can start from the second one whose index is 1.<br>We can use two cursors: index and i, and both of index and i starts from the value of 1. Then we set a loop, when we get into the loop, compare the nums[i] with nums[i-1], if they are the same, i move to the next digit while index doesn’t move, otherwise the nums[index] will be updated with the value of nums[i] and both of i and index move to the next digit.<br>The advantage of this method is we can guarantee that the order before the index is always right and no duplicates. </p>
-<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int index = 1;</span><br><span class="line">    for (int i = 1; i &lt; nums.length; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i-1])&#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[index] = nums[i];</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    return index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1333,7 +1272,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
