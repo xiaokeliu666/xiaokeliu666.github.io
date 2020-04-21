@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java：Lambda Comparator">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/index.html">
+<meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-21T04:53:44.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java：Lambda Comparator">
+<meta name="twitter:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java：Lambda Comparator | Feb 1997</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Feb 1997</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Overtime and overdue</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Java：Lambda Comparator
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-20 22:56:14" itemprop="dateCreated datePublished" datetime="2020-04-20T22:56:14-04:00">2020-04-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-21 00:53:44" itemprop="dateModified" datetime="2020-04-21T00:53:44-04:00">2020-04-21</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a><br>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
+<ol>
+<li>传统Comparator例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>等价的Lambda表达式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="不用Lambda排序"><a href="#不用Lambda排序" class="headerlink" title="不用Lambda排序"></a>不用Lambda排序</h1><p>举个通过age属性对Developer对象进行排序的例子。通常，你使用Collections.sort然后传入匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Befor sort&quot;);</span><br><span class="line">        for(Developer developer:listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //sort by age</span><br><span class="line">        Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Developer o1,Developer o2) &#123;</span><br><span class="line">                return o1,getAge()-o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        for(Developer developer:ListDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Before Sort</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br><span class="line"></span><br><span class="line">After Sort</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br></pre></td></tr></table></figure></p>
+<p>如果排序要求变了，你只需要传入另一个匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getNmae());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSlary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这方法有效，但是你不觉得这样有点奇怪吗，因为你只想改变一行代码却创建了一个新的类。</p>
+<h1 id="用Lambda排序"><a href="#用Lambda排序" class="headerlink" title="用Lambda排序"></a>用Lambda排序</h1><p>在Java 8中，List接口直接支持sort方法，不需要再用Collections.sort<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Java 8 之后的List.sort()</span><br><span class="line">listDevs.sort(new Comparator&lt;Deceloper&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o2.getAge()-o1.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Lambda表达式例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Before Sort&quot;);</span><br><span class="line">        for(Developer developer : listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        // lambda</span><br><span class="line">        listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">        listDevs.forEach((developer)-&gt;System.out.println(developer));</span><br><span class="line">    &#125;</span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出和前面的例子一样。</p>
+<h1 id="更多lambda的例子"><a href="#更多lambda的例子" class="headerlink" title="更多lambda的例子"></a>更多lambda的例子</h1><h2 id="Sort-by-age"><a href="#Sort-by-age" class="headerlink" title="Sort by age"></a>Sort by age</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getAge()-o2.getAge());</span><br></pre></td></tr></table></figure>
+<h2 id="Sort-by-Name"><a href="#Sort-by-Name" class="headerlink" title="Sort by Name"></a>Sort by Name</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br></pre></td></tr></table></figure>
+<h2 id="Sort-by-salary"><a href="#Sort-by-salary" class="headerlink" title="Sort by salary"></a>Sort by salary</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br></pre></td></tr></table></figure>
+<h1 id="反向排序"><a href="#反向排序" class="headerlink" title="反向排序"></a>反向排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; salaryComparator = (o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">listDevs.sort(salaryComparator.reversed());</span><br></pre></td></tr></table></figure>
+<p>个人理解就是把前面的正向排序的lambda表达式拆分城两部分，一部分是用lambda表达式把Comparator实现，另一部分则是把Comparator的对象作为参数传入sort方法，并且可以使用.reversed()</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/04/11/MyBatis-二级缓存/" rel="next" title="MyBatis:二级缓存">
+                <i class="fa fa-chevron-left"></i> MyBatis:二级缓存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Feb 1997">
+  <p class="site-author-name" itemprop="name">Feb 1997</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#不用Lambda排序"><span class="nav-number">1.</span> <span class="nav-text">不用Lambda排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Lambda排序"><span class="nav-number">2.</span> <span class="nav-text">用Lambda排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多lambda的例子"><span class="nav-number">3.</span> <span class="nav-text">更多lambda的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort-by-age"><span class="nav-number">3.1.</span> <span class="nav-text">Sort by age</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort-by-Name"><span class="nav-number">3.2.</span> <span class="nav-text">Sort by Name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort-by-salary"><span class="nav-number">3.3.</span> <span class="nav-text">Sort by salary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反向排序"><span class="nav-number">4.</span> <span class="nav-text">反向排序</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Feb 1997</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
