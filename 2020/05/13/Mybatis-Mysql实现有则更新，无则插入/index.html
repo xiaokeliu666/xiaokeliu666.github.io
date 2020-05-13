@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="&amp;emsp;&amp;emsp;首先在根目录下的settings中添加配置:12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos; 这样上传的文件就会在media文件夹中 &amp;emsp;&amp;emsp;Models.py中添加模型并完成迁移，例如：123456class ImageStore(">
-<meta name="keywords" content="Django,Python,踩坑">
+  <meta name="description" content="MySQL实现123insert into books (`bookName`,`bookCounts`,`detail`) values (&amp;apos;MySQL&amp;apos;,5,&amp;apos;快跑辣&amp;apos;) on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`de">
+<meta name="keywords" content="MyBatis,MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Djangos学习笔记：上传文件&#x2F;图片">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/index.html">
+<meta property="og:title" content="MyBatis+Mysql实现有则更新，无则插入">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;首先在根目录下的settings中添加配置:12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos; 这样上传的文件就会在media文件夹中 &amp;emsp;&amp;emsp;Models.py中添加模型并完成迁移，例如：123456class ImageStore(">
+<meta property="og:description" content="MySQL实现123insert into books (`bookName`,`bookCounts`,`detail`) values (&amp;apos;MySQL&amp;apos;,5,&amp;apos;快跑辣&amp;apos;) on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`de">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T18:52:05.951Z">
+<meta property="og:updated_time" content="2020-05-13T04:13:20.633Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Djangos学习笔记：上传文件&#x2F;图片">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;首先在根目录下的settings中添加配置:12MEDIA_ROOT = os.path.join(BASE_DIR, &amp;apos;media&amp;apos;)MEDIA_URL = &amp;apos;/media/&amp;apos; 这样上传的文件就会在media文件夹中 &amp;emsp;&amp;emsp;Models.py中添加模型并完成迁移，例如：123456class ImageStore(">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
+<meta name="twitter:title" content="MyBatis+Mysql实现有则更新，无则插入">
+<meta name="twitter:description" content="MySQL实现123insert into books (`bookName`,`bookCounts`,`detail`) values (&amp;apos;MySQL&amp;apos;,5,&amp;apos;快跑辣&amp;apos;) on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`de">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Djangos学习笔记：上传文件/图片 | Feb 1997</title>
+  <title>MyBatis+Mysql实现有则更新，无则插入 | Feb 1997</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/09/Djangos学习笔记：上传文件-图片/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -231,7 +231,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Djangos学习笔记：上传文件/图片
+          <h1 class="post-title" itemprop="name headline">MyBatis+Mysql实现有则更新，无则插入
 
               
             
@@ -251,37 +251,12 @@
                 
               
 
-              <time title="创建时间：2019-08-09 22:58:56" itemprop="dateCreated datePublished" datetime="2019-08-09T22:58:56-04:00">2019-08-09</time>
+              <time title="创建时间：2020-05-13 00:06:48 / 修改时间：00:13:20" itemprop="dateCreated datePublished" datetime="2020-05-13T00:06:48-04:00">2020-05-13</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-29 14:52:05" itemprop="dateModified" datetime="2019-08-29T14:52:05-04:00">2019-08-29</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           <br/>
@@ -295,13 +270,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>&emsp;&emsp;首先在根目录下的settings中添加配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, &apos;media&apos;)</span><br><span class="line">MEDIA_URL = &apos;/media/&apos;</span><br></pre></td></tr></table></figure></p>
-<p>这样上传的文件就会在media文件夹中</p>
-<p>&emsp;&emsp;Models.py中添加模型并完成迁移，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ImageStore(models.Model):</span><br><span class="line">    name = models.CharField(max_length=150, null=True)</span><br><span class="line">    img = models.ImageField(upload_to=&apos;img&apos;)  # 会上传至/media/img文件夹中，如不存在则会自动生成一个</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.name</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;上传图片功能需要安装Pillow:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;然后在admin.py中注册模型:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.site.register(ImageStore)</span><br></pre></td></tr></table></figure></p>
-<p>即可在管理员界面对图片进行上传，并且上传后图片会出现在文件夹中。</p>
-<p>&emsp;&emsp;目前还存在的问题是无法在管理员界面显示图片，如果直接点链接会跳转至一个新的无法到达的地址，原因是因为相应的路由地址我还没写。</p>
+        <h1 id="MySQL实现"><a href="#MySQL实现" class="headerlink" title="MySQL实现"></a>MySQL实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into books (`bookName`,`bookCounts`,`detail`) </span><br><span class="line">values (&apos;MySQL&apos;,5,&apos;快跑辣&apos;) </span><br><span class="line">on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`detail`);</span><br></pre></td></tr></table></figure>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(#&#123;bookCounts&#125;), detail=values(#&#123;detail&#125;) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(?), detail=values(?) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
+<h1 id="正确"><a href="#正确" class="headerlink" title="正确"></a>正确</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    // 下面不用#&#123;&#125;取数值</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -313,17 +286,15 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Django/" rel="tag"># Django</a>
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/踩坑/" rel="tag"># 踩坑</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/08/Django踩坑：PK/" rel="next" title="Django踩坑：PK">
-                <i class="fa fa-chevron-left"></i> Django踩坑：PK
+              <a href="/2020/04/20/Java：Lambda-Comparator/" rel="next" title="Java：Lambda Comparator">
+                <i class="fa fa-chevron-left"></i> Java：Lambda Comparator
               </a>
             
           </div>
@@ -331,10 +302,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/11/Django踩坑-dbshell报错/" rel="prev" title="Django踩坑：python manage.py dbshell报错">
-                Django踩坑：python manage.py dbshell报错 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -364,8 +331,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -455,6 +431,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL实现"><span class="nav-number">1.</span> <span class="nav-text">MySQL实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误"><span class="nav-number">2.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确"><span class="nav-number">3.</span> <span class="nav-text">正确</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>

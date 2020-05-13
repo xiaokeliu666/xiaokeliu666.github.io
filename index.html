@@ -211,6 +211,94 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/" class="post-title-link" itemprop="url">MyBatis+Mysql实现有则更新，无则插入</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-13 00:06:48 / 修改时间：00:13:20" itemprop="dateCreated datePublished" datetime="2020-05-13T00:06:48-04:00">2020-05-13</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="MySQL实现"><a href="#MySQL实现" class="headerlink" title="MySQL实现"></a>MySQL实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into books (`bookName`,`bookCounts`,`detail`) </span><br><span class="line">values (&apos;MySQL&apos;,5,&apos;快跑辣&apos;) </span><br><span class="line">on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`detail`);</span><br></pre></td></tr></table></figure>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(#&#123;bookCounts&#125;), detail=values(#&#123;detail&#125;) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(?), detail=values(?) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
+<h1 id="正确"><a href="#正确" class="headerlink" title="正确"></a>正确</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    // 下面不用#&#123;&#125;取数值</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -260,7 +348,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-04-21 00:53:44" itemprop="dateModified" datetime="2020-04-21T00:53:44-04:00">2020-04-21</time>
+                <time title="修改时间：2020-04-21 00:57:08" itemprop="dateModified" datetime="2020-04-21T00:57:08-04:00">2020-04-21</time>
               </span>
             
           
@@ -278,14 +366,15 @@
       
           
             <blockquote>
-<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a><br>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
-<ol>
-<li>传统Comparator例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a></p>
 </blockquote>
+<p>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
 <ol>
-<li>等价的Lambda表达式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
+<li><p>传统Comparator例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等价的Lambda表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1 id="不用Lambda排序"><a href="#不用Lambda排序" class="headerlink" title="不用Lambda排序"></a>不用Lambda排序</h1><p>举个通过age属性对Developer对象进行排序的例子。通常，你使用Collections.sort然后传入匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Befor sort&quot;);</span><br><span class="line">        for(Developer developer:listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //sort by age</span><br><span class="line">        Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Developer o1,Developer o2) &#123;</span><br><span class="line">                return o1,getAge()-o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        for(Developer developer:ListDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1181,95 +1270,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/30/Spring-Note-8-JavaConfig/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/30/Spring-Note-8-JavaConfig/" class="post-title-link" itemprop="url">Spring Note 8:JavaConfig</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-30 18:17:32 / 修改时间：18:43:46" itemprop="dateCreated datePublished" datetime="2020-03-30T18:17:32-04:00">2020-03-30</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <blockquote>
-<p>The central artifacts in Spring’s new Java-configuration support are @Configuration-annotated classes and @Bean-annotated methods.<br>The @Bean annotation is used to indicate that a method instantiates, configures, and initializes a new object to be managed by the Spring IoC container. For those familiar with Spring’s<code>&lt;beans/&gt;</code> XML configuration, the @Bean annotation plays the same role as the <code>&lt;bean/&gt;</code> element. You can use @Bean-annotated methods with any Spring @Component. However, they are most often used with @Configuration beans.<br>Annotating a class with @Configuration indicates that its primary purpose is as a source of bean definitions. Furthermore, @Configuration classes let inter-bean dependencies be defined by calling other @Bean methods in the same class.</p>
-</blockquote>
-<p>使用Config开发可以省略配置文件。<br>LiuConfig.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 这个也会被Spring容器托管，注册到容器中，因为它本来就是一个@Component</span><br><span class="line">// @Configuration代表这是一个配置类，就和之前的Beans.xml一样</span><br><span class="line">@Configuration</span><br><span class="line">public class LiuConfig &#123;</span><br><span class="line"></span><br><span class="line">//    注册一个bean，相当于之前写的一个bean标签</span><br><span class="line">//    方法的名字就相当于bean标签的id属性</span><br><span class="line">//    方法的返回值，就相当于bean标签中的class属性</span><br><span class="line">    @Bean</span><br><span class="line">    public User user() &#123;</span><br><span class="line">        return new User();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>User.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class User &#123;</span><br><span class="line">    @Value(&quot;XLIU&quot;)</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;User&#123;&quot; +</span><br><span class="line">                &quot;name=&apos;&quot; + name + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MyTest.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class MyTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">//        如果完全使用了配置类方法去做，我们就只能通过AnnotationConfig上下文来获取容器，通过配置类的class对象加载</span><br><span class="line">       ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LiuConfig.class);</span><br><span class="line">       User user = applicationContext.getBean(&quot;user&quot;, User.class);</span><br><span class="line">        System.out.println(user.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1310,7 +1310,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1372,7 +1372,9 @@
         
           
         
-        <span class="site-state-item-count">12</span>
+          
+        
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

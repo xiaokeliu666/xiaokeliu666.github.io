@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+  <meta name="description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/  在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子： 123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;l">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java：Lambda Comparator">
 <meta property="og:url" content="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+<meta property="og:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/  在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子： 123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;l">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-21T04:53:44.151Z">
+<meta property="og:updated_time" content="2020-04-21T04:57:08.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：Lambda Comparator">
-<meta name="twitter:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子：123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;lt;D">
+<meta name="twitter:description" content="原文地址：https://mkyong.com/java8/java-8-lambda-comparator-example/  在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。  传统Comparator例子： 123456Comparator&amp;lt;Developer&amp;gt; byName = new Comparator&amp;l">
   <link rel="canonical" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
 
 
@@ -264,7 +264,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-04-21 00:53:44" itemprop="dateModified" datetime="2020-04-21T00:53:44-04:00">2020-04-21</time>
+                <time title="修改时间：2020-04-21 00:57:08" itemprop="dateModified" datetime="2020-04-21T00:57:08-04:00">2020-04-21</time>
               </span>
             
           
@@ -281,14 +281,15 @@
 
       
         <blockquote>
-<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a><br>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
-<ol>
-<li>传统Comparator例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a></p>
 </blockquote>
+<p>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
 <ol>
-<li>等价的Lambda表达式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
+<li><p>传统Comparator例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等价的Lambda表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1 id="不用Lambda排序"><a href="#不用Lambda排序" class="headerlink" title="不用Lambda排序"></a>不用Lambda排序</h1><p>举个通过age属性对Developer对象进行排序的例子。通常，你使用Collections.sort然后传入匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Befor sort&quot;);</span><br><span class="line">        for(Developer developer:listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //sort by age</span><br><span class="line">        Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Developer o1,Developer o2) &#123;</span><br><span class="line">                return o1,getAge()-o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        for(Developer developer:ListDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -328,6 +329,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/" rel="prev" title="MyBatis+Mysql实现有则更新，无则插入">
+                MyBatis+Mysql实现有则更新，无则插入 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -382,7 +387,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -444,7 +449,9 @@
         
           
         
-        <span class="site-state-item-count">12</span>
+          
+        
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
