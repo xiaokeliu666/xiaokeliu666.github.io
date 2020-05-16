@@ -57,14 +57,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Feb 1997">
-<meta property="og:url" content="http://xiaokeliu666.github.io/tags/Python/index.html">
+  <meta name="description" content="递归法1234567891011121314class Solution &amp;#123;    public List&amp;lt;Integer&amp;gt; rightSideView(TreeNode root) &amp;#123;        List&amp;lt;Integer&amp;gt; res = new ArrayList&amp;lt;&amp;gt;();        helper(root,res,0);">
+<meta name="keywords" content="LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode:199">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/index.html">
 <meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="递归法1234567891011121314class Solution &amp;#123;    public List&amp;lt;Integer&amp;gt; rightSideView(TreeNode root) &amp;#123;        List&amp;lt;Integer&amp;gt; res = new ArrayList&amp;lt;&amp;gt;();        helper(root,res,0);">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-16T02:21:33.834Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feb 1997">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/tags/Python/">
+<meta name="twitter:title" content="LeetCode:199">
+<meta name="twitter:description" content="递归法1234567891011121314class Solution &amp;#123;    public List&amp;lt;Integer&amp;gt; rightSideView(TreeNode root) &amp;#123;        List&amp;lt;Integer&amp;gt; res = new ArrayList&amp;lt;&amp;gt;();        helper(root,res,0);">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/">
 
 
 <script id="page.configurations">
@@ -73,7 +78,7 @@
   };
 </script>
 
-  <title>标签: Python | Feb 1997</title>
+  <title>LeetCode:199 | Feb 1997</title>
   
 
 
@@ -112,7 +117,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -158,7 +163,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
       
     
 
@@ -228,293 +233,112 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block tag">
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Python<small>标签</small>
-        </h1>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">LeetCode:199
+
+              
+            
+          </h1>
         
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/16/官方文档：Django-shortcut-functions/" itemprop="url">
+              
+                
+              
+
+              <time title="创建时间：2020-05-15 22:12:32 / 修改时间：22:21:33" itemprop="dateCreated datePublished" datetime="2020-05-15T22:12:32-04:00">2020-05-15</time>
+            </span>
+          
             
-              <span itemprop="name">官方文档：Django shortcut functions</span>
+
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-16T21:38:33-04:00"
-              content="2019-08-16">
-          08-16
-        </time>
-      </div>
+          <br/>
 
-    </header>
-  </article>
+        </div>
+      </header>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; rightSideView(TreeNode root) &#123;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root,res,0);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res, int level) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        if(res.size()==level) &#123;res.add(root.val);&#125;</span><br><span class="line">        helper(root.right,res,level+1);</span><br><span class="line">        helper(root.left,res,level+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>考虑到会出现树不平衡的情况:<br>               1<br>            /    \\<br>           2      3<br>           \\<br>            5<br>所以既要考虑到左边的子树，也要考虑到右边的子树。此例中如果每次递归都只考虑最右边的子树的节点，会发现3没有子节点，这时候就没办法回到2节点了。<br>这种解法的技巧在于用level来确保每一层只会选取一个节点。先递归右子树再递归左子树则解决了不平衡的问题：如果右子树没了，再考虑同一层的左子树。</p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/14/Django踩坑：数据迁移遇到的问题/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：数据迁移遇到的问题</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-14T22:43:46-04:00"
-              content="2019-08-14">
-          08-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/13/（译）related_name in models.py/" itemprop="url">
-            
-              <span itemprop="name">（译）"related_name" in models.py</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-13T12:42:56-04:00"
-              content="2019-08-13">
-          08-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/12/Django学习笔记：模型/" itemprop="url">
-            
-              <span itemprop="name">Django学习笔记：模型搭建</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-12T23:01:40-04:00"
-              content="2019-08-12">
-          08-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/11/Django踩坑-dbshell报错/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：python manage.py dbshell报错</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-11T16:23:18-04:00"
-              content="2019-08-11">
-          08-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/09/Djangos学习笔记：上传文件-图片/" itemprop="url">
-            
-              <span itemprop="name">Djangos学习笔记：上传文件/图片</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-09T22:58:56-04:00"
-              content="2019-08-09">
-          08-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/08/Django踩坑：PK/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：PK</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-08T20:52:45-04:00"
-              content="2019-08-08">
-          08-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/04/Django学习笔记：第一个Django应用/" itemprop="url">
-            
-              <span itemprop="name">Django学习笔记：第一个Django应用</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-04T23:10:19-04:00"
-              content="2019-08-04">
-          08-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/08/01/Django踩坑：python-manage-py-migrate报错/" itemprop="url">
-            
-              <span itemprop="name">Django踩坑：python manage.py migrate报错</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-01T23:58:06-04:00"
-              content="2019-08-01">
-          08-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/05/13/SSM读取excel文件更新数据库/" rel="next" title="SSM读取excel文件更新数据库">
+                <i class="fa fa-chevron-left"></i> SSM读取excel文件更新数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -529,8 +353,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -622,6 +455,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#递归法"><span class="nav-number">1.</span> <span class="nav-text">递归法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -674,6 +524,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
