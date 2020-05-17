@@ -238,6 +238,451 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-98/" class="post-title-link" itemprop="url">LeetCode:98</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 18:09:59 / 修改时间：18:12:38" itemprop="dateCreated datePublished" datetime="2020-05-16T18:09:59-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidBST(TreeNode root) &#123;</span><br><span class="line">        if(root==null) &#123;return true;&#125;</span><br><span class="line">        return helper(root,Long.MAX_VALUE,Long.MIN_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    public static boolean helper(TreeNode root, long max, long min) &#123;</span><br><span class="line">        if(root==null) &#123;return true;&#125;</span><br><span class="line">        if(root.val&gt;min &amp;&amp; root.val&lt;max)&#123;</span><br><span class="line">            return helper(root.left,root.val,min) &amp; helper(root.right,max,root.val);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用左节点小于根节点，右节点大于根节点的性质，不断更新max和min的值，来限定当前节点值的范围，使用Long的原因是因为有些奇怪的测试用例，比如：[2147483647]。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-96/" class="post-title-link" itemprop="url">LeetCode:96</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 17:01:16 / 修改时间：17:21:44" itemprop="dateCreated datePublished" datetime="2020-05-16T17:01:16-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int numTrees(int n) &#123;</span><br><span class="line">        if(n==0) &#123;return 0;&#125;</span><br><span class="line">        int[] res = new int[n+1];</span><br><span class="line">        res[0] = 1;</span><br><span class="line">        res[1] = 1;</span><br><span class="line">        for(int i = 2; i &lt; n+1; i++) &#123;</span><br><span class="line">            for(int j = 1; j&lt;= i; j++) &#123;</span><br><span class="line">                res[i] += res[i-j] * res[j-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>确定一个根节点</li>
+<li>小于根节点的值组成左子树，大于根节点的值组成右子树</li>
+<li>左子树的组合总数乘以右子树的组合总数，即为当前根节点可能形成的树的总数。</li>
+</ol>
+<p>举例：<br>当n=6，选取根节点为i=3的时候，此时树的可能性为[1,2]组成子树的可能<em>[4,5,6]组成子树的可能,实际上[4,5,6]组成子树的总数就等于[1,2,3]组成子树的总数。<br>因此可以得出dp公式 F(i, n) = G(i-1) </em> G(n-i)，其中G(i-1)就是左子树，G(n-i)就是右子树。</p>
+<hr>
+<p>参考：<a href="https://leetcode.com/problems/unique-binary-search-trees/discuss/31666/DP-Solution-in-6-lines-with-explanation.-F(i-n)-G(i-1)-*-G(n-i" target="_blank" rel="noopener">https://leetcode.com/problems/unique-binary-search-trees/discuss/31666/DP-Solution-in-6-lines-with-explanation.-F(i-n)-G(i-1)-*-G(n-i</a>) 下用户@lizhu5058的解释。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-95/" class="post-title-link" itemprop="url">LeetCode:95</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 16:31:00 / 修改时间：17:22:05" itemprop="dateCreated datePublished" datetime="2020-05-16T16:31:00-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;TreeNode&gt; generateTrees(int n) &#123;</span><br><span class="line">        if(n&lt;=0) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        return helper(1,n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static List&lt;TreeNode&gt; helper(int start, int end) &#123;</span><br><span class="line">        List&lt;TreeNode&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(end&lt;start) &#123;res.add(null);&#125;</span><br><span class="line">        for(int i = start; i&lt;=end; i++) &#123;</span><br><span class="line">            List&lt;TreeNode&gt; leftList = helper(start,i-1);</span><br><span class="line">            List&lt;TreeNode&gt; rightList = helper(i+1,end);</span><br><span class="line">            for(TreeNode leftNode:leftList) &#123;</span><br><span class="line">                for(TreeNode rightNode:rightList) &#123;</span><br><span class="line">                    // 为了避免重复的答案，在循环中新建一个root</span><br><span class="line">                    TreeNode root = new TreeNode(i);</span><br><span class="line">                    root.left = leftNode;</span><br><span class="line">                    root.right = rightNode;</span><br><span class="line">                    res.add(root);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>确定根节点</li>
+<li>小于根节点的值生成左子树，大于根节点的值生成右子树</li>
+<li>左子树和右子树进行排列组合</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-94-145-144/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-94-145-144/" class="post-title-link" itemprop="url">LeetCode:94 & 145 & 144</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 14:30:09 / 修改时间：15:11:34" itemprop="dateCreated datePublished" datetime="2020-05-16T14:30:09-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="94-Binary-Tree-Inorder-Traversal"><a href="#94-Binary-Tree-Inorder-Traversal" class="headerlink" title="94.Binary Tree Inorder Traversal"></a>94.Binary Tree Inorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; inorderTraversal(TreeNode root) &#123;</span><br><span class="line">        if(root==null) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root, res);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res)&#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="144-Binary-Tree-Preorder-Traversal"><a href="#144-Binary-Tree-Preorder-Traversal" class="headerlink" title="144.Binary Tree Preorder Traversal"></a>144.Binary Tree Preorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="145-Binary-Tree-Postorder-Traversal"><a href="#145-Binary-Tree-Postorder-Traversal" class="headerlink" title="145.Binary Tree Postorder Traversal"></a>145.Binary Tree Postorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>递归方法只需要根据要求改变递归的顺序即可，当递归执行到空节点时返回即可，res.add()保证了每次递归都会添加当前节点，通过调整位置来实现不同序的遍历。</p>
+<h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><ul>
+<li>时间复杂度：O(n)。递归函数 T(n) = 2T(n/2)+1。</li>
+<li>空间复杂度：最坏情况下需要空间O(n)，平均情况为O(logn)。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/Leetcode-105-106/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/Leetcode-105-106/" class="post-title-link" itemprop="url">Leetcode:105 & 106</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 00:33:40 / 修改时间：14:30:57" itemprop="dateCreated datePublished" datetime="2020-05-16T00:33:40-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>前序遍历：根-左-右<br>中序遍历：左-根-右<br>后序遍历：右-左-根<br>前序遍历和后续遍历可以确定根节点的位置（第一个或最后一个），中序遍历可以确定左子树上有哪些节点，右子树上有哪些节点。这两道题的大致思路就是通过前序或者后序遍历，确定根节点的位置，再通过中序遍历确定左右两边子树的节点，依次迭代。</p>
+<h1 id="105"><a href="#105" class="headerlink" title="105"></a>105</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] preorder, int[] inorder) &#123;</span><br><span class="line">        return helper(0,0,inorder.length-1,preorder,inorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public TreeNode helper(int preStart,int inStart, int inEnd, int[] preorder, int[] inorder) &#123;</span><br><span class="line">        if(inStart&gt;inEnd || preStart &gt;= preorder.length) &#123;return null;&#125;</span><br><span class="line">        // root</span><br><span class="line">        TreeNode root = new TreeNode(preorder[preStart]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = index; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==preorder[preStart]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(preStart+1,inStart,index-1,preorder,inorder);</span><br><span class="line">        root.right = helper(preStart+index-inStart+1,index+1,inEnd,preorder,inorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>难点在于计算右子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
+<h1 id="106"><a href="#106" class="headerlink" title="106"></a>106</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] inorder, int[] postorder) &#123;</span><br><span class="line">        return helper(postorder.length-1,0,inorder.length-1,inorder,postorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public static TreeNode helper(int postEnd, int inStart, int inEnd, int[] inorder, int[] postorder) &#123;</span><br><span class="line">        if(postEnd&gt;=postorder.length || inStart&gt;inEnd) &#123;return null;&#125;</span><br><span class="line">        TreeNode root = new TreeNode(postorder[postEnd]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = 0; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==postorder[postEnd]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(postEnd-inEnd+index-1,inStart,index-1,inorder,postorder);</span><br><span class="line">        root.right = helper(postEnd-1,index+1,inEnd,inorder,postorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>难点在于计算左子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -716,539 +1161,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-缓存/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/11/MyBatis-缓存/" class="post-title-link" itemprop="url">MyBatis:缓存</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-11 20:50:38 / 修改时间：22:48:43" itemprop="dateCreated datePublished" datetime="2020-04-11T20:50:38-04:00">2020-04-11</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>什么是缓存？</p>
-<ul>
-<li>存在内存中的数据</li>
-<li>将用户经常查询的数据存放在缓存（内存）中，用户去查询数据就不用从磁盘上（关系型数据库数据文件）查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。<br>为什么使用缓存？</li>
-<li>减少和数据库的交互次数，减少系统开销，提高系统效率<br>什么样的数据能使用缓存？</li>
-<li>经常查询并且不经常改变的数据<h1 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h1></li>
-<li>MyBatis包含一个非常浅的嘎的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大地提升查询效率。</li>
-<li>MyBatis系统中默认定义了两级缓存：<strong>一级缓存</strong>和<strong>二级缓存</strong><ul>
-<li>默认情况下，只有一级缓存开启。（SqlSession级别的缓存，也称为本地缓存）</li>
-<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
-<li>为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来定义二级缓存。</li>
-</ul>
-</li>
-</ul>
-<h1 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h1><p>一级缓存也叫本地缓存：</p>
-<ul>
-<li>与数据库同一次会话期间(从SqlSession创建到关闭)查询到的数据会放在本地缓存中</li>
-<li>以后如果需要获取相同的数据，直接从缓存中拿，没必要再去查询数据库</li>
-</ul>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
-<li>启动日志</li>
-<li>根据Id搜索用户</li>
-<li>搜索同一个Id两次<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void addInitBlog()&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">    </span><br><span class="line">    User user1 = mapper.queryById(1);</span><br><span class="line">    System.out.println(user1);</span><br><span class="line">    System.out.println(&quot;==========&quot;);</span><br><span class="line">    User user2 = mapper.queryById(1);</span><br><span class="line">    System.out.println(user2);</span><br><span class="line">    System.out.println(user1==user2);</span><br><span class="line">    </span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>日志输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Opening JDBC Connection</span><br><span class="line">Created connection 2088371948.</span><br><span class="line">Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@7c7a06ec]</span><br><span class="line">==&gt;  Preparing: select * from user where id=? </span><br><span class="line">==&gt; Parameters: 1(Integer)</span><br><span class="line">&lt;==    Columns: id, name, pwd</span><br><span class="line">&lt;==        Row: 1, xiaoke, 666</span><br><span class="line">&lt;==      Total: 1</span><br><span class="line">User&#123;id=1, name=&apos;xiaoke&apos;, pwd=&apos;666&apos;&#125;</span><br><span class="line">==========</span><br><span class="line">User&#123;id=1, name=&apos;xiaoke&apos;, pwd=&apos;666&apos;&#125;</span><br><span class="line">true</span><br><span class="line">Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@7c7a06ec]</span><br><span class="line">Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@7c7a06ec]</span><br><span class="line">Returned connection 2088371948 to pool.</span><br></pre></td></tr></table></figure></p>
-<h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><ol>
-<li>只执行了一次Sql语句</li>
-<li>两个对象是相等的<h2 id="缓存失效"><a href="#缓存失效" class="headerlink" title="缓存失效"></a>缓存失效</h2></li>
-<li>查询不同的东西</li>
-<li>增删改操作，可能会改变数据库的内容，肯定会刷新缓存</li>
-<li>查询不同的Mapper.xml</li>
-<li>手动清理缓存(sqlSession.clearCache();)</li>
-</ol>
-<hr>
-<p>一级缓存的实现就是一个Map，可以通过打断点来证明。</p>
-<h1 id="缓存顺序"><a href="#缓存顺序" class="headerlink" title="缓存顺序"></a>缓存顺序</h1><ol>
-<li>先看二级缓存中有没有</li>
-<li>再看一级缓存中有没有</li>
-<li>查询数据库</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-动态SQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/11/MyBatis-动态SQL/" class="post-title-link" itemprop="url">MyBatis:动态SQL</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-11 16:45:57 / 修改时间：20:50:18" itemprop="dateCreated datePublished" datetime="2020-04-11T16:45:57-04:00">2020-04-11</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><blockquote>
-<p>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。<br>简而言之，动态SQL简化了SQL语句拼接</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table blog</span><br><span class="line">(</span><br><span class="line">    id          varchar(50)  not null comment &apos;博客id&apos;,</span><br><span class="line">    title       varchar(100) not null comment &apos;博客标题&apos;,</span><br><span class="line">    author      varchar(30)  not null comment &apos;博客作者&apos;,</span><br><span class="line">    create_time datetime     not null comment &apos;创建时间&apos;,</span><br><span class="line">    views       int(30)      not null comment &apos;浏览量&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>已经提前加入几条数据。</p>
-<h1 id="if"><a href="#if" class="headerlink" title="if"></a>if</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    // 根据条件查询博客</span><br><span class="line">    List&lt;Blog&gt; queryBlogIF(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BlogMapper-xml"><a href="#BlogMapper-xml" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogIF&quot; parameterType=&quot;map&quot; resultType=&quot;Blog&quot;&gt;</span><br><span class="line">    select * from blog</span><br><span class="line">    where 1=1</span><br><span class="line">    &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">        and title =#&#123;title&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">    &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">        and author =#&#123;author&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<p>官方文档上写<code>where state=&#39;ACTIVATE&#39;</code>，但是在我的环境中会报错，用<code>where 1=1</code>替代是一样的效果，表示恒成立，即使if后面的语句不执行，也能查询出东西。<br>完整标签为<code>&lt;if test=&quot;判断条件&quot;&gt;&lt;/if&gt;</code></p>
-<h1 id="choose-when-otherwise"><a href="#choose-when-otherwise" class="headerlink" title="choose(when,otherwise)"></a>choose(when,otherwise)</h1><p>有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，<strong>它有点像 Java 中的 switch 语句。</strong></p>
-<h2 id="接口-1"><a href="#接口-1" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    // 根据条件查询博客</span><br><span class="line">    List&lt;Blog&gt; queryBlogChoose(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BlogMapper-xml-1"><a href="#BlogMapper-xml-1" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogChoose&quot; parameterType=&quot;map&quot; resultType=&quot;Blog&quot;&gt;</span><br><span class="line">        select * from blog</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;choose&gt;</span><br><span class="line">                &lt;when test=&quot;title!=null&quot;&gt;</span><br><span class="line">                    title=#&#123;title&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line"></span><br><span class="line">                &lt;when test=&quot;author!=null&quot;&gt;</span><br><span class="line">                    and author=#&#123;author&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line"></span><br><span class="line">                &lt;otherwise&gt;</span><br><span class="line">                    and views=#&#123;views&#125;</span><br><span class="line">                &lt;/otherwise&gt;</span><br><span class="line">            &lt;/choose&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<p>注意：此处使用\<where>标签替代了上一个例子中的<code>where 1=1</code>语句，相比后者，前者更优雅地实现了智能拼接。在此例中，如果”title!=null”不成立且”author!=null”成立，在最后拼接时\<where>标签可以识别出<code>where and author=#{author}</code>这样的错误语句并去掉and。</where></where></p>
-<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h2 id="接口-2"><a href="#接口-2" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    int updateBlog(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BlogMapper-xml-2"><a href="#BlogMapper-xml-2" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateBlog&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">    update blog</span><br><span class="line">    &lt;set&gt;</span><br><span class="line">        &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">            title = #&#123;title&#125;,</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">        &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">            author =#&#123;author&#125;,</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/set&gt;</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure>
-<p>在使用update语句时容易出现的拼接问题是逗号后面紧跟一个where，例如此例中可能会出现<code>update blog set author=#{author}, where id=#{id}</code>的情况，因此\<set>标签也和\<where>标签一样可以智能地识别多余的逗号并去除。</where></set></p>
-<h1 id="SQL片段"><a href="#SQL片段" class="headerlink" title="SQL片段"></a>SQL片段</h1><p>我们可以用\<sql>标签把上述三个例子中都出现的SQL片段抽取出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;if-title-author&quot;&gt;</span><br><span class="line">    &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">        title = #&#123;title&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">    &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">        and author =#&#123;author&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/sql&gt;</span><br></pre></td></tr></table></figure></sql></p>
-<p>需要使用的时候:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;include refid=&quot;if-title-author&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
-<p>即可实现代码的复用。<br>注意事项：</p>
-<ul>
-<li>最好基于单表来定义SQL片段</li>
-<li>不要存在where标签</li>
-</ul>
-<h1 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h1><p>动态 SQL 的另一个常见使用场景是对集合进行遍历（尤其是在构建 IN 条件语句的时候）。<br>假设现在需要查询id为1，2，3的三条数据，SQL语句为<code>select * from blog where 1=1 and (id=1 or id=2 or id=3)</code></p>
-<h2 id="使用foreach标签"><a href="#使用foreach标签" class="headerlink" title="使用foreach标签"></a>使用foreach标签</h2><h3 id="接口-3"><a href="#接口-3" class="headerlink" title="接口"></a>接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    List&lt;Blog&gt; queryBlogForeach(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="BlogMapper-xml-3"><a href="#BlogMapper-xml-3" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogForeach&quot; parameterType=&quot;map&quot; resultType=&quot;blog&quot;&gt;</span><br><span class="line">        select * from blog</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;foreach collection=&quot;ids&quot; item=&quot;id&quot; open=&quot;and (&quot; separator=&quot;or&quot; close=&quot;)&quot;&gt;</span><br><span class="line">                id=#&#123;id&#125;</span><br><span class="line">            &lt;/foreach&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<p>foreach标签中collection是集合，item是集合中的对象（很类似于java中的<code>for(:)</code>语句），open是开头，seperator是分隔符，close是结尾。以这样的方式来拼接SQL语句。<br>此例中最终拼接成的语句为：<code>select * from blog where 1=1 and (id=1 or id=2 or id=3)</code></p>
-<h3 id="Test-java"><a href="#Test-java" class="headerlink" title="Test.java"></a>Test.java</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test()&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">    Map map = new HashMap();</span><br><span class="line">    ArrayList&lt;Integer&gt; ids = new ArrayList&lt;Integer&gt;();</span><br><span class="line">    ids.add(1);</span><br><span class="line">    ids.add(2);</span><br><span class="line">    ids.add(3);</span><br><span class="line">    map.put(&quot;ids&quot;,ids);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    List&lt;Blog&gt; blogs = mapper.queryBlogForeach(map);</span><br><span class="line">    for (Blog blog : blogs) &#123;</span><br><span class="line">        System.out.println(blog);</span><br><span class="line">    &#125;</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/11/MyBatis-collection/" class="post-title-link" itemprop="url">MyBatis:collection</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-11 16:03:12 / 修改时间：16:45:24" itemprop="dateCreated datePublished" datetime="2020-04-11T16:03:12-04:00">2020-04-11</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。</p>
-<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>根据teacher的id查出老师手下的所有学生</p>
-<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select t.name tname, s.id sid, s.name sname</span><br><span class="line">from teacher t, student s</span><br><span class="line">where t.id=s.tid and t.id=#&#123;tid&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int tid;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private List&lt;Student&gt; students;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>与association的要求不同，此处的要求是根据老师的id属性去查询学生，因此构建实体类时也需要变化。</p>
-<h2 id="接口类"><a href="#接口类" class="headerlink" title="接口类"></a>接口类</h2><p>用了@Param(“tid”)后，xml中的输入也要注意用tid，xml中会进一步解释。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface TeacherMapper &#123;</span><br><span class="line">    Teacher getTeacher(@Param(&quot;tid&quot;) int id);</span><br><span class="line">    Teacher getTeacher2(@Param(&quot;tid&quot;) int id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="TeacherMapper-xml"><a href="#TeacherMapper-xml" class="headerlink" title="TeacherMapper.xml"></a>TeacherMapper.xml</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先根据输入的id查询老师，然后从根据tid查询出学生<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher&quot; resultMap=&quot;TeacherStudent&quot; &gt;</span><br><span class="line">&lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; column=&quot;id&quot; javaType=&quot;ArrayList&quot; ofType=&quot;Student&quot; select=&quot;getStudentByTeacherID&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getStudentByTeacherID&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select * from student where tid=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此方法需要注意的是collection标签中的column对应的是Teacher类中的id属性（注意resultMap的type是Teacher），javaType应该写ArrayList，因为student属性是一个集合，ofType用于获取集合中的泛型。</p>
-<h3 id="结果集嵌套查询"><a href="#结果集嵌套查询" class="headerlink" title="结果集嵌套查询"></a>结果集嵌套查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher2&quot; resultMap=&quot;TeacherStudent2&quot;&gt;</span><br><span class="line">    select t.name tname, s.id sid, s.name sname</span><br><span class="line">    from teacher t, student s</span><br><span class="line">    &lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    where t.id=s.tid and t.id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent2&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;!-- 集合中泛型的信息，用ofType获取 --&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; ofType=&quot;Student&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;tid&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;/collection&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
-<p>同association，先查询出结果，然后再用resultMap进行说明。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/10/MyBatis-association/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/10/MyBatis-association/" class="post-title-link" itemprop="url">MyBatis:association</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-10 23:21:50" itemprop="dateCreated datePublished" datetime="2020-04-10T23:21:50-04:00">2020-04-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-04-11 01:16:37" itemprop="dateModified" datetime="2020-04-11T01:16:37-04:00">2020-04-11</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>查询 学生学号，学生姓名，老师姓名</p>
-<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select s.id ,s.name ,t.name</span><br><span class="line">from student s,teacher t</span><br><span class="line">where s.tid=t.id</span><br></pre></td></tr></table></figure>
-<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private Teacher teacher;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Q：为什么学生属性中用Teacher teacher而不是int tid？<br>A：如果写int tid就相当于写“死”了，没有达到学生和老师关联的效果。<br>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="StudentMapper-xml"><a href="#StudentMapper-xml" class="headerlink" title="StudentMapper.xml"></a>StudentMapper.xml</h2><h3 id="按照结果嵌套处理"><a href="#按照结果嵌套处理" class="headerlink" title="按照结果嵌套处理"></a>按照结果嵌套处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getStudent2&quot; resultMap=&quot;StudentTeacher2&quot;&gt;</span><br><span class="line">    select s.id sid,s.name sname,t.name tname</span><br><span class="line">    from student s, teacher t</span><br><span class="line">    where s.tid=t.id;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;StudentTeacher2&quot; type=&quot;Student&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">    &lt;association property=&quot;teacher&quot; javaType=&quot;Teacher&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;/association&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
-<p>思路就是先写好SQL语句，再用resultMap去解释里面的内容。<br>Student类中的属性id对应结果中的sid，属性name对应结果中的sname。<br>属性teacher由于是一个复杂属性，所以用association，这里有一种递进的感觉：第一层说明属性teacher的类型是Teacher，第二层说明teacher对象的name属性对应结果中的tname。<br>查询中子集有相同字段取出的数据就会有问题，因此要采用别名的形式。</p>
-<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先查询所有学生的信息，再根据查询出来的学生的tid，寻找对应的老师<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 查询所有学生 --&gt;</span><br><span class="line">&lt;select id=&quot;getStudent&quot; resultMap=&quot;StudentTeacher&quot;&gt;</span><br><span class="line">    select * from student;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 上下两个select中建立连接 --&gt;</span><br><span class="line">&lt;resultMap id=&quot;StudentTeacher&quot; type=&quot;Student&quot;&gt;</span><br><span class="line">    &lt;association property=&quot;teacher&quot; column=&quot;tid&quot; javaType=&quot;Teacher&quot; select=&quot;getTeacher&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 根据id查询老师 --&gt;</span><br><span class="line">&lt;select id=&quot;getTeacher&quot; resultType=&quot;Teacher&quot;&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>复杂的属性（Teacher）需要单独处理，如果是一个对象就用 Association，此处为Teacher对象。<br><strong>property=”teacher”</strong>：学生类里的属性叫teacher<br><strong>column=”tid”</strong>：数据库里的字段叫tid<br><strong>javaType=”Teacher”</strong>：因为属性是个复杂类型，所以要给它定义类型Teacher<br><strong>select=”getTeacher”</strong>：嵌套查询,getTeacher为下面select的id</p>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>ResultMap标签中的COLUMN字段对应的不是数据库表中的字段名，而是select语句返回的字段名，当字段有重复时应对其进行重命名</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/08/MyBatis-注解开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/08/MyBatis-注解开发/" class="post-title-link" itemprop="url">MyBatis:注解开发</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-08 21:52:57 / 修改时间：22:38:28" itemprop="dateCreated datePublished" datetime="2020-04-08T21:52:57-04:00">2020-04-08</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>使用注解开发可以完全省略掉<code>XXXMapper.xml</code>文件<br>UserMapper(接口)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface UserMapper &#123;</span><br><span class="line"></span><br><span class="line">@Select(&quot;select * from user&quot;)</span><br><span class="line">List&lt;User&gt; getUser();</span><br><span class="line"></span><br><span class="line">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id&quot;) int id);</span><br><span class="line"></span><br><span class="line">// 与实体类属性保持一致，虽然数据库里的字段是pwd，但是实体类中是password所以#&#123;password&#125;</span><br><span class="line">@Insert(&quot;insert into user(id,name,pwd) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;password&#125;)&quot;)</span><br><span class="line">int addUser(User user);</span><br><span class="line"></span><br><span class="line">@Update(&quot;update user set name=#&#123;name&#125;,pwd=#&#123;password&#125; where id=#&#123;id&#125;&quot;)</span><br><span class="line">int updateUser(User user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class UserMapperTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void getUserTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; user = mapper.getUser();</span><br><span class="line">        for (User user1 : user) &#123;</span><br><span class="line">            System.out.println(user1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void getUserByIdTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        User userById = mapper.getUserById(1);</span><br><span class="line">        System.out.println(userById);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void addUserTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.addUser(new User(5,&quot;leo&quot;,&quot;666&quot;));</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void updateTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.updateUser(new User(1,&quot;xiaoke&quot;,&quot;666&quot;));</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注解开发的底层实现是应用反射。<br>但是这个例子中有个问题，实体类中是password但是数据库字段为pwd，获取数据时，pwd会为null，所以官网上说注解开发只适用于简单场景，如果场景复杂还是建议xml</p>
-<h1 id="与-的区别"><a href="#与-的区别" class="headerlink" title="#与$的区别"></a>#与$的区别</h1><p>#{} 的作用主要是替换预编译语句(PrepareStatement)中的占位符?:</p>
-<p>对于 : INSERT INTO user (name) VALUES (#{name}); ==&gt; INSERT INTO user (name) VALUES (?);</p>
-<p>${} 符号的作用是直接进行字符串替换:</p>
-<p>对于 : INSERT INTO user (name) VALUES (‘${name}’); ==&gt; INSERT INTO user (name) VALUES (‘tianshozhi’);</p>
-<p>为了防止SQL注入，建议使用#{}.</p>
-<h1 id="关于-Param-注解"><a href="#关于-Param-注解" class="headerlink" title="关于@Param()注解"></a>关于@Param()注解</h1><ul>
-<li>基本类型的参数或者String类型，需要加上</li>
-<li>引用类型不需加</li>
-<li>如果只有一个基本类型的话，可以忽略，但是建议大家都加上</li>
-<li>我们在SQL中引用的就是我们这里@Param()中设定的属性名<br>例如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id&quot;) int id);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如果吧@Param改成(“id2”),上面的#{}也要改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from user where id = #&#123;id2&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id2&quot;) int id);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1289,7 +1201,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

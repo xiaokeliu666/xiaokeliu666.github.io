@@ -238,6 +238,553 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-35-Search-Insert-Position/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/06/LeetCode-35-Search-Insert-Position/" class="post-title-link" itemprop="url">LeetCode:35.Search Insert Position</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-06 14:16:40 / 修改时间：14:21:47" itemprop="dateCreated datePublished" datetime="2019-11-06T14:16:40-05:00">2019-11-06</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
+<p>You may assume no duplicates in the array.</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><ol>
+<li>Going through the array</li>
+<li>Try to find an index i where nums[i] == target and return the i</li>
+<li>If step 2 failed, try to find an index i where nums[i] &gt; target. Notieced that the array is sorted and if we have to insert a digit before nums[i], the index of the digit should be i as well, then we have to break from the loop, otherwise the position will be wrong</li>
+<li>There is a possibility that the target is bigger than the biggest one in the array, then the index to insert should be the value of nums.length.</li>
+</ol>
+<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> public int searchInsert(int[] nums, int target) &#123;</span><br><span class="line">    int res = 0;</span><br><span class="line"></span><br><span class="line">    for (int i = 0; i &lt; nums.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(nums[i] == target || nums[i] &gt; target)&#123;</span><br><span class="line">            res = i;</span><br><span class="line">            break;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            res = nums.length;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/06/LeetCode-27-Remove-Element/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/06/LeetCode-27-Remove-Element/" class="post-title-link" itemprop="url">LeetCode:27.Remove Element</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-06 13:16:44 / 修改时间：13:34:53" itemprop="dateCreated datePublished" datetime="2019-11-06T13:16:44-05:00">2019-11-06</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>Same as the Question 26, change the array and only part of them is required.<br>Try the same thinking as Question 26.<br>Use two cursors, 1(int index) is for index and 1(int i) is for going through all the elements.<br>If only the nums[i] does not equal to the target value, put it at the nums[index]</p>
+<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int removeElement(int[] nums, int val) &#123;</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">            if (nums[i] != val) &#123;</span><br><span class="line">                nums[index++] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return index;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/04/LeetCode-26-Remove-Duplicates-from-Sorted-Array/" class="post-title-link" itemprop="url">LeetCode:26.Remove Duplicates from Sorted Array</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-04 23:39:38" itemprop="dateCreated datePublished" datetime="2019-11-04T23:39:38-05:00">2019-11-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 13:35:17" itemprop="dateModified" datetime="2019-11-06T13:35:17-05:00">2019-11-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int c = nums.length;</span><br><span class="line">    for(int i = 0; i &lt; nums.length-1; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i+1])</span><br><span class="line">            c--;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Your input [1,1,2]<br>Output [1,1]<br>Expected [1,2]</p>
+<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I ignored the requirement that requirement of removing the duplicates, and I worte this only to return the length of array without duplicates which means the array wasn’t changed actually.</p>
+<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The reason why i was wrong is not doing the modification on array. Besides return the length of array without duplicates, I still have to change the order of digits in the array.</p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Considering the size of an array cannot change, and the clarification in the example said “It doesn’t matter what values are set beyond the returned length”, so what I have to do is move the digit towards if it didn’t show up before and put the repeated digit backward.<br>Obviously, the first digit is unchanged no matter how does array look like since the array is sorted. We can start from the second one whose index is 1.<br>We can use two cursors: index and i, and both of index and i starts from the value of 1. Then we set a loop, when we get into the loop, compare the nums[i] with nums[i-1], if they are the same, i move to the next digit while index doesn’t move, otherwise the nums[index] will be updated with the value of nums[i] and both of i and index move to the next digit.<br>The advantage of this method is we can guarantee that the order before the index is always right and no duplicates. </p>
+<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">    int index = 1;</span><br><span class="line">    for (int i = 1; i &lt; nums.length; i++)&#123;</span><br><span class="line">        if (nums[i] == nums[i-1])&#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[index] = nums[i];</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    return index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/11/01/Java：集合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/01/Java：集合/" class="post-title-link" itemprop="url">Java：集合</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-01 21:48:06" itemprop="dateCreated datePublished" datetime="2019-11-01T21:48:06-04:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-13 23:10:38" itemprop="dateModified" datetime="2019-11-13T23:10:38-05:00">2019-11-13</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Collection和Map接口"><a href="#Collection和Map接口" class="headerlink" title="Collection和Map接口"></a>Collection和Map接口</h1><p>Java容器类类库的用途是“保存对象”，并将其划分为两个不同的概念：Collection和Map。<br>书中提到这样一行代码<code>List&lt;Apple&gt; apples = new ArrayList&lt;Apple&gt;</code>并配上说明：ArrayList向上转型为List。读到这里我很迷惑，难道不是所有的容器都继承自Collection或者Map接口吗，为什么还会有一个List是ArrayList的父类呢？<br>通过查找资料得到这样两张图表述了Collection和Map两个大接口及其子接口的关系。<br><img src="//xiaokeliu666.github.io/2019/11/01/Java：集合/Collection.jpg" alt><br><img src="//xiaokeliu666.github.io/2019/11/01/Java：集合/Map.jpg" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/21/Java：泛型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/21/Java：泛型/" class="post-title-link" itemprop="url">Java：泛型</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-21 14:33:52" itemprop="dateCreated datePublished" datetime="2019-10-21T14:33:52-04:00">2019-10-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-05 18:11:02" itemprop="dateModified" datetime="2019-11-05T18:11:02-05:00">2019-11-05</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>第一次在《Java编程思想》中接触到泛型这个概念是在第十一章中，这一章讲的是持有对象。<br>首先来看一份没有使用泛型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">class Apple &#123;</span><br><span class="line">    private static long counter;</span><br><span class="line">    private final long id = counter++;</span><br><span class="line">    public long id() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Orange &#123;&#125;</span><br><span class="line"></span><br><span class="line">public class ApplesAndOrangesWithoutGenerics &#123;</span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList apples = new ArrayList();</span><br><span class="line">        for (int i = 0; i &lt; 3; i++)</span><br><span class="line">            apples.add(new Apple());</span><br><span class="line">        apples.add(new Orange());</span><br><span class="line">        for(int i = 0; i &lt; apples.size(); i++)</span><br><span class="line">            ((Apple)apples.get(i)).id();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码分析：<br>首先定义两个类（Apple和Orange），两个类除了都默认继承自Object类之外没有任何共性。<br>主函数中尝试将三个Apple对象和一个Orange对象放入容器<code>ArrayList apples</code>中，使用了@SuppressWarnings注解及其参数表示只有有关“不受检查的异常”的警告信息应该被抑制。<br>最后一个for循环用于获取容器apples中的对象的id。<br>运行结果：<br>报错信息<code>holding.Orange cannot be cast to holding.Apple</code>，Orange类型不能转型为Apple类型</p>
+<p>然后来看一份使用了泛型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class ApplesAndOrangesWithGenerics &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList&lt;Apple&gt; apples =  new ArrayList&lt;Apple&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 3; i++)</span><br><span class="line">            apples.add(new Apple());</span><br><span class="line">//        apples.add(new Orange());</span><br><span class="line">        for (int i = 0; i &lt; apples.size(); i++)</span><br><span class="line">            System.out.println(apples.get(i));</span><br><span class="line">        for (Apple c : apples)</span><br><span class="line">            System.out.println(c.id());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码分析：<br>执行的操作和之前的代码一样，区别在于初始化容器时<code>ArrayList</code>后面加了一个<code>&lt;Apple&gt;</code>，尖括号括起来的是类型参数（可以有多个），它指定了这个容器实例可以保存的类型。在此处我将添加Orange对象到容器注释掉了，因为它在编译期就会报错，而上一份代码在运行时才能看出错误。</p>
+<h1 id="个人理解-2019-10-21"><a href="#个人理解-2019-10-21" class="headerlink" title="个人理解(2019-10-21)"></a>个人理解(2019-10-21)</h1><p>因为目前还没有对泛型进行深入的学习，所以仅仅通过上面的代码我个人对泛型的理解类似于方法的形参，编译期就规定好了容器内对象的类型，这样可以减少运行时错误（变成编译期错误）。并且注意到在将元素从List中取出时，类型转换也不再是必须的了。因为List知道它保存的是什么类型，因此它会在调用get()时替你执行转型。这样，通过使用泛型，你不仅知道编译器将会检查你放置到容器中的对象类型，而且在使用容器中的对象时，可以使用更加清晰的语法。<br>后续深入学习泛型后再做补充。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/19/Java：Lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,558 +1292,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/20/LeetCode-1-Two-Sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/20/LeetCode-1-Two-Sum/" class="post-title-link" itemprop="url">LeetCode: 1.Two Sum</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-20 23:01:00" itemprop="dateCreated datePublished" datetime="2019-09-20T23:01:00-04:00">2019-09-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-06 13:35:26" itemprop="dateModified" datetime="2019-11-06T13:35:26-05:00">2019-11-06</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i =0; i &lt;nums.length; i++)&#123;</span><br><span class="line">            hashMap.put(nums[i], i);</span><br><span class="line">            if(hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = i;</span><br><span class="line">                res[1] = hashMap.get(target-nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>When nums= [3, 3], target = 6，expected outcome is[0, 1]，but [1, 1].</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I was trying to store the array into a hashmap. Considering that hashmap can only get value from key, so I put the value of array at the place of K while incremental i is V.<br>Then reason why I was wrong was not considering the situation of repeated numbers. During the debugging I found that the size of hashMap is 1 when the nums=[3,3] which means key is unique in hashMap.</p>
-<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The key of making mistake is ignoring the situation of repeated numbers in array, so directely transform array into hashmap by reversing the index to value  is not feasible since the repeated numbers won’t be stored twice in hashmap as a key.</p>
-<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Given that the input would have exactly one solution, and the same element won’t be used twice, situation like multi-resolution and non-resolution will not be considered.<br>Because hashMap can get value by key, we still need hashmap to do this but in another way.<br>Instead of transforming the array into hashmap one time, I decide to use <code>hashMap.containskey(target-nums[i])</code> to search the hashmap, if returns false, then I put this number into the hashmap instead, otherwise we can get the right answer.<br>If the number is repeated but still cannot find the answer, then it means the resolution is not unique which doesn’t obey the rule of question. For example: nums = [3, 3, 6], target = 9. Obviously, the solution is not unique.</p>
-<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">            if (hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = hashMap.get(target - nums[i]);</span><br><span class="line">                res[1] = i;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                hashMap.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/17/Java：valueOf-方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/17/Java：valueOf-方法/" class="post-title-link" itemprop="url">Java：valueOf()方法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-17 21:20:45" itemprop="dateCreated datePublished" datetime="2019-09-17T21:20:45-04:00">2019-09-17</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-09-23 23:29:56" itemprop="dateModified" datetime="2019-09-23T23:29:56-04:00">2019-09-23</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 这里应该输出两个true，实际输出的却是两个false</span><br><span class="line">        // 请查找、思考并修复numberEquals方法中的问题</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;+1234&quot;));</span><br><span class="line">        System.out.println(numberEquals(&quot;1234&quot;, &quot;1234&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 判断两个字符串是否包含相等的数字</span><br><span class="line">    // 例如a为&quot;+1234&quot;，b为&quot;1234&quot;，返回true</span><br><span class="line">    public static boolean numberEquals(String a, String b) &#123;</span><br><span class="line">        return Integer.valueOf(a) == Integer.valueOf(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><p>通过查看valueOf()方法的源码查看方法的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static Integer valueOf(int i) &#123;</span><br><span class="line">        if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">            return IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">        return new Integer(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>Integer的作者在写这个类时，为了避免重复创建对象，对Integer值做了缓存，如果输入的整型参数在[IntegerCache.low, IntegerCache.high]内，那么直接返回缓存好的对象，反之new一个新的对象Integer()。<br>那么缓存的内容是什么呢？看一下IntegerCache这个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">private static class IntegerCache &#123;</span><br><span class="line">        static final int low = -128;</span><br><span class="line">        static final int high;</span><br><span class="line">        static final Integer cache[];</span><br><span class="line"></span><br><span class="line">        static &#123;</span><br><span class="line">            // high value may be configured by property</span><br><span class="line">            int h = 127;</span><br><span class="line">            String integerCacheHighPropValue =</span><br><span class="line">                sun.misc.VM.getSavedProperty(&quot;java.lang.Integer.IntegerCache.high&quot;);</span><br><span class="line">            if (integerCacheHighPropValue != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    int i = parseInt(integerCacheHighPropValue);</span><br><span class="line">                    i = Math.max(i, 127);</span><br><span class="line">                    // Maximum array size is Integer.MAX_VALUE</span><br><span class="line">                    h = Math.min(i, Integer.MAX_VALUE - (-low) -1);</span><br><span class="line">                &#125; catch( NumberFormatException nfe) &#123;</span><br><span class="line">                    // If the property cannot be parsed into an int, ignore it.</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            high = h;</span><br><span class="line"></span><br><span class="line">            cache = new Integer[(high - low) + 1];</span><br><span class="line">            int j = low;</span><br><span class="line">            for(int k = 0; k &lt; cache.length; k++)</span><br><span class="line">                cache[k] = new Integer(j++);</span><br><span class="line"></span><br><span class="line">            // range [-128, 127] must be interned (JLS7 5.1.7)</span><br><span class="line">            assert IntegerCache.high &gt;= 127;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IntegerCache() &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>以上代码中首先检查虚拟机里有没有相应的配置，如果有，取该值，反之取默认的127。然后创建缓存数组，并给数组初始化值。这是一个内部静态类，该类只能在Integer这个类的内部访问，这个类在初始化的时候，回去加载JVM的配置，如果有值，就用配置的值初始化缓存数组，否则就缓存-128到127之间的值。</p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>把valueOf()方法替换成parseInt()方法即可，parseInt()返回的是基本类型int。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/16/Python踩坑：Pycharm中使用Pytorch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/16/Python踩坑：Pycharm中使用Pytorch/" class="post-title-link" itemprop="url">Python踩坑：Pycharm中使用Pytorch</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-16 20:44:47 / 修改时间：20:55:30" itemprop="dateCreated datePublished" datetime="2019-09-16T20:44:47-04:00">2019-09-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>尝试使用<code>pip install pytorch</code>指令在pycharm中使用Pytorch框架失败</p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>在anaconda中使用<code>conda install pytorch torchvision cudatoolkit=10.0 -c pytorch</code>指令安装pytorch后，再在Pycharm中创建新project的时候使用anaconda的环境即可</p>
-<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>最近Anaconda官网上好像只能下载到3.7版本的了，所以在此之前我创建了一个版本为3.6的虚拟环境(py36)，因此在创建project时导入anaconda的环境需要导入虚拟环境目录下的python文件（D:\Anaconda3\envs\py36\python.exe）</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/07/Java：静态代码块、构造代码块、构造函数以及Java类初始化顺序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/07/Java：静态代码块、构造代码块、构造函数以及Java类初始化顺序/" class="post-title-link" itemprop="url">Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-07 12:13:46" itemprop="dateCreated datePublished" datetime="2019-09-07T12:13:46-04:00">2019-09-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-10-18 19:32:01" itemprop="dateModified" datetime="2019-10-18T19:32:01-04:00">2019-10-18</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>&emsp;&emsp;今天在做笔试题时遇到这样一个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在以上代码中涉及到了静态代码块、构造代码块，之前没接触过这个概念，所以查资料记录学习了一下。</p>
-<h1 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h1><h2 id="什么是静态代码块？"><a href="#什么是静态代码块？" class="headerlink" title="什么是静态代码块？"></a>什么是静态代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="它有什么特点？"><a href="#它有什么特点？" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><ul>
-<li>用static申明，JVM加载类时执行，仅执行一次，执行完成便销毁。</li>
-<li>静态代码块的执行优先级高于非静态的初始化块。</li>
-</ul>
-<h1 id="构造代码块"><a href="#构造代码块" class="headerlink" title="构造代码块"></a>构造代码块</h1><h2 id="什么是构造代码块？"><a href="#什么是构造代码块？" class="headerlink" title="什么是构造代码块？"></a>什么是构造代码块？</h2><p>写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="它有什么特点？-1"><a href="#它有什么特点？-1" class="headerlink" title="它有什么特点？"></a>它有什么特点？</h2><p>&emsp;&emsp;构造代码块的作用是给对象进行初始化，只有当对象创建才会执行，且执行顺序优于构造函数。并且不同于构造函数，构造代码块针对所有的对象，而构造函数针对对应的对象。</p>
-<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>&emsp;&emsp;构造函数只有在建立对象的时候在会调用与之相应的构造函数，不建立对象是不会运行构造函数的。一个对象建立，构造函数只运行一次，而一般方法可以被该对象调用多次。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>静态块其实就是给类初始化的，而构造代码块是给对象初始化的。</li>
-<li>静态代码块只会运行一次</li>
-<li>静态块中的变量是局部变量，与普通函数中的局部变量性质没有区别。</li>
-<li>一个类中可以有多个静态代码块，执行顺序按照位置决定。</li>
-<li>执行顺序优先级：静态块&gt;main()&gt;构造块&gt;构造方法</li>
-</ol>
-<hr>
-<p>回到上面的问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">blockA</span><br><span class="line">blockB</span><br><span class="line">blockA</span><br></pre></td></tr></table></figure></p>
-<p>分析：<br>&emsp;&emsp;t1也是静态变量，所以按照声明顺序执行，先创建对象t1，运行其构造代码块，输出blockA，之后运行静态代码块，输出blockB，最后运行main函数。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/06/Java：接口/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/06/Java：接口/" class="post-title-link" itemprop="url">Java：接口</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-06 23:58:28" itemprop="dateCreated datePublished" datetime="2019-09-06T23:58:28-04:00">2019-09-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-10-14 14:08:52" itemprop="dateModified" datetime="2019-10-14T14:08:52-04:00">2019-10-14</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Java中的多重继承"><a href="#Java中的多重继承" class="headerlink" title="Java中的多重继承"></a>Java中的多重继承</h1><p>在C++中，组合多个类的接口的行为被称作多重继承。<br>接口可以解决Java不能多继承的问题</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1337,7 +1332,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
