@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="ConcurrentModificationException异常12345678910List&amp;lt;String&amp;gt; strings = new ArrayList&amp;lt;String&amp;gt;();Iterator&amp;lt;String&amp;gt; iterator = strings.iterator();// 添加元素// strings.add(&amp;quot;...&amp;quot;)// ...">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-21T03:46:51.631Z">
+<meta property="og:updated_time" content="2020-05-21T03:57:39.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Iterator迭代器">
 <meta name="twitter:description" content="ConcurrentModificationException异常12345678910List&amp;lt;String&amp;gt; strings = new ArrayList&amp;lt;String&amp;gt;();Iterator&amp;lt;String&amp;gt; iterator = strings.iterator();// 添加元素// strings.add(&amp;quot;...&amp;quot;)// ...">
@@ -278,7 +278,7 @@
                 
               
 
-              <time title="创建时间：2020-05-20 22:03:43 / 修改时间：23:46:51" itemprop="dateCreated datePublished" datetime="2020-05-20T22:03:43-04:00">2020-05-20</time>
+              <time title="创建时间：2020-05-20 22:03:43 / 修改时间：23:57:39" itemprop="dateCreated datePublished" datetime="2020-05-20T22:03:43-04:00">2020-05-20</time>
             </span>
           
             
@@ -303,7 +303,7 @@
 <h2 id="创造迭代器"><a href="#创造迭代器" class="headerlink" title="创造迭代器"></a>创造迭代器</h2><p>&emsp;&emsp;例子中通过<code>strings.iterator()</code>返回一个迭代器，其中<code>strings</code>是一个ArrayList的实例。<br>&emsp;&emsp;查找ArrayList的源码，并没有iterator()方法，于是找到其父类AbstractList中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line">        return new Itr();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>也就是说创造一个迭代器返回的是一个Itr类型对象的引用。<br>&emsp;&emsp;来看Itr:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">private class Itr implements Iterator&lt;E&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    int cursor = 0;</span><br><span class="line">  </span><br><span class="line">    int lastRet = -1;</span><br><span class="line"></span><br><span class="line">    int expectedModCount = modCount;</span><br><span class="line"></span><br><span class="line">    public boolean hasNext() &#123;</span><br><span class="line">        return cursor != size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public E next() &#123;</span><br><span class="line">        checkForComodification();</span><br><span class="line">        try &#123;</span><br><span class="line">            int i = cursor;</span><br><span class="line">            E next = get(i);</span><br><span class="line">            lastRet = i;</span><br><span class="line">            cursor = i + 1;</span><br><span class="line">            return next;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            checkForComodification();</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void remove() &#123;</span><br><span class="line">        if (lastRet &lt; 0)</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            AbstractList.this.remove(lastRet);</span><br><span class="line">            if (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -1;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final void checkForComodification() &#123;</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中的成员变量：<br>cursor: 游标，表示下一个要访问的元素的索引，在next方法中会自增<br>lastRet: 上一个元素的索引<br>expectedModCount: 表示对ArrayList修改次数的期望值，初始值为modCount<br>modCount: AbstractList类中的一个成员变量，表示对List的修改次数(structurally modified)，每次add()和remove()就会加1</p>
-<h1 id="解决错误"><a href="#解决错误" class="headerlink" title="解决错误"></a>解决错误</h1><p>在Itr的源码中可以看到，迭代器中的操作都要先执行checkForComodificatioin()方法来确定<code>modCount!=expectedModCount</code>,这是保护ArrayList的机制，防止返回错误结果。然而在这个例子中并没有涉及到结构上的变化。错误的原因在于迭代器定义在元素添加之前，这样虽然ArrayList里面有元素了，但是迭代器获取不到。</p>
+<h1 id="解决错误"><a href="#解决错误" class="headerlink" title="解决错误"></a>解决错误</h1><p>在Itr的源码中可以看到，迭代器中的操作都要先执行checkForComodificatioin()方法来确定<code>modCount!=expectedModCount</code>,这是保护ArrayList的机制，防止返回错误结果。<br>错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。</p>
 
     </div>
 
@@ -329,6 +329,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/05/25/HashMap面试题/" rel="prev" title="HashMap面试题">
+                HashMap面试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -449,7 +453,9 @@
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

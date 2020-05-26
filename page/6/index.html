@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/23/HashMap的底层实现/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/09/25/Java：String-StringBuffer和StringBuilder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -255,7 +255,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/23/HashMap的底层实现/" class="post-title-link" itemprop="url">HashMap的底层实现</a>
+                <a href="/2019/09/25/Java：String-StringBuffer和StringBuilder/" class="post-title-link" itemprop="url">Java：String,StringBuffer和StringBuilder</a>
               
             
           </h1>
@@ -274,7 +274,36 @@
                 
               
 
-              <time title="创建时间：2019-09-23 20:17:31" itemprop="dateCreated datePublished" datetime="2019-09-23T20:17:31-04:00">2019-09-23</time>
+              <time title="创建时间：2019-09-25 22:55:14" itemprop="dateCreated datePublished" datetime="2019-09-25T22:55:14-04:00">2019-09-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-04 23:46:00" itemprop="dateModified" datetime="2019-10-04T23:46:00-04:00">2019-10-04</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -290,7 +319,21 @@
 
       
           
-            
+            <h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><p>源码分析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public String() &#123;</span><br><span class="line">        this.value = &quot;&quot;.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * Initializes a newly created &#123;@code String&#125; object so that it represents</span><br><span class="line">    * the same sequence of characters as the argument; in other words, the</span><br><span class="line">    * newly created string is a copy of the argument string. Unless an</span><br><span class="line">    * explicit copy of &#123;@code original&#125; is needed, use of this constructor is</span><br><span class="line">    * unnecessary since Strings are immutable.</span><br><span class="line">    *</span><br><span class="line">    * @param  original</span><br><span class="line">    *         A &#123;@code String&#125;</span><br><span class="line">    */</span><br></pre></td></tr></table></figure></p>
+<p>String类中每一个看起来会修改String值得方法，实际上都是创建了一个全新的String对象。每当把String对象作为方法的参数时，都会复制一份引用，而该引用所指的对象其实一直待在单一的物理位置上。这就是为什么我们说String类是不可变的(immutable)。</p>
+<h1 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h1><p>源码分析：<br>定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public final class StringBuffer</span><br><span class="line">    extends AbstractStringBuilder</span><br><span class="line">    implements java.io.Serializable, CharSequence</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>StringBuffer类被final修饰，因此不能继承。<br>此类的父类是AbstractStringBuilder，AbstractStringBuilder类中具体实现了可变字符序列的一系列操作，比如append()、insert()、delete()、replace()、charAt()方法等。<br>此类实现了两个接口，Serializable表示该类的对象可以被序列化，CharSequence的接口提供了几个对字符序列进行只读访问的方法，例如length()、charAt()、subSequence()、toString()方法等。</p>
+<p>主要变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">     * A cache of the last value returned by toString. Cleared</span><br><span class="line">     * whenever the StringBuffer is modified.</span><br><span class="line">     */</span><br><span class="line">    private transient char[] toStringCache;</span><br><span class="line"></span><br><span class="line">// AbstractStringBuilder.java</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * The value is used for character storage.</span><br><span class="line">     */</span><br><span class="line">    char[] value;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">     * The count is the number of characters used.</span><br><span class="line">     */</span><br><span class="line">    int count;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>toStringCache用来缓存toString()方法返回的最近一次的value数组中的字符。当修改StringBuffer对象时会被清除。</li>
+<li><p>value用来存储字符序列中的字符。这是一个动态数组，当存储容量不足时，会对它进行扩容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AbstractStringBuilder(int capacity) &#123;</span><br><span class="line">        value = new char[capacity];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>count表示value数组中已存储的字符数。<br>StringBuffer类将所有操作字符序列的方法都添加了 synchronized 关键字来修饰，因此，StringBuffer类是线程安全的。</p>
+</li>
+</ol>
+<h1 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h1><p>StringBuilder和StringBuffer的源码中，定义和操作几乎都是一样的，唯一的区别是StringBuffer是线程安全的，在单线程的情况下StringBuilder比StringBuffer要快。</p>
+
           
         
       
@@ -1502,7 +1545,9 @@
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

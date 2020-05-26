@@ -238,6 +238,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/25/HashMap面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/25/HashMap面试题/" class="post-title-link" itemprop="url">HashMap面试题</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-25 10:48:55 / 修改时间：22:09:46" itemprop="dateCreated datePublished" datetime="2020-05-25T10:48:55-04:00">2020-05-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="JDK7"><a href="#JDK7" class="headerlink" title="JDK7"></a>JDK7</h1><ol>
+<li><p><strong>域变量</strong><br>默认初始大小：16<br>最大长度：1 &lt;&lt; 30<br>默认加载因子：0.75f<br>modCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出<code>ConcurrentModiifcationException</code>异常<br>threshold: table.length * loadFactor。</p>
+</li>
+<li><p><strong>put()方法</strong></p>
+<ul>
+<li>如果Key为null，统一放在下标为0的bucket，即table[0]位置的链表，如果是第一次对key=null做put操作，将会在table[0]的位置新增一个Entry节点，使用头插法做链表插入。调用的是putForNullKey()方法:首先选择table[0]位置的链表，然后对链表做遍历操作，如果有节点的key为null，则用新值覆盖旧值，并且返回旧值，否则新增一个key为null的Entry节点。</li>
+</ul>
+</li>
+<li><p><strong>扩容</strong></p>
+<ul>
+<li>扩容后的大小是扩容前的两倍</li>
+<li>将数据从旧table迁移到扩容后的新table。为避免碰撞过多，先决策是否需要对每个Entry链表节点重新hash，然后根据hash值计算得到bucket下标，然后用头插法做节点迁移。</li>
+</ul>
+</li>
+<li><p><strong>hash值的计算</strong></p>
+<ul>
+<li>使用key的hashCode作为算式(arithmetic)的输入，得到了hash值。</li>
+<li>对于两个对象，如果hashCode相同，那么hash值就一定相同。</li>
+<li>如果两个对象逻辑相等（内存地址相同），那么hashCode一定相等，反之不一定成立。</li>
+</ul>
+</li>
+<li><p><strong>bucket下标的计算</strong></p>
+<ul>
+<li>取模：<code>h &amp; (length-1)</code> h为hashCode</li>
+</ul>
+</li>
+<li><strong>hashCode()和hash值</strong><ul>
+<li>Java中hashCode()方法是用来生成hashCode值,hashCode值是JDK根据对象的地址或者字符串或者数字算出来的int类型的数值。</li>
+<li>把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是哈希值。这种转换是一种压缩映射，也就是，散列值的空间通常远小于输入的空间，不同的输入可能会散列成相同的输出，所以不可能从散列值来确定唯一的输入值。</li>
+</ul>
+</li>
+<li><p><strong>为什么HashTable的大小控制为2的幂次数</strong></p>
+<ul>
+<li>降低碰撞的概率，使散列更均匀，根据bucket下标的计算公式，当哈希表的长度为2的次幂时，等同于使用表长度对hash值取模，散列更均匀。</li>
+<li>表的长度为2的次幂，那么(length-1)的二进制最后一位一定是1，在对hash值做“与”运算时，最后一位就可能是1也可能是0，换句话说取模的结果既有奇数又有偶数。</li>
+<li>此时<code>h &amp; (length-1)</code>就是<code>h % length</code></li>
+</ul>
+</li>
+<li><p><strong>get()方法</strong></p>
+<ul>
+<li>通过key的hash值计算bucket的下标，然后遍历对应bucket上的链表，得到结果。</li>
+</ul>
+</li>
+<li><p><strong>遍历Map的方式</strong></p>
+<ul>
+<li>Iterator迭代器</li>
+<li>for(Map.Entry<string, integer> entry : testMap.entrySet())</string,></li>
+<li>foreach(JDK1.8才有，不推荐，因为底层就是方式2)</li>
+<li>获取keySet()的迭代器遍历<br>以上的底层都是迭代器</li>
+</ul>
+</li>
+<li><p><strong>Iterator的实现</strong></p>
+<ul>
+<li>HashMap中增加了一个内部类HashIterator，循环哈希table，直到找到不为空的bucket为止。</li>
+</ul>
+</li>
+<li><p><strong>fail-fast策略</strong></p>
+<ul>
+<li>在系统设计中，当遇到可能会诱导失败的条件时立即上报错误。</li>
+<li>modCount域变量用于实现hashMap中的fail-fast。</li>
+</ul>
+</li>
+</ol>
+<h1 id="JDK8"><a href="#JDK8" class="headerlink" title="JDK8"></a>JDK8</h1><p>相比与JDK7，JDK8中的HashMap会将较长的链表(大于8)转为红黑树。</p>
+<ol>
+<li><p><strong>put()</strong></p>
+<ul>
+<li>在JDK7中，新增节点使用的是头插法，但在JDK8中，在链表使用尾插法，防止死链。</li>
+<li>若hashTable为null或长度为0，则扩容。</li>
+<li>根据index找到bucket，若buckey上没有节点，那么直接新增一个节点，赋给bucket。</li>
+<li>若当前bucket上有链表，且头节点匹配，则直接替换。</li>
+<li>若当前bucket上为树结构则转为红黑树的插入操作。</li>
+<li>若以上都不成立，则对链表进行遍历：有则替换，无则末尾添加。</li>
+<li>如果链表长度大于TREEIFY_THRESHOLD，则执行红黑树转换操作。</li>
+</ul>
+</li>
+<li><p><strong>扩容</strong></p>
+<ul>
+<li>如果hashTable为null或长度为0，如果Map中存储的k-v对数量超过了threshold，则触发扩容</li>
+<li>不同于JDK7，JDK8在做数据迁移的时候保持了顺序(preserve order)</li>
+<li>新的索引值要么和原来的索引值一样，要么是原索引值的两倍，因为<code>h &amp; (length-1)</code>中<code>length-1</code>的低位全是1。例如原先的hashCode为:1010 … 11101(共32位)，将长度从16扩容到32，length-1从1111变为11111，然后根据公式做按位与，得出的结果后四位是一样的，第一位取决于hashCode对应位置上的值。</li>
+</ul>
+</li>
+<li><p><strong>get()</strong></p>
+<ul>
+<li>根据key计算hash值，进一步计算得到hashTable的目标index，若此bucket上为红黑树，则在红黑树上查找，否则遍历链表。</li>
+</ul>
+</li>
+</ol>
+<h1 id="HashMap、HashTable"><a href="#HashMap、HashTable" class="headerlink" title="HashMap、HashTable"></a>HashMap、HashTable</h1><ol>
+<li><p><strong>HashMap vs HashTable</strong></p>
+<ul>
+<li>HashMap is non synchronized. It is not-thread safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. It is thread-safe and can be shared with many threads.</li>
+<li>HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.</li>
+<li>HashMap is generally preferred over HashTable if thread synchronization is not needed</li>
+</ul>
+</li>
+<li><p><strong>Why HashTable doesn’t allow null and HashMap does?</strong><br>To successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.</p>
+</li>
+<li><p><strong>Why HashMap is not thread-safe?</strong></p>
+<ul>
+<li><p>Ideologically<br>A hash map is based on an array, where each item represents a bucket. As more keys are added, the buckets grow and at a certain threshold the array is recreated with a bigger size, its buckets rearranged so that they are spread more evenly (performance considerations).</p>
+</li>
+<li><p>Technically<br>It means that sometimes HashMap#put() will internally call HashMap#resize() to make the underlying array bigger.</p>
+</li>
+<li><p>HashMap#resize() assigns the table field a new empty array with a bigger capacity and populates it with the old items. While this population happens, the underlying array doesn’t contain all of the old items and calling HashMap#get() with an existing key may return null.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
+<li><strong>HashCode怎么算的?</strong><ul>
+<li>memory reference of object in integer form</li>
+</ul>
+</li>
+<li><strong>equals()</strong><ul>
+<li>compare the key whether the are equal or not</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/20/Iterator迭代器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +477,7 @@
                 
               
 
-              <time title="创建时间：2020-05-20 22:03:43 / 修改时间：23:46:51" itemprop="dateCreated datePublished" datetime="2020-05-20T22:03:43-04:00">2020-05-20</time>
+              <time title="创建时间：2020-05-20 22:03:43 / 修改时间：23:57:39" itemprop="dateCreated datePublished" datetime="2020-05-20T22:03:43-04:00">2020-05-20</time>
             </span>
           
             
@@ -300,7 +503,7 @@
 <h2 id="创造迭代器"><a href="#创造迭代器" class="headerlink" title="创造迭代器"></a>创造迭代器</h2><p>&emsp;&emsp;例子中通过<code>strings.iterator()</code>返回一个迭代器，其中<code>strings</code>是一个ArrayList的实例。<br>&emsp;&emsp;查找ArrayList的源码，并没有iterator()方法，于是找到其父类AbstractList中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line">        return new Itr();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>也就是说创造一个迭代器返回的是一个Itr类型对象的引用。<br>&emsp;&emsp;来看Itr:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">private class Itr implements Iterator&lt;E&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    int cursor = 0;</span><br><span class="line">  </span><br><span class="line">    int lastRet = -1;</span><br><span class="line"></span><br><span class="line">    int expectedModCount = modCount;</span><br><span class="line"></span><br><span class="line">    public boolean hasNext() &#123;</span><br><span class="line">        return cursor != size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public E next() &#123;</span><br><span class="line">        checkForComodification();</span><br><span class="line">        try &#123;</span><br><span class="line">            int i = cursor;</span><br><span class="line">            E next = get(i);</span><br><span class="line">            lastRet = i;</span><br><span class="line">            cursor = i + 1;</span><br><span class="line">            return next;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            checkForComodification();</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void remove() &#123;</span><br><span class="line">        if (lastRet &lt; 0)</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            AbstractList.this.remove(lastRet);</span><br><span class="line">            if (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -1;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final void checkForComodification() &#123;</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中的成员变量：<br>cursor: 游标，表示下一个要访问的元素的索引，在next方法中会自增<br>lastRet: 上一个元素的索引<br>expectedModCount: 表示对ArrayList修改次数的期望值，初始值为modCount<br>modCount: AbstractList类中的一个成员变量，表示对List的修改次数(structurally modified)，每次add()和remove()就会加1</p>
-<h1 id="解决错误"><a href="#解决错误" class="headerlink" title="解决错误"></a>解决错误</h1><p>在Itr的源码中可以看到，迭代器中的操作都要先执行checkForComodificatioin()方法来确定<code>modCount!=expectedModCount</code>,这是保护ArrayList的机制，防止返回错误结果。然而在这个例子中并没有涉及到结构上的变化。错误的原因在于迭代器定义在元素添加之前，这样虽然ArrayList里面有元素了，但是迭代器获取不到。</p>
+<h1 id="解决错误"><a href="#解决错误" class="headerlink" title="解决错误"></a>解决错误</h1><p>在Itr的源码中可以看到，迭代器中的操作都要先执行checkForComodificatioin()方法来确定<code>modCount!=expectedModCount</code>,这是保护ArrayList的机制，防止返回错误结果。<br>错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。</p>
 
           
         
@@ -1031,123 +1234,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/20/Java：Lambda-Comparator/" class="post-title-link" itemprop="url">Java：Lambda Comparator</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-20 22:56:14" itemprop="dateCreated datePublished" datetime="2020-04-20T22:56:14-04:00">2020-04-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-04-21 00:57:08" itemprop="dateModified" datetime="2020-04-21T00:57:08-04:00">2020-04-21</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <blockquote>
-<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a></p>
-</blockquote>
-<p>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
-<ol>
-<li><p>传统Comparator例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>等价的Lambda表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="不用Lambda排序"><a href="#不用Lambda排序" class="headerlink" title="不用Lambda排序"></a>不用Lambda排序</h1><p>举个通过age属性对Developer对象进行排序的例子。通常，你使用Collections.sort然后传入匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Befor sort&quot;);</span><br><span class="line">        for(Developer developer:listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //sort by age</span><br><span class="line">        Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Developer o1,Developer o2) &#123;</span><br><span class="line">                return o1,getAge()-o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        for(Developer developer:ListDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Before Sort</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br><span class="line"></span><br><span class="line">After Sort</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br></pre></td></tr></table></figure></p>
-<p>如果排序要求变了，你只需要传入另一个匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getNmae());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSlary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这方法有效，但是你不觉得这样有点奇怪吗，因为你只想改变一行代码却创建了一个新的类。</p>
-<h1 id="用Lambda排序"><a href="#用Lambda排序" class="headerlink" title="用Lambda排序"></a>用Lambda排序</h1><p>在Java 8中，List接口直接支持sort方法，不需要再用Collections.sort<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Java 8 之后的List.sort()</span><br><span class="line">listDevs.sort(new Comparator&lt;Deceloper&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o2.getAge()-o1.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Lambda表达式例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Before Sort&quot;);</span><br><span class="line">        for(Developer developer : listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        // lambda</span><br><span class="line">        listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">        listDevs.forEach((developer)-&gt;System.out.println(developer));</span><br><span class="line">    &#125;</span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出和前面的例子一样。</p>
-<h1 id="更多lambda的例子"><a href="#更多lambda的例子" class="headerlink" title="更多lambda的例子"></a>更多lambda的例子</h1><h2 id="Sort-by-age"><a href="#Sort-by-age" class="headerlink" title="Sort by age"></a>Sort by age</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getAge()-o2.getAge());</span><br></pre></td></tr></table></figure>
-<h2 id="Sort-by-Name"><a href="#Sort-by-Name" class="headerlink" title="Sort by Name"></a>Sort by Name</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br></pre></td></tr></table></figure>
-<h2 id="Sort-by-salary"><a href="#Sort-by-salary" class="headerlink" title="Sort by salary"></a>Sort by salary</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br></pre></td></tr></table></figure>
-<h1 id="反向排序"><a href="#反向排序" class="headerlink" title="反向排序"></a>反向排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; salaryComparator = (o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">listDevs.sort(salaryComparator.reversed());</span><br></pre></td></tr></table></figure>
-<p>个人理解就是把前面的正向排序的lambda表达式拆分城两部分，一部分是用lambda表达式把Comparator实现，另一部分则是把Comparator的对象作为参数传入sort方法，并且可以使用.reversed()</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1254,7 +1340,9 @@
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
