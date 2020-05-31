@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="问题引入&amp;emsp;&amp;emsp;今天在做笔试题时遇到这样一个问题：1234567891011121314public class Test &amp;#123;        static Test t1 = new Test();        &amp;#123;            System.out.println(&amp;quot;blockA&amp;quot;);        &amp;#125;        s">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-18T23:32:01.647Z">
+<meta property="og:updated_time" content="2020-05-31T02:31:12.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序">
 <meta name="twitter:description" content="问题引入&amp;emsp;&amp;emsp;今天在做笔试题时遇到这样一个问题：1234567891011121314public class Test &amp;#123;        static Test t1 = new Test();        &amp;#123;            System.out.println(&amp;quot;blockA&amp;quot;);        &amp;#125;        s">
@@ -291,7 +291,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-18 19:32:01" itemprop="dateModified" datetime="2019-10-18T19:32:01-04:00">2019-10-18</time>
+                <time title="修改时间：2020-05-30 22:31:12" itemprop="dateModified" datetime="2020-05-30T22:31:12-04:00">2020-05-30</time>
               </span>
             
           
@@ -343,6 +343,8 @@
 <p>回到上面的问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">blockA</span><br><span class="line">blockB</span><br><span class="line">blockA</span><br></pre></td></tr></table></figure></p>
 <p>分析：<br>&emsp;&emsp;t1也是静态变量，所以按照声明顺序执行，先创建对象t1，运行其构造代码块，输出blockA，之后运行静态代码块，输出blockB，最后运行main函数。</p>
+<hr>
+<p>创建对象时得调用顺序：先初始化静态成员，然后调用父类构造器，再初始化非静态成员，最后调用自身构造器</p>
 
     </div>
 
@@ -426,7 +428,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -494,7 +496,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

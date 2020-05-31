@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="问题引入第一次在《Java编程思想》中接触到泛型这个概念是在第十一章中，这一章讲的是持有对象。首先来看一份没有使用泛型的代码：123456789101112131415161718192021import java.util.ArrayList;class Apple &amp;#123;    private static long counter;    private final long id =">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-05T23:11:02.356Z">
+<meta property="og:updated_time" content="2020-05-27T02:09:24.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：泛型">
 <meta name="twitter:description" content="问题引入第一次在《Java编程思想》中接触到泛型这个概念是在第十一章中，这一章讲的是持有对象。首先来看一份没有使用泛型的代码：123456789101112131415161718192021import java.util.ArrayList;class Apple &amp;#123;    private static long counter;    private final long id =">
@@ -291,7 +291,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-05 18:11:02" itemprop="dateModified" datetime="2019-11-05T18:11:02-05:00">2019-11-05</time>
+                <time title="修改时间：2020-05-26 22:09:24" itemprop="dateModified" datetime="2020-05-26T22:09:24-04:00">2020-05-26</time>
               </span>
             
           
@@ -327,6 +327,19 @@
 <p>然后来看一份使用了泛型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class ApplesAndOrangesWithGenerics &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList&lt;Apple&gt; apples =  new ArrayList&lt;Apple&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 3; i++)</span><br><span class="line">            apples.add(new Apple());</span><br><span class="line">//        apples.add(new Orange());</span><br><span class="line">        for (int i = 0; i &lt; apples.size(); i++)</span><br><span class="line">            System.out.println(apples.get(i));</span><br><span class="line">        for (Apple c : apples)</span><br><span class="line">            System.out.println(c.id());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>代码分析：<br>执行的操作和之前的代码一样，区别在于初始化容器时<code>ArrayList</code>后面加了一个<code>&lt;Apple&gt;</code>，尖括号括起来的是类型参数（可以有多个），它指定了这个容器实例可以保存的类型。在此处我将添加Orange对象到容器注释掉了，因为它在编译期就会报错，而上一份代码在运行时才能看出错误。</p>
 <h1 id="个人理解-2019-10-21"><a href="#个人理解-2019-10-21" class="headerlink" title="个人理解(2019-10-21)"></a>个人理解(2019-10-21)</h1><p>因为目前还没有对泛型进行深入的学习，所以仅仅通过上面的代码我个人对泛型的理解类似于方法的形参，编译期就规定好了容器内对象的类型，这样可以减少运行时错误（变成编译期错误）。并且注意到在将元素从List中取出时，类型转换也不再是必须的了。因为List知道它保存的是什么类型，因此它会在调用get()时替你执行转型。这样，通过使用泛型，你不仅知道编译器将会检查你放置到容器中的对象类型，而且在使用容器中的对象时，可以使用更加清晰的语法。<br>后续深入学习泛型后再做补充。</p>
+<hr>
+<h4 id="Q-Do-you-know-Generics-How-did-you-used-in-your-coding"><a href="#Q-Do-you-know-Generics-How-did-you-used-in-your-coding" class="headerlink" title="Q. Do you know Generics? How did you used in your coding?"></a>Q. <strong><em>Do you know Generics? How did you used in your coding?</em></strong></h4><p><code>Generics</code> allows type (Integer, String, … etc and user defined types) to be a parameter to methods, classes and interfaces. For example, classes like HashSet, ArrayList, HashMap, etc use generics very well.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li><strong>Type-safety</strong>: We can hold only a single type of objects in generics. It doesn’t allow to store other objects.</li>
+<li><strong>Type Casting</strong>: There is no need to typecast the object.</li>
+<li><strong>Compile-Time Checking</strong>: It is checked at compile time so problem will not occur at runtime.</li>
+</ul>
+<p>Example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* A Simple Java program to show multiple </span></span><br><span class="line"><span class="comment">* type parameters in Java Generics </span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* We use &lt; &gt; to specify Parameter type</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenericClass</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; </span>&#123; </span><br><span class="line">    T obj1;  <span class="comment">// An object of type T </span></span><br><span class="line">    U obj2;  <span class="comment">// An object of type U </span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">// constructor </span></span><br><span class="line">    GenericClass(T obj1, U obj2) &#123; </span><br><span class="line">        <span class="keyword">this</span>.obj1 = obj1; </span><br><span class="line">        <span class="keyword">this</span>.obj2 = obj2; </span><br><span class="line">    &#125; </span><br><span class="line">  </span><br><span class="line">    <span class="comment">// To print objects of T and U </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(obj1); </span><br><span class="line">        System.out.println(obj2); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Driver class to test above </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">        GenericClass &lt;String, Integer&gt; obj = </span><br><span class="line">            <span class="keyword">new</span> GenericClass&lt;String, Integer&gt;(<span class="string">"Generic Class Example !"</span>, <span class="number">100</span>); </span><br><span class="line">  </span><br><span class="line">        obj.print(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generic Class Example !</span><br><span class="line">100</span><br></pre></td></tr></table></figure></p>
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
 
     </div>
 
@@ -410,7 +423,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -478,7 +491,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -499,7 +514,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人理解-2019-10-21"><span class="nav-number">2.</span> <span class="nav-text">个人理解(2019-10-21)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人理解-2019-10-21"><span class="nav-number">2.</span> <span class="nav-text">个人理解(2019-10-21)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-Do-you-know-Generics-How-did-you-used-in-your-coding"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Q. Do you know Generics? How did you used in your coding?</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -238,6 +238,715 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/21/Java：Static关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/21/Java：Static关键字/" class="post-title-link" itemprop="url">Java：Static关键字</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 22:26:08" itemprop="dateCreated datePublished" datetime="2019-08-21T22:26:08-04:00">2019-08-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 14:55:40" itemprop="dateModified" datetime="2019-08-29T14:55:40-04:00">2019-08-29</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Static介绍与用法"><a href="#Static介绍与用法" class="headerlink" title="Static介绍与用法"></a>Static介绍与用法</h1><p>&emsp;&emsp;通常来说，当创建类时，就是在描述那个类的对象的外观与行为。除非用new创建那个类的对象，否则，实际上并未获得任何对象。执行new来创建对象时，数据存储空间才被分配，其方法才供外界调用。<br>&emsp;&emsp;有两种情形用上述方法是无解的。一种情形是，只想为某特定域分配单一存储空间，而不去考虑究竟要创建多少对象，甚至根本就不创建任何对象。另一种情形是，希望某个方法不与包含它的类的任何对象关联在一起。也就是说，即使没有创建对象，也能调用这个方法。<br>&emsp;&emsp;通过static关键字可以满足这两方面的需要。当声明一个事物是static时，就意味着这个域或方法不会与包含它的那个类的任何对象实例关联在一起。所以，即使从未创建某个类的对任何对象，也可以调用其static方法或访问其static域。通常，你必须创建一个对象，并用它来访问数据或方法。因为非static域和方法必须知道他们一起运作的特定对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class StaticTest &#123;</span><br><span class="line">    static int i = 47;</span><br><span class="line">    int j = 47;</span><br><span class="line">    static void incrementi()&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    void incrementj()&#123;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        StaticTest st1 = new StaticTest();</span><br><span class="line">        StaticTest st2 = new StaticTest();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;st1.i: &quot; + st1.i);</span><br><span class="line">        System.out.println(&quot;st2.i: &quot; + st2.i);</span><br><span class="line"></span><br><span class="line">        st1.incrementi();</span><br><span class="line">        System.out.println(&quot;st1.incrementi()后的st1.i: &quot; + st1.i);</span><br><span class="line">        System.out.println(&quot;st1.incrementi()后的st2.i: &quot; + st2.i);</span><br><span class="line"></span><br><span class="line">        st1.incrementj();</span><br><span class="line">        System.out.println(&quot;st1.incrementj()后的st1.j: &quot; + st1.j);</span><br><span class="line">        System.out.println(&quot;st1.incrementj()后的st2.j: &quot; + st2.j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Output:</span><br><span class="line">st1.i: 47</span><br><span class="line">st2.i: 47</span><br><span class="line">st1.incrementi()后的st1.i: 48</span><br><span class="line">st1.incrementi()后的st2.i: 48</span><br><span class="line">st1.incrementj()后的st1.j: 48</span><br><span class="line">st1.incrementj()后的st2.j: 47</span><br></pre></td></tr></table></figure></p>
+<p>以上代码中i是静态变量，incrementi()是静态方法。创建两个对象并且只对其中一个执行incrementi()方法得出的输出中，两个对象的i属性都加了1。incrementj()不是静态方法，所以st1执行incrementj()后，st2的j值不变。</p>
+<p>&emsp;&emsp;将字段或方法设定为static，即使创建了两个StaticTest对象，StaticTest.i也只有一份存储空间，这两个对象公像一个i，上例中的st1.i和st2.j指向同一存储空间。</p>
+<p>引用static对象时可以通过类名直接引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StaticTest.i++</span><br></pre></td></tr></table></figure></p>
+<p>或者因为incrementi()是一个静态方法，也可以直接通过类调用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StaticTest.incrementi()</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;尽管当static作用于某个字段时，肯定会改变数据创建的方式（因为一个static字段对每个类来说都只有一份存储空间，而非static字段则是对每个对象有一个存储空间），但是如果static作用于某个方法，差别却没有那么大。static方法的一个重要用法就是在不创建任何对象的前提下就可以调用它，这一点对定义main()方法很重要，这个方法是运行一个应用时的一个入口点。</p>
+<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>&emsp;&emsp;对于Static的理解我个人认为重点是认识到Static的字段，不管创建多少个对象，字段都是指向同一个存储空间，也就是说都是同时改变的。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p>《JAVA编程思想第四版》</p>
+</blockquote>
+<hr>
+<p>Q:为什么main函数中不能定义static变量？<br>A:只有类才存在静态的变量，方法只能对静态变量的操作，不能在方法内试图定义静态变量。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/19/Django：模型访问/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/19/Django：模型访问/" class="post-title-link" itemprop="url">Django：模型访问</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-19 17:27:05" itemprop="dateCreated datePublished" datetime="2019-08-19T17:27:05-04:00">2019-08-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 15:12:52" itemprop="dateModified" datetime="2019-08-29T15:12:52-04:00">2019-08-29</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Manager属性"><a href="#Manager属性" class="headerlink" title="Manager属性"></a>Manager属性</h1><p>&emsp;&emsp;Manager是Django模型最重要的属性，通过使用Manager模型才可以操作数据库。默认情况下，Django会为每一个模型提供一个名为objects的Manager实例。Manager属性只能通过模型类访问。</p>
+<h2 id="自定义Manager类"><a href="#自定义Manager类" class="headerlink" title="自定义Manager类"></a>自定义Manager类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Blog(models.Model):</span><br><span class="line">&apos;&apos;&apos;模型的定义&apos;&apos;&apos;</span><br><span class="line">    name = models.CharField(max_length=100)</span><br><span class="line">    tagline = models.TextField()</span><br><span class="line">    blog = models.Manager()</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.name</span><br></pre></td></tr></table></figure>
+<p>上例中的<code>blog = models.Manager()</code>自定义Manager类(之前的情况是不加这一句的)，可以通过<code>Blog.blog.all()</code>查询数据，返回的结果是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;QuerySet [&lt;Blog: Beatles Blog&gt;, &lt;Blog: Scott Blog&gt;]&gt;</span><br></pre></td></tr></table></figure></p>
+<p>改进一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qs = Blog.blog.all()</span><br><span class="line">for b in qs:</span><br><span class="line">    print(b.name)</span><br></pre></td></tr></table></figure></p>
+<p>返回的结果是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Beatles Blog</span><br><span class="line">Scott Blog</span><br></pre></td></tr></table></figure></p>
+<h2 id="执行SQL语句"><a href="#执行SQL语句" class="headerlink" title="执行SQL语句"></a>执行SQL语句</h2><ol>
+<li>Manager.raw()<br>语法：Manager.raw(raw_query, params=None, translations=None)<br>针对同样的Blog模型<br>例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">blogs = Blog.blog.raw(&quot;select * from tst_blog&quot;)  # 第一个blog是我在模型中将Manager()命名为blog，tst_blog是表</span><br><span class="line">for b in blogs:</span><br><span class="line">    print(b.name)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>输出结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Beatles Blog</span><br><span class="line">Scott Blog</span><br></pre></td></tr></table></figure></p>
+<p>注意：如果不能返回数据则会抛出异常</p>
+<ol>
+<li>django.db.connection<br>&emsp;&emsp;django.db.connection对象提供了数据库连接操作，使用connection.cursor()方法可以得到一个游标对象，cursor.execute(sql,[paramas])方法用于执行指定的SQL语句。使用cursor.fetchone()或者cursor.fetchall()方法可以得到一个或全部结果。<h1 id="表与表之间的关系"><a href="#表与表之间的关系" class="headerlink" title="表与表之间的关系"></a>表与表之间的关系</h1><h2 id="多对一"><a href="#多对一" class="headerlink" title="多对一"></a>多对一</h2>&emsp;&emsp;在关系型数据库中通常使用外键来表示多对一关系，Django模型中的ForeignKey字段就是模型的外键，写在“多”的那个模型下，其第一个参数对应相关联的类，例如一个问题可以有多个选项：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Question(models.Model):</span><br><span class="line">    content = models.CharField(max_length=128)</span><br><span class="line"></span><br><span class="line">class Choice(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)  # on_delete=models.CASCADE属性必须设置，表示级联删除</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&emsp;&emsp;以上代码在生成数据库时，Django会自动在Choice所对应的表中添加字段question_id作为外键。<br><strong>访问方法：</strong><br>前向查询：通过 Choice中的外键查询Question<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = Choice.objects.get(pk=1)</span><br><span class="line">c.question</span><br></pre></td></tr></table></figure></p>
+<p>反向查询：通过Question查询Choice<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q = Question.objects.get(pk=1)</span><br><span class="line">q.choice_set.all()</span><br></pre></td></tr></table></figure></p>
+<h2 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h2><p>&emsp;&emsp;假设公司里一个员工属于一个或多个部门，每个部门有一个或多个员工，为了实现该组织架构，使用ManyToManyField字段类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Department(models.Model):</span><br><span class="line">    name = models.CharField(max_length=50)</span><br><span class="line"></span><br><span class="line">class Employee(models.Model):</span><br><span class="line">    departments = models.ManyToManyField(Department)  # 多对多字段名用复数</span><br><span class="line">    name = models.CharField(max_length=50)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;注意：可以在任一个模型中定义ManyToManyField，但是不能两个都定义。<br>对于多对多关系，Django会在数据库中额外创建一张关系表，关系表的命名规则是：应用程序名_模型1名_模型2名s，在上例中生成的表名为app_employee_departments<br>访问方法（类似反向查询）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d = Department.objects.get(id=3)</span><br><span class="line">d.Employee_set.all()</span><br></pre></td></tr></table></figure></p>
+<h2 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h2><p>&emsp;&emsp;使用OneToOneField表示一对一关系，第一个参数是模型名。这种关系用的少。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/16/官方文档：Django-shortcut-functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/16/官方文档：Django-shortcut-functions/" class="post-title-link" itemprop="url">官方文档：Django shortcut functions</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-16 21:38:33" itemprop="dateCreated datePublished" datetime="2019-08-16T21:38:33-04:00">2019-08-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 15:12:33" itemprop="dateModified" datetime="2019-08-29T15:12:33-04:00">2019-08-29</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>django.shortcuts包整合了“跨越”MVC中很多层的方法和类。</p>
+<h1 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render(request,template_name,context=None,content_type=None,status=None,using=None)</span><br></pre></td></tr></table></figure>
+<p>将一个已有的模板和一个已有的字典结合起来并且返回一个带有被渲染的文本的HttpResponse对象。<br>Django不提供返回TemplateResponse的快捷方式因为render()和TemplateResponse的构造器一样方便。</p>
+<h2 id="必须参数"><a href="#必须参数" class="headerlink" title="必须参数"></a>必须参数</h2><ol>
+<li>request<br>&emsp;&emsp;用来生成这个response的request对象。</li>
+<li>template_name<br>&emsp;&emsp;要使用的模板或模板序列的全名。如果给了一个序列，那么将会使用第一个已存在的模板。</li>
+</ol>
+<h2 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h2><ol>
+<li>context<br>&emsp;&emsp;一个字典，里面的值被加入模板文本中。默认情况下这是一个空字典。如果字典中的值是可调用的，视图会在渲染模板之前调用它。</li>
+<li>context_type<br>&emsp;&emsp;The MIME type to use for the resulting document. Defaults to the value of the DEFAULT_CONTENT_TYPE setting.</li>
+<li>status<br>&emsp;&emsp;响应状态码，默认为200。</li>
+<li>using<br>&emsp;&emsp;用来加载模板的模板引擎的名字。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/14/Django踩坑：数据迁移遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/14/Django踩坑：数据迁移遇到的问题/" class="post-title-link" itemprop="url">Django踩坑：数据迁移遇到的问题</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-14 22:43:46" itemprop="dateCreated datePublished" datetime="2019-08-14T22:43:46-04:00">2019-08-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 15:12:10" itemprop="dateModified" datetime="2019-08-29T15:12:10-04:00">2019-08-29</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;在学习过程中我在同一个APP（名为’tst’）下反复修改模型（注释旧的模型，创建新的模型），在创建新模型后尝试进行数据迁移，出现如下错误信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No migrations to apply</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在尝试从数据库中删除所有与tst相关的字段后再次尝试迁移：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1050, &quot;Table &apos;django_content_type&apos; already exists&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h1><p>&emsp;&emsp;造成多次应用migrations失败的原因是，当前model是修改过的，原来的migrations已经被我删除，但是，重新生成的migrations使用递增整数记名，所以，在django_migrations表中0001，0002等前面几个数字的文件都已被记录，在Django看来，被记录了就相当于已应用，所以，会出现刚开始的No migrations to apply.</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;python manage.py migrate —fake-initial<br>&emsp;&emsp;python manage.py makemigrations<br>&emsp;&emsp;python manage.py migrate</p>
+<h1 id="关于—fake-initial和—fake"><a href="#关于—fake-initial和—fake" class="headerlink" title="关于—fake-initial和—fake"></a>关于—fake-initial和—fake</h1><h2 id="—fake-initial"><a href="#—fake-initial" class="headerlink" title="—fake-initial"></a>—fake-initial</h2><p>Allows Django to skip an app’s initial migration if all database tables with the names of all models created by all CreateModel operations in that migration already exist. This option is intended for use when first running migrations against a database that preexisted the use of migrations. This option does not, however, check for matching database schema beyond matching table names and so is only safe to use if you are confident that your existing schema matches what is recorded in your initial migration.</p>
+<h2 id="—fake"><a href="#—fake" class="headerlink" title="—fake"></a>—fake</h2><p>Marks the migrations up to the target one (following the rules above) as applied, but without actually running the SQL to change your database schema.</p>
+<p>This is intended for advanced users to manipulate the current migration state directly if they’re manually applying changes; be warned that using —fake runs the risk of putting the migration state table into a state where manual recovery will be needed to make migrations run correctly.</p>
+<h1 id="引用参考"><a href="#引用参考" class="headerlink" title="引用参考"></a>引用参考</h1><blockquote>
+<p><a href="https://blog.csdn.net/qq_25730711/article/details/60327344" target="_blank" rel="noopener">cdsn</a><br><a href="https://docs.djangoproject.com/en/2.2/topics/migrations/" target="_blank" rel="noopener">Django2.0官方文档</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/13/（译）related_name in models.py/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/13/（译）related_name in models.py/" class="post-title-link" itemprop="url">（译）"related_name" in models.py</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-13 12:42:56" itemprop="dateCreated datePublished" datetime="2019-08-13T12:42:56-04:00">2019-08-13</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-29 14:48:56" itemprop="dateModified" datetime="2019-08-29T14:48:56-04:00">2019-08-29</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>&emsp;&emsp;假设你有一个叫Book的模型和一个叫Category的模型。每本书只属于一个分类，用一个外键表示。因此你的模型设计如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    name = models.CharFeild(max_length=128)</span><br><span class="line"></span><br><span class="line">class Book(modesl.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;如果你有一个Book实例，你可以通过对应的field访问它的分类。并且，如果你有一个分类的实例，默认情况下Django会添加一个叫做”book_set”的属性，这个属性返回该分类下所有书的集合，因此可以进行如下操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from tst.models import Category, Book</span><br><span class="line">category = Category.objects.get(pk=1)</span><br><span class="line">print(&quot;Books in &quot;+category.name)</span><br><span class="line">for book in category.book_set.all():</span><br><span class="line">    print(book.name)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;book_set是一个django默认给我们构造的属性，通过外键的related_name属性可以给这个属性换个名字，比如说如果用<code>category = models.ForeighKey(Category, related_name=&#39;book_collection&#39;)</code>定义一个分类，我可以用<code>category.book_collection.all()</code>而不是<code>category.book_set.all()</code>。<br>&emsp;&emsp;大多数情况下都不需要修改related_name，而且django默认的x_set很好记。然而有一种情况下必须要用related_name：当你有多个从一个模型到另一个模型的外键时。这种情况下可能会产生冲突（因为django会尝试给同一个模型创建两个x_set属性）。<br>&emsp;&emsp;例如，如果我的Book模型如下（有一个分类和一个子分类）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category)</span><br><span class="line">    sub_category = models.ForeignKey(Category)</span><br></pre></td></tr></table></figure></p>
+<p>于是模型不会生效除非你给一个（或两个）外键related_name属性，因此冲突就解决了。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Books(models.Model):</span><br><span class="line">    name = models.CharField(max_length=128)</span><br><span class="line">    category = models.ForeignKey(Category, related_name=&apos;book_category_set&apos;)</span><br><span class="line">    sub_category = models.ForeignKey(Category, related_name=&apos;book_sub_category_set&apos;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="原文连接"><a href="#原文连接" class="headerlink" title="原文连接"></a>原文连接</h1><p><a href="https://www.reddit.com/r/django/comments/76a7uw/related_name_in_modelspy/" target="_blank" rel="noopener">Reddit</a></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/12/Django学习笔记：模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/12/Django学习笔记：模型/" class="post-title-link" itemprop="url">Django学习笔记：模型搭建</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-12 23:01:40" itemprop="dateCreated datePublished" datetime="2019-08-12T23:01:40-04:00">2019-08-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-20 23:04:11" itemprop="dateModified" datetime="2019-08-20T23:04:11-04:00">2019-08-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="模型简介"><a href="#模型简介" class="headerlink" title="模型简介"></a>模型简介</h1><p>&emsp;&emsp;模型是一个用于表示数据的Python类，包含基本的数据字段和行为，在Django中，通常一个模型就代表一个数据库表。模型继承自django.db.models.Model, 模型的每一个属性代表一个数据表的列。<br>&emsp;&emsp;例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line">class Person(models.Model):</span><br><span class="line">    first_name = models.CharField(max_length=30)</span><br><span class="line">    last_name = models.CharField(max_length=30)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;需要注意的是django根据模型所属应用程序生成数据库表明，命名规则：<strong>应用程序名_模型名</strong>，Django会自动添加id字段作为数据库表的主键。</p>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><p>&emsp;&emsp;个人对模型部分的理解是对数据库的操作，models.py文件中的所有操作都可以找到与之对应的数据库操作，只不过有特有的字段名称。而在编辑好模型后进行的数据迁移操作实际上就是将models.py里面的翻译成脚本，然后通过执行脚本文件对数据库进行操作从而生成当前APP所需要用到的数据库。</p>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><p>&emsp;&emsp;字段是一系列数据表列的定义。字段名字中不能出现连续的两个下划线，因为连续的两个下划线是Django数据库API的特殊语法。</p>
+<h2 id="常用字段"><a href="#常用字段" class="headerlink" title="常用字段"></a>常用字段</h2><ol>
+<li>AutoField<br>根据已有的ID自动增长，常用作主键，一般情况下会自动创建。</li>
+<li>BooleanField<br>字段值只包含True和False，默认情况下对应HTML的复选框：<input type="checkbox" ...></li>
+<li>CharField<br>保存不太长的字符串（超长字段建议使用TextField）。必须给出CharField.max_length属性值，默认情况下对应HTML的文本框：<input type="text" ...>。</li>
+<li>DateField<br>日期类型，对应Python中的datetime.date类型。参数有：<br>auto_now:每当保存数据(Save())时都会更新时间为当前时间且不能被重写。<br>auto_now_add: 只有在数据第一次创建时才会保存当前时间且不能被重写。</li>
+<li>DateTimeField<br>日期时间类型，对应Python中的datetime.datetime类型，参数与DateField一样。默认情况下对应HTML的复选框：<input type="checkbox" ...>。</li>
+<li>EmailField<br>可以验证有效邮件地址的CharField。</li>
+<li>FileField<br>文件上传控件，可选参数：<br>upload_to：文件上传后保存位置（在settings.py中设置MEDIA_ROOT,upload_to所指定的路径会拼接在MEDIA_ROOT之后）<br>storage：负责文件存储的Python类，用于存储和提取文件。</li>
+<li>ImageField<br>包含FileField的全部属性与方法，但是仅允许上传图片类型的文件，额外两个可选属性:<br>height_field: 高度<br>width_field: 宽度</li>
+<li>TextField<br>超长文本类型</li>
+<li>URLField<br>只接受URL字符串的CharField类型。</li>
+</ol>
+<h2 id="通用属性"><a href="#通用属性" class="headerlink" title="通用属性"></a>通用属性</h2><ol>
+<li>null<br>&emsp;&emsp;默认为True，保存模型后数据库的对应字段中保存空。<br>&emsp;&emsp;文本型字段尽可能不用null属性，因为当时用默认值null时，数据库中就可能出现两种空数据：NULL和空字符串，而Django默认使用空字符串。</li>
+<li>blank<br>默认值为False，当设置为True时字段值允许为空</li>
+<li><p>choices<br>属性值为一个<strong>可迭代对象</strong>，如列表或元组，迭代对象的每个成员包括两个字符串，第一个值作为字段值保存到数据库中，第二个值用于提高字段的可读性。例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">YEAR_IN_SCHOOL_CHOIECES = (</span><br><span class="line">    (&apos;FR&apos;, &apos;Freshman&apos;),</span><br><span class="line">    (&apos;SO&apos;, &apos;Sophomore&apos;),</span><br><span class="line">    (&apos;JR&apos;, &apos;Junior&apos;),</span><br><span class="line">    (&apos;SR&apos;, &apos;Senior&apos;),</span><br><span class="line">)  # 定义一个元组</span><br><span class="line"></span><br><span class="line">year_in_school = models.CharField(</span><br><span class="line">    max_length = 2,</span><br><span class="line">    choices = YEAR_IN_SCHOOL_CHOICES,  # 直接引用元组</span><br><span class="line">    default = &apos;Freshman&apos;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>default<br>设置字段默认值。属性值可以是字符串也可以是方法。默认值<strong>不可以是可变对象</strong>，如列表。</p>
+</li>
+<li>primary_key<br>将字段设置为数据表主键。如果模型中任何字段都不包含primary_key=True属性，会自动添加一个字段作为主键。</li>
+<li>verbose_name<br>类似于字段的说明。<br>除了ForeignKey、ManyToManyField、OneToOneField三种字段类型外，其他字段类型都包含一个默认的verbose_name属性，可以直接在字段属性列表的第一位输入文本作为verbose_name属性值，如未给出则会将字段名作为verbose_name（字段名如果包含下划线会换成空格）。<h2 id="个人理解-1"><a href="#个人理解-1" class="headerlink" title="个人理解"></a>个人理解</h2>模型对应数据库的表，那么字段就对应表的列。</li>
+</ol>
+<h1 id="元属性"><a href="#元属性" class="headerlink" title="元属性"></a>元属性</h1><p>通过在模型中添加一个叫做Meta的子类定义。</p>
+<h2 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h2><p><code>abstract = True</code>，当前模型将成为一个抽象类。</p>
+<h2 id="ordering"><a href="#ordering" class="headerlink" title="ordering"></a>ordering</h2><p>该属性是一个元组、列表或者查询表达式。定义了显示的顺序。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;模型的构建对应数据库的构建，这次只记录了目前为止用过的一些知识，还有很多字段、属性、元属性尚未涉及，以后碰到了再继续补充。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/11/Django踩坑-dbshell报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -706,501 +1415,11 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/01/Django踩坑：python-manage-py-migrate报错/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/01/Django踩坑：python-manage-py-migrate报错/" class="post-title-link" itemprop="url">Django踩坑：python manage.py migrate报错</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-01 23:58:06" itemprop="dateCreated datePublished" datetime="2019-08-01T23:58:06-04:00">2019-08-01</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-11 16:24:42" itemprop="dateModified" datetime="2019-08-11T16:24:42-04:00">2019-08-11</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>&emsp;&emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用<code>python manage.py migrate</code>对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。</p>
-<h1 id="报错分析"><a href="#报错分析" class="headerlink" title="报错分析"></a>报错分析</h1><p>在实际操作过程中我先后遇到如下两种报错信息:</p>
-<ol>
-<li><p>意思是说我的mysqlclient版本过低，但是我在退出虚拟环境后通过<code>pip list</code>检查出版本是最新的，进入虚拟环境后就显示不出来了，pip也不能用，尝试了网上各种方法无果，猜想可能是我虚拟环境的配置出了问题，我觉得如果不在虚拟环境内进行数据迁移的话可能不会有问题，但是毕竟虚拟环境是Python开发神器，还是很想把虚拟环境配置好。<br> Stackoverflow上有一个人针对这个错误提供了一个方案，大致的思路是对虚拟环境下的后台mysql文件进行修改，在版本检测这一环节对检测到低于1.3.13版本的mysqlclient采取直接pass的措施，不捕捉异常，经测试有效。具体操作过程见参考引用中的链接。<br> 最后通过virtualenvwrapper创建虚拟环境解决了问题，将所有的虚拟环境目录全都集中起来，比如放到 ~/Envs/，并对不同的虚拟环境使用不同的目录来管理。并且，它还省去了每次开启虚拟环境时候的 source 操作，使得虚拟环境更加好用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlclient 1.3.13 or newer is required; you have 0.9.3</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在第一个问题解决后，我在新的虚拟环境重新配置，同样进行到<code>python manage.py migrate</code>步骤时出现了如下问题，意思是说我的SQL语法有问题，但是因为当时我只进行了一步<code>CREATE database</code>的操作，并且操作成功，所以排除我SQL语句错误的可能性。后来了解到Django 2.0已经停止了对MySQL 5.5的支持，而我系统安装的MySQL正好是5.5版本的，于是尝试用MySQL 5.7替换，最后问题得到解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.ProgrammingError: (1064, &quot;You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;(6) NOT NULL)&apos; at line 1&quot;)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="参考引用"><a href="#参考引用" class="headerlink" title="参考引用"></a>参考引用</h1><p><a href="https://stackoverflow.com/questions/55657752/django-installing-mysqlclient-error-mysqlclient-1-3-13-or-newer-is-required" target="_blank" rel="noopener">Stackoverflow</a></p>
-<p><a href="https://www.jianshu.com/p/7ed2dfa86e90" target="_blank" rel="noopener">virtualenvwrapper的安装及使用</a></p>
-<p><a href="https://blog.csdn.net/sxingming/article/details/52601250" target="_blank" rel="noopener">Windows10系统下，彻底删除卸载MySQL</a></p>
-<hr>
-<h2 id="更新-2019-08-04"><a href="#更新-2019-08-04" class="headerlink" title="更新(2019-08-04)"></a>更新(2019-08-04)</h2><p>&emsp;&emsp;之前的学习都是跟着Github上的<a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener">Python-100-Days</a>操作的，全程用命令行Vim操作，用了一段时间觉得操作不是很方便，今天重新用Pycharm操作Django项目，另外为了避免之前的问题用的是Django自带的Sqlite数据库而不是Mysql，一路下来很顺畅。另外个人觉得Python-100-Days的教程太过笼统，更适合作为一个学习路线和查漏补缺。</p>
-<h2 id="参考引用-1"><a href="#参考引用-1" class="headerlink" title="参考引用"></a>参考引用</h2><p><a href="http://www.liujiangblog.com/course/django/" target="_blank" rel="noopener">刘江的博客教程</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/31/Hexo配置优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/31/Hexo配置优化/" class="post-title-link" itemprop="url">Hexo配置优化</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-31 01:11:02 / 修改时间：01:38:40" itemprop="dateCreated datePublished" datetime="2019-07-31T01:11:02-04:00">2019-07-31</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>Hexo的配置文件中有很多可以自定义修改的值，以及Github上有很多Hexo的主题可供下载，本文记录一下当前博客的修改过程，因为崇尚简洁而且不懂前端，所以没有太多花哨的优化。</p>
-<h1 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h1><p>该博客使用的是<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">NexT主题</a>，在GitBash中进入博客文件夹后使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
-<p>即可将主题下载到themes文件夹中，在这里也能找到主题所对应的配置文件。</p>
-<h1 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h1><p>Vim中打开Hexo的配置文件(_config.yml)，对以下项目进行了修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: Feb 1997  </span><br><span class="line">subtitle: Overtime and overdue</span><br><span class="line">author: Feb 1997  </span><br><span class="line">language: zh-CN  # 将主题的语言设定为中文</span><br><span class="line">theme: next  # 将主题设置为next</span><br></pre></td></tr></table></figure></p>
-<h1 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h1><p>Vim中打开NexT的配置文件(_config.yml)，对一下项目进行了修改:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tags: /tags/ || tags  # 菜单显示标签</span><br><span class="line">categories: /categories/ || th  # 菜单显示分类</span><br><span class="line">scheme: Pisces  # 选择主题的风格</span><br><span class="line">avatar:</span><br><span class="line">      url: /images/avatar.jpg  # 头像图片在 /source/images 里面</span><br><span class="line">      rounded: true  # 把头像设置成圆形展示</span><br></pre></td></tr></table></figure></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;原模板已经很简洁了，因此在原主题的基础上没有太多的变动。更多油画不仅局限于配置文件的改动，很多前端的代码也可以改动以达到各种效果，网上已经有了很多分享，这里就不一一尝试了。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/30/Hexo踩坑：本地图片加载/" class="post-title-link" itemprop="url">Hexo踩坑：本地图片加载</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-30 23:22:06" itemprop="dateCreated datePublished" datetime="2019-07-30T23:22:06-04:00">2019-07-30</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-29 15:11:17" itemprop="dateModified" datetime="2019-08-29T15:11:17-04:00">2019-08-29</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h1><ol>
-<li>Windows10</li>
-<li>Hexo</li>
-<li>Github</li>
-</ol>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>&emsp;&emsp;为了实现上传图片的功能，将Hexo主页的配置文件(_config.yml)中的post_asset_folder值修改为true后，在Hexo目录下执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure></p>
-<p>安装了一个上传本地图片的插件，该插件会在创建新的文章时同时创建一个同名的文件夹用来存放图片</p>
-<p>&emsp;&emsp;文档中采取的加载图片的代码为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](文章名/图片名.png)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我是用上述方法向文章中添加图片时出现本地无法加载的情况，在localhost:4000或是我部署到Github上的博客中都只能显示出一个小方框，无法读取图片。</p>
-<h1 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h1><p>&emsp;&emsp;因为在网页上还能显示一个小方框，只是不能加载图片，所以可以得出大致的问题出在路径上。<br>&emsp;&emsp;通过观察GitBash在生成静态文件时返回的信息可得知图片路径的解析情况如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/无效路径.png" alt><br>其中 zhuomian.png 为目标图片，Hexo博客搭建为存放文件夹，其余部分为解析后加上去的，这个路径理所当然是加载不出图片的。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;考虑到路径的解析可能会受配置文件控制，于是在配置文件中找到了相关的信息<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/错误配置路径.png" alt><br>以上为错误配置路径，于是我尝试把url修改成我自己的网址<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/正确配置路径.png" alt><br>之后再次生成静态文件后更新的链接看上去就正常了<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo踩坑：本地图片加载/有效路径.png" alt><br>再次部署之后，博客文章图片就加载正常了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这个问题的解决方案并不完美，因为如果在部署之前先启动本地服务在localhost:4000上预览文章仍然无法加载图片，原因应该是部署过程中图片被上传到了github，新的图片路径指向的是github中图片的路径，但是经过测试发现在断网的情况下也能加载已经部署过的图片，所以这个解决方案暂时没有明显问题。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/30/Hexo博客搭建/" class="post-title-link" itemprop="url">Hexo博客搭建</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-30 18:23:13" itemprop="dateCreated datePublished" datetime="2019-07-30T18:23:13-04:00">2019-07-30</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-31 01:42:32" itemprop="dateModified" datetime="2019-07-31T01:42:32-04:00">2019-07-31</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h1><ol>
-<li>Windows10 </li>
-<li>Nodejs v10.16.0    </li>
-<li>Hexo</li>
-<li>Git v2.22.0</li>
-</ol>
-<h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><h2 id="Nodejs"><a href="#Nodejs" class="headerlink" title="Nodejs"></a>Nodejs</h2><p>建议<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网安装</a>，此处选择的是LTS版本（10.16.0），安装成功后在命令行输入:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -version  # 查看Nodejs版本号</span><br><span class="line">npm -version  # npm是随同Nodejs一起安装的包管理工具</span><br></pre></td></tr></table></figure></p>
-<p>确认两项都成功安装即可。</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>建议<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">官网安装</a>，当前安装版本为(v2.22.0)，安装成功后在命令行输入:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure></p>
-<p>获取git版本并确认安装成功。</p>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>使用命令行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
-<p>安装Hexo，通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure></p>
-<p>确认安装并且可以得知Hexo是基于Nodejs的。</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>   安装Nodejs和Git后要将它们添加进系统环境变量中，如图所示：</p>
-<p>   <img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/环境变量.png" alt></p>
-<h1 id="使用Hexo搭建博客"><a href="#使用Hexo搭建博客" class="headerlink" title="使用Hexo搭建博客"></a>使用Hexo搭建博客</h1><h2 id="创建本地目录"><a href="#创建本地目录" class="headerlink" title="创建本地目录"></a>创建本地目录</h2><ol>
-<li>新建一个文件夹，假设取名为Blog</li>
-<li>通过GitBash进入该文件夹，使用命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init  # 初始化一个博客</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>该指令会自动Clone所需文件，结果如图<br><img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/初始化.png" alt></p>
-<h2 id="启动博客"><a href="#启动博客" class="headerlink" title="启动博客"></a>启动博客</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s  # 启动服务</span><br></pre></td></tr></table></figure></p>
-<p>博客会在localhost:4000被启动</p>
-<h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new (文章名)</span><br></pre></td></tr></table></figure></p>
-<p>在 /source/_posts 生成文章，文章可以直接在本地用Visual Studio Code等软件以Markdown的语法编辑。</p>
-<h2 id="更新博客"><a href="#更新博客" class="headerlink" title="更新博客"></a>更新博客</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  # 清除缓存文件</span><br><span class="line">hexo g  # 生成静态文件</span><br><span class="line">hexo s  # 启动服务器</span><br></pre></td></tr></table></figure></p>
-<p>即可在localhost:4000中查看更新的文章</p>
-<h1 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h1><h2 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h2><p>   新建一个Repository，必须以“用户名.github.io”的格式命名</p>
-<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>   使用命令<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure></p>
-<p>   安装插件使博客可以部署到Github</p>
-<h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><p>   编辑Blog目录下的文件_config.yml(可以使用Vim, notepad++等)<br>   <img src="//xiaokeliu666.github.io/2019/07/30/Hexo博客搭建/配置文件.png" alt></p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d  # 部署</span><br></pre></td></tr></table></figure></p>
-<p>就会自动部署到github，可能会要求输入github的账号和密码，也可以通过SSH完成Git与Github的绑定。<br>部署成功后本地文件会上传到Github的仓库里，直接通过仓库名作为地址就可以访问，到此已经部署成功。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;这次搭建实验总体顺利，文中有部分内容没有具体讲到，例如Git与Github的绑定，读者都可以在网上找到相应的教程，感谢B站UP主<a href="https://www.bilibili.com/video/av44544186?from=search&amp;seid=13144773842957588840" target="_blank" rel="noopener">CodeSheep</a>的讲解视频，更多细节可以参考上述视频。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1236,7 +1455,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1304,7 +1523,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1384,6 +1605,10 @@
 
 
   
+    
+      
+    
+      
     
       
     

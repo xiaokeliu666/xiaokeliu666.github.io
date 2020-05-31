@@ -66,7 +66,7 @@
 <meta property="og:description" content="介绍 在 C/C++中，编程者需要同时负责对象的创建与销毁。通常情况下编程者会忘记销毁无用的对象。由于这种忽视，在某个时间点可能会没有足够的内存空间去创建新的对象从而导致整个程序因为内存溢出而终止。 在Java中，编程者不需要关心哪个对象不会再被用上。垃圾收集器会销毁这些对象。 垃圾收集器是守护线程的最好例子因为它总是在后台运行。 垃圾收集器的主要目的是通过摧毁不可到达的对象从而释放内存堆。重要术">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://xiaokeliu666.github.io/2019/08/23/Java：GC机制/reference.png">
-<meta property="og:updated_time" content="2019-08-29T19:03:35.774Z">
+<meta property="og:updated_time" content="2020-05-26T19:42:10.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java：GC机制">
 <meta name="twitter:description" content="介绍 在 C/C++中，编程者需要同时负责对象的创建与销毁。通常情况下编程者会忘记销毁无用的对象。由于这种忽视，在某个时间点可能会没有足够的内存空间去创建新的对象从而导致整个程序因为内存溢出而终止。 在Java中，编程者不需要关心哪个对象不会再被用上。垃圾收集器会销毁这些对象。 垃圾收集器是守护线程的最好例子因为它总是在后台运行。 垃圾收集器的主要目的是通过摧毁不可到达的对象从而释放内存堆。重要术">
@@ -293,7 +293,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-29 15:03:35" itemprop="dateModified" datetime="2019-08-29T15:03:35-04:00">2019-08-29</time>
+                <time title="修改时间：2020-05-26 15:42:10" itemprop="dateModified" datetime="2020-05-26T15:42:10-04:00">2020-05-26</time>
               </span>
             
           
@@ -397,6 +397,9 @@
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <p><a href="https://www.geeksforgeeks.org/garbage-collection-java/" target="_blank" rel="noopener">GeeksforGeeks</a></p>
 </blockquote>
+<hr>
+<p>Q. How do you force garbage collection to occur at a certain point?<br>A. Call System.forceGc()<br>B. Call System.gc()<br>C. Call System.requireGc()<br>D. None of the above</p>
+<p>Answer: D<br>While you can suggest to the JVM that it might want to run a garbage collection cycle, the JVM is free to ignore your suggestion.</p>
 
     </div>
 
@@ -482,7 +485,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -550,7 +553,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="JDK7 域变量默认初始大小：16最大长度：1 &amp;lt;&amp;lt; 30默认加载因子：0.75fmodCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出ConcurrentModiifcationException异常threshold: table.length * loadFactor。  put()方法  如果Key为n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-26T02:09:46.694Z">
+<meta property="og:updated_time" content="2020-05-27T02:09:24.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap面试题">
 <meta name="twitter:description" content="JDK7 域变量默认初始大小：16最大长度：1 &amp;lt;&amp;lt; 30默认加载因子：0.75fmodCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出ConcurrentModiifcationException异常threshold: table.length * loadFactor。  put()方法  如果Key为n">
@@ -278,11 +278,21 @@
                 
               
 
-              <time title="创建时间：2020-05-25 10:48:55 / 修改时间：22:09:46" itemprop="dateCreated datePublished" datetime="2020-05-25T10:48:55-04:00">2020-05-25</time>
+              <time title="创建时间：2020-05-25 10:48:55" itemprop="dateCreated datePublished" datetime="2020-05-25T10:48:55-04:00">2020-05-25</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-05-26 22:09:24" itemprop="dateModified" datetime="2020-05-26T22:09:24-04:00">2020-05-26</time>
+              </span>
             
           
 
@@ -417,6 +427,61 @@
 </ul>
 </li>
 </ol>
+<hr>
+<h4 id="Q-What-is-difference-between-HashMap-and-Hashtable"><a href="#Q-What-is-difference-between-HashMap-and-Hashtable" class="headerlink" title="Q. What is difference between HashMap and Hashtable?"></a>Q. What is difference between HashMap and Hashtable?</h4><p>HashMap and Hashtable both are used to store data in key and value form. Both are using hashing technique to store unique keys.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Sl.No</th>
+<th>HashMap</th>
+<th>Hashtable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01.</td>
+<td>HashMap is <strong>non synchronized</strong>. It is not-thread safe and can’t be shared between many threads without proper synchronization code.</td>
+<td>Hashtable is <strong>synchronized</strong>. It is thread-safe and can be shared with many threads.</td>
+</tr>
+<tr>
+<td>02.</td>
+<td>HashMap allows one null key and multiple null values.</td>
+<td>Hashtable doesn’t allow any null key or value.</td>
+</tr>
+<tr>
+<td>03.</td>
+<td>HashMap is a new class introduced in JDK 1.2.</td>
+<td>Hashtable is a legacy class.</td>
+</tr>
+<tr>
+<td>04.</td>
+<td>HashMap is fast.</td>
+<td>Hashtable is slow.</td>
+</tr>
+<tr>
+<td>05.</td>
+<td>We can make the HashMap as synchronized by calling this code Map m = Collections.synchronizedMap(hashMap);</td>
+<td>Hashtable is internally synchronized and can’t be unsynchronized.</td>
+</tr>
+<tr>
+<td>06.</td>
+<td>HashMap is traversed by Iterator.</td>
+<td>Hashtable is traversed by Enumerator and Iterator.</td>
+</tr>
+<tr>
+<td>07.</td>
+<td>Iterator in HashMap is fail-fast.</td>
+<td>Enumerator in Hashtable is not fail-fast.</td>
+</tr>
+<tr>
+<td>08.</td>
+<td>HashMap inherits AbstractMap class.</td>
+<td>Hashtable inherits Dictionary class.</td>
+</tr>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -442,6 +507,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/05/26/JDBC面试题/" rel="prev" title="JDBC面试题">
+                JDBC面试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -496,7 +565,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -564,7 +633,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -585,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK7"><span class="nav-number">1.</span> <span class="nav-text">JDK7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK8"><span class="nav-number">2.</span> <span class="nav-text">JDK8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap、HashTable"><span class="nav-number">3.</span> <span class="nav-text">HashMap、HashTable</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK7"><span class="nav-number">1.</span> <span class="nav-text">JDK7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK8"><span class="nav-number">2.</span> <span class="nav-text">JDK8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap、HashTable"><span class="nav-number">3.</span> <span class="nav-text">HashMap、HashTable</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-What-is-difference-between-HashMap-and-Hashtable"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">Q. What is difference between HashMap and Hashtable?</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
