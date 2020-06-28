@@ -238,6 +238,116 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-动态SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/11/MyBatis-动态SQL/" class="post-title-link" itemprop="url">MyBatis:动态SQL</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-11 16:45:57 / 修改时间：20:50:18" itemprop="dateCreated datePublished" datetime="2020-04-11T16:45:57-04:00">2020-04-11</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><blockquote>
+<p>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。<br>简而言之，动态SQL简化了SQL语句拼接</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table blog</span><br><span class="line">(</span><br><span class="line">    id          varchar(50)  not null comment &apos;博客id&apos;,</span><br><span class="line">    title       varchar(100) not null comment &apos;博客标题&apos;,</span><br><span class="line">    author      varchar(30)  not null comment &apos;博客作者&apos;,</span><br><span class="line">    create_time datetime     not null comment &apos;创建时间&apos;,</span><br><span class="line">    views       int(30)      not null comment &apos;浏览量&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>已经提前加入几条数据。</p>
+<h1 id="if"><a href="#if" class="headerlink" title="if"></a>if</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    // 根据条件查询博客</span><br><span class="line">    List&lt;Blog&gt; queryBlogIF(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BlogMapper-xml"><a href="#BlogMapper-xml" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogIF&quot; parameterType=&quot;map&quot; resultType=&quot;Blog&quot;&gt;</span><br><span class="line">    select * from blog</span><br><span class="line">    where 1=1</span><br><span class="line">    &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">        and title =#&#123;title&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">    &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">        and author =#&#123;author&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>官方文档上写<code>where state=&#39;ACTIVATE&#39;</code>，但是在我的环境中会报错，用<code>where 1=1</code>替代是一样的效果，表示恒成立，即使if后面的语句不执行，也能查询出东西。<br>完整标签为<code>&lt;if test=&quot;判断条件&quot;&gt;&lt;/if&gt;</code></p>
+<h1 id="choose-when-otherwise"><a href="#choose-when-otherwise" class="headerlink" title="choose(when,otherwise)"></a>choose(when,otherwise)</h1><p>有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，<strong>它有点像 Java 中的 switch 语句。</strong></p>
+<h2 id="接口-1"><a href="#接口-1" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    // 根据条件查询博客</span><br><span class="line">    List&lt;Blog&gt; queryBlogChoose(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BlogMapper-xml-1"><a href="#BlogMapper-xml-1" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogChoose&quot; parameterType=&quot;map&quot; resultType=&quot;Blog&quot;&gt;</span><br><span class="line">        select * from blog</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;choose&gt;</span><br><span class="line">                &lt;when test=&quot;title!=null&quot;&gt;</span><br><span class="line">                    title=#&#123;title&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line"></span><br><span class="line">                &lt;when test=&quot;author!=null&quot;&gt;</span><br><span class="line">                    and author=#&#123;author&#125;</span><br><span class="line">                &lt;/when&gt;</span><br><span class="line"></span><br><span class="line">                &lt;otherwise&gt;</span><br><span class="line">                    and views=#&#123;views&#125;</span><br><span class="line">                &lt;/otherwise&gt;</span><br><span class="line">            &lt;/choose&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：此处使用\<where>标签替代了上一个例子中的<code>where 1=1</code>语句，相比后者，前者更优雅地实现了智能拼接。在此例中，如果”title!=null”不成立且”author!=null”成立，在最后拼接时\<where>标签可以识别出<code>where and author=#{author}</code>这样的错误语句并去掉and。</where></where></p>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h2 id="接口-2"><a href="#接口-2" class="headerlink" title="接口"></a>接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    int updateBlog(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BlogMapper-xml-2"><a href="#BlogMapper-xml-2" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateBlog&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">    update blog</span><br><span class="line">    &lt;set&gt;</span><br><span class="line">        &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">            title = #&#123;title&#125;,</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">        &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">            author =#&#123;author&#125;,</span><br><span class="line">        &lt;/if&gt;</span><br><span class="line">    &lt;/set&gt;</span><br><span class="line">    where id = #&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<p>在使用update语句时容易出现的拼接问题是逗号后面紧跟一个where，例如此例中可能会出现<code>update blog set author=#{author}, where id=#{id}</code>的情况，因此\<set>标签也和\<where>标签一样可以智能地识别多余的逗号并去除。</where></set></p>
+<h1 id="SQL片段"><a href="#SQL片段" class="headerlink" title="SQL片段"></a>SQL片段</h1><p>我们可以用\<sql>标签把上述三个例子中都出现的SQL片段抽取出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;if-title-author&quot;&gt;</span><br><span class="line">    &lt;if test=&quot;title!=null&quot;&gt;</span><br><span class="line">        title = #&#123;title&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">    &lt;if test=&quot;author!=null&quot;&gt;</span><br><span class="line">        and author =#&#123;author&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/sql&gt;</span><br></pre></td></tr></table></figure></sql></p>
+<p>需要使用的时候:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;include refid=&quot;if-title-author&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>即可实现代码的复用。<br>注意事项：</p>
+<ul>
+<li>最好基于单表来定义SQL片段</li>
+<li>不要存在where标签</li>
+</ul>
+<h1 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h1><p>动态 SQL 的另一个常见使用场景是对集合进行遍历（尤其是在构建 IN 条件语句的时候）。<br>假设现在需要查询id为1，2，3的三条数据，SQL语句为<code>select * from blog where 1=1 and (id=1 or id=2 or id=3)</code></p>
+<h2 id="使用foreach标签"><a href="#使用foreach标签" class="headerlink" title="使用foreach标签"></a>使用foreach标签</h2><h3 id="接口-3"><a href="#接口-3" class="headerlink" title="接口"></a>接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface BlogMapper &#123;</span><br><span class="line">    List&lt;Blog&gt; queryBlogForeach(Map map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BlogMapper-xml-3"><a href="#BlogMapper-xml-3" class="headerlink" title="BlogMapper.xml"></a>BlogMapper.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;queryBlogForeach&quot; parameterType=&quot;map&quot; resultType=&quot;blog&quot;&gt;</span><br><span class="line">        select * from blog</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;foreach collection=&quot;ids&quot; item=&quot;id&quot; open=&quot;and (&quot; separator=&quot;or&quot; close=&quot;)&quot;&gt;</span><br><span class="line">                id=#&#123;id&#125;</span><br><span class="line">            &lt;/foreach&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>foreach标签中collection是集合，item是集合中的对象（很类似于java中的<code>for(:)</code>语句），open是开头，seperator是分隔符，close是结尾。以这样的方式来拼接SQL语句。<br>此例中最终拼接成的语句为：<code>select * from blog where 1=1 and (id=1 or id=2 or id=3)</code></p>
+<h3 id="Test-java"><a href="#Test-java" class="headerlink" title="Test.java"></a>Test.java</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test()&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">    Map map = new HashMap();</span><br><span class="line">    ArrayList&lt;Integer&gt; ids = new ArrayList&lt;Integer&gt;();</span><br><span class="line">    ids.add(1);</span><br><span class="line">    ids.add(2);</span><br><span class="line">    ids.add(3);</span><br><span class="line">    map.put(&quot;ids&quot;,ids);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    List&lt;Blog&gt; blogs = mapper.queryBlogForeach(map);</span><br><span class="line">    for (Blog blog : blogs) &#123;</span><br><span class="line">        System.out.println(blog);</span><br><span class="line">    &#125;</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1131,109 +1241,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/28/Spring-Note-4-第一个程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/28/Spring-Note-4-第一个程序/" class="post-title-link" itemprop="url">Spring Note 4: 第一个程序</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-28 23:33:37" itemprop="dateCreated datePublished" datetime="2020-03-28T23:33:37-04:00">2020-03-28</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-03-29 14:55:52" itemprop="dateModified" datetime="2020-03-29T14:55:52-04:00">2020-03-29</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="XML文件模板"><a href="#XML文件模板" class="headerlink" title="XML文件模板"></a>XML文件模板</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;  </span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;</span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- more bean definitions go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="使用Spring来创建对象"><a href="#使用Spring来创建对象" class="headerlink" title="使用Spring来创建对象"></a>使用Spring来创建对象</h1><p>在Spring中，通过配置文件<code>beans.xml</code>来创建对象，通常来说一个类对应一个bean。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;com.xliu.dao.UserDaoImpl&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;userDaoMysql&quot; class=&quot;com.xliu.dao.UserDaoMysqlImpl&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;userServiceImpl&quot; class=&quot;com.xliu.service.UserServiceImpl&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;userDao&quot; ref=&quot;userDaoMysql&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<p>id = 变量名</p>
-<p>class = new的对象</p>
-<p>property相当于给对象中的属性设置一个值,只要有一个属性，就写一个<property>来赋值</property></p>
-<p>因为在com.xliu.service.UserServiceImpl这个类中，有setUserDao这个方法，因此name=”userDao”, ref=”userDaoMysql”代表的是创建对象的类，ref的值对应bean的id。</p>
-<h1 id="MyTest"><a href="#MyTest" class="headerlink" title="MyTest"></a>MyTest</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import com.xliu.dao.UserDao;</span><br><span class="line">import com.xliu.dao.UserDaoImpl;</span><br><span class="line">import com.xliu.dao.UserDaoMysqlImpl;</span><br><span class="line">import com.xliu.service.UserService;</span><br><span class="line">import com.xliu.service.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class Mytest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">//        获取Spring的上下文对象</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">//        我们的对象现在都在Spring中管理了，我们要使用，直接去里面取出来就可以了</span><br><span class="line">        UserServiceImpl userService = (UserServiceImpl) context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出：<code>MySQL获取用户数据</code></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>如果需要使用别的UserDao实现类，只需要在配置文件中改ref的值，例如<code>ref=&quot;userDao&quot;</code>，即可输出<code>获取用户数据</code></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1274,7 +1281,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
