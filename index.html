@@ -274,11 +274,21 @@
                 
               
 
-              <time title="创建时间：2020-07-07 22:19:42 / 修改时间：23:38:12" itemprop="dateCreated datePublished" datetime="2020-07-07T22:19:42-04:00">2020-07-07</time>
+              <time title="创建时间：2020-07-07 22:19:42" itemprop="dateCreated datePublished" datetime="2020-07-07T22:19:42-04:00">2020-07-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-09 11:40:38" itemprop="dateModified" datetime="2020-07-09T11:40:38-04:00">2020-07-09</time>
+              </span>
             
           
 
@@ -322,7 +332,6 @@
 <thead>
 <tr>
 <th>\</th>
-<th></th>
 <th>1</th>
 <th>0</th>
 </tr>
@@ -382,6 +391,10 @@
 </li>
 <li><p>Change the sign</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reversal</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> ~a + <span class="number">1</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Detect opposite sign</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// -1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -1252,7 +1265,7 @@ public class TestFoo implements Foo {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-05-26 22:09:24" itemprop="dateModified" datetime="2020-05-26T22:09:24-04:00">2020-05-26</time>
+                <time title="修改时间：2020-07-14 00:03:11" itemprop="dateModified" datetime="2020-07-14T00:03:11-04:00">2020-07-14</time>
               </span>
             
           
@@ -1338,7 +1351,7 @@ public class TestFoo implements Foo {
 <ul>
 <li>在JDK7中，新增节点使用的是头插法，但在JDK8中，在链表使用尾插法，防止死链。</li>
 <li>若hashTable为null或长度为0，则扩容。</li>
-<li>根据index找到bucket，若buckey上没有节点，那么直接新增一个节点，赋给bucket。</li>
+<li>根据index找到bucket，若bucket上没有节点，那么直接新增一个节点，赋给bucket。</li>
 <li>若当前bucket上有链表，且头节点匹配，则直接替换。</li>
 <li>若当前bucket上为树结构则转为红黑树的插入操作。</li>
 <li>若以上都不成立，则对链表进行遍历：有则替换，无则末尾添加。</li>

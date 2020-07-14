@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Feb 1997">
 <meta property="og:description" content="JDK7 域变量默认初始大小：16最大长度：1 &amp;lt;&amp;lt; 30默认加载因子：0.75fmodCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出ConcurrentModiifcationException异常threshold: table.length * loadFactor。  put()方法  如果Key为n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-27T02:09:24.342Z">
+<meta property="og:updated_time" content="2020-07-14T04:03:11.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap面试题">
 <meta name="twitter:description" content="JDK7 域变量默认初始大小：16最大长度：1 &amp;lt;&amp;lt; 30默认加载因子：0.75fmodCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出ConcurrentModiifcationException异常threshold: table.length * loadFactor。  put()方法  如果Key为n">
@@ -291,7 +291,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-05-26 22:09:24" itemprop="dateModified" datetime="2020-05-26T22:09:24-04:00">2020-05-26</time>
+                <time title="修改时间：2020-07-14 00:03:11" itemprop="dateModified" datetime="2020-07-14T00:03:11-04:00">2020-07-14</time>
               </span>
             
           
@@ -376,7 +376,7 @@
 <ul>
 <li>在JDK7中，新增节点使用的是头插法，但在JDK8中，在链表使用尾插法，防止死链。</li>
 <li>若hashTable为null或长度为0，则扩容。</li>
-<li>根据index找到bucket，若buckey上没有节点，那么直接新增一个节点，赋给bucket。</li>
+<li>根据index找到bucket，若bucket上没有节点，那么直接新增一个节点，赋给bucket。</li>
 <li>若当前bucket上有链表，且头节点匹配，则直接替换。</li>
 <li>若当前bucket上为树结构则转为红黑树的插入操作。</li>
 <li>若以上都不成立，则对链表进行遍历：有则替换，无则末尾添加。</li>
