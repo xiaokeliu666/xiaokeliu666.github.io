@@ -238,6 +238,1066 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/06/27/Spring-Factory-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/06/27/Spring-Factory-Pattern/" class="post-title-link" itemprop="url">Spring: Factory Pattern</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-27 23:00:22 / Modified: 23:35:26" itemprop="dateCreated datePublished" datetime="2020-06-27T23:00:22-04:00">2020-06-27</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Simple factory:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class BeanFactory &#123;</span><br><span class="line">    private static Properties env = new Properties();</span><br><span class="line">    </span><br><span class="line">    static&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //Step 1: get IO Stream</span><br><span class="line">            InputStream inputStream = BeanFactory.class.getResourceAsStream(&quot;/applicationContext.properties&quot;);</span><br><span class="line">            //Step 2: load() method reads a property list (key and element pairs) from the input byte stream.</span><br><span class="line">            env.load(inputStream);</span><br><span class="line">            //Stream source doesn&apos;t belong to JVM, so it can&apos;t be handled by GC and needs to be closed mannualy</span><br><span class="line">            inputStream.close();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /*</span><br><span class="line">        Way to initial an object:</span><br><span class="line">            1. Constructor: UserService userService = new UserServiceImpl();</span><br><span class="line">            2. Refelction: This method can loose coupling</span><br><span class="line">                    Class clazz = Class.forName(&quot;com.baizhiedu.basic.UserServiceImpl&quot;);</span><br><span class="line">	                UserService userService = (UserService)clazz.newInstance();</span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    public static UserService getUserService() &#123;</span><br><span class="line">        UserService userService = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class clazz = Class.forName(env.getProperty(&quot;userService&quot;));</span><br><span class="line">            userService = (UserService) clazz.newInstance();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return userService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static UserDAO getUserDAO()&#123;</span><br><span class="line">        UserDAO userDAO = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class clazz = Class.forName(env.getProperty(&quot;userDAO&quot;));</span><br><span class="line">            userDAO = (UserDAO) clazz.newInstance();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return userDAO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>applicationContext.properties:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Properties extends Hashtable&lt;Object,Object&gt;</span><br><span class="line"># Map: key=String value=String</span><br><span class="line"># Properties [userService = com.baizhiedu.xxx.UserServiceImpl]</span><br><span class="line"># Properties.getProperty(&quot;userService&quot;)</span><br><span class="line"></span><br><span class="line">userService = com.baizhiedu.basic.UserServiceImpl</span><br><span class="line">userDAO = com.baizhiedu.basic.UserDAOImpl</span><br></pre></td></tr></table></figure></p>
+<h1 id="General-factory"><a href="#General-factory" class="headerlink" title="General factory"></a>General factory</h1><p>There are lots of redundancy in simple factory like those exceptions in <code>try-catch</code>. Here introduced general factory:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class BeanFactory &#123;</span><br><span class="line">    private static Properties env = new Properties();</span><br><span class="line">    static&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            </span><br><span class="line">            InputStream inputStream = BeanFactory.class.getResourceAsStream(&quot;/applicationContext.properties&quot;);</span><br><span class="line">            env.load(inputStream);</span><br><span class="line">            inputStream.close();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static Object getBean(String key)&#123;</span><br><span class="line">         Object ret = null;</span><br><span class="line">         try &#123;</span><br><span class="line">             Class clazz = Class.forName(env.getProperty(key));</span><br><span class="line">             ret = clazz.newInstance();</span><br><span class="line">         &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         return ret;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>General factory shares the same <code>applicationContext.properties</code> with simple factory.</p>
+<p>How to use general factory:</p>
+<ol>
+<li>Define class</li>
+<li>Inform the factory using <code>applicationContext.properties</code></li>
+<li>Get object using BeanFactroy:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object ret = BeanFactory.getBean(&quot;key&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/30/Java：GET还是POST？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/30/Java：GET还是POST？/" class="post-title-link" itemprop="url">Java：GET还是POST</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-30 21:17:02 / Modified: 22:31:09" itemprop="dateCreated datePublished" datetime="2020-05-30T21:17:02-04:00">2020-05-30</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。</p>
+<p>然而，在以下情况中，请使用 POST 请求：</p>
+<ul>
+<li>无法使用缓存文件（更新服务器上的文件或数据库）</li>
+<li>向服务器发送大量数据（POST 没有数据量限制）</li>
+<li>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java：封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java：封装/" class="post-title-link" itemprop="url">Java：封装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 19:42:31 / Modified: 22:09:24" itemprop="dateCreated datePublished" datetime="2020-05-26T19:42:31-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-What-is-the-difference-between-abstraction-and-encapsulation"><a href="#Q-What-is-the-difference-between-abstraction-and-encapsulation" class="headerlink" title="Q. What is the difference between abstraction and encapsulation?"></a>Q. <strong><em>What is the difference between abstraction and encapsulation?</em></strong></h4><ul>
+<li>Abstraction solves the problem at design level while Encapsulation solves it implementation level. </li>
+<li>In Java, Abstraction is supported using <code>interface</code> and <code>abstract class</code> while Encapsulation is supported using access modifiers e.g. public, private and protected.</li>
+<li>Abstraction is about hiding unwanted details while giving out most essential details, while Encapsulation means hiding the code and data into a single unit e.g. class or method to protect inner working of an object from outside world. </li>
+</ul>
+<table class="alt">
+<tbody><tr><th>Abstraction</th><th>Encapsulation</th></tr>
+<tr><td>Abstraction is a process of hiding the implementation details and showing only functionality to the user.</td>
+<td> Encapsulation is a process of wrapping code and data together into a single unit</td></tr>
+<tr><td>Abstraction lets you focus on what the object does instead of how it does it.</td>
+<td>Encapsulation provides you the control over the data and keeping it safe from outside misuse.</td></tr>
+<tr><td>Abstraction solves the problem in the Design Level.</td>
+<td>Encapsulation solves the problem in the Implementation Level.</td></tr>
+<tr><td>Abstraction is implemented by using Interfaces and Abstract Classes.</td>
+<td>Encapsulation is implemented by using Access Modifiers (private, default, protected, public)</td></tr>
+<tr><td>Abstraction means hiding implementation complexities by using interfaces and abstract class.</td>
+<td>Encapsulation means hiding data by using setters and getters.</td></tr>
+</tbody></table>
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+<h4 id="Q-How-Encapsulation-concept-implemented-in-JAVA"><a href="#Q-How-Encapsulation-concept-implemented-in-JAVA" class="headerlink" title="Q. How Encapsulation concept implemented in JAVA?"></a>Q. <strong><em>How Encapsulation concept implemented in JAVA?</em></strong></h4><p>Encapsulation in Java is a mechanism of wrapping the data (variables) and code acting on the data (methods) together as a single unit. In encapsulation, the variables of a class will be hidden from other classes, and can be accessed only through the methods of their current class. Therefore, it is also known as <code>data hiding</code>.</p>
+<p>To achieve encapsulation in Java −  </p>
+<ul>
+<li>Declare the variables of a class as private.</li>
+<li>Provide public setter and getter methods to modify and view the variables values.</li>
+</ul>
+<p>Example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncapClass</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> name;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String newName)</span> </span>&#123;</span><br><span class="line">      name = newName;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      EncapClass obj = <span class="keyword">new</span> EncapClass();</span><br><span class="line">      obj.setName(<span class="string">"Pradeep Kumar"</span>);</span><br><span class="line">      System.out.print(<span class="string">"Name : "</span> + obj.getName());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-String/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java-String/" class="post-title-link" itemprop="url">Java: String</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 18:38:11 / Modified: 19:33:44" itemprop="dateCreated datePublished" datetime="2020-05-26T18:38:11-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-Why-string-is-immutable-in-java"><a href="#Q-Why-string-is-immutable-in-java" class="headerlink" title="Q. Why string is immutable in java?"></a>Q. <strong><em>Why string is immutable in java?</em></strong></h4><p>The string is Immutable in Java because String objects are cached in String pool. Since cached String literals are shared between multiple clients there is always a risk, where one client’s action would affect all another client. </p>
+<p>Since string is immutable it can safely share between many threads and avoid any synchronization issues in java.</p>
+<h4 id="Q-What-is-Java-String-Pool"><a href="#Q-What-is-Java-String-Pool" class="headerlink" title="Q. What is Java String Pool?"></a>Q. <strong><em>What is Java String Pool?</em></strong></h4><p>String Pool in java is a pool of Strings stored in Java Heap Memory. String pool helps in saving a lot of space for Java Runtime although it takes more time to create the String.</p>
+<p>When we use double quotes to create a String, it first looks for String with the same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference. However using <strong>new</strong> operator, we force String class to create a new String object in heap space.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Java program to illustrate String Pool</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringPool</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"Java"</span>;</span><br><span class="line">        String s2 = <span class="string">"Java"</span>;</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"s1 == s2 :"</span> +(s1==s2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"s1 == s3 :"</span> +(s1==s3)); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Abstraction-and-Encapsulation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java-Abstraction-and-Encapsulation/" class="post-title-link" itemprop="url">Java: Abstraction and Encapsulation</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 17:21:02 / Modified: 19:33:46" itemprop="dateCreated datePublished" datetime="2020-05-26T17:21:02-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-What-is-the-difference-between-abstraction-and-encapsulation"><a href="#Q-What-is-the-difference-between-abstraction-and-encapsulation" class="headerlink" title="Q. What is the difference between abstraction and encapsulation?"></a>Q. <strong><em>What is the difference between abstraction and encapsulation?</em></strong></h4><ul>
+<li>Abstraction solves the problem at design level while Encapsulation solves it implementation level. </li>
+<li>In Java, Abstraction is supported using <code>interface</code> and <code>abstract class</code> while Encapsulation is supported using access modifiers e.g. public, private and protected.</li>
+<li>Abstraction is about hiding unwanted details while giving out most essential details, while Encapsulation means hiding the code and data into a single unit e.g. class or method to protect inner working of an object from outside world. </li>
+</ul>
+<table class="alt">
+<tbody><tr><th>Abstraction</th><th>Encapsulation</th></tr>
+<tr><td>Abstraction is a process of hiding the implementation details and showing only functionality to the user.</td>
+<td> Encapsulation is a process of wrapping code and data together into a single unit</td></tr>
+<tr><td>Abstraction lets you focus on what the object does instead of how it does it.</td>
+<td>Encapsulation provides you the control over the data and keeping it safe from outside misuse.</td></tr>
+<tr><td>Abstraction solves the problem in the Design Level.</td>
+<td>Encapsulation solves the problem in the Implementation Level.</td></tr>
+<tr><td>Abstraction is implemented by using Interfaces and Abstract Classes.</td>
+<td>Encapsulation is implemented by using Access Modifiers (private, default, protected, public)</td></tr>
+<tr><td>Abstraction means hiding implementation complexities by using interfaces and abstract class.</td>
+<td>Encapsulation means hiding data by using setters and getters.</td></tr>
+</tbody></table>
+
+<h4 id="Q-Can-there-be-an-abstract-method-without-an-abstract-class"><a href="#Q-Can-there-be-an-abstract-method-without-an-abstract-class" class="headerlink" title="Q. Can there be an abstract method without an abstract class?"></a>Q. <strong><em>Can there be an abstract method without an abstract class?</em></strong></h4><p>Yes. because methods in an interface are also abstract. so the interface can be use to declare abstract method.</p>
+<h4 id="Q-Can-we-use-private-or-protected-member-variables-in-an-interface"><a href="#Q-Can-we-use-private-or-protected-member-variables-in-an-interface" class="headerlink" title="Q. Can we use private or protected member variables in an interface?"></a>Q. <strong><em>Can we use private or protected member variables in an interface?</em></strong></h4><p>The java compiler adds public and abstract keywords before the interface method and <strong>public, static and final keyword</strong> before data members automatically<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> string name1;</span><br><span class="line">   <span class="keyword">private</span> String email;</span><br><span class="line">   <span class="keyword">protected</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>as you have declare variable in test interface with private and protected it will give error. if you do not specify the modifier the compiler will add public static final automatically.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> string name1;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span>  String email;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>interfaces cannot be instantiated that is why the variable are <strong>static</strong></li>
+<li>interface are used to achieve the 100% abstraction there for the variable are <strong>final</strong></li>
+<li>An interface provide a way for the client to interact with the object. If variables were not public, the clients would not have access to them. that is why variable are <strong>public</strong></li>
+</ul>
+<h4 id="Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference"><a href="#Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference" class="headerlink" title="Q. When can an object reference be cast to a Java interface reference?"></a>Q. <strong><em>When can an object reference be cast to a Java interface reference?</em></strong></h4><p>An interface reference can point to any object of a class that implements this interface </p>
+<pre><code class="lang-java">interface Foo {
+  void display();
+}
+
+public class TestFoo implements Foo {
+
+    void display() {
+      System.out.println(&quot;Hello World&quot;);
+    }
+
+    public static void main(String[] args) {
+      Foo foo = new TestFoo();
+      foo.display();
+    }
+}
+</code></pre>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Heap-and-Stack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java-Heap-and-Stack/" class="post-title-link" itemprop="url">Java: Heap and Stack</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 16:47:15 / Modified: 16:52:08" itemprop="dateCreated datePublished" datetime="2020-05-26T16:47:15-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-What-is-difference-between-Heap-and-Stack-Memory-in-java"><a href="#Q-What-is-difference-between-Heap-and-Stack-Memory-in-java" class="headerlink" title="Q. What is difference between Heap and Stack Memory in java?"></a>Q. <strong><em>What is difference between Heap and Stack Memory in java?</em></strong></h4><p><strong>Java Heap Space</strong>  </p>
+<p>Java Heap space is used by java runtime to allocate memory to Objects and JRE classes. Whenever we create any object, it’s always created in the Heap space.</p>
+<p>Garbage Collection runs on the heap memory to free the memory used by objects that doesn’t have any reference. Any object created in the heap space has global access and can be referenced from anywhere of the application.</p>
+<p><strong>Java Stack Memory</strong>  </p>
+<p>Stack in java is a section of memory which contains methods, local variables and reference variables. Local variables are created in the stack.</p>
+<p>Stack memory is always referenced in LIFO (Last-In-First-Out) order. Whenever a method is invoked, a new block is created in the stack memory for the method to hold local primitive values and reference to other objects in the method.</p>
+<p>As soon as method ends, the block becomes unused and become available for next method. Stack memory size is very less compared to Heap memory.</p>
+<p><strong>Difference</strong>  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Stack Memory</th>
+<th>Heap Space</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>Stack is used in parts, one at a time during execution of a thread</td>
+<td>The entire application uses Heap space during runtime</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Stack has size limits depending upon OS and is usually smaller then Heap</td>
+<td>There is no size limit on Heap</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Stores only primitive variables and references to objects that are created in Heap Space</td>
+<td>All the newly created objects are stored here</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>It is accessed using Last-in First-out (LIFO) memory allocation system</td>
+<td>This memory is accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation.</td>
+</tr>
+<tr>
+<td>Life</td>
+<td>Stack memory only exists as long as the current method is running</td>
+<td>Heap space exists as long as the application runs</td>
+</tr>
+<tr>
+<td>Efficiency</td>
+<td>Comparatively much faster to allocate when compared to heap</td>
+<td>Slower to allocate when compared to stack</td>
+</tr>
+<tr>
+<td>Allocation/Deallocation</td>
+<td>This Memory is automatically allocated and deallocated when a method is called and returned respectively</td>
+<td>Heap space is allocated when new objects are created and deallocated by Gargabe Collector when they are no longer referenced</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/JDBC面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/JDBC面试题/" class="post-title-link" itemprop="url">JDBC面试题</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 16:08:12 / Modified: 16:37:21" itemprop="dateCreated datePublished" datetime="2020-05-26T16:08:12-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-What-is-DAO-factory-design-pattern-in-Java"><a href="#Q-What-is-DAO-factory-design-pattern-in-Java" class="headerlink" title="Q. What is DAO factory design pattern in Java?"></a>Q. What is DAO factory design pattern in Java?</h4><p>Data Access Object Pattern or DAO pattern is used to separate low level data accessing API or operations from high level business services.</p>
+<p>DAO pattern is based on abstraction and encapsulation design principles and shields rest of application from any change in the persistence layer e.g. change of database from Oracle to MySQL, change of persistence technology e.g. from File System to Database.</p>
+<h4 id="Q-What-are-the-differences-between-ResultSet-and-RowSet"><a href="#Q-What-are-the-differences-between-ResultSet-and-RowSet" class="headerlink" title="Q. What are the differences between ResultSet and RowSet?"></a>Q. What are the differences between ResultSet and RowSet?</h4><p>A <strong>ResultSet</strong> maintains a connection to a database and because of that it can’t be serialized and also we cant pass the Resultset object from one class to other class across the network.</p>
+<p><strong>RowSet</strong> is a disconnected, serializable version of a JDBC ResultSet and also the RowSet extends the ResultSet interface so it has all the methods of ResultSet. The RowSet can be serialized because it doesn’t have a connection to any database and also it can be sent from one class to another across the network.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>ResultSet</th>
+<th>RowSet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A ResultSet always maintains connection with the database.</td>
+<td>A RowSet can be connected, disconnected from the database.</td>
+</tr>
+<tr>
+<td>It cannot be serialized.</td>
+<td>A RowSet object can be serialized.</td>
+</tr>
+<tr>
+<td>ResultSet object cannot be passed other over network.</td>
+<td>You can pass a RowSet object over the network.</td>
+</tr>
+<tr>
+<td>ResultSet object is not a JavaBean object You can create/get a result set using the executeQuery() method.</td>
+<td>ResultSet Object is a JavaBean object. You can get a RowSet using the RowSetProvider.newFactory().createJdb cRowSet() method.</td>
+</tr>
+<tr>
+<td>By default, ResultSet object is not scrollable or, updatable.</td>
+<td>By default, RowSet object is scrollable and updatable.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="Q-How-can-we-execute-stored-procedures-using-CallableStatement"><a href="#Q-How-can-we-execute-stored-procedures-using-CallableStatement" class="headerlink" title="Q. How can we execute stored procedures using CallableStatement?"></a>Q. How can we execute stored procedures using CallableStatement?</h4><p><strong>CallableStatement</strong> interface in java is used to call stored procedure from java program. <strong>Stored Procedures</strong> are group of statements that we compile in the database for some task. Stored procedures are beneficial when we are dealing with multiple tables with complex scenario and rather than sending multiple queries to the database, we can send required data to the stored procedure and have the logic executed in the database server itself.</p>
+<p>A CallableStatement object provides a way to call stored procedures using JDBC. Connection.prepareCall() method provides you CallableStatement object.</p>
+<h4 id="Q-What-are-the-differences-between-Statement-and-PreparedStatement-interface"><a href="#Q-What-are-the-differences-between-Statement-and-PreparedStatement-interface" class="headerlink" title="Q. What are the differences between Statement and PreparedStatement interface?"></a>Q. What are the differences between Statement and PreparedStatement interface?</h4><p>JDBC API provides 3 different interfaces to execute the different types of SQL queries. They are,</p>
+<ul>
+<li><strong>Statement</strong>  –  Used to execute normal SQL queries.</li>
+<li><strong>PreparedStatement</strong>  –  Used to execute dynamic or parameterized SQL queries.</li>
+<li><strong>CallableStatement</strong>  –  Used to execute the stored procedures.</li>
+</ul>
+<p><strong>1. Statement</strong>  </p>
+<p>Statement interface is used to execute normal SQL queries. We can’t pass the parameters to SQL query at run time using this interface. This interface is preferred over other two interfaces if we are executing a particular SQL query only once. The performance of this interface is also very less compared to other two interfaces. In most of time, Statement interface is used for DDL statements like <strong>CREATE, ALTER, DROP</strong> etc.</p>
+<p><strong>2. PreparedStatement</strong>  </p>
+<p>PreparedStatement is used to execute dynamic or parameterized SQL queries. PreparedStatement extends Statement interface. We can pass the parameters to SQL query at run time using this interface. It is recommended to use PreparedStatement if we are executing a particular SQL query multiple times. It gives better performance than Statement interface. Because, PreparedStatement are precompiled and the query plan is created only once irrespective of how many times we are executing that query. </p>
+<p><strong>3. CallableStatement</strong>  </p>
+<p>CallableStatement is used to execute the stored procedures. CallableStatement extends PreparedStatement. Usng CallableStatement, we can pass 3 types of parameters to stored procedures. They are : <strong>IN</strong> – used to pass the values to stored procedure, <strong>OUT</strong> – used to hold the result returned by the stored procedure and <strong>IN OUT</strong> – acts as both IN and OUT parameter. Before calling the stored procedure, we must register OUT parameters using <strong>registerOutParameter()</strong> method of CallableStatement. The performance of this interface is higher than the other two interfaces. Because, it calls the stored procedures which are already compiled and stored in the database server.</p>
+<h4 id="Q-What-are-the-different-types-of-locking-in-JDBC"><a href="#Q-What-are-the-different-types-of-locking-in-JDBC" class="headerlink" title="Q. What are the different types of locking in JDBC?"></a>Q. What are the different types of locking in JDBC?</h4><p>The types of locks in JDBC:</p>
+<p><strong>1. Row and Key Locks</strong>: Useful when updating the rows (update, insert or delete operations), as they increase concurrency.</p>
+<p><strong>2. Page Locks</strong>: Locks the page when the transaction updates or inserts or deletes rows or keys. The database server locks the entire page that contains the row. The lock is made only once by database server, even more rows are updated. This lock is suggested in the situation where large number of rows is to be changed at once.</p>
+<p><strong>3. Table Locks</strong>: Utilizing table locks is efficient when a query accesses most of the tables of a table. These are of two types:<br><strong>a) Shared lock</strong>: One shared lock is placed by the database server, which prevents other to perform any update operations.</p>
+<p><strong>b) Exclusive lock</strong>: One exclusive lock is placed by the database server, irrespective of the number of the rows that are updated.</p>
+<p><strong>4. Database Lock</strong>: In order to prevent the read or update access from other transactions when the database is open, the database lock is used.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/25/HashMap面试题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/25/HashMap面试题/" class="post-title-link" itemprop="url">HashMap面试题</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-25 10:48:55" itemprop="dateCreated datePublished" datetime="2020-05-25T10:48:55-04:00">2020-05-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-07-14 00:03:11" itemprop="dateModified" datetime="2020-07-14T00:03:11-04:00">2020-07-14</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="JDK7"><a href="#JDK7" class="headerlink" title="JDK7"></a>JDK7</h1><ol>
+<li><p><strong>域变量</strong><br>默认初始大小：16<br>最大长度：1 &lt;&lt; 30<br>默认加载因子：0.75f<br>modCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出<code>ConcurrentModiifcationException</code>异常<br>threshold: table.length * loadFactor。</p>
+</li>
+<li><p><strong>put()方法</strong></p>
+<ul>
+<li>如果Key为null，统一放在下标为0的bucket，即table[0]位置的链表，如果是第一次对key=null做put操作，将会在table[0]的位置新增一个Entry节点，使用头插法做链表插入。调用的是putForNullKey()方法:首先选择table[0]位置的链表，然后对链表做遍历操作，如果有节点的key为null，则用新值覆盖旧值，并且返回旧值，否则新增一个key为null的Entry节点。</li>
+</ul>
+</li>
+<li><p><strong>扩容</strong></p>
+<ul>
+<li>扩容后的大小是扩容前的两倍</li>
+<li>将数据从旧table迁移到扩容后的新table。为避免碰撞过多，先决策是否需要对每个Entry链表节点重新hash，然后根据hash值计算得到bucket下标，然后用头插法做节点迁移。</li>
+</ul>
+</li>
+<li><p><strong>hash值的计算</strong></p>
+<ul>
+<li>使用key的hashCode作为算式(arithmetic)的输入，得到了hash值。</li>
+<li>对于两个对象，如果hashCode相同，那么hash值就一定相同。</li>
+<li>如果两个对象逻辑相等（内存地址相同），那么hashCode一定相等，反之不一定成立。</li>
+</ul>
+</li>
+<li><p><strong>bucket下标的计算</strong></p>
+<ul>
+<li>取模：<code>h &amp; (length-1)</code> h为hashCode</li>
+</ul>
+</li>
+<li><strong>hashCode()和hash值</strong><ul>
+<li>Java中hashCode()方法是用来生成hashCode值,hashCode值是JDK根据对象的地址或者字符串或者数字算出来的int类型的数值。</li>
+<li>把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是哈希值。这种转换是一种压缩映射，也就是，散列值的空间通常远小于输入的空间，不同的输入可能会散列成相同的输出，所以不可能从散列值来确定唯一的输入值。</li>
+</ul>
+</li>
+<li><p><strong>为什么HashTable的大小控制为2的幂次数</strong></p>
+<ul>
+<li>降低碰撞的概率，使散列更均匀，根据bucket下标的计算公式，当哈希表的长度为2的次幂时，等同于使用表长度对hash值取模，散列更均匀。</li>
+<li>表的长度为2的次幂，那么(length-1)的二进制最后一位一定是1，在对hash值做“与”运算时，最后一位就可能是1也可能是0，换句话说取模的结果既有奇数又有偶数。</li>
+<li>此时<code>h &amp; (length-1)</code>就是<code>h % length</code></li>
+</ul>
+</li>
+<li><p><strong>get()方法</strong></p>
+<ul>
+<li>通过key的hash值计算bucket的下标，然后遍历对应bucket上的链表，得到结果。</li>
+</ul>
+</li>
+<li><p><strong>遍历Map的方式</strong></p>
+<ul>
+<li>Iterator迭代器</li>
+<li>for(Map.Entry<string, integer> entry : testMap.entrySet())</string,></li>
+<li>foreach(JDK1.8才有，不推荐，因为底层就是方式2)</li>
+<li>获取keySet()的迭代器遍历<br>以上的底层都是迭代器</li>
+</ul>
+</li>
+<li><p><strong>Iterator的实现</strong></p>
+<ul>
+<li>HashMap中增加了一个内部类HashIterator，循环哈希table，直到找到不为空的bucket为止。</li>
+</ul>
+</li>
+<li><p><strong>fail-fast策略</strong></p>
+<ul>
+<li>在系统设计中，当遇到可能会诱导失败的条件时立即上报错误。</li>
+<li>modCount域变量用于实现hashMap中的fail-fast。</li>
+</ul>
+</li>
+</ol>
+<h1 id="JDK8"><a href="#JDK8" class="headerlink" title="JDK8"></a>JDK8</h1><p>相比与JDK7，JDK8中的HashMap会将较长的链表(大于8)转为红黑树。</p>
+<ol>
+<li><p><strong>put()</strong></p>
+<ul>
+<li>在JDK7中，新增节点使用的是头插法，但在JDK8中，在链表使用尾插法，防止死链。</li>
+<li>若hashTable为null或长度为0，则扩容。</li>
+<li>根据index找到bucket，若bucket上没有节点，那么直接新增一个节点，赋给bucket。</li>
+<li>若当前bucket上有链表，且头节点匹配，则直接替换。</li>
+<li>若当前bucket上为树结构则转为红黑树的插入操作。</li>
+<li>若以上都不成立，则对链表进行遍历：有则替换，无则末尾添加。</li>
+<li>如果链表长度大于TREEIFY_THRESHOLD，则执行红黑树转换操作。</li>
+</ul>
+</li>
+<li><p><strong>扩容</strong></p>
+<ul>
+<li>如果hashTable为null或长度为0，如果Map中存储的k-v对数量超过了threshold，则触发扩容</li>
+<li>不同于JDK7，JDK8在做数据迁移的时候保持了顺序(preserve order)</li>
+<li>新的索引值要么和原来的索引值一样，要么是原索引值的两倍，因为<code>h &amp; (length-1)</code>中<code>length-1</code>的低位全是1。例如原先的hashCode为:1010 … 11101(共32位)，将长度从16扩容到32，length-1从1111变为11111，然后根据公式做按位与，得出的结果后四位是一样的，第一位取决于hashCode对应位置上的值。</li>
+</ul>
+</li>
+<li><p><strong>get()</strong></p>
+<ul>
+<li>根据key计算hash值，进一步计算得到hashTable的目标index，若此bucket上为红黑树，则在红黑树上查找，否则遍历链表。</li>
+</ul>
+</li>
+</ol>
+<h1 id="HashMap、HashTable"><a href="#HashMap、HashTable" class="headerlink" title="HashMap、HashTable"></a>HashMap、HashTable</h1><ol>
+<li><p><strong>HashMap vs HashTable</strong></p>
+<ul>
+<li>HashMap is non synchronized. It is not-thread safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. It is thread-safe and can be shared with many threads.</li>
+<li>HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.</li>
+<li>HashMap is generally preferred over HashTable if thread synchronization is not needed</li>
+</ul>
+</li>
+<li><p><strong>Why HashTable doesn’t allow null and HashMap does?</strong><br>To successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.</p>
+</li>
+<li><p><strong>Why HashMap is not thread-safe?</strong></p>
+<ul>
+<li><p>Ideologically<br>A hash map is based on an array, where each item represents a bucket. As more keys are added, the buckets grow and at a certain threshold the array is recreated with a bigger size, its buckets rearranged so that they are spread more evenly (performance considerations).</p>
+</li>
+<li><p>Technically<br>It means that sometimes HashMap#put() will internally call HashMap#resize() to make the underlying array bigger.</p>
+</li>
+<li><p>HashMap#resize() assigns the table field a new empty array with a bigger capacity and populates it with the old items. While this population happens, the underlying array doesn’t contain all of the old items and calling HashMap#get() with an existing key may return null.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
+<li><strong>HashCode怎么算的?</strong><ul>
+<li>memory reference of object in integer form</li>
+</ul>
+</li>
+<li><strong>equals()</strong><ul>
+<li>compare the key whether the are equal or not</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="Q-What-is-difference-between-HashMap-and-Hashtable"><a href="#Q-What-is-difference-between-HashMap-and-Hashtable" class="headerlink" title="Q. What is difference between HashMap and Hashtable?"></a>Q. What is difference between HashMap and Hashtable?</h4><p>HashMap and Hashtable both are used to store data in key and value form. Both are using hashing technique to store unique keys.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Sl.No</th>
+<th>HashMap</th>
+<th>Hashtable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01.</td>
+<td>HashMap is <strong>non synchronized</strong>. It is not-thread safe and can’t be shared between many threads without proper synchronization code.</td>
+<td>Hashtable is <strong>synchronized</strong>. It is thread-safe and can be shared with many threads.</td>
+</tr>
+<tr>
+<td>02.</td>
+<td>HashMap allows one null key and multiple null values.</td>
+<td>Hashtable doesn’t allow any null key or value.</td>
+</tr>
+<tr>
+<td>03.</td>
+<td>HashMap is a new class introduced in JDK 1.2.</td>
+<td>Hashtable is a legacy class.</td>
+</tr>
+<tr>
+<td>04.</td>
+<td>HashMap is fast.</td>
+<td>Hashtable is slow.</td>
+</tr>
+<tr>
+<td>05.</td>
+<td>We can make the HashMap as synchronized by calling this code Map m = Collections.synchronizedMap(hashMap);</td>
+<td>Hashtable is internally synchronized and can’t be unsynchronized.</td>
+</tr>
+<tr>
+<td>06.</td>
+<td>HashMap is traversed by Iterator.</td>
+<td>Hashtable is traversed by Enumerator and Iterator.</td>
+</tr>
+<tr>
+<td>07.</td>
+<td>Iterator in HashMap is fail-fast.</td>
+<td>Enumerator in Hashtable is not fail-fast.</td>
+</tr>
+<tr>
+<td>08.</td>
+<td>HashMap inherits AbstractMap class.</td>
+<td>Hashtable inherits Dictionary class.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/20/Iterator迭代器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -428,784 +1488,11 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/LeetCode-96/" class="post-title-link" itemprop="url">LeetCode:96</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 17:01:16 / Modified: 17:21:44" itemprop="dateCreated datePublished" datetime="2020-05-16T17:01:16-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int numTrees(int n) &#123;</span><br><span class="line">        if(n==0) &#123;return 0;&#125;</span><br><span class="line">        int[] res = new int[n+1];</span><br><span class="line">        res[0] = 1;</span><br><span class="line">        res[1] = 1;</span><br><span class="line">        for(int i = 2; i &lt; n+1; i++) &#123;</span><br><span class="line">            for(int j = 1; j&lt;= i; j++) &#123;</span><br><span class="line">                res[i] += res[i-j] * res[j-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>确定一个根节点</li>
-<li>小于根节点的值组成左子树，大于根节点的值组成右子树</li>
-<li>左子树的组合总数乘以右子树的组合总数，即为当前根节点可能形成的树的总数。</li>
-</ol>
-<p>举例：<br>当n=6，选取根节点为i=3的时候，此时树的可能性为[1,2]组成子树的可能<em>[4,5,6]组成子树的可能,实际上[4,5,6]组成子树的总数就等于[1,2,3]组成子树的总数。<br>因此可以得出dp公式 F(i, n) = G(i-1) </em> G(n-i)，其中G(i-1)就是左子树，G(n-i)就是右子树。</p>
-<hr>
-<p>参考：<a href="https://leetcode.com/problems/unique-binary-search-trees/discuss/31666/DP-Solution-in-6-lines-with-explanation.-F(i-n)-G(i-1)-*-G(n-i" target="_blank" rel="noopener">https://leetcode.com/problems/unique-binary-search-trees/discuss/31666/DP-Solution-in-6-lines-with-explanation.-F(i-n)-G(i-1)-*-G(n-i</a>) 下用户@lizhu5058的解释。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/LeetCode-95/" class="post-title-link" itemprop="url">LeetCode:95</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 16:31:00 / Modified: 17:22:05" itemprop="dateCreated datePublished" datetime="2020-05-16T16:31:00-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;TreeNode&gt; generateTrees(int n) &#123;</span><br><span class="line">        if(n&lt;=0) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        return helper(1,n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static List&lt;TreeNode&gt; helper(int start, int end) &#123;</span><br><span class="line">        List&lt;TreeNode&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(end&lt;start) &#123;res.add(null);&#125;</span><br><span class="line">        for(int i = start; i&lt;=end; i++) &#123;</span><br><span class="line">            List&lt;TreeNode&gt; leftList = helper(start,i-1);</span><br><span class="line">            List&lt;TreeNode&gt; rightList = helper(i+1,end);</span><br><span class="line">            for(TreeNode leftNode:leftList) &#123;</span><br><span class="line">                for(TreeNode rightNode:rightList) &#123;</span><br><span class="line">                    // 为了避免重复的答案，在循环中新建一个root</span><br><span class="line">                    TreeNode root = new TreeNode(i);</span><br><span class="line">                    root.left = leftNode;</span><br><span class="line">                    root.right = rightNode;</span><br><span class="line">                    res.add(root);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>确定根节点</li>
-<li>小于根节点的值生成左子树，大于根节点的值生成右子树</li>
-<li>左子树和右子树进行排列组合</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-94-145-144/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/LeetCode-94-145-144/" class="post-title-link" itemprop="url">LeetCode:94 & 145 & 144</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 14:30:09 / Modified: 15:11:34" itemprop="dateCreated datePublished" datetime="2020-05-16T14:30:09-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="94-Binary-Tree-Inorder-Traversal"><a href="#94-Binary-Tree-Inorder-Traversal" class="headerlink" title="94.Binary Tree Inorder Traversal"></a>94.Binary Tree Inorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; inorderTraversal(TreeNode root) &#123;</span><br><span class="line">        if(root==null) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root, res);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res)&#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="144-Binary-Tree-Preorder-Traversal"><a href="#144-Binary-Tree-Preorder-Traversal" class="headerlink" title="144.Binary Tree Preorder Traversal"></a>144.Binary Tree Preorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="145-Binary-Tree-Postorder-Traversal"><a href="#145-Binary-Tree-Postorder-Traversal" class="headerlink" title="145.Binary Tree Postorder Traversal"></a>145.Binary Tree Postorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>递归方法只需要根据要求改变递归的顺序即可，当递归执行到空节点时返回即可，res.add()保证了每次递归都会添加当前节点，通过调整位置来实现不同序的遍历。</p>
-<h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><ul>
-<li>时间复杂度：O(n)。递归函数 T(n) = 2T(n/2)+1。</li>
-<li>空间复杂度：最坏情况下需要空间O(n)，平均情况为O(logn)。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/Leetcode-105-106/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/Leetcode-105-106/" class="post-title-link" itemprop="url">Leetcode:105 & 106</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 00:33:40 / Modified: 14:30:57" itemprop="dateCreated datePublished" datetime="2020-05-16T00:33:40-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>前序遍历：根-左-右<br>中序遍历：左-根-右<br>后序遍历：右-左-根<br>前序遍历和后续遍历可以确定根节点的位置（第一个或最后一个），中序遍历可以确定左子树上有哪些节点，右子树上有哪些节点。这两道题的大致思路就是通过前序或者后序遍历，确定根节点的位置，再通过中序遍历确定左右两边子树的节点，依次迭代。</p>
-<h1 id="105"><a href="#105" class="headerlink" title="105"></a>105</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] preorder, int[] inorder) &#123;</span><br><span class="line">        return helper(0,0,inorder.length-1,preorder,inorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public TreeNode helper(int preStart,int inStart, int inEnd, int[] preorder, int[] inorder) &#123;</span><br><span class="line">        if(inStart&gt;inEnd || preStart &gt;= preorder.length) &#123;return null;&#125;</span><br><span class="line">        // root</span><br><span class="line">        TreeNode root = new TreeNode(preorder[preStart]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = index; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==preorder[preStart]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(preStart+1,inStart,index-1,preorder,inorder);</span><br><span class="line">        root.right = helper(preStart+index-inStart+1,index+1,inEnd,preorder,inorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>难点在于计算右子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
-<h1 id="106"><a href="#106" class="headerlink" title="106"></a>106</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] inorder, int[] postorder) &#123;</span><br><span class="line">        return helper(postorder.length-1,0,inorder.length-1,inorder,postorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public static TreeNode helper(int postEnd, int inStart, int inEnd, int[] inorder, int[] postorder) &#123;</span><br><span class="line">        if(postEnd&gt;=postorder.length || inStart&gt;inEnd) &#123;return null;&#125;</span><br><span class="line">        TreeNode root = new TreeNode(postorder[postEnd]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = 0; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==postorder[postEnd]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(postEnd-inEnd+index-1,inStart,index-1,inorder,postorder);</span><br><span class="line">        root.right = helper(postEnd-1,index+1,inEnd,inorder,postorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>难点在于计算左子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/15/LeetCode-199/" class="post-title-link" itemprop="url">LeetCode:199</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-15 22:12:32 / Modified: 22:21:33" itemprop="dateCreated datePublished" datetime="2020-05-15T22:12:32-04:00">2020-05-15</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; rightSideView(TreeNode root) &#123;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root,res,0);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res, int level) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        if(res.size()==level) &#123;res.add(root.val);&#125;</span><br><span class="line">        helper(root.right,res,level+1);</span><br><span class="line">        helper(root.left,res,level+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>考虑到会出现树不平衡的情况:<br>               1<br>            /    \\<br>           2      3<br>           \\<br>            5<br>所以既要考虑到左边的子树，也要考虑到右边的子树。此例中如果每次递归都只考虑最右边的子树的节点，会发现3没有子节点，这时候就没办法回到2节点了。<br>这种解法的技巧在于用level来确保每一层只会选取一个节点。先递归右子树再递归左子树则解决了不平衡的问题：如果右子树没了，再考虑同一层的左子树。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/13/SSM读取excel文件更新数据库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/13/SSM读取excel文件更新数据库/" class="post-title-link" itemprop="url">SSM读取excel文件更新数据库</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-13 22:38:25 / Modified: 23:52:57" itemprop="dateCreated datePublished" datetime="2020-05-13T22:38:25-04:00">2020-05-13</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>模仿新增库存的功能，前端上传excel文件(.xlsx)传入后端实现批量增加。</p>
-<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--        adding support for multipart file upload functionality to servlets and web applications--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.3.3&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        Java API To Access Microsoft Format Files--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;poi&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.17&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        Java API To Access Microsoft Format Files--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.17&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p>这里我之前犯了一个错误，我在导入1.3.3版本commons-fileupload的同时，还导入了2.4版本commons-io的依赖，最后启动项目的时候会有冲突，原因是commons-fileupload中已经包含有了commons-io且版本不同，故产生冲突。</p>
-<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;$&#123;pageContext.request.contextPath&#125;/book/batchAdd&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    选择文件:&lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
-<p>enctype就是encodetype就是编码类型的意思。</p>
-<p>multipart/form-data是指表单数据有多部分构成，既有文本数据，又有文件等二进制数据的意思。</p>
-<p>需要注意的是：默认情况下，enctype的值是application/x-www-form-urlencoded，不能用于文件上传，只有使用了multipart/form-data，才能完整的传递文件数据。</p>
-<p>application/x-www-form-urlencoded不是不能上传文件，是只能上传文本格式的文件，multipart/form-data是将文件以二进制的形式上传，这样可以实现多种类型的文件上传。</p>
-<h1 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/batchAdd&quot;)</span><br><span class="line">public String batchAdd(MultipartFile file) throws IOException, InvalidFormatException &#123;</span><br><span class="line">   </span><br><span class="line">   String originalFileName = file.getOriginalFilename();  // 获取原文件的名字，这里是books.xlsx</span><br><span class="line">   String myPath = &quot;D:\\fileupload\\&quot;+originalFileName;  </span><br><span class="line">   file.transferTo(new File(myPath)); // 把获取到的文件file转化到目标文件，这里是在目录里创建了一个同样的文件</span><br><span class="line"></span><br><span class="line">   XSSFWorkbook wb = new XSSFWorkbook(new File(myPath));  // 当文件后缀为xlsx时用XSSFWorkbook</span><br><span class="line"></span><br><span class="line">   XSSFSheet xssfSheet = wb.getSheetAt(0); // 因为这文件里只有一张sheet，所以直接getSheetAt(0)写死</span><br><span class="line"></span><br><span class="line">   if (xssfSheet != null) &#123;</span><br><span class="line">       for (int rowNum = 1; rowNum &lt;= xssfSheet.getLastRowNum(); rowNum++) &#123;</span><br><span class="line">           XSSFRow xssfRow = xssfSheet.getRow(rowNum); // 获取行</span><br><span class="line">           Books books = new Books(); // 对每一行创建一个对象</span><br><span class="line">           books.setBookName(xssfRow.getCell(0).getStringCellValue());</span><br><span class="line">           books.setBookCounts((int)xssfRow.getCell(1).getNumericCellValue());</span><br><span class="line">           books.setDetail(xssfRow.getCell(2).getStringCellValue());</span><br><span class="line">           bookService.addBook(books); //执行addBook把每一个对象加进去</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">    return &quot;redirect:/book/allBook&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/13/Mybatis-Mysql实现有则更新，无则插入/" class="post-title-link" itemprop="url">MyBatis+Mysql实现有则更新，无则插入</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-13 00:06:48 / Modified: 22:48:32" itemprop="dateCreated datePublished" datetime="2020-05-13T00:06:48-04:00">2020-05-13</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="MySQL实现"><a href="#MySQL实现" class="headerlink" title="MySQL实现"></a>MySQL实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into books (`bookName`,`bookCounts`,`detail`) </span><br><span class="line">values (&apos;MySQL&apos;,5,&apos;快跑辣&apos;) </span><br><span class="line">on duplicate key update `bookCounts`=`bookCounts`+values(`bookCounts`),`detail` = values(`detail`);</span><br></pre></td></tr></table></figure>
-<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(#&#123;bookCounts&#125;), detail=values(#&#123;detail&#125;) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(?), detail=values(?) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
-<h1 id="正确"><a href="#正确" class="headerlink" title="正确"></a>正确</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;addBook&quot; parameterType=&quot;Books&quot;&gt;</span><br><span class="line">    insert into books (bookName,bookCounts,detail)</span><br><span class="line">    values (#&#123;bookName&#125;,#&#123;bookCounts&#125;,#&#123;detail&#125;)</span><br><span class="line">    // 下面不用#&#123;&#125;取数值</span><br><span class="line">    on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-<p>日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: insert into books (bookName,bookCounts,detail) values (?,?,?) on duplicate key update bookCounts=bookCounts+values(bookCounts), detail=values(detail) ; </span><br><span class="line">==&gt; Parameters: MySQL(String), 2(Integer), 2(String)</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/20/Java：Lambda-Comparator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/20/Java：Lambda-Comparator/" class="post-title-link" itemprop="url">Java：Lambda Comparator</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-04-20 22:56:14" itemprop="dateCreated datePublished" datetime="2020-04-20T22:56:14-04:00">2020-04-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-05-26 22:49:38" itemprop="dateModified" datetime="2020-05-26T22:49:38-04:00">2020-05-26</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <blockquote>
-<p>原文地址：<a href="https://mkyong.com/java8/java-8-lambda-comparator-example/" target="_blank" rel="noopener">https://mkyong.com/java8/java-8-lambda-comparator-example/</a></p>
-</blockquote>
-<p>在这个例子中，我将会展示如何使用Java 8 Lambda表达式去写一个Comparator来对List进行排序。</p>
-<ol>
-<li><p>传统Comparator例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>等价的Lambda表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; byName = </span><br><span class="line">(Developer o1, Developer o2) -&gt; o1.getName().compareTo(o2.getName());</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="不用Lambda排序"><a href="#不用Lambda排序" class="headerlink" title="不用Lambda排序"></a>不用Lambda排序</h1><p>举个通过age属性对Developer对象进行排序的例子。通常，你使用Collections.sort然后传入匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Befor sort&quot;);</span><br><span class="line">        for(Developer developer:listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //sort by age</span><br><span class="line">        Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Developer o1,Developer o2) &#123;</span><br><span class="line">                return o1,getAge()-o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        for(Developer developer:ListDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Before Sort</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br><span class="line"></span><br><span class="line">After Sort</span><br><span class="line">Developer [name=jason, salary=10000, age=10]</span><br><span class="line">Developer [name=alvin, salary=8000, age=20]</span><br><span class="line">Developer [name=mkyong, salary=7000, age=33]</span><br><span class="line">Developer [name=iris, salary=17000, age=55]</span><br></pre></td></tr></table></figure></p>
-<p>如果排序要求变了，你只需要传入另一个匿名Comparator类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getNmae());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSlary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这方法有效，但是你不觉得这样有点奇怪吗，因为你只想改变一行代码却创建了一个新的类。</p>
-<h1 id="用Lambda排序"><a href="#用Lambda排序" class="headerlink" title="用Lambda排序"></a>用Lambda排序</h1><p>在Java 8中，List接口直接支持sort方法，不需要再用Collections.sort<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Java 8 之后的List.sort()</span><br><span class="line">listDevs.sort(new Comparator&lt;Deceloper&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o2.getAge()-o1.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Lambda表达式例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class TestSorting &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Developer&gt; listDevs = getDevelopers();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Before Sort&quot;);</span><br><span class="line">        for(Developer developer : listDevs) &#123;</span><br><span class="line">            System.out.println(developer);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;After Sort&quot;);</span><br><span class="line">        // lambda</span><br><span class="line">        listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">        listDevs.forEach((developer)-&gt;System.out.println(developer));</span><br><span class="line">    &#125;</span><br><span class="line">    private static List&lt;Developer&gt; getDevelopers() &#123;</span><br><span class="line">        List&lt;Developer&gt; result = new ArrayList&lt;Developer&gt;();</span><br><span class="line"></span><br><span class="line">        result.add(new Developer(&quot;mkyong&quot;, new BigDecimal(&quot;70000&quot;),33));</span><br><span class="line">        result.add(new Developer(&quot;alvin&quot;, new BigDecimal(&quot;80000&quot;),20));</span><br><span class="line">        result.add(new Developer(&quot;jason&quot;, new BigDecimal(&quot;100000&quot;),10));</span><br><span class="line">        result.add(new Developer(&quot;iris&quot;, new BigDecimal(&quot;170000&quot;),55));</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出和前面的例子一样。</p>
-<h1 id="更多lambda的例子"><a href="#更多lambda的例子" class="headerlink" title="更多lambda的例子"></a>更多lambda的例子</h1><h2 id="Sort-by-age"><a href="#Sort-by-age" class="headerlink" title="Sort by age"></a>Sort by age</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by age</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getAge()-o2.getAge();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getAge()-o2.getAge());</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getAge()-o2.getAge());</span><br></pre></td></tr></table></figure>
-<h2 id="Sort-by-Name"><a href="#Sort-by-Name" class="headerlink" title="Sort by Name"></a>Sort by Name</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// sort by name</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getName().compareTo(o2.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getName().compareTo(o2.getName()));</span><br></pre></td></tr></table></figure>
-<h2 id="Sort-by-salary"><a href="#Sort-by-salary" class="headerlink" title="Sort by salary"></a>Sort by salary</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//sort by salary</span><br><span class="line">Collections.sort(listDevs, new Comparator&lt;Developer&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Developer o1, Developer o2) &#123;</span><br><span class="line">        return o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//lambda</span><br><span class="line">listDevs.sort((Developer o1, Developer o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br><span class="line">//同样有效的lambda，参数类型不是必须的</span><br><span class="line">listDevs.sort((o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary()));</span><br></pre></td></tr></table></figure>
-<h1 id="反向排序"><a href="#反向排序" class="headerlink" title="反向排序"></a>反向排序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Developer&gt; salaryComparator = (o1, o2)-&gt;o1.getSalary().compareTo(o2.getSalary());</span><br><span class="line">listDevs.sort(salaryComparator.reversed());</span><br></pre></td></tr></table></figure>
-<p>个人理解就是把前面的正向排序的lambda表达式拆分城两部分，一部分是用lambda表达式把Comparator实现，另一部分则是把Comparator的对象作为参数传入sort方法，并且可以使用.reversed()</p>
-<hr>
-<h4 id="Q-What-is-Comparable-and-Comparator-Interface-in-java"><a href="#Q-What-is-Comparable-and-Comparator-Interface-in-java" class="headerlink" title="Q. What is Comparable and Comparator Interface in java?"></a>Q. What is Comparable and Comparator Interface in java?</h4><p>Comparable and Comparator both are interfaces and can be used to sort collection elements.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Comparable</th>
-<th>Comparator</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.</td>
-<td>The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc.</td>
-</tr>
-<tr>
-<td>2) Comparable affects the original class, i.e., the actual class is modified.</td>
-<td>Comparator doesn’t affect the original class, i.e., the actual class is not modified.</td>
-</tr>
-<tr>
-<td>3) Comparable provides compareTo() method to sort elements.</td>
-<td>Comparator provides compare() method to sort elements.</td>
-</tr>
-<tr>
-<td>4) Comparable is present in java.lang package.</td>
-<td>A Comparator is present in the java.util package.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>5) We can sort the list elements of Comparable type by Collections.sort(List) method.|We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.|</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1241,7 +1528,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1313,7 +1600,9 @@
         
           
         
-        <span class="site-state-item-count">17</span>
+          
+        
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
