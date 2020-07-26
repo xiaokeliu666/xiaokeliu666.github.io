@@ -238,6 +238,743 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-5-Restric-Access/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-5-Restric-Access/" class="post-title-link" itemprop="url">Spring Security 5: Restric Access</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 21:39:29 / Modified: 22:45:08" itemprop="dateCreated datePublished" datetime="2020-07-24T21:39:29-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Create-supporting-controller-code-and-view-pages"><a href="#Create-supporting-controller-code-and-view-pages" class="headerlink" title="Create supporting controller code and view pages"></a>Create supporting controller code and view pages</h1><ul>
+<li>Add a hyperlink in home page and refer to /leaders</li>
+<li>Create a controller with <code>@GetMapping(&quot;/leaders&quot;)</code> and return to leaders.jsp</li>
+<li>Create a page for leaders</li>
+<li>Repeat the job for different roles, nothing special<h1 id="Update-user-roles"><a href="#Update-user-roles" class="headerlink" title="Update user roles"></a>Update user roles</h1>DemoSecurityConfig.java:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">//        add our users for in memory authentication</span></span><br><span class="line">        UserBuilder users = User.withDefaultPasswordEncoder();</span><br><span class="line"></span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(users.username(<span class="string">"john"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"mary"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"MANAGER"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"susan"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"ADMIN"</span>));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Restrict-Access-based-on-Roles"><a href="#Restrict-Access-based-on-Roles" class="headerlink" title="Restrict Access based on Roles"></a>Restrict Access based on Roles</h1><p>General syntax:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.antMatchers(&lt;&lt; add path to match on &gt;&gt;).hasRole(&lt;&lt; authorized role &gt;&gt;)</span><br></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Any role in the list, comma-delimited list. E.g. "ADMIN","DEVELOPER","VIP","PLATINUM"</span></span><br><span class="line">    .antMatchers(&lt;&lt; add path to match on &gt;&gt;).hasAnyRole(&lt;&lt; authorized role &gt;&gt;)</span><br></pre></td></tr></table></figure></p>
+<p>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>).hasRole(<span class="string">"EMPLOYEE"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/leaders/**"</span>).hasRole(<span class="string">"MANAGER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admins/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>In this way, if a user tries to access in a page which he is not authorized to, he will be denied by “HTTP Status 403 - Forbidden”.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-4-Acquiring-User-ID-and-Roles/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-4-Acquiring-User-ID-and-Roles/" class="post-title-link" itemprop="url">Spring Security 4: Acquiring User ID and Roles</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 21:35:06 / Modified: 21:50:56" itemprop="dateCreated datePublished" datetime="2020-07-24T21:35:06-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p><em>Spring Security provides JSP custom tags for accessing user id and roles</em></p>
+<h1 id="Update-POM-file-for-Spring-Security-JSP-Tag-Library"><a href="#Update-POM-file-for-Spring-Security-JSP-Tag-Library" class="headerlink" title="Update POM file for Spring Security JSP Tag Library"></a>Update POM file for Spring Security JSP Tag Library</h1><p>pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-taglibs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Add-Spring-Security-JSP-Tag-Library-to-JSP-page"><a href="#Add-Spring-Security-JSP-Tag-Library-to-JSP-page" class="headerlink" title="Add Spring Security JSP Tag Library to JSP page"></a>Add Spring Security JSP Tag Library to JSP page</h1><p>home.jsp:<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib prefix=<span class="string">"security"</span> uri=<span class="string">"http://www.springframework.org/security/tags"</span> %&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Display-User-ID"><a href="#Display-User-ID" class="headerlink" title="Display User ID"></a>Display User ID</h1><p>home.jsp:<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User: &lt;security:authentication property=<span class="string">"principal.username"</span>/&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Display-User-Roles"><a href="#Display-User-Roles" class="headerlink" title="Display User Roles"></a>Display User Roles</h1><p>home.jsp:<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Role(s): &lt;security:authentication property=<span class="string">"principal.authorities"</span>/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Note: Spring Security will automatically add a prefix for the roles. For example: if the role is “EMPLOYEE”, then it will display “[ROLE_EMPLOYEE]”</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-3-Cross-Site-Request-Forgery-CSRF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-3-Cross-Site-Request-Forgery-CSRF/" class="post-title-link" itemprop="url">Spring Security 3: Cross Site Request Forgery(CSRF)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 21:17:30 / Modified: 21:34:15" itemprop="dateCreated datePublished" datetime="2020-07-24T21:17:30-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="What-is-CSRF"><a href="#What-is-CSRF" class="headerlink" title="What is CSRF?"></a>What is CSRF?</h1><p>A security attack where an evil website tricks you into executing an action on a web application that you are currently logged in.</p>
+<h1 id="CSRF-Protection"><a href="#CSRF-Protection" class="headerlink" title="CSRF Protection"></a>CSRF Protection</h1><ul>
+<li>To protect against CSRF attacks</li>
+<li>Embed additional authentication data / token into all HTML forms</li>
+<li>On subsequent requestes, web app will verify token before processing<h1 id="Spring-Security’s-CSRF-Protection"><a href="#Spring-Security’s-CSRF-Protection" class="headerlink" title="Spring Security’s CSRF Protection"></a>Spring Security’s CSRF Protection</h1></li>
+<li>CSRF prtection is enabled by default in Spring Security</li>
+<li>Spring Security uses the Synchronizer Token Pattern<ul>
+<li>Each request includes a session cookie and randomly generated token</li>
+</ul>
+</li>
+<li>For request processing, Spring Security verifies token before processing</li>
+<li>All of this is handled by Spring Security Filters<h1 id="Use-Spring-Security-CSRF-Protection"><a href="#Use-Spring-Security-CSRF-Protection" class="headerlink" title="Use Spring Security CSRF Protection"></a>Use Spring Security CSRF Protection</h1></li>
+<li>For form submissions use POST instead of GET</li>
+<li>Include CSRF token in form submission</li>
+<li><code>&lt;form:form&gt;</code> automagically adds CSRF token<h1 id="Manually-add-CSRF-token"><a href="#Manually-add-CSRF-token" class="headerlink" title="Manually add CSRF token"></a>Manually add CSRF token</h1><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">"..."</span> method=<span class="string">"POST"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"hidden"</span></span><br><span class="line">            name=<span class="string">"$&#123;_csrf.parameterName&#125;"</span></span><br><span class="line">            value=<span class="string">"$&#123;_csrf.token&#125;"</span>/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>Using SpringMVC form tage because they’ll automatically do this work</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-2-Logout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-2-Logout/" class="post-title-link" itemprop="url">Spring Security 3: Logout</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 20:49:07 / Modified: 21:16:50" itemprop="dateCreated datePublished" datetime="2020-07-24T20:49:07-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p><strong>Add logout support to Spring Security Configuration.</strong><br>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    http.authorizeRequests()</span><br><span class="line">            .anyRequest().authenticated()</span><br><span class="line">        .and()</span><br><span class="line">            .formLogin()</span><br><span class="line">            .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">            .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">            .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">        <span class="comment">// logout support for default URL /logout, </span></span><br><span class="line">        <span class="comment">// which means we don't have to write extra code in controller</span></span><br><span class="line">            .logout()</span><br><span class="line">            .permitAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Add a button on page.</strong><br>home.jsp:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- MUST USE POST --&gt;</span><br><span class="line">&lt;form:form action=<span class="string">"$&#123;pageContext.request.contextPath&#125;/logout"</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span> value=<span class="string">"Logout"</span>/&gt;</span><br><span class="line">&lt;/form:form&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Logout-Process"><a href="#Logout-Process" class="headerlink" title="Logout Process"></a>Logout Process</h2><ul>
+<li>When a logout is processed, by default Spring Security will…</li>
+<li>Invalidate user’s HTTP session and remove session cookies, etc</li>
+<li>Send user back to your login page</li>
+<li>Append a logout parameter: ?logout</li>
+</ul>
+<p>Based ont the fact that a parameter will be appended in the url, we can show a notification after log out and back to the login page<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;param.logout != null&#125;"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-success col-xs-offset-1 col-xs-10"</span>&gt;</span><br><span class="line">        You have been logged out.</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-1-First-Application/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-1-First-Application/" class="post-title-link" itemprop="url">Spring Security 1: First Application</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 20:37:55 / Modified: 20:48:26" itemprop="dateCreated datePublished" datetime="2020-07-24T20:37:55-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>DemoController:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is the index of application</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showHome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"home"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>LoginController:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Due to the DemoSecurityConfig, </span></span><br><span class="line">    <span class="comment">// before we accessing the index page, we have to login</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMyLoginPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"fancy-login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>login.jsp:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;param.error != null&#125;"</span>&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		Invalid username and password.</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure></p>
+<p>In Spring Security system, if the log in step fails, there will be a param <code>error</code> in the link, like:<code>http://localhost:8080/showMyLoginPage?error</code>. So jstl can be used to check if the log in fails and show different pages. </p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-0-Set-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-0-Set-up/" class="post-title-link" itemprop="url">Spring Security 0: Set up</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 14:25:00 / Modified: 20:38:27" itemprop="dateCreated datePublished" datetime="2020-07-24T14:25:00-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h1><p>pom.xml:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- There may be problems or bugs because of the incompatibility </span></span><br><span class="line"><span class="comment">     between springframework and springsecurity. Here provided an</span></span><br><span class="line"><span class="comment">     compatible solution of versions --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springframework.version</span>&gt;</span>5.0.2.RELEASE<span class="tag">&lt;/<span class="name">springframework.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springsecurity.version</span>&gt;</span>5.0.0.RELEASE<span class="tag">&lt;/<span class="name">springsecurity.version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring MVC support --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring Security --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-taglibs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Servlet, JSP and JSTL support --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet.jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Here we are using pure Java to do the configuration(no xml).</p>
+<p>DemoAppConfig:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages = <span class="string">"com.xliu.springsecurity.demo"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoAppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    define a bean for ViewResolver</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ViewResolver <span class="title">viewResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        InternalResourceViewResolver viewResolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line"></span><br><span class="line">        viewResolver.setPrefix(<span class="string">"/WEB-INF/view/"</span>);</span><br><span class="line">        viewResolver.setSuffix(<span class="string">".jsp"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> viewResolver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MySpringMvcDispatcherServletInitializer:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpringMvcDispatcherServeletInitializer</span> </span></span><br><span class="line"><span class="class">            <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//        No root config classes for our project, only servlet config classes</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class[] &#123; DemoAppConfig.class &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123;<span class="string">"/"</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>DemoSecurityConfig:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">//        add our users for in memory authentication</span></span><br><span class="line">        UserBuilder users = User.withDefaultPasswordEncoder();</span><br><span class="line"><span class="comment">//  users are loaded in memory, this is just for academic purpose, usually we will use JDBC</span></span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(users.username(<span class="string">"john"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"mary"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"MANAGER"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"susan"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"ADMIN"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .anyRequest().authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                <span class="comment">// Spring Security has its own default loging page, but here we refer to a customized page</span></span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                <span class="comment">// authendicateTheUser is done by Spring Security automatically</span></span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/07/Bit-Manipulation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/07/Bit-Manipulation/" class="post-title-link" itemprop="url">Bit Manipulation</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-07 22:19:42" itemprop="dateCreated datePublished" datetime="2020-07-07T22:19:42-04:00">2020-07-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-07-09 11:40:38" itemprop="dateModified" datetime="2020-07-09T11:40:38-04:00">2020-07-09</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h1><h3 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>&amp;</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id><a href="#" class="headerlink" title="|"></a>|</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="-1"><a href="#-1" class="headerlink" title="^"></a>^</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>^</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="-2"><a href="#-2" class="headerlink" title="~"></a>~</h3><p>~   1 0 0 1 1<br>=&gt;  0 1 1 0 0</p>
+<h3 id="lt-lt"><a href="#lt-lt" class="headerlink" title="&lt;&lt;"></a>&lt;&lt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a = 8;</span><br><span class="line">a &lt;&lt; 3;</span><br><span class="line"></span><br><span class="line">before：0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">after：0000 0000 0000 0000 0000 0000 0100 0000</span><br></pre></td></tr></table></figure>
+<h3 id="gt-gt"><a href="#gt-gt" class="headerlink" title="&gt;&gt;"></a>&gt;&gt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">unsigned int a = 8;</span><br><span class="line">a &gt;&gt; 3;</span><br><span class="line">before：0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">after：0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line">​</span><br><span class="line">int a = -8;</span><br><span class="line">a &gt;&gt; 3;</span><br><span class="line">before：1111 1111 1111 1111 1111 1111 1111 1000</span><br><span class="line">after：1111 1111 1111 1111 1111 1111 1111 1111</span><br></pre></td></tr></table></figure>
+<h1 id="Common-Problem"><a href="#Common-Problem" class="headerlink" title="Common Problem"></a>Common Problem</h1><ol>
+<li><p>Implement division</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">a &gt;&gt; <span class="number">1</span>; ---&gt; <span class="number">1</span></span><br><span class="line">a &lt;&lt; <span class="number">1</span>; ---&gt; <span class="number">4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Swap two digits</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span> </span>&#123;</span><br><span class="line">     a ^= b;</span><br><span class="line">     b ^= a;</span><br><span class="line">     a ^= b;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Explaination:<br>Step 1：a ^= b —-&gt; a = (a^b);</p>
+<p> Step 2：b ^= a —-&gt; b = b\^(a^b) —-&gt; b = (b\^b)^a = a</p>
+<p> Step 3：a ^= b —-&gt; a = (a\^b)^a = (a\^a)^b = b</p>
+</li>
+<li><p>Odd or Even<br>If the last digit is 0, then even. Otherwise, odd</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">0</span> == (a &amp; <span class="number">1</span>)) &#123;</span><br><span class="line">    even</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Change the sign</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reversal</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> ~a + <span class="number">1</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Detect opposite sign</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// -1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/06/27/Spring-Factory-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -531,968 +1268,11 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-String/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/26/Java-String/" class="post-title-link" itemprop="url">Java: String</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-26 18:38:11 / Modified: 19:33:44" itemprop="dateCreated datePublished" datetime="2020-05-26T18:38:11-04:00">2020-05-26</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h4 id="Q-Why-string-is-immutable-in-java"><a href="#Q-Why-string-is-immutable-in-java" class="headerlink" title="Q. Why string is immutable in java?"></a>Q. <strong><em>Why string is immutable in java?</em></strong></h4><p>The string is Immutable in Java because String objects are cached in String pool. Since cached String literals are shared between multiple clients there is always a risk, where one client’s action would affect all another client. </p>
-<p>Since string is immutable it can safely share between many threads and avoid any synchronization issues in java.</p>
-<h4 id="Q-What-is-Java-String-Pool"><a href="#Q-What-is-Java-String-Pool" class="headerlink" title="Q. What is Java String Pool?"></a>Q. <strong><em>What is Java String Pool?</em></strong></h4><p>String Pool in java is a pool of Strings stored in Java Heap Memory. String pool helps in saving a lot of space for Java Runtime although it takes more time to create the String.</p>
-<p>When we use double quotes to create a String, it first looks for String with the same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference. However using <strong>new</strong> operator, we force String class to create a new String object in heap space.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Java program to illustrate String Pool</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringPool</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"Java"</span>;</span><br><span class="line">        String s2 = <span class="string">"Java"</span>;</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"s1 == s2 :"</span> +(s1==s2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"s1 == s3 :"</span> +(s1==s3)); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Abstraction-and-Encapsulation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/26/Java-Abstraction-and-Encapsulation/" class="post-title-link" itemprop="url">Java: Abstraction and Encapsulation</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-26 17:21:02 / Modified: 19:33:46" itemprop="dateCreated datePublished" datetime="2020-05-26T17:21:02-04:00">2020-05-26</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h4 id="Q-What-is-the-difference-between-abstraction-and-encapsulation"><a href="#Q-What-is-the-difference-between-abstraction-and-encapsulation" class="headerlink" title="Q. What is the difference between abstraction and encapsulation?"></a>Q. <strong><em>What is the difference between abstraction and encapsulation?</em></strong></h4><ul>
-<li>Abstraction solves the problem at design level while Encapsulation solves it implementation level. </li>
-<li>In Java, Abstraction is supported using <code>interface</code> and <code>abstract class</code> while Encapsulation is supported using access modifiers e.g. public, private and protected.</li>
-<li>Abstraction is about hiding unwanted details while giving out most essential details, while Encapsulation means hiding the code and data into a single unit e.g. class or method to protect inner working of an object from outside world. </li>
-</ul>
-<table class="alt">
-<tbody><tr><th>Abstraction</th><th>Encapsulation</th></tr>
-<tr><td>Abstraction is a process of hiding the implementation details and showing only functionality to the user.</td>
-<td> Encapsulation is a process of wrapping code and data together into a single unit</td></tr>
-<tr><td>Abstraction lets you focus on what the object does instead of how it does it.</td>
-<td>Encapsulation provides you the control over the data and keeping it safe from outside misuse.</td></tr>
-<tr><td>Abstraction solves the problem in the Design Level.</td>
-<td>Encapsulation solves the problem in the Implementation Level.</td></tr>
-<tr><td>Abstraction is implemented by using Interfaces and Abstract Classes.</td>
-<td>Encapsulation is implemented by using Access Modifiers (private, default, protected, public)</td></tr>
-<tr><td>Abstraction means hiding implementation complexities by using interfaces and abstract class.</td>
-<td>Encapsulation means hiding data by using setters and getters.</td></tr>
-</tbody></table>
-
-<h4 id="Q-Can-there-be-an-abstract-method-without-an-abstract-class"><a href="#Q-Can-there-be-an-abstract-method-without-an-abstract-class" class="headerlink" title="Q. Can there be an abstract method without an abstract class?"></a>Q. <strong><em>Can there be an abstract method without an abstract class?</em></strong></h4><p>Yes. because methods in an interface are also abstract. so the interface can be use to declare abstract method.</p>
-<h4 id="Q-Can-we-use-private-or-protected-member-variables-in-an-interface"><a href="#Q-Can-we-use-private-or-protected-member-variables-in-an-interface" class="headerlink" title="Q. Can we use private or protected member variables in an interface?"></a>Q. <strong><em>Can we use private or protected member variables in an interface?</em></strong></h4><p>The java compiler adds public and abstract keywords before the interface method and <strong>public, static and final keyword</strong> before data members automatically<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> string name1;</span><br><span class="line">   <span class="keyword">private</span> String email;</span><br><span class="line">   <span class="keyword">protected</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>as you have declare variable in test interface with private and protected it will give error. if you do not specify the modifier the compiler will add public static final automatically.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> string name1;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span>  String email;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>interfaces cannot be instantiated that is why the variable are <strong>static</strong></li>
-<li>interface are used to achieve the 100% abstraction there for the variable are <strong>final</strong></li>
-<li>An interface provide a way for the client to interact with the object. If variables were not public, the clients would not have access to them. that is why variable are <strong>public</strong></li>
-</ul>
-<h4 id="Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference"><a href="#Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference" class="headerlink" title="Q. When can an object reference be cast to a Java interface reference?"></a>Q. <strong><em>When can an object reference be cast to a Java interface reference?</em></strong></h4><p>An interface reference can point to any object of a class that implements this interface </p>
-<pre><code class="lang-java">interface Foo {
-  void display();
-}
-
-public class TestFoo implements Foo {
-
-    void display() {
-      System.out.println(&quot;Hello World&quot;);
-    }
-
-    public static void main(String[] args) {
-      Foo foo = new TestFoo();
-      foo.display();
-    }
-}
-</code></pre>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Heap-and-Stack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/26/Java-Heap-and-Stack/" class="post-title-link" itemprop="url">Java: Heap and Stack</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-26 16:47:15 / Modified: 16:52:08" itemprop="dateCreated datePublished" datetime="2020-05-26T16:47:15-04:00">2020-05-26</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h4 id="Q-What-is-difference-between-Heap-and-Stack-Memory-in-java"><a href="#Q-What-is-difference-between-Heap-and-Stack-Memory-in-java" class="headerlink" title="Q. What is difference between Heap and Stack Memory in java?"></a>Q. <strong><em>What is difference between Heap and Stack Memory in java?</em></strong></h4><p><strong>Java Heap Space</strong>  </p>
-<p>Java Heap space is used by java runtime to allocate memory to Objects and JRE classes. Whenever we create any object, it’s always created in the Heap space.</p>
-<p>Garbage Collection runs on the heap memory to free the memory used by objects that doesn’t have any reference. Any object created in the heap space has global access and can be referenced from anywhere of the application.</p>
-<p><strong>Java Stack Memory</strong>  </p>
-<p>Stack in java is a section of memory which contains methods, local variables and reference variables. Local variables are created in the stack.</p>
-<p>Stack memory is always referenced in LIFO (Last-In-First-Out) order. Whenever a method is invoked, a new block is created in the stack memory for the method to hold local primitive values and reference to other objects in the method.</p>
-<p>As soon as method ends, the block becomes unused and become available for next method. Stack memory size is very less compared to Heap memory.</p>
-<p><strong>Difference</strong>  </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Stack Memory</th>
-<th>Heap Space</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application</td>
-<td>Stack is used in parts, one at a time during execution of a thread</td>
-<td>The entire application uses Heap space during runtime</td>
-</tr>
-<tr>
-<td>Size</td>
-<td>Stack has size limits depending upon OS and is usually smaller then Heap</td>
-<td>There is no size limit on Heap</td>
-</tr>
-<tr>
-<td>Storage</td>
-<td>Stores only primitive variables and references to objects that are created in Heap Space</td>
-<td>All the newly created objects are stored here</td>
-</tr>
-<tr>
-<td>Order</td>
-<td>It is accessed using Last-in First-out (LIFO) memory allocation system</td>
-<td>This memory is accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation.</td>
-</tr>
-<tr>
-<td>Life</td>
-<td>Stack memory only exists as long as the current method is running</td>
-<td>Heap space exists as long as the application runs</td>
-</tr>
-<tr>
-<td>Efficiency</td>
-<td>Comparatively much faster to allocate when compared to heap</td>
-<td>Slower to allocate when compared to stack</td>
-</tr>
-<tr>
-<td>Allocation/Deallocation</td>
-<td>This Memory is automatically allocated and deallocated when a method is called and returned respectively</td>
-<td>Heap space is allocated when new objects are created and deallocated by Gargabe Collector when they are no longer referenced</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/JDBC面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/26/JDBC面试题/" class="post-title-link" itemprop="url">JDBC面试题</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-26 16:08:12 / Modified: 16:37:21" itemprop="dateCreated datePublished" datetime="2020-05-26T16:08:12-04:00">2020-05-26</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h4 id="Q-What-is-DAO-factory-design-pattern-in-Java"><a href="#Q-What-is-DAO-factory-design-pattern-in-Java" class="headerlink" title="Q. What is DAO factory design pattern in Java?"></a>Q. What is DAO factory design pattern in Java?</h4><p>Data Access Object Pattern or DAO pattern is used to separate low level data accessing API or operations from high level business services.</p>
-<p>DAO pattern is based on abstraction and encapsulation design principles and shields rest of application from any change in the persistence layer e.g. change of database from Oracle to MySQL, change of persistence technology e.g. from File System to Database.</p>
-<h4 id="Q-What-are-the-differences-between-ResultSet-and-RowSet"><a href="#Q-What-are-the-differences-between-ResultSet-and-RowSet" class="headerlink" title="Q. What are the differences between ResultSet and RowSet?"></a>Q. What are the differences between ResultSet and RowSet?</h4><p>A <strong>ResultSet</strong> maintains a connection to a database and because of that it can’t be serialized and also we cant pass the Resultset object from one class to other class across the network.</p>
-<p><strong>RowSet</strong> is a disconnected, serializable version of a JDBC ResultSet and also the RowSet extends the ResultSet interface so it has all the methods of ResultSet. The RowSet can be serialized because it doesn’t have a connection to any database and also it can be sent from one class to another across the network.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>ResultSet</th>
-<th>RowSet</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A ResultSet always maintains connection with the database.</td>
-<td>A RowSet can be connected, disconnected from the database.</td>
-</tr>
-<tr>
-<td>It cannot be serialized.</td>
-<td>A RowSet object can be serialized.</td>
-</tr>
-<tr>
-<td>ResultSet object cannot be passed other over network.</td>
-<td>You can pass a RowSet object over the network.</td>
-</tr>
-<tr>
-<td>ResultSet object is not a JavaBean object You can create/get a result set using the executeQuery() method.</td>
-<td>ResultSet Object is a JavaBean object. You can get a RowSet using the RowSetProvider.newFactory().createJdb cRowSet() method.</td>
-</tr>
-<tr>
-<td>By default, ResultSet object is not scrollable or, updatable.</td>
-<td>By default, RowSet object is scrollable and updatable.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="Q-How-can-we-execute-stored-procedures-using-CallableStatement"><a href="#Q-How-can-we-execute-stored-procedures-using-CallableStatement" class="headerlink" title="Q. How can we execute stored procedures using CallableStatement?"></a>Q. How can we execute stored procedures using CallableStatement?</h4><p><strong>CallableStatement</strong> interface in java is used to call stored procedure from java program. <strong>Stored Procedures</strong> are group of statements that we compile in the database for some task. Stored procedures are beneficial when we are dealing with multiple tables with complex scenario and rather than sending multiple queries to the database, we can send required data to the stored procedure and have the logic executed in the database server itself.</p>
-<p>A CallableStatement object provides a way to call stored procedures using JDBC. Connection.prepareCall() method provides you CallableStatement object.</p>
-<h4 id="Q-What-are-the-differences-between-Statement-and-PreparedStatement-interface"><a href="#Q-What-are-the-differences-between-Statement-and-PreparedStatement-interface" class="headerlink" title="Q. What are the differences between Statement and PreparedStatement interface?"></a>Q. What are the differences between Statement and PreparedStatement interface?</h4><p>JDBC API provides 3 different interfaces to execute the different types of SQL queries. They are,</p>
-<ul>
-<li><strong>Statement</strong>  –  Used to execute normal SQL queries.</li>
-<li><strong>PreparedStatement</strong>  –  Used to execute dynamic or parameterized SQL queries.</li>
-<li><strong>CallableStatement</strong>  –  Used to execute the stored procedures.</li>
-</ul>
-<p><strong>1. Statement</strong>  </p>
-<p>Statement interface is used to execute normal SQL queries. We can’t pass the parameters to SQL query at run time using this interface. This interface is preferred over other two interfaces if we are executing a particular SQL query only once. The performance of this interface is also very less compared to other two interfaces. In most of time, Statement interface is used for DDL statements like <strong>CREATE, ALTER, DROP</strong> etc.</p>
-<p><strong>2. PreparedStatement</strong>  </p>
-<p>PreparedStatement is used to execute dynamic or parameterized SQL queries. PreparedStatement extends Statement interface. We can pass the parameters to SQL query at run time using this interface. It is recommended to use PreparedStatement if we are executing a particular SQL query multiple times. It gives better performance than Statement interface. Because, PreparedStatement are precompiled and the query plan is created only once irrespective of how many times we are executing that query. </p>
-<p><strong>3. CallableStatement</strong>  </p>
-<p>CallableStatement is used to execute the stored procedures. CallableStatement extends PreparedStatement. Usng CallableStatement, we can pass 3 types of parameters to stored procedures. They are : <strong>IN</strong> – used to pass the values to stored procedure, <strong>OUT</strong> – used to hold the result returned by the stored procedure and <strong>IN OUT</strong> – acts as both IN and OUT parameter. Before calling the stored procedure, we must register OUT parameters using <strong>registerOutParameter()</strong> method of CallableStatement. The performance of this interface is higher than the other two interfaces. Because, it calls the stored procedures which are already compiled and stored in the database server.</p>
-<h4 id="Q-What-are-the-different-types-of-locking-in-JDBC"><a href="#Q-What-are-the-different-types-of-locking-in-JDBC" class="headerlink" title="Q. What are the different types of locking in JDBC?"></a>Q. What are the different types of locking in JDBC?</h4><p>The types of locks in JDBC:</p>
-<p><strong>1. Row and Key Locks</strong>: Useful when updating the rows (update, insert or delete operations), as they increase concurrency.</p>
-<p><strong>2. Page Locks</strong>: Locks the page when the transaction updates or inserts or deletes rows or keys. The database server locks the entire page that contains the row. The lock is made only once by database server, even more rows are updated. This lock is suggested in the situation where large number of rows is to be changed at once.</p>
-<p><strong>3. Table Locks</strong>: Utilizing table locks is efficient when a query accesses most of the tables of a table. These are of two types:<br><strong>a) Shared lock</strong>: One shared lock is placed by the database server, which prevents other to perform any update operations.</p>
-<p><strong>b) Exclusive lock</strong>: One exclusive lock is placed by the database server, irrespective of the number of the rows that are updated.</p>
-<p><strong>4. Database Lock</strong>: In order to prevent the read or update access from other transactions when the database is open, the database lock is used.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/25/HashMap面试题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/25/HashMap面试题/" class="post-title-link" itemprop="url">HashMap面试题</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-25 10:48:55" itemprop="dateCreated datePublished" datetime="2020-05-25T10:48:55-04:00">2020-05-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-07-14 00:03:11" itemprop="dateModified" datetime="2020-07-14T00:03:11-04:00">2020-07-14</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="JDK7"><a href="#JDK7" class="headerlink" title="JDK7"></a>JDK7</h1><ol>
-<li><p><strong>域变量</strong><br>默认初始大小：16<br>最大长度：1 &lt;&lt; 30<br>默认加载因子：0.75f<br>modCount: 对Map的iterator()操作做一致性校验，如果在iterator操作过程中，map的数值有修改，直接抛出<code>ConcurrentModiifcationException</code>异常<br>threshold: table.length * loadFactor。</p>
-</li>
-<li><p><strong>put()方法</strong></p>
-<ul>
-<li>如果Key为null，统一放在下标为0的bucket，即table[0]位置的链表，如果是第一次对key=null做put操作，将会在table[0]的位置新增一个Entry节点，使用头插法做链表插入。调用的是putForNullKey()方法:首先选择table[0]位置的链表，然后对链表做遍历操作，如果有节点的key为null，则用新值覆盖旧值，并且返回旧值，否则新增一个key为null的Entry节点。</li>
-</ul>
-</li>
-<li><p><strong>扩容</strong></p>
-<ul>
-<li>扩容后的大小是扩容前的两倍</li>
-<li>将数据从旧table迁移到扩容后的新table。为避免碰撞过多，先决策是否需要对每个Entry链表节点重新hash，然后根据hash值计算得到bucket下标，然后用头插法做节点迁移。</li>
-</ul>
-</li>
-<li><p><strong>hash值的计算</strong></p>
-<ul>
-<li>使用key的hashCode作为算式(arithmetic)的输入，得到了hash值。</li>
-<li>对于两个对象，如果hashCode相同，那么hash值就一定相同。</li>
-<li>如果两个对象逻辑相等（内存地址相同），那么hashCode一定相等，反之不一定成立。</li>
-</ul>
-</li>
-<li><p><strong>bucket下标的计算</strong></p>
-<ul>
-<li>取模：<code>h &amp; (length-1)</code> h为hashCode</li>
-</ul>
-</li>
-<li><strong>hashCode()和hash值</strong><ul>
-<li>Java中hashCode()方法是用来生成hashCode值,hashCode值是JDK根据对象的地址或者字符串或者数字算出来的int类型的数值。</li>
-<li>把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是哈希值。这种转换是一种压缩映射，也就是，散列值的空间通常远小于输入的空间，不同的输入可能会散列成相同的输出，所以不可能从散列值来确定唯一的输入值。</li>
-</ul>
-</li>
-<li><p><strong>为什么HashTable的大小控制为2的幂次数</strong></p>
-<ul>
-<li>降低碰撞的概率，使散列更均匀，根据bucket下标的计算公式，当哈希表的长度为2的次幂时，等同于使用表长度对hash值取模，散列更均匀。</li>
-<li>表的长度为2的次幂，那么(length-1)的二进制最后一位一定是1，在对hash值做“与”运算时，最后一位就可能是1也可能是0，换句话说取模的结果既有奇数又有偶数。</li>
-<li>此时<code>h &amp; (length-1)</code>就是<code>h % length</code></li>
-</ul>
-</li>
-<li><p><strong>get()方法</strong></p>
-<ul>
-<li>通过key的hash值计算bucket的下标，然后遍历对应bucket上的链表，得到结果。</li>
-</ul>
-</li>
-<li><p><strong>遍历Map的方式</strong></p>
-<ul>
-<li>Iterator迭代器</li>
-<li>for(Map.Entry<string, integer> entry : testMap.entrySet())</string,></li>
-<li>foreach(JDK1.8才有，不推荐，因为底层就是方式2)</li>
-<li>获取keySet()的迭代器遍历<br>以上的底层都是迭代器</li>
-</ul>
-</li>
-<li><p><strong>Iterator的实现</strong></p>
-<ul>
-<li>HashMap中增加了一个内部类HashIterator，循环哈希table，直到找到不为空的bucket为止。</li>
-</ul>
-</li>
-<li><p><strong>fail-fast策略</strong></p>
-<ul>
-<li>在系统设计中，当遇到可能会诱导失败的条件时立即上报错误。</li>
-<li>modCount域变量用于实现hashMap中的fail-fast。</li>
-</ul>
-</li>
-</ol>
-<h1 id="JDK8"><a href="#JDK8" class="headerlink" title="JDK8"></a>JDK8</h1><p>相比与JDK7，JDK8中的HashMap会将较长的链表(大于8)转为红黑树。</p>
-<ol>
-<li><p><strong>put()</strong></p>
-<ul>
-<li>在JDK7中，新增节点使用的是头插法，但在JDK8中，在链表使用尾插法，防止死链。</li>
-<li>若hashTable为null或长度为0，则扩容。</li>
-<li>根据index找到bucket，若bucket上没有节点，那么直接新增一个节点，赋给bucket。</li>
-<li>若当前bucket上有链表，且头节点匹配，则直接替换。</li>
-<li>若当前bucket上为树结构则转为红黑树的插入操作。</li>
-<li>若以上都不成立，则对链表进行遍历：有则替换，无则末尾添加。</li>
-<li>如果链表长度大于TREEIFY_THRESHOLD，则执行红黑树转换操作。</li>
-</ul>
-</li>
-<li><p><strong>扩容</strong></p>
-<ul>
-<li>如果hashTable为null或长度为0，如果Map中存储的k-v对数量超过了threshold，则触发扩容</li>
-<li>不同于JDK7，JDK8在做数据迁移的时候保持了顺序(preserve order)</li>
-<li>新的索引值要么和原来的索引值一样，要么是原索引值的两倍，因为<code>h &amp; (length-1)</code>中<code>length-1</code>的低位全是1。例如原先的hashCode为:1010 … 11101(共32位)，将长度从16扩容到32，length-1从1111变为11111，然后根据公式做按位与，得出的结果后四位是一样的，第一位取决于hashCode对应位置上的值。</li>
-</ul>
-</li>
-<li><p><strong>get()</strong></p>
-<ul>
-<li>根据key计算hash值，进一步计算得到hashTable的目标index，若此bucket上为红黑树，则在红黑树上查找，否则遍历链表。</li>
-</ul>
-</li>
-</ol>
-<h1 id="HashMap、HashTable"><a href="#HashMap、HashTable" class="headerlink" title="HashMap、HashTable"></a>HashMap、HashTable</h1><ol>
-<li><p><strong>HashMap vs HashTable</strong></p>
-<ul>
-<li>HashMap is non synchronized. It is not-thread safe and can’t be shared between many threads without proper synchronization code whereas Hashtable is synchronized. It is thread-safe and can be shared with many threads.</li>
-<li>HashMap allows one null key and multiple null values whereas Hashtable doesn’t allow any null key or value.</li>
-<li>HashMap is generally preferred over HashTable if thread synchronization is not needed</li>
-</ul>
-</li>
-<li><p><strong>Why HashTable doesn’t allow null and HashMap does?</strong><br>To successfully store and retrieve objects from a HashTable, the objects used as keys must implement the hashCode method and the equals method. Since null is not an object, it can’t implement these methods. HashMap is an advanced version and improvement on the Hashtable. HashMap was created later.</p>
-</li>
-<li><p><strong>Why HashMap is not thread-safe?</strong></p>
-<ul>
-<li><p>Ideologically<br>A hash map is based on an array, where each item represents a bucket. As more keys are added, the buckets grow and at a certain threshold the array is recreated with a bigger size, its buckets rearranged so that they are spread more evenly (performance considerations).</p>
-</li>
-<li><p>Technically<br>It means that sometimes HashMap#put() will internally call HashMap#resize() to make the underlying array bigger.</p>
-</li>
-<li><p>HashMap#resize() assigns the table field a new empty array with a bigger capacity and populates it with the old items. While this population happens, the underlying array doesn’t contain all of the old items and calling HashMap#get() with an existing key may return null.</p>
-</li>
-</ul>
-</li>
-</ol>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
-<li><strong>HashCode怎么算的?</strong><ul>
-<li>memory reference of object in integer form</li>
-</ul>
-</li>
-<li><strong>equals()</strong><ul>
-<li>compare the key whether the are equal or not</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="Q-What-is-difference-between-HashMap-and-Hashtable"><a href="#Q-What-is-difference-between-HashMap-and-Hashtable" class="headerlink" title="Q. What is difference between HashMap and Hashtable?"></a>Q. What is difference between HashMap and Hashtable?</h4><p>HashMap and Hashtable both are used to store data in key and value form. Both are using hashing technique to store unique keys.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Sl.No</th>
-<th>HashMap</th>
-<th>Hashtable</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>01.</td>
-<td>HashMap is <strong>non synchronized</strong>. It is not-thread safe and can’t be shared between many threads without proper synchronization code.</td>
-<td>Hashtable is <strong>synchronized</strong>. It is thread-safe and can be shared with many threads.</td>
-</tr>
-<tr>
-<td>02.</td>
-<td>HashMap allows one null key and multiple null values.</td>
-<td>Hashtable doesn’t allow any null key or value.</td>
-</tr>
-<tr>
-<td>03.</td>
-<td>HashMap is a new class introduced in JDK 1.2.</td>
-<td>Hashtable is a legacy class.</td>
-</tr>
-<tr>
-<td>04.</td>
-<td>HashMap is fast.</td>
-<td>Hashtable is slow.</td>
-</tr>
-<tr>
-<td>05.</td>
-<td>We can make the HashMap as synchronized by calling this code Map m = Collections.synchronizedMap(hashMap);</td>
-<td>Hashtable is internally synchronized and can’t be unsynchronized.</td>
-</tr>
-<tr>
-<td>06.</td>
-<td>HashMap is traversed by Iterator.</td>
-<td>Hashtable is traversed by Enumerator and Iterator.</td>
-</tr>
-<tr>
-<td>07.</td>
-<td>Iterator in HashMap is fail-fast.</td>
-<td>Enumerator in Hashtable is not fail-fast.</td>
-</tr>
-<tr>
-<td>08.</td>
-<td>HashMap inherits AbstractMap class.</td>
-<td>Hashtable inherits Dictionary class.</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/20/Iterator迭代器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/20/Iterator迭代器/" class="post-title-link" itemprop="url">Iterator迭代器</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-20 22:03:43" itemprop="dateCreated datePublished" datetime="2020-05-20T22:03:43-04:00">2020-05-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-05-26 22:09:19" itemprop="dateModified" datetime="2020-05-26T22:09:19-04:00">2020-05-26</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="ConcurrentModificationException异常"><a href="#ConcurrentModificationException异常" class="headerlink" title="ConcurrentModificationException异常"></a>ConcurrentModificationException异常</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = new ArrayList&lt;String&gt;();</span><br><span class="line">Iterator&lt;String&gt; iterator = strings.iterator();</span><br><span class="line"></span><br><span class="line">// 添加元素</span><br><span class="line">// strings.add(&quot;...&quot;)</span><br><span class="line">// ...</span><br><span class="line"></span><br><span class="line">while(iterator.hasNext())&#123;</span><br><span class="line">    System.out.println(iterator.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>错误信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.util.ConcurrentModificationException</span><br><span class="line">    at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:909)</span><br><span class="line">	at java.util.ArrayList$Itr.next(ArrayList.java:859)</span><br></pre></td></tr></table></figure></p>
-<h1 id="分析异常"><a href="#分析异常" class="headerlink" title="分析异常"></a>分析异常</h1><p>&emsp;&emsp;问题出现在两个方法上:checkForComodification()和next()，后者是我在程序中调用的方法，前者之前没见过，我决定从头开始查找源码问题。</p>
-<h2 id="创造迭代器"><a href="#创造迭代器" class="headerlink" title="创造迭代器"></a>创造迭代器</h2><p>&emsp;&emsp;例子中通过<code>strings.iterator()</code>返回一个迭代器，其中<code>strings</code>是一个ArrayList的实例。<br>&emsp;&emsp;查找ArrayList的源码，并没有iterator()方法，于是找到其父类AbstractList中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line">        return new Itr();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>也就是说创造一个迭代器返回的是一个Itr类型对象的引用。<br>&emsp;&emsp;来看Itr:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">private class Itr implements Iterator&lt;E&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    int cursor = 0;</span><br><span class="line">  </span><br><span class="line">    int lastRet = -1;</span><br><span class="line"></span><br><span class="line">    int expectedModCount = modCount;</span><br><span class="line"></span><br><span class="line">    public boolean hasNext() &#123;</span><br><span class="line">        return cursor != size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public E next() &#123;</span><br><span class="line">        checkForComodification();</span><br><span class="line">        try &#123;</span><br><span class="line">            int i = cursor;</span><br><span class="line">            E next = get(i);</span><br><span class="line">            lastRet = i;</span><br><span class="line">            cursor = i + 1;</span><br><span class="line">            return next;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            checkForComodification();</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void remove() &#123;</span><br><span class="line">        if (lastRet &lt; 0)</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        checkForComodification();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            AbstractList.this.remove(lastRet);</span><br><span class="line">            if (lastRet &lt; cursor)</span><br><span class="line">                cursor--;</span><br><span class="line">            lastRet = -1;</span><br><span class="line">            expectedModCount = modCount;</span><br><span class="line">        &#125; catch (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final void checkForComodification() &#123;</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中的成员变量：<br>cursor: 游标，表示下一个要访问的元素的索引，在next方法中会自增<br>lastRet: 上一个元素的索引<br>expectedModCount: 表示对ArrayList修改次数的期望值，初始值为modCount<br>modCount: AbstractList类中的一个成员变量，表示对List的修改次数(structurally modified)，每次add()和remove()就会加1</p>
-<h1 id="解决错误"><a href="#解决错误" class="headerlink" title="解决错误"></a>解决错误</h1><p>在Itr的源码中可以看到，迭代器中的操作都要先执行checkForComodificatioin()方法来确定<code>modCount!=expectedModCount</code>,这是保护ArrayList的机制，防止返回错误结果。</p>
-<h2 id="错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。"><a href="#错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。" class="headerlink" title="错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。"></a>错误的原因可能在于创建迭代器之后添加元素也算是产生了结构性的变化。</h2><h4 id="Q-What-is-the-difference-between-fail-fast-and-fail-safe-iterator"><a href="#Q-What-is-the-difference-between-fail-fast-and-fail-safe-iterator" class="headerlink" title="Q. What is the difference between fail-fast and fail-safe iterator?"></a>Q. What is the difference between fail-fast and fail-safe iterator?</h4><p><strong>fail-fast Iterator</strong>  </p>
-<p><code>Iterators</code> in java are used to iterate over the Collection objects.Fail-Fast iterators immediately throw <code>ConcurrentModificationException</code> if there is <strong>structural modification</strong> of the collection. Structural modification means adding, removing or updating any element from collection while a thread is iterating over that collection. Iterator on ArrayList, HashMap classes are some examples of fail-fast Iterator.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FailFastIteratorExample</span> </span></span><br><span class="line"><span class="class"></span>&#123;       </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Creating an ArrayList of integers</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Adding elements to list</span></span><br><span class="line">        list.add(<span class="number">1452</span>);</span><br><span class="line">        list.add(<span class="number">6854</span>);</span><br><span class="line">        list.add(<span class="number">8741</span>);</span><br><span class="line">                 </span><br><span class="line">        <span class="comment">//Getting an Iterator from list</span></span><br><span class="line">        Iterator&lt;Integer&gt; it = list.iterator();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">            Integer integer = (Integer) it.next();</span><br><span class="line">            list.add(<span class="number">8457</span>);      <span class="comment">//This will throw ConcurrentModificationException</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Output<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.util.ConcurrentModificationException</span><br><span class="line">    at java.util.ArrayList$Itr.checkForComodification(Unknown Source)</span><br><span class="line">    at java.util.ArrayList$Itr.next(Unknown Source)</span><br><span class="line">    at pack1.MainClass.main(MainClass.java:32)</span><br></pre></td></tr></table></figure></p>
-<p><strong>fail-safe Iterator</strong>  </p>
-<p>Fail-Safe iterators don’t throw any exceptions if a collection is structurally modified while iterating over it. This is because, they operate on the clone of the collection, not on the original collection and that’s why they are called fail-safe iterators. Iterator on CopyOnWriteArrayList, ConcurrentHashMap classes are examples of fail-safe Iterator.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FailSafeIteratorExample</span> </span></span><br><span class="line"><span class="class"></span>&#123;       </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Creating a ConcurrentHashMap</span></span><br><span class="line">        ConcurrentHashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> ConcurrentHashMap&lt;String, Integer&gt;();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Adding elements to map</span></span><br><span class="line">        map.put(<span class="string">"ONE"</span>, <span class="number">1</span>);</span><br><span class="line">        map.put(<span class="string">"TWO"</span>, <span class="number">2</span>);</span><br><span class="line">        map.put(<span class="string">"THREE"</span>, <span class="number">3</span>);</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//Getting an Iterator from map</span></span><br><span class="line">        Iterator&lt;String&gt; it = map.keySet().iterator();</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">            String key = (String) it.next();</span><br><span class="line">            System.out.println(key+<span class="string">" : "</span>+map.get(key));</span><br><span class="line">            map.put(<span class="string">"FOUR"</span>, <span class="number">4</span>); <span class="comment">//This will not be reflected in the Iterator</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Output<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TWO : 2</span><br><span class="line">FOUR : 4</span><br><span class="line">ONE : 1</span><br><span class="line">THREE : 3</span><br></pre></td></tr></table></figure></p>
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/LeetCode-98/" class="post-title-link" itemprop="url">LeetCode:98</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 18:09:59 / Modified: 18:12:38" itemprop="dateCreated datePublished" datetime="2020-05-16T18:09:59-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidBST(TreeNode root) &#123;</span><br><span class="line">        if(root==null) &#123;return true;&#125;</span><br><span class="line">        return helper(root,Long.MAX_VALUE,Long.MIN_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    public static boolean helper(TreeNode root, long max, long min) &#123;</span><br><span class="line">        if(root==null) &#123;return true;&#125;</span><br><span class="line">        if(root.val&gt;min &amp;&amp; root.val&lt;max)&#123;</span><br><span class="line">            return helper(root.left,root.val,min) &amp; helper(root.right,max,root.val);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>利用左节点小于根节点，右节点大于根节点的性质，不断更新max和min的值，来限定当前节点值的范围，使用Long的原因是因为有些奇怪的测试用例，比如：[2147483647]。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1528,7 +1308,7 @@ public class TestFoo implements Foo {
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1602,7 +1382,11 @@ public class TestFoo implements Foo {
         
           
         
-        <span class="site-state-item-count">18</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
