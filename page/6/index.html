@@ -238,6 +238,205 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/25/MySQL笔记：基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/25/MySQL笔记：基础/" class="post-title-link" itemprop="url">MySQL笔记：基础</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-25 16:13:53" itemprop="dateCreated datePublished" datetime="2020-03-25T16:13:53-04:00">2020-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-28 23:10:38" itemprop="dateModified" datetime="2020-03-28T23:10:38-04:00">2020-03-28</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="SHOW"><a href="#SHOW" class="headerlink" title="SHOW"></a>SHOW</h4><p>输入：<br> <code>SHOW COLUMNS FROM customers;</code><br> <code>DESCRIBE customers;</code><br>输出：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Field</th>
+<th>Type</th>
+<th>Null</th>
+<th>Key</th>
+<th>Default</th>
+<th>Extra          </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>cust_id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment </td>
+</tr>
+<tr>
+<td></td>
+<td>cust_name</td>
+<td>char(50)</td>
+<td>NO</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_address</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_city</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_state</td>
+<td>char(5)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_zip</td>
+<td>char(10)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_country</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_contact</td>
+<td>char(50)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cust_email</td>
+<td>char(255)</td>
+<td>YES</td>
+<td></td>
+<td>NULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>SHOW COLUMNS</code> 返回表的信息，包括字段名、数据类型等，与<code>DESCRIBE</code>等价。</p>
+<ul>
+<li><code>SHOW STATUS</code>：显示广泛的服务器状态信息；</li>
+<li><code>SHOW CREATE DATABSE</code>,<code>SHOW CREATE TABLE</code>：显示创建特定数据库或表的MySQL语句</li>
+<li><code>SHOW GRANTS</code>：显示授予用户（所有用户或特定用户）的安全权限</li>
+<li><code>SHOW ERRORS</code>,<code>SHOW WARNINGS</code>：显示服务器错误或警告消息<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><code>SELECT prod_name FROM products;</code>：products表中名为prod_name的列<br><code>SELECT prod_id,prod_name,prod_price FROM products;</code>：products表中指定的3列<br><code>SELECT * FROM products;</code>：通配符(*)返回表中所有列<br><code>SELECT DISTINCT vend_id FROM products;</code>：<code>DISTINCT</code>只返回不同的值，如果<code>ven_id</code>中有重复的会被省略<br><code>SELECT prod_name FROM products LIMIT 5;</code>：<code>LIMIT 5</code>指示返回不多于5行<br><code>SELECT prod_name FROM products LIMIT 5,3;</code>：从第5行开始再输出3行<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><code>SELECT prod_name FROM products ORDER BY prod_name;</code>：对prod_name列以字母顺序排序<br><code>SELECT prod_id, prod_price, prod_name FROM products ORDER BY prod_price, prod_name;</code>：当多个行具有相同的prod_price值时才对产品按prod_name进行排序。<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code>：<code>DESC</code>指定prod_price降序排序<br><code>SELECT prod+id, prod_price, prod_name FROM products ORDER BY prod_price DESC</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/23/MyBatis-日志/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1137,107 +1336,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/08/Proxy-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/08/Proxy-Pattern/" class="post-title-link" itemprop="url">Proxy Pattern</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-01-08 17:02:36 / Modified: 18:09:07" itemprop="dateCreated datePublished" datetime="2020-01-08T17:02:36-05:00">2020-01-08</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>A real world example can be a cheque or credit card is a proxy for what is in our bank account. It can be used in place of cash, and provides a means of accessing that cash when required. And that’s exactly what the proxy pattern does – <strong>“Controls and manage access to the object they are protecting”.</strong></p>
-<p>Another example in real life, when we want to book a flight, we sometimes will refer to a thrid party like Tripadvisor other than airline.<br>In this example, the Tripadvisor is a proxy. Using tripadvisor, we can avoid directly contacting with airline because tripadvisor can sell tickets on behalf of airline. However, different from airline, Tripadvisor may also provide some other service that airline doesn’t have such as hotel coupon.</p>
-<h1 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example"></a>Code Example</h1><p>UserService.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package com.xliu.demo02;</span><br><span class="line"></span><br><span class="line">public interface UserService &#123;</span><br><span class="line">    public void add();</span><br><span class="line">    public void delete();</span><br><span class="line">    public void update();</span><br><span class="line">    public void query();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Define a interface that include several database operations.</p>
-<p>UserServiceImpl.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.xliu.demo02;</span><br><span class="line"></span><br><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    public void add() &#123; System.out.println(&quot;Add a user&quot;); &#125;</span><br><span class="line"></span><br><span class="line">    public void delete() &#123; System.out.println(&quot;Delete a user&quot;); &#125;</span><br><span class="line"></span><br><span class="line">    public void update() &#123; System.out.println(&quot;Update a user&quot;); &#125;</span><br><span class="line"></span><br><span class="line">    public void query() &#123; System.out.println(&quot;Query a user&quot;); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Implement the interface.</p>
-<p>UserServiceProxy.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.xliu.demo02;</span><br><span class="line"></span><br><span class="line">public class UserService Proxy implements UserService &#123;</span><br><span class="line">    UserImpl user = new UserImpl();</span><br><span class="line">    public void add() &#123;</span><br><span class="line">        log(&quot;add&quot;);</span><br><span class="line">        user.add();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void delete() &#123;</span><br><span class="line">        log(&quot;delete&quot;);</span><br><span class="line">        user.delete();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void update() &#123;</span><br><span class="line">        log(&quot;update&quot;);</span><br><span class="line">        user.update();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void query() &#123;</span><br><span class="line">        log(&quot;query&quot;);</span><br><span class="line">        user.query();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void log(String msg)&#123;</span><br><span class="line">        System.out.println(&quot;Use&quot; +msg+ &quot;method&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Design a proxy.</p>
-<p>Client:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Client &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Proxy proxy = new Proxy();</span><br><span class="line">        proxy.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Using the <code>add()</code> method at Client without interacting with <code>UserServiceImpl</code> but <code>Proxy</code> </p>
-<h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>Using compositing to call a object of User.</p>
-<p>Those methods need to be rewrite in proxy class but using the User object to call instead of repeating the same method body.</p>
-<p>In this example I showed that a proxy can not only provide an interface of original method to client, but also do some modification (like adding a log in this example).</p>
-<h1 id="Advantage"><a href="#Advantage" class="headerlink" title="Advantage"></a>Advantage</h1><ul>
-<li>One of the advantages of Proxy pattern is security.</li>
-<li>This pattern avoids duplication of objects which might be huge size and memory intensive. This in turn increases the performance of the application.</li>
-</ul>
-<h1 id="Disadvantage"><a href="#Disadvantage" class="headerlink" title="Disadvantage"></a>Disadvantage</h1><p>This pattern introduces another layer of abstraction which sometimes may be an issue if the RealSubject code is accessed by some of the clients directly and some of them might access the Proxy classes. This might cause disparate behaviour.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1278,7 +1376,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

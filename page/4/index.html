@@ -238,6 +238,97 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-94-145-144/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-94-145-144/" class="post-title-link" itemprop="url">LeetCode:94 & 145 & 144</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-16 14:30:09 / Modified: 15:11:34" itemprop="dateCreated datePublished" datetime="2020-05-16T14:30:09-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="94-Binary-Tree-Inorder-Traversal"><a href="#94-Binary-Tree-Inorder-Traversal" class="headerlink" title="94.Binary Tree Inorder Traversal"></a>94.Binary Tree Inorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; inorderTraversal(TreeNode root) &#123;</span><br><span class="line">        if(root==null) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root, res);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res)&#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="144-Binary-Tree-Preorder-Traversal"><a href="#144-Binary-Tree-Preorder-Traversal" class="headerlink" title="144.Binary Tree Preorder Traversal"></a>144.Binary Tree Preorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        res.add(root.val);</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="145-Binary-Tree-Postorder-Traversal"><a href="#145-Binary-Tree-Postorder-Traversal" class="headerlink" title="145.Binary Tree Postorder Traversal"></a>145.Binary Tree Postorder Traversal</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void helper(TreeNode root, List&lt;Integer&gt; res) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        helper(root.left,res);</span><br><span class="line">        helper(root.right,res);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>递归方法只需要根据要求改变递归的顺序即可，当递归执行到空节点时返回即可，res.add()保证了每次递归都会添加当前节点，通过调整位置来实现不同序的遍历。</p>
+<h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><ul>
+<li>时间复杂度：O(n)。递归函数 T(n) = 2T(n/2)+1。</li>
+<li>空间复杂度：最坏情况下需要空间O(n)，平均情况为O(logn)。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/Leetcode-105-106/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1165,110 +1256,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/10/MyBatis-association/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/10/MyBatis-association/" class="post-title-link" itemprop="url">MyBatis:association</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-04-10 23:21:50" itemprop="dateCreated datePublished" datetime="2020-04-10T23:21:50-04:00">2020-04-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-04-11 01:16:37" itemprop="dateModified" datetime="2020-04-11T01:16:37-04:00">2020-04-11</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>查询 学生学号，学生姓名，老师姓名</p>
-<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select s.id ,s.name ,t.name</span><br><span class="line">from student s,teacher t</span><br><span class="line">where s.tid=t.id</span><br></pre></td></tr></table></figure>
-<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private Teacher teacher;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Q：为什么学生属性中用Teacher teacher而不是int tid？<br>A：如果写int tid就相当于写“死”了，没有达到学生和老师关联的效果。<br>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="StudentMapper-xml"><a href="#StudentMapper-xml" class="headerlink" title="StudentMapper.xml"></a>StudentMapper.xml</h2><h3 id="按照结果嵌套处理"><a href="#按照结果嵌套处理" class="headerlink" title="按照结果嵌套处理"></a>按照结果嵌套处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getStudent2&quot; resultMap=&quot;StudentTeacher2&quot;&gt;</span><br><span class="line">    select s.id sid,s.name sname,t.name tname</span><br><span class="line">    from student s, teacher t</span><br><span class="line">    where s.tid=t.id;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;StudentTeacher2&quot; type=&quot;Student&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">    &lt;association property=&quot;teacher&quot; javaType=&quot;Teacher&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;/association&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
-<p>思路就是先写好SQL语句，再用resultMap去解释里面的内容。<br>Student类中的属性id对应结果中的sid，属性name对应结果中的sname。<br>属性teacher由于是一个复杂属性，所以用association，这里有一种递进的感觉：第一层说明属性teacher的类型是Teacher，第二层说明teacher对象的name属性对应结果中的tname。<br>查询中子集有相同字段取出的数据就会有问题，因此要采用别名的形式。</p>
-<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先查询所有学生的信息，再根据查询出来的学生的tid，寻找对应的老师<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 查询所有学生 --&gt;</span><br><span class="line">&lt;select id=&quot;getStudent&quot; resultMap=&quot;StudentTeacher&quot;&gt;</span><br><span class="line">    select * from student;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 上下两个select中建立连接 --&gt;</span><br><span class="line">&lt;resultMap id=&quot;StudentTeacher&quot; type=&quot;Student&quot;&gt;</span><br><span class="line">    &lt;association property=&quot;teacher&quot; column=&quot;tid&quot; javaType=&quot;Teacher&quot; select=&quot;getTeacher&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 根据id查询老师 --&gt;</span><br><span class="line">&lt;select id=&quot;getTeacher&quot; resultType=&quot;Teacher&quot;&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>复杂的属性（Teacher）需要单独处理，如果是一个对象就用 Association，此处为Teacher对象。<br><strong>property=”teacher”</strong>：学生类里的属性叫teacher<br><strong>column=”tid”</strong>：数据库里的字段叫tid<br><strong>javaType=”Teacher”</strong>：因为属性是个复杂类型，所以要给它定义类型Teacher<br><strong>select=”getTeacher”</strong>：嵌套查询,getTeacher为下面select的id</p>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>ResultMap标签中的COLUMN字段对应的不是数据库表中的字段名，而是select语句返回的字段名，当字段有重复时应对其进行重命名</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1309,7 +1296,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

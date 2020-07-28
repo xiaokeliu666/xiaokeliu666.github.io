@@ -238,6 +238,93 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-6-Customize-Access-Denied-Page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-6-Customize-Access-Denied-Page/" class="post-title-link" itemprop="url">Spring Security 6: Customize Access Denied Page</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 22:45:48 / Modified: 23:04:53" itemprop="dateCreated datePublished" datetime="2020-07-24T22:45:48-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Since we don’t want the default access denied page, we can create a customized one.</p>
+<h1 id="Update-DemoSecurityConfig"><a href="#Update-DemoSecurityConfig" class="headerlink" title="Update DemoSecurityConfig"></a>Update DemoSecurityConfig</h1><p>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>).hasRole(<span class="string">"EMPLOYEE"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/leaders/**"</span>).hasRole(<span class="string">"MANAGER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admins/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll()</span><br><span class="line">                <span class="comment">// new added</span></span><br><span class="line">                .and()</span><br><span class="line">                <span class="comment">// "/access-denied" needs a new controller</span></span><br><span class="line">                .exceptionHandling().accessDeniedPage(<span class="string">"/access-denied"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Update-LoginController"><a href="#Update-LoginController" class="headerlink" title="Update LoginController"></a>Update LoginController</h1><p>LoginController.java:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/access-denied"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">accessDenied</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"access-denied"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Create-page-access-denied"><a href="#Create-page-access-denied" class="headerlink" title="Create page /access-denied"></a>Create page /access-denied</h1><p>Skip</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-5-Restric-Access/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1152,122 +1239,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java：封装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/26/Java：封装/" class="post-title-link" itemprop="url">Java：封装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-26 19:42:31 / Modified: 22:09:24" itemprop="dateCreated datePublished" datetime="2020-05-26T19:42:31-04:00">2020-05-26</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h4 id="Q-What-is-the-difference-between-abstraction-and-encapsulation"><a href="#Q-What-is-the-difference-between-abstraction-and-encapsulation" class="headerlink" title="Q. What is the difference between abstraction and encapsulation?"></a>Q. <strong><em>What is the difference between abstraction and encapsulation?</em></strong></h4><ul>
-<li>Abstraction solves the problem at design level while Encapsulation solves it implementation level. </li>
-<li>In Java, Abstraction is supported using <code>interface</code> and <code>abstract class</code> while Encapsulation is supported using access modifiers e.g. public, private and protected.</li>
-<li>Abstraction is about hiding unwanted details while giving out most essential details, while Encapsulation means hiding the code and data into a single unit e.g. class or method to protect inner working of an object from outside world. </li>
-</ul>
-<table class="alt">
-<tbody><tr><th>Abstraction</th><th>Encapsulation</th></tr>
-<tr><td>Abstraction is a process of hiding the implementation details and showing only functionality to the user.</td>
-<td> Encapsulation is a process of wrapping code and data together into a single unit</td></tr>
-<tr><td>Abstraction lets you focus on what the object does instead of how it does it.</td>
-<td>Encapsulation provides you the control over the data and keeping it safe from outside misuse.</td></tr>
-<tr><td>Abstraction solves the problem in the Design Level.</td>
-<td>Encapsulation solves the problem in the Implementation Level.</td></tr>
-<tr><td>Abstraction is implemented by using Interfaces and Abstract Classes.</td>
-<td>Encapsulation is implemented by using Access Modifiers (private, default, protected, public)</td></tr>
-<tr><td>Abstraction means hiding implementation complexities by using interfaces and abstract class.</td>
-<td>Encapsulation means hiding data by using setters and getters.</td></tr>
-</tbody></table>
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-<h4 id="Q-How-Encapsulation-concept-implemented-in-JAVA"><a href="#Q-How-Encapsulation-concept-implemented-in-JAVA" class="headerlink" title="Q. How Encapsulation concept implemented in JAVA?"></a>Q. <strong><em>How Encapsulation concept implemented in JAVA?</em></strong></h4><p>Encapsulation in Java is a mechanism of wrapping the data (variables) and code acting on the data (methods) together as a single unit. In encapsulation, the variables of a class will be hidden from other classes, and can be accessed only through the methods of their current class. Therefore, it is also known as <code>data hiding</code>.</p>
-<p>To achieve encapsulation in Java −  </p>
-<ul>
-<li>Declare the variables of a class as private.</li>
-<li>Provide public setter and getter methods to modify and view the variables values.</li>
-</ul>
-<p>Example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncapClass</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> name;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String newName)</span> </span>&#123;</span><br><span class="line">      name = newName;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      EncapClass obj = <span class="keyword">new</span> EncapClass();</span><br><span class="line">      obj.setName(<span class="string">"Pradeep Kumar"</span>);</span><br><span class="line">      System.out.print(<span class="string">"Name : "</span> + obj.getName());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1308,7 +1279,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

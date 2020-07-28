@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="Previously, we used @RestController to handle the REST request to get the list of students(http://localhost:8080/api/students).Now, assume we have a list of students, and the client only wants the fir">
+  <meta name="description" content="Annotations@RestControllerThe @RestController annotation was introduced in Spring 4.0 to simplify the creation of RESTful web services. It’s a convenience annotation that combines @Controller and @Res">
 <meta name="keywords" content="Spring REST">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring REST 5: @PathVariable">
-<meta property="og:url" content="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-5-PathVariable/index.html">
+<meta property="og:title" content="Spring REST 6: CRUD">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/07/27/Spring-REST-6-CRUD/index.html">
 <meta property="og:site_name" content="Feb 1997">
-<meta property="og:description" content="Previously, we used @RestController to handle the REST request to get the list of students(http://localhost:8080/api/students).Now, assume we have a list of students, and the client only wants the fir">
+<meta property="og:description" content="Annotations@RestControllerThe @RestController annotation was introduced in Spring 4.0 to simplify the creation of RESTful web services. It’s a convenience annotation that combines @Controller and @Res">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-26T01:22:52.963Z">
+<meta property="og:updated_time" content="2020-07-28T01:37:52.770Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring REST 5: @PathVariable">
-<meta name="twitter:description" content="Previously, we used @RestController to handle the REST request to get the list of students(http://localhost:8080/api/students).Now, assume we have a list of students, and the client only wants the fir">
-  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-5-PathVariable/">
+<meta name="twitter:title" content="Spring REST 6: CRUD">
+<meta name="twitter:description" content="Annotations@RestControllerThe @RestController annotation was introduced in Spring 4.0 to simplify the creation of RESTful web services. It’s a convenience annotation that combines @Controller and @Res">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/07/27/Spring-REST-6-CRUD/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Spring REST 5: @PathVariable | Feb 1997</title>
+  <title>Spring REST 6: CRUD | Feb 1997</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-5-PathVariable/">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/27/Spring-REST-6-CRUD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feb 1997">
@@ -258,7 +258,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Spring REST 5: @PathVariable
+          <h1 class="post-title" itemprop="name headline">Spring REST 6: CRUD
 
               
             
@@ -278,7 +278,7 @@
                 
               
 
-              <time title="Created: 2020-07-25 21:01:02 / Modified: 21:22:52" itemprop="dateCreated datePublished" datetime="2020-07-25T21:01:02-04:00">2020-07-25</time>
+              <time title="Created: 2020-07-27 20:50:43 / Modified: 21:37:52" itemprop="dateCreated datePublished" datetime="2020-07-27T20:50:43-04:00">2020-07-27</time>
             </span>
           
             
@@ -297,22 +297,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Previously, we used @RestController to handle the REST request to get the list of students(<a href="http://localhost:8080/api/students" target="_blank" rel="noopener">http://localhost:8080/api/students</a>).<br>Now, assume we have a list of students, and the client only wants the first one. So we need to retrieve a single student by id: api/getStudentById/{studentId}</p>
-<h1 id="Behind-the-scenes"><a href="#Behind-the-scenes" class="headerlink" title="Behind the scenes"></a>Behind the scenes</h1><ol>
-<li>We’ll make a request across for /api/students/{studentId}</li>
-<li>We’ll have Spring REST along with Jackson and they’ll make a call to the REST service</li>
-<li>In our code, we’ll actually return that given student</li>
-<li>Jackson will actually convert that student object or that student POJO to JSON and then send it back across to the REST client<h1 id="Development-Process"><a href="#Development-Process" class="headerlink" title="Development Process"></a>Development Process</h1></li>
-</ol>
+        <h1 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations</h1><h2 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h2><p>The @RestController annotation was introduced in Spring 4.0 to <strong>simplify the creation of RESTful web services</strong>. It’s a convenience annotation that combines @Controller and @ResponseBody – which eliminates the need to annotate every request handling method of the controller class with the @ResponseBody annotation.</p>
+<h2 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h2><p>While @RequestParams <strong>extract values from the query string</strong>, @PathVariables <strong>extract values from the URI path</strong>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/foos/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getFooById</span><span class="params">(@PathVariable String id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ID: "</span> + id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>For @PathVariable, we map on path:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/foos/abc</span><br><span class="line">----</span><br><span class="line">ID: abc</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/foos"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getFooByIdUsingQueryParam</span><span class="params">(@RequestParam String id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"ID: "</span> + id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>For @RequestParam, we map on path:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/foos?id=abc</span><br><span class="line">----</span><br><span class="line">ID: abc</span><br></pre></td></tr></table></figure></p>
+<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h2><p>Simply put, the @RequestBody annotation <strong>maps the HttpRequest body</strong> to a transfer or domain object, enabling automatic deserialization of the inbound HttpRequest body onto a Java object.</p>
+<h1 id="CRUD"><a href="#CRUD" class="headerlink" title="CRUD"></a>CRUD</h1><h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/saveCustomer"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Customer <span class="title">saveCustomer</span><span class="params">(@RequestBody Customer theCustomer)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        save the customer using our service</span></span><br><span class="line">        theCustomer.setId(<span class="number">0</span>);</span><br><span class="line">        customerService.saveCustomer(theCustomer);</span><br><span class="line">        <span class="keyword">return</span> theCustomer;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/search/&#123;theSearchName&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Customer&gt; <span class="title">search</span><span class="params">(@PathVariable String theSearchName)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// search customers from the service</span></span><br><span class="line">    List&lt;Customer&gt; theCustomers = customerService.searchCustomers(theSearchName);</span><br><span class="line">    <span class="keyword">return</span> theCustomers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/delete/&#123;customerId&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(@PathVariable <span class="keyword">int</span> customerId)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        Customer tempCustomer = customerService.getCustomer(customerId);</span></span><br><span class="line">        customerService.delete(customerId);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Delete customer id:"</span> + customerId;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PutMapping</span>(<span class="string">"/updateCustomer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">updateCustomer</span><span class="params">(@RequestBody Customer theCustomer)</span> </span>&#123;</span><br><span class="line">    customerService.saveCustomer(theCustomer);</span><br><span class="line">    <span class="keyword">return</span> theCustomer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><p>For get/delete testing, just input the uri and select the right method.<br>For put/post testing, besides the steps above:</p>
 <ul>
-<li><p>Add request mapping to Spring REST Service</p>
-<ul>
-<li>Bind path variable to method parameter using @PathVariable<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getStudentById/&#123;studentId&#125;"</span>)</span><br><span class="line">    &lt;!-- <span class="function">the parameter should be the same as the content in the <span class="title">bracket</span><span class="params">(studentId)</span> --&gt;</span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> Student <span class="title">getStudentById</span><span class="params">(@PathVariable <span class="keyword">int</span> studentId)</span> </span>&#123;</span><br><span class="line">    List&lt;Student&gt; theStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Poornima"</span>,<span class="string">"Patel"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mario"</span>,<span class="string">"Rossi"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mary"</span>,<span class="string">"Smith"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> theStudents.get(studentId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Test<br>Postman:<br>GET:<a href="http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1" target="_blank" rel="noopener">http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1</a></p>
-</li>
+<li>Select ‘Body’</li>
+<li>Select ‘raw’</li>
+<li>Select ‘JSON’</li>
+<li>Input data in JSON fashion</li>
+<li>Send request</li>
 </ul>
 
     </div>
@@ -330,8 +331,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2020/07/25/Spring-REST-4-RestController/" rel="next" title="Spring REST 4: @RestController">
-                <i class="fa fa-chevron-left"></i> Spring REST 4: @RestController
+              <a href="/2020/07/25/Spring-REST-5-PathVariable/" rel="next" title="Spring REST 5: @PathVariable">
+                <i class="fa fa-chevron-left"></i> Spring REST 5: @PathVariable
               </a>
             
           </div>
@@ -339,10 +340,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/07/27/Spring-REST-6-CRUD/" rel="prev" title="Spring REST 6: CRUD">
-                Spring REST 6: CRUD <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -496,7 +493,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Behind-the-scenes"><span class="nav-number">1.</span> <span class="nav-text">Behind the scenes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Development-Process"><span class="nav-number">2.</span> <span class="nav-text">Development Process</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Annotations"><span class="nav-number">1.</span> <span class="nav-text">Annotations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RestController"><span class="nav-number">1.1.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PathVariable"><span class="nav-number">1.2.</span> <span class="nav-text">@PathVariable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestBody"><span class="nav-number">1.3.</span> <span class="nav-text">@RequestBody</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRUD"><span class="nav-number">2.</span> <span class="nav-text">CRUD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.1.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.2.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">2.3.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">2.4.</span> <span class="nav-text">PUT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Test"><span class="nav-number">3.</span> <span class="nav-text">Test</span></a></li></ol></div>
             
 
           </div>
