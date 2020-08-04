@@ -238,6 +238,91 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-7-Spring-Security-JSP-Tags/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/24/Spring-Security-7-Spring-Security-JSP-Tags/" class="post-title-link" itemprop="url">Spring Security 7: Spring Security JSP Tags</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-24 23:05:55 / Modified: 23:10:46" itemprop="dateCreated datePublished" datetime="2020-07-24T23:05:55-04:00">2020-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>Sometimes we want to show specific content to different users based on their roles, like show system links to admins only. Spring Security provided JSP tags to solve this problem.<br>General syntax:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;!-- content in <span class="keyword">this</span> tag will show according to the authorization --&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
+<p>home.jsp:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/leaders"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Manager peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br><span class="line">&lt;security:authorize access=<span class="string">"hasRole('ADMIN')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/admins"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Admin peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-6-Customize-Access-Denied-Page/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1149,96 +1234,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/30/Java：GET还是POST？/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/30/Java：GET还是POST？/" class="post-title-link" itemprop="url">Java：GET还是POST</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-30 21:17:02 / Modified: 22:31:09" itemprop="dateCreated datePublished" datetime="2020-05-30T21:17:02-04:00">2020-05-30</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。</p>
-<p>然而，在以下情况中，请使用 POST 请求：</p>
-<ul>
-<li>无法使用缓存文件（更新服务器上的文件或数据库）</li>
-<li>向服务器发送大量数据（POST 没有数据量限制）</li>
-<li>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1279,7 +1274,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1357,7 +1352,9 @@
         
           
         
-        <span class="site-state-item-count">20</span>
+          
+        
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

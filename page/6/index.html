@@ -238,6 +238,102 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/28/Spring-Note-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/28/Spring-Note-3/" class="post-title-link" itemprop="url">Spring Note 3</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-28 15:49:19" itemprop="dateCreated datePublished" datetime="2020-03-28T15:49:19-04:00">2020-03-28</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-29 23:32:27" itemprop="dateModified" datetime="2020-03-29T23:32:27-04:00">2020-03-29</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?</p>
+<p>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.</p>
+<p>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/03/25/MySQL笔记：基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1243,99 +1339,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/19/Spring-Boot学习笔记-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/19/Spring-Boot学习笔记-一/" class="post-title-link" itemprop="url">Spring Boot学习笔记(一)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-01-19 00:42:17 / Modified: 12:27:45" itemprop="dateCreated datePublished" datetime="2020-01-19T00:42:17-05:00">2020-01-19</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><ol>
-<li>新建一个Module-&gt;Spring Initializr</li>
-<li>Dependencies: Spring Web, JDBC API, MyBatis Framework, MySQL Driver</li>
-<li><code>pom.xml</code> 文件中已经把依赖配置好了</li>
-</ol>
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>application.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server.port=8080  // 服务端口</span><br><span class="line"></span><br><span class="line"># jdbc</span><br><span class="line">spring.datasource.password=pwd // 数据库密码</span><br><span class="line">spring.datasource.username=root // 数据库用户</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&amp;serverTimezone=GMT-5 // 数据库url记得要在3306后面写数据库的名字，serverTimezone也要手动设置，不然可能会报错</span><br><span class="line"></span><br><span class="line"># mybatis</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*Mapper.xml  // 读取mapper目录下所有以Mapper.xml结尾的文件，即映射器文件的位置</span><br><span class="line">mybatis.configuration.map-underscore-to-camel-case=true // MySQL一般定义字段用下划线表示，该配置项就是指将带有下划线的表字段映射为驼峰格式的实体类属性</span><br></pre></td></tr></table></figure></p>
-<h1 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h1><p>controller层负责具体的业务模块流程的控制，在此层要调用service层的接口实现业务逻辑</p>
-<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><p>服务是一个相对独立的功能模块，主要负责业务逻辑应用设计。首先也要设计接口，然后再设计其实现该接口的类。这样我们就可以在应用中调用service接口进行业务处理。service层业务实现，具体调用到已经定义的Mapper的接口，封装service层的业务逻辑有利于通用的业务逻辑的独立性和重复利用性 。</p>
-<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p>通常我们在mapper层里面写接口，里面有与数据打交道的方法。SQL语句通常写在mapper文件里面的</p>
-<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p>bean实体类，映射数据库中的表，里面有表的属性以及get/set方法</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1376,7 +1379,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1454,7 +1457,9 @@
         
           
         
-        <span class="site-state-item-count">20</span>
+          
+        
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

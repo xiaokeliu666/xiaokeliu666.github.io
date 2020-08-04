@@ -238,6 +238,95 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/16/LeetCode-95/" class="post-title-link" itemprop="url">LeetCode:95</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-16 16:31:00 / Modified: 17:22:05" itemprop="dateCreated datePublished" datetime="2020-05-16T16:31:00-04:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;TreeNode&gt; generateTrees(int n) &#123;</span><br><span class="line">        if(n&lt;=0) &#123;return new ArrayList&lt;&gt;();&#125;</span><br><span class="line">        return helper(1,n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static List&lt;TreeNode&gt; helper(int start, int end) &#123;</span><br><span class="line">        List&lt;TreeNode&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(end&lt;start) &#123;res.add(null);&#125;</span><br><span class="line">        for(int i = start; i&lt;=end; i++) &#123;</span><br><span class="line">            List&lt;TreeNode&gt; leftList = helper(start,i-1);</span><br><span class="line">            List&lt;TreeNode&gt; rightList = helper(i+1,end);</span><br><span class="line">            for(TreeNode leftNode:leftList) &#123;</span><br><span class="line">                for(TreeNode rightNode:rightList) &#123;</span><br><span class="line">                    // 为了避免重复的答案，在循环中新建一个root</span><br><span class="line">                    TreeNode root = new TreeNode(i);</span><br><span class="line">                    root.left = leftNode;</span><br><span class="line">                    root.right = rightNode;</span><br><span class="line">                    res.add(root);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>确定根节点</li>
+<li>小于根节点的值生成左子树，大于根节点的值生成右子树</li>
+<li>左子树和右子树进行排列组合</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/LeetCode-94-145-144/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1160,102 +1249,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/11/MyBatis-collection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/11/MyBatis-collection/" class="post-title-link" itemprop="url">MyBatis:collection</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-04-11 16:03:12 / Modified: 16:45:24" itemprop="dateCreated datePublished" datetime="2020-04-11T16:03:12-04:00">2020-04-11</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。</p>
-<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>根据teacher的id查出老师手下的所有学生</p>
-<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select t.name tname, s.id sid, s.name sname</span><br><span class="line">from teacher t, student s</span><br><span class="line">where t.id=s.tid and t.id=#&#123;tid&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int tid;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private List&lt;Student&gt; students;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>与association的要求不同，此处的要求是根据老师的id属性去查询学生，因此构建实体类时也需要变化。</p>
-<h2 id="接口类"><a href="#接口类" class="headerlink" title="接口类"></a>接口类</h2><p>用了@Param(“tid”)后，xml中的输入也要注意用tid，xml中会进一步解释。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface TeacherMapper &#123;</span><br><span class="line">    Teacher getTeacher(@Param(&quot;tid&quot;) int id);</span><br><span class="line">    Teacher getTeacher2(@Param(&quot;tid&quot;) int id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="TeacherMapper-xml"><a href="#TeacherMapper-xml" class="headerlink" title="TeacherMapper.xml"></a>TeacherMapper.xml</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先根据输入的id查询老师，然后从根据tid查询出学生<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher&quot; resultMap=&quot;TeacherStudent&quot; &gt;</span><br><span class="line">&lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; column=&quot;id&quot; javaType=&quot;ArrayList&quot; ofType=&quot;Student&quot; select=&quot;getStudentByTeacherID&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getStudentByTeacherID&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select * from student where tid=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此方法需要注意的是collection标签中的column对应的是Teacher类中的id属性（注意resultMap的type是Teacher），javaType应该写ArrayList，因为student属性是一个集合，ofType用于获取集合中的泛型。</p>
-<h3 id="结果集嵌套查询"><a href="#结果集嵌套查询" class="headerlink" title="结果集嵌套查询"></a>结果集嵌套查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher2&quot; resultMap=&quot;TeacherStudent2&quot;&gt;</span><br><span class="line">    select t.name tname, s.id sid, s.name sname</span><br><span class="line">    from teacher t, student s</span><br><span class="line">    &lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    where t.id=s.tid and t.id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent2&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;!-- 集合中泛型的信息，用ofType获取 --&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; ofType=&quot;Student&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;tid&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;/collection&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
-<p>同association，先查询出结果，然后再用resultMap进行说明。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1296,7 +1289,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1374,7 +1367,9 @@
         
           
         
-        <span class="site-state-item-count">20</span>
+          
+        
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
