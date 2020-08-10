@@ -238,6 +238,514 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-3-REST-over-HTTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/25/Spring-REST-3-REST-over-HTTP/" class="post-title-link" itemprop="url">Spring REST 3: REST over HTTP</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-25 20:00:32 / Modified: 20:09:41" itemprop="dateCreated datePublished" datetime="2020-07-25T20:00:32-04:00">2020-07-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ul>
+<li>Leverage HTTP methods for CRUD operations<br>|Http Method|CRUD Operation|<br>| ——      | ——         |<br>|POST|Create a new entity|<br>|GET|Read a list of entities or single entity|<br>|PUT|Update an existing entity|<br>|DELETE|Delete an existing entity|</li>
+</ul>
+<h1 id="HTTP-Messages"><a href="#HTTP-Messages" class="headerlink" title="HTTP Messages"></a>HTTP Messages</h1><p>Client seds HTTP Request Message to Server then Server sends HTTP Response Message to Client.</p>
+<h2 id="HTTP-Request-Message"><a href="#HTTP-Request-Message" class="headerlink" title="HTTP Request Message"></a>HTTP Request Message</h2><ul>
+<li>Request line: the HTTP command<ul>
+<li>get method / post method</li>
+</ul>
+</li>
+<li>Header variables: request metadata<ul>
+<li>basic information of request</li>
+</ul>
+</li>
+<li>Message body: contents of message<h2 id="HTTP-Response-Message"><a href="#HTTP-Response-Message" class="headerlink" title="HTTP Response Message"></a>HTTP Response Message</h2></li>
+<li>Request line: server protocol and status code<ul>
+<li>200/404/500</li>
+</ul>
+</li>
+<li>Header variables: response metadata<ul>
+<li>content type of data(xml/JSON/…)</li>
+</ul>
+</li>
+<li>Message body: contents of message</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-2-POJO-JSON-Conversion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/25/Spring-REST-2-POJO-JSON-Conversion/" class="post-title-link" itemprop="url">Spring REST 2: POJO JSON Conversion</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-25 19:44:32 / Modified: 19:57:51" itemprop="dateCreated datePublished" datetime="2020-07-25T19:44:32-04:00">2020-07-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Spring-and-Jackson-Support"><a href="#Spring-and-Jackson-Support" class="headerlink" title="Spring and Jackson Support"></a>Spring and Jackson Support</h1><ul>
+<li>When building Spring REST applications<ul>
+<li>Spring will automatically handle Jackson Integration</li>
+<li>JSON data being passed to REST controller is converted to POJO</li>
+<li>Java object being returned from REST controller is converted to JSON<h1 id="Set-up"><a href="#Set-up" class="headerlink" title="Set up"></a>Set up</h1><h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Create-Student-POJO-Java-Class"><a href="#Create-Student-POJO-Java-Class" class="headerlink" title="Create Student POJO Java Class"></a>Create Student POJO Java Class</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="keyword">private</span> String firstName;</span><br><span class="line">	<span class="keyword">private</span> String lastName;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> active;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Getters and Setters	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Java-POJO-to-JSON"><a href="#Java-POJO-to-JSON" class="headerlink" title="Java POJO to JSON"></a>Java POJO to JSON</h2><h2 id="JSON-to-Java-POJO"><a href="#JSON-to-Java-POJO" class="headerlink" title="JSON to Java POJO"></a>JSON to Java POJO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// create object mapper</span></span><br><span class="line">            <span class="comment">// ObjectMapper() from jackson.databind</span></span><br><span class="line">			ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// read JSON  file and map/convert to Java POJO: </span></span><br><span class="line">			<span class="comment">// data/sample-lite.json</span></span><br><span class="line">			Student theStudent = mapper.readValue(</span><br><span class="line">						<span class="keyword">new</span> File(<span class="string">"data/sample-lite.json"</span>), Student.class);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// print first name and last name</span></span><br><span class="line">			System.out.println(<span class="string">"First name = "</span> + theStudent.getFirstName());</span><br><span class="line">			System.out.println(<span class="string">"Last name = "</span> + theStudent.getLastName());</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (Exception exc) &#123;</span><br><span class="line">			exc.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If JSON has property you don’t care about, using<code>@JsonIgnoreProerties(ignoreUnknow=true)</code> over POJO</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-1-JSON/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/25/Spring-REST-1-JSON/" class="post-title-link" itemprop="url">Spring REST 1: JSON</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-25 19:31:12 / Modified: 19:44:02" itemprop="dateCreated datePublished" datetime="2020-07-25T19:31:12-04:00">2020-07-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="What-is-JSON"><a href="#What-is-JSON" class="headerlink" title="What is JSON?"></a>What is JSON?</h1><ul>
+<li>JavaScript Object Notation</li>
+<li>Lightweight data format for storing and exchanging data</li>
+<li>JSON is plain text data</li>
+</ul>
+<h1 id="JSON-Example"><a href="#JSON-Example" class="headerlink" title="JSON Example"></a>JSON Example</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Numbers: no quotes</span></span><br><span class="line">    <span class="string">"id"</span>: <span class="number">14</span>,</span><br><span class="line">    <span class="comment">// String: in double quotes</span></span><br><span class="line">    <span class="string">"firstName"</span>: <span class="string">"Mario"</span>,</span><br><span class="line">    <span class="string">"lastName"</span>: <span class="string">"Rossi"</span>,</span><br><span class="line">    <span class="comment">// Boolean: true / false </span></span><br><span class="line">    <span class="string">"active"</span>: <span class="literal">true</span></span><br><span class="line">    <span class="comment">// Nested JSON object</span></span><br><span class="line">    <span class="string">"address"</span>: &#123;</span><br><span class="line">        <span class="string">"steet"</span>: <span class="string">"100 Main St"</span>,</span><br><span class="line">        <span class="string">"city"</span>: <span class="string">"Philadelphia"</span>,</span><br><span class="line">        <span class="string">"state"</span>: <span class="string">"Pennsylvania"</span>,</span><br><span class="line">        <span class="string">"zip"</span>: <span class="string">"19103"</span>,</span><br><span class="line">        <span class="string">"country"</span>: <span class="string">"USA"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Array: use square brackets[...]</span></span><br><span class="line">    <span class="string">"languages"</span>: [<span class="string">"Java"</span>,<span class="string">"C#"</span>,<span class="string">"Python"</span>,<span class="string">"Javascript"</span>]</span><br><span class="line">    <span class="comment">// null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JSON-Data-Binding"><a href="#JSON-Data-Binding" class="headerlink" title="JSON Data Binding"></a>JSON Data Binding</h1><ul>
+<li>Data binding is the process of converting JSON data to a Java POJO, also know as Mapping, Serialization/Deserialization, Marshalling/Unmarshalling<h2 id="JSON-Data-Binding-with-Jackson"><a href="#JSON-Data-Binding-with-Jackson" class="headerlink" title="JSON Data Binding with Jackson"></a>JSON Data Binding with Jackson</h2></li>
+<li>Spring uses the Jackson Project behind the scenes</li>
+<li>Jackson handles data binding between JSON and Java POJO</li>
+<li>By default, Jackson will call appropriate getter/setter method<ul>
+<li>JSON to Java POJO<ul>
+<li>call setter methods on POJO(automatically)</li>
+</ul>
+</li>
+<li>Java POJO to JSON<ul>
+<li>call getter methods on POJO(automatically)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-0-REST-Web-Service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/25/Spring-REST-0-REST-Web-Service/" class="post-title-link" itemprop="url">Spring REST 0: REST Web Service</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-25 19:24:47 / Modified: 19:30:53" itemprop="dateCreated datePublished" datetime="2020-07-25T19:24:47-04:00">2020-07-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <ul>
+<li>REST: REpresentational State Transfer </li>
+<li>It’s a lightweight approach for communicating between applications.</li>
+<li>REST is language independent.</li>
+<li>REST applications can use any data format<ul>
+<li>Commonly see XML and JSON(most popular and modern)</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-Security-9-Password-Encryption/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/25/Spring-Security-9-Password-Encryption/" class="post-title-link" itemprop="url">Spring Security 9: Password Encryption</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-25 01:07:38 / Modified: 19:31:22" itemprop="dateCreated datePublished" datetime="2020-07-25T01:07:38-04:00">2020-07-25</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="bcrypt"><a href="#bcrypt" class="headerlink" title="bcrypt"></a>bcrypt</h1><ul>
+<li>Performs one-way encrypted hashing</li>
+<li>Adds a random salt to the password for additaional protection</li>
+<li>Includes support to defeat brute force attacks</li>
+</ul>
+<h1 id="Spring-Security-Password-Storage"><a href="#Spring-Security-Password-Storage" class="headerlink" title="Spring Security Password Storage"></a>Spring Security Password Storage</h1><ul>
+<li>In Spring Security 5, passwords are stored using a specific format.<ul>
+<li>{bcrypt}encodedPassword</li>
+<li>Password column must be at least 68 chars wide:<ul>
+<li>{bcrypt} - 8 chars</li>
+<li>encodedPassword - 60 chars</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Modify-DDL-for-Password-Field"><a href="#Modify-DDL-for-Password-Field" class="headerlink" title="Modify DDL for Password Field"></a>Modify DDL for Password Field</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`users`</span> (</span><br><span class="line">    <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="comment">-- Password column must be at least 68 chars wide:</span></span><br><span class="line">    <span class="string">`password`</span> <span class="built_in">char</span>(<span class="number">68</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`enabled`</span> <span class="built_in">tinyint</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line"></span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(<span class="string">`username`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=latin1;</span><br></pre></td></tr></table></figure>
+<h1 id="Spring-Security-Login-Porcess"><a href="#Spring-Security-Login-Porcess" class="headerlink" title="Spring Security Login Porcess"></a>Spring Security Login Porcess</h1><p>User enters plaintext password and go through Spring Security Filters</p>
+<ol>
+<li>Retrieve password from db for the user</li>
+<li>Read the encoding algorithm id(bcrypt etc)</li>
+<li>For case of bcrypt, encrypt plaintext password from login form(using salt from db password)</li>
+<li>Compare encrypted password from login form WITH encrypted password from db</li>
+<li>If there is a match, login successful</li>
+<li>If no match, login NOT successful<br>Note: The password from db is NEVER decrypted, because bcrypt is a one-way encryption algorithm</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-8-JDBC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -710,560 +1218,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-3-Cross-Site-Request-Forgery-CSRF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/Spring-Security-3-Cross-Site-Request-Forgery-CSRF/" class="post-title-link" itemprop="url">Spring Security 3: Cross Site Request Forgery(CSRF)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-24 21:17:30 / Modified: 21:34:15" itemprop="dateCreated datePublished" datetime="2020-07-24T21:17:30-04:00">2020-07-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="What-is-CSRF"><a href="#What-is-CSRF" class="headerlink" title="What is CSRF?"></a>What is CSRF?</h1><p>A security attack where an evil website tricks you into executing an action on a web application that you are currently logged in.</p>
-<h1 id="CSRF-Protection"><a href="#CSRF-Protection" class="headerlink" title="CSRF Protection"></a>CSRF Protection</h1><ul>
-<li>To protect against CSRF attacks</li>
-<li>Embed additional authentication data / token into all HTML forms</li>
-<li>On subsequent requestes, web app will verify token before processing<h1 id="Spring-Security’s-CSRF-Protection"><a href="#Spring-Security’s-CSRF-Protection" class="headerlink" title="Spring Security’s CSRF Protection"></a>Spring Security’s CSRF Protection</h1></li>
-<li>CSRF prtection is enabled by default in Spring Security</li>
-<li>Spring Security uses the Synchronizer Token Pattern<ul>
-<li>Each request includes a session cookie and randomly generated token</li>
-</ul>
-</li>
-<li>For request processing, Spring Security verifies token before processing</li>
-<li>All of this is handled by Spring Security Filters<h1 id="Use-Spring-Security-CSRF-Protection"><a href="#Use-Spring-Security-CSRF-Protection" class="headerlink" title="Use Spring Security CSRF Protection"></a>Use Spring Security CSRF Protection</h1></li>
-<li>For form submissions use POST instead of GET</li>
-<li>Include CSRF token in form submission</li>
-<li><code>&lt;form:form&gt;</code> automagically adds CSRF token<h1 id="Manually-add-CSRF-token"><a href="#Manually-add-CSRF-token" class="headerlink" title="Manually add CSRF token"></a>Manually add CSRF token</h1><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">"..."</span> method=<span class="string">"POST"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"hidden"</span></span><br><span class="line">            name=<span class="string">"$&#123;_csrf.parameterName&#125;"</span></span><br><span class="line">            value=<span class="string">"$&#123;_csrf.token&#125;"</span>/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>Using SpringMVC form tage because they’ll automatically do this work</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-2-Logout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/Spring-Security-2-Logout/" class="post-title-link" itemprop="url">Spring Security 3: Logout</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-24 20:49:07 / Modified: 21:16:50" itemprop="dateCreated datePublished" datetime="2020-07-24T20:49:07-04:00">2020-07-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p><strong>Add logout support to Spring Security Configuration.</strong><br>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    http.authorizeRequests()</span><br><span class="line">            .anyRequest().authenticated()</span><br><span class="line">        .and()</span><br><span class="line">            .formLogin()</span><br><span class="line">            .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">            .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">            .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">        <span class="comment">// logout support for default URL /logout, </span></span><br><span class="line">        <span class="comment">// which means we don't have to write extra code in controller</span></span><br><span class="line">            .logout()</span><br><span class="line">            .permitAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>Add a button on page.</strong><br>home.jsp:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- MUST USE POST --&gt;</span><br><span class="line">&lt;form:form action=<span class="string">"$&#123;pageContext.request.contextPath&#125;/logout"</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span> value=<span class="string">"Logout"</span>/&gt;</span><br><span class="line">&lt;/form:form&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Logout-Process"><a href="#Logout-Process" class="headerlink" title="Logout Process"></a>Logout Process</h2><ul>
-<li>When a logout is processed, by default Spring Security will…</li>
-<li>Invalidate user’s HTTP session and remove session cookies, etc</li>
-<li>Send user back to your login page</li>
-<li>Append a logout parameter: ?logout</li>
-</ul>
-<p>Based ont the fact that a parameter will be appended in the url, we can show a notification after log out and back to the login page<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;param.logout != null&#125;"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"alert alert-success col-xs-offset-1 col-xs-10"</span>&gt;</span><br><span class="line">        You have been logged out.</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-1-First-Application/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/Spring-Security-1-First-Application/" class="post-title-link" itemprop="url">Spring Security 1: First Application</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-24 20:37:55 / Modified: 20:48:26" itemprop="dateCreated datePublished" datetime="2020-07-24T20:37:55-04:00">2020-07-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>DemoController:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is the index of application</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showHome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"home"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>LoginController:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Due to the DemoSecurityConfig, </span></span><br><span class="line">    <span class="comment">// before we accessing the index page, we have to login</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMyLoginPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"fancy-login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>login.jsp:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:<span class="keyword">if</span> test=<span class="string">"$&#123;param.error != null&#125;"</span>&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		Invalid username and password.</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure></p>
-<p>In Spring Security system, if the log in step fails, there will be a param <code>error</code> in the link, like:<code>http://localhost:8080/showMyLoginPage?error</code>. So jstl can be used to check if the log in fails and show different pages. </p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/24/Spring-Security-0-Set-up/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/Spring-Security-0-Set-up/" class="post-title-link" itemprop="url">Spring Security 0: Set up</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-24 14:25:00 / Modified: 20:38:27" itemprop="dateCreated datePublished" datetime="2020-07-24T14:25:00-04:00">2020-07-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h1><p>pom.xml:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- There may be problems or bugs because of the incompatibility </span></span><br><span class="line"><span class="comment">     between springframework and springsecurity. Here provided an</span></span><br><span class="line"><span class="comment">     compatible solution of versions --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springframework.version</span>&gt;</span>5.0.2.RELEASE<span class="tag">&lt;/<span class="name">springframework.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springsecurity.version</span>&gt;</span>5.0.0.RELEASE<span class="tag">&lt;/<span class="name">springsecurity.version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring MVC support --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring Security --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-taglibs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springsecurity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Servlet, JSP and JSTL support --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet.jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Here we are using pure Java to do the configuration(no xml).</p>
-<p>DemoAppConfig:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages = <span class="string">"com.xliu.springsecurity.demo"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoAppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    define a bean for ViewResolver</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ViewResolver <span class="title">viewResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        InternalResourceViewResolver viewResolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line"></span><br><span class="line">        viewResolver.setPrefix(<span class="string">"/WEB-INF/view/"</span>);</span><br><span class="line">        viewResolver.setSuffix(<span class="string">".jsp"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> viewResolver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MySpringMvcDispatcherServletInitializer:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpringMvcDispatcherServeletInitializer</span> </span></span><br><span class="line"><span class="class">            <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//        No root config classes for our project, only servlet config classes</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class[] &#123; DemoAppConfig.class &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123;<span class="string">"/"</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>DemoSecurityConfig:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">//        add our users for in memory authentication</span></span><br><span class="line">        UserBuilder users = User.withDefaultPasswordEncoder();</span><br><span class="line"><span class="comment">//  users are loaded in memory, this is just for academic purpose, usually we will use JDBC</span></span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(users.username(<span class="string">"john"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"mary"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"MANAGER"</span>))</span><br><span class="line">                .withUser(users.username(<span class="string">"susan"</span>).password(<span class="string">"test123"</span>).roles(<span class="string">"EMPLOYEE"</span>,<span class="string">"ADMIN"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .anyRequest().authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                <span class="comment">// Spring Security has its own default loging page, but here we refer to a customized page</span></span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                <span class="comment">// authendicateTheUser is done by Spring Security automatically</span></span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/07/Bit-Manipulation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/07/Bit-Manipulation/" class="post-title-link" itemprop="url">Bit Manipulation</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-07 22:19:42" itemprop="dateCreated datePublished" datetime="2020-07-07T22:19:42-04:00">2020-07-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-07-09 11:40:38" itemprop="dateModified" datetime="2020-07-09T11:40:38-04:00">2020-07-09</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h1><h3 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>&amp;</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1</strong></td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td><strong>0</strong></td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id><a href="#" class="headerlink" title="|"></a>|</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>\</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1</strong></td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><strong>0</strong></td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="-1"><a href="#-1" class="headerlink" title="^"></a>^</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>^</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1</strong></td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td><strong>0</strong></td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="-2"><a href="#-2" class="headerlink" title="~"></a>~</h3><p>~   1 0 0 1 1<br>=&gt;  0 1 1 0 0</p>
-<h3 id="lt-lt"><a href="#lt-lt" class="headerlink" title="&lt;&lt;"></a>&lt;&lt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a = 8;</span><br><span class="line">a &lt;&lt; 3;</span><br><span class="line"></span><br><span class="line">before：0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">after：0000 0000 0000 0000 0000 0000 0100 0000</span><br></pre></td></tr></table></figure>
-<h3 id="gt-gt"><a href="#gt-gt" class="headerlink" title="&gt;&gt;"></a>&gt;&gt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">unsigned int a = 8;</span><br><span class="line">a &gt;&gt; 3;</span><br><span class="line">before：0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">after：0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line">​</span><br><span class="line">int a = -8;</span><br><span class="line">a &gt;&gt; 3;</span><br><span class="line">before：1111 1111 1111 1111 1111 1111 1111 1000</span><br><span class="line">after：1111 1111 1111 1111 1111 1111 1111 1111</span><br></pre></td></tr></table></figure>
-<h1 id="Common-Problem"><a href="#Common-Problem" class="headerlink" title="Common Problem"></a>Common Problem</h1><ol>
-<li><p>Implement division</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">a &gt;&gt; <span class="number">1</span>; ---&gt; <span class="number">1</span></span><br><span class="line">a &lt;&lt; <span class="number">1</span>; ---&gt; <span class="number">4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Swap two digits</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span> </span>&#123;</span><br><span class="line">     a ^= b;</span><br><span class="line">     b ^= a;</span><br><span class="line">     a ^= b;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>Explaination:<br>Step 1：a ^= b —-&gt; a = (a^b);</p>
-<p> Step 2：b ^= a —-&gt; b = b\^(a^b) —-&gt; b = (b\^b)^a = a</p>
-<p> Step 3：a ^= b —-&gt; a = (a\^b)^a = (a\^a)^b = b</p>
-</li>
-<li><p>Odd or Even<br>If the last digit is 0, then even. Otherwise, odd</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">0</span> == (a &amp; <span class="number">1</span>)) &#123;</span><br><span class="line">    even</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Change the sign</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reversal</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> ~a + <span class="number">1</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Detect opposite sign</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// -1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">oppositeSigns</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 1 if opposite, 0 if not</span></span><br><span class="line">   <span class="keyword">return</span> ((x ^ y) &gt;&gt;&gt; <span class="number">31</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1304,7 +1258,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1386,7 +1340,9 @@
         
           
         
-        <span class="site-state-item-count">22</span>
+          
+        
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
