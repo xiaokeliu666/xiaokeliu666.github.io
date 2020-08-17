@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="After browsing the official document of Spring Security, I found there is no such a solution to help with dynamically configure url authorization. By default, Spring Security will initialize the url a">
+<meta name="keywords" content="Spring Security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Security: Define secured URLS dynamically">
+<meta property="og:url" content="http://xiaokeliu666.github.io/2020/08/17/Spring-Security-Define-secured-URLS-dynamically/index.html">
+<meta property="og:site_name" content="Feb 1997">
+<meta property="og:description" content="After browsing the official document of Spring Security, I found there is no such a solution to help with dynamically configure url authorization. By default, Spring Security will initialize the url a">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-08-17T20:28:06.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Security: Define secured URLS dynamically">
+<meta name="twitter:description" content="After browsing the official document of Spring Security, I found there is no such a solution to help with dynamically configure url authorization. By default, Spring Security will initialize the url a">
+  <link rel="canonical" href="http://xiaokeliu666.github.io/2020/08/17/Spring-Security-Define-secured-URLS-dynamically/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Spring Security: Define secured URLS dynamically | Feb 1997</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Feb 1997</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Overtime and overdue</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>Search</a>
+        </li>
+      
+    </ul>
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/08/17/Spring-Security-Define-secured-URLS-dynamically/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Spring Security: Define secured URLS dynamically
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-08-17 14:53:15 / Modified: 16:28:06" itemprop="dateCreated datePublished" datetime="2020-08-17T14:53:15-04:00">2020-08-17</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>After browsing the official document of Spring Security, I found there is no such a solution to help with dynamically configure url authorization. By default, Spring Security will initialize the url authorization as the applilcation starts. </p>
+<p>There is a question in the document <a href="https://link.jianshu.com/?t=https%3A%2F%2Fdocs.spring.io%2Fspring-security%2Fsite%2Fdocs%2F4.2.4.RELEASE%2Freference%2Fhtmlsingle%2F%23appendix-faq-dynamic-url-metadata" target="_blank" rel="noopener">44.4.6. How do I define the secured URLs within an application dynamically?</a>. After reading the solution to this problem, I draw a solution with two steps:</p>
+<ol>
+<li>Provide data which describes the rules of access.<br> <code>SecurityMetadataSource</code> obtains the metadata for a particular method or filter invocation</li>
+<li>Customize an interceptor and add it into the Spring Security’s filterChain.</li>
+</ol>
+<h1 id="Authorization-datasource"><a href="#Authorization-datasource" class="headerlink" title="Authorization datasource"></a>Authorization datasource</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Config authentication data source to implement dynamically authorization load</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilterInvocationSecurityMetadataSource</span> <span class="keyword">implements</span> <span class="title">FilterInvocationSecurityMetadataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Authorization data</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; requestMap;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Find the authorization data according to current url in the initial authorization datasource</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAttributes</span><span class="params">(Object object)</span> <span class="keyword">throws</span> IllegalArgumentException </span>&#123;</span><br><span class="line">        FilterInvocation fi = (FilterInvocation) object;</span><br><span class="line">        HttpServletRequest request = fi.getRequest();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// traverse the initialized authorization data and find authorization according to current url</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; entry : requestMap</span><br><span class="line">                .entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (entry.getKey().matches(request)) &#123;</span><br><span class="line">                <span class="keyword">return</span> entry.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAllConfigAttributes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FilterInvocation.class.isAssignableFrom(clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Update authorization collection</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequestMap</span><span class="params">(List&lt;SysAuthorityVo&gt; authorityVoList)</span></span>&#123;</span><br><span class="line">        Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; map = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (SysAuthorityVo sysAuthorityVo : authorityVoList) &#123;</span><br><span class="line">            String authorityName = sysAuthorityVo.getAuthorityName();</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(sysAuthorityVo.getAuthorityContent())) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (String url : sysAuthorityVo.getAuthorityContent().split(<span class="string">","</span>)) &#123;</span><br><span class="line">                Collection&lt;ConfigAttribute&gt; value = map.get(<span class="keyword">new</span> AntPathRequestMatcher(url));</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isEmpty(value)) &#123;</span><br><span class="line">                    ArrayList&lt;ConfigAttribute&gt; configs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    configs.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                    map.put(<span class="keyword">new</span> AntPathRequestMatcher(url), configs);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    value.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.requestMap = map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Customize-Dynamically-Url-Interceptor"><a href="#Customize-Dynamically-Url-Interceptor" class="headerlink" title="Customize Dynamically Url Interceptor"></a>Customize Dynamically Url Interceptor</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  Customize DynamicallyUrlInterceptor</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicallyUrlInterceptor</span> <span class="keyword">extends</span> <span class="title">AbstractSecurityInterceptor</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// label customized url interceptor has already been loaded</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILTER_APPLIED = <span class="string">"__spring_security_filterSecurityInterceptor_filterApplied_dynamically"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FilterInvocationSecurityMetadataSource securityMetadataSource;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> observeOncePerRequest = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getSecureObjectClass() &#123;</span><br><span class="line">        <span class="keyword">return</span> FilterInvocation.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        FilterInvocation fi = <span class="keyword">new</span> FilterInvocation(request, response, chain);</span><br><span class="line">        invoke(fi);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterInvocationSecurityMetadataSource <span class="title">getSecurityMetadataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.securityMetadataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SecurityMetadataSource <span class="title">obtainSecurityMetadataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.securityMetadataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecurityMetadataSource</span><span class="params">(FilterInvocationSecurityMetadataSource newSource)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.securityMetadataSource = newSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessDecisionManager</span><span class="params">(AccessDecisionManager accessDecisionManager)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.setAccessDecisionManager(accessDecisionManager);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(FilterInvocation fi)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ((fi.getRequest() != <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; (fi.getRequest().getAttribute(FILTER_APPLIED) != <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; observeOncePerRequest) &#123;</span><br><span class="line">            <span class="comment">// filter already applied to this request and user wants us to observe</span></span><br><span class="line">            <span class="comment">// once-per-request handling, so don't re-do security checking</span></span><br><span class="line">            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// first time this request being called, so perform security checking</span></span><br><span class="line">            <span class="keyword">if</span> (fi.getRequest() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                fi.getRequest().setAttribute(FILTER_APPLIED, Boolean.TRUE);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            InterceptorStatusToken token = <span class="keyword">super</span>.beforeInvocation(fi);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="keyword">super</span>.finallyInvocation(token);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">super</span>.afterInvocation(token, <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Decision-Manager"><a href="#Decision-Manager" class="headerlink" title="Decision Manager"></a>Decision Manager</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Decision Manager</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAccessDecisionManager</span> <span class="keyword">extends</span> <span class="title">AbstractAccessDecisionManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    MyAccessDecisionManager(List&lt;AccessDecisionVoter&lt;?&gt;&gt; decisionVoters) &#123;</span><br><span class="line">        <span class="keyword">super</span>(decisionVoters);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decide</span><span class="params">(Authentication authentication, Object object, Collection&lt;ConfigAttribute&gt; configAttributes)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> AccessDeniedException, InsufficientAuthenticationException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> deny = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (AccessDecisionVoter voter : getDecisionVoters()) &#123;</span><br><span class="line">            <span class="keyword">int</span> result = voter.vote(authentication, object, configAttributes);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                logger.debug(<span class="string">"Voter: "</span> + voter + <span class="string">", returned: "</span> + result);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (result) &#123;</span><br><span class="line">                <span class="keyword">case</span> AccessDecisionVoter.ACCESS_GRANTED:</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> AccessDecisionVoter.ACCESS_DENIED:</span><br><span class="line">                    deny++;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (deny &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AccessDeniedException(messages.getMessage(</span><br><span class="line">                    <span class="string">"AbstractAccessDecisionManager.accessDenied"</span>, <span class="string">"Access is denied"</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// To get this far, every AccessDecisionVoter abstained</span></span><br><span class="line">        checkAllowIfAllAbstainDecisions();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Security provided several authorization strategy, here we are using RoleVoter.</p>
+<h1 id="Configure-filter"><a href="#Configure-filter" class="headerlink" title="Configure filter"></a>Configure filter</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//filter</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DynamicallyUrlInterceptor <span class="title">dynamicallyUrlInterceptor</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// Retrieve the datasource</span></span><br><span class="line">        List&lt;SysAuthorityVo&gt; authorityVoList = sysAuthorityService.list(<span class="keyword">new</span> SysAuthorityVo()).getData();</span><br><span class="line">        myFilterInvocationSecurityMetadataSource.setRequestMap(authorityVoList);</span><br><span class="line">        <span class="comment">// Initialize interceptor and load the datasource</span></span><br><span class="line">        DynamicallyUrlInterceptor interceptor = <span class="keyword">new</span> DynamicallyUrlInterceptor();</span><br><span class="line">        interceptor.setSecurityMetadataSource(myFilterInvocationSecurityMetadataSource);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Configure RoleVoter Strategy</span></span><br><span class="line">        List&lt;AccessDecisionVoter&lt;? extends Object&gt;&gt; decisionVoters = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        decisionVoters.add(<span class="keyword">new</span> RoleVoter());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set Access Decision Manager</span></span><br><span class="line">        interceptor.setAccessDecisionManager(<span class="keyword">new</span> MyAccessDecisionManager(decisionVoters));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Add-filter-into-Spring-Security’s-Filter"><a href="#Add-filter-into-Spring-Security’s-Filter" class="headerlink" title="Add filter into Spring Security’s Filter"></a>Add filter into Spring Security’s Filter</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">        <span class="comment">// customize the url access authority and read the authentication dynamically</span></span><br><span class="line"></span><br><span class="line">        .addFilterAfter(dynamicallyUrlInterceptor(), FilterSecurityInterceptor.class)</span><br><span class="line">        .authorizeRequests()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// permit all which means no limitation against authority</span></span><br><span class="line">        .antMatchers(<span class="string">"/favicon.ico"</span>,<span class="string">"/common/**"</span>, <span class="string">"/webjars/**"</span>, <span class="string">"/getVerifyCodeImage"</span>,<span class="string">"/error/*"</span>).permitAll()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other interfaces are accessible only after login</span></span><br><span class="line">        .anyRequest().authenticated()</span><br><span class="line">        .and();</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Spring-Security/" rel="tag"># Spring Security</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/08/09/AWS-OCR-application-based-on-Lambda/" rel="next" title="AWS: OCR application based on Lambda">
+                <i class="fa fa-chevron-left"></i> AWS: OCR application based on Lambda
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Feb 1997">
+  <p class="site-author-name" itemprop="name">Feb 1997</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Authorization-datasource"><span class="nav-number">1.</span> <span class="nav-text">Authorization datasource</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Customize-Dynamically-Url-Interceptor"><span class="nav-number">2.</span> <span class="nav-text">Customize Dynamically Url Interceptor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Decision-Manager"><span class="nav-number">3.</span> <span class="nav-text">Decision Manager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configure-filter"><span class="nav-number">4.</span> <span class="nav-text">Configure filter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Add-filter-into-Spring-Security’s-Filter"><span class="nav-number">5.</span> <span class="nav-text">Add filter into Spring Security’s Filter</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Feb 1997</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

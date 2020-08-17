@@ -238,6 +238,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Abstraction-and-Encapsulation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java-Abstraction-and-Encapsulation/" class="post-title-link" itemprop="url">Java: Abstraction and Encapsulation</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 17:21:02 / Modified: 19:33:46" itemprop="dateCreated datePublished" datetime="2020-05-26T17:21:02-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-What-is-the-difference-between-abstraction-and-encapsulation"><a href="#Q-What-is-the-difference-between-abstraction-and-encapsulation" class="headerlink" title="Q. What is the difference between abstraction and encapsulation?"></a>Q. <strong><em>What is the difference between abstraction and encapsulation?</em></strong></h4><ul>
+<li>Abstraction solves the problem at design level while Encapsulation solves it implementation level. </li>
+<li>In Java, Abstraction is supported using <code>interface</code> and <code>abstract class</code> while Encapsulation is supported using access modifiers e.g. public, private and protected.</li>
+<li>Abstraction is about hiding unwanted details while giving out most essential details, while Encapsulation means hiding the code and data into a single unit e.g. class or method to protect inner working of an object from outside world. </li>
+</ul>
+<table class="alt">
+<tbody><tr><th>Abstraction</th><th>Encapsulation</th></tr>
+<tr><td>Abstraction is a process of hiding the implementation details and showing only functionality to the user.</td>
+<td> Encapsulation is a process of wrapping code and data together into a single unit</td></tr>
+<tr><td>Abstraction lets you focus on what the object does instead of how it does it.</td>
+<td>Encapsulation provides you the control over the data and keeping it safe from outside misuse.</td></tr>
+<tr><td>Abstraction solves the problem in the Design Level.</td>
+<td>Encapsulation solves the problem in the Implementation Level.</td></tr>
+<tr><td>Abstraction is implemented by using Interfaces and Abstract Classes.</td>
+<td>Encapsulation is implemented by using Access Modifiers (private, default, protected, public)</td></tr>
+<tr><td>Abstraction means hiding implementation complexities by using interfaces and abstract class.</td>
+<td>Encapsulation means hiding data by using setters and getters.</td></tr>
+</tbody></table>
+
+<h4 id="Q-Can-there-be-an-abstract-method-without-an-abstract-class"><a href="#Q-Can-there-be-an-abstract-method-without-an-abstract-class" class="headerlink" title="Q. Can there be an abstract method without an abstract class?"></a>Q. <strong><em>Can there be an abstract method without an abstract class?</em></strong></h4><p>Yes. because methods in an interface are also abstract. so the interface can be use to declare abstract method.</p>
+<h4 id="Q-Can-we-use-private-or-protected-member-variables-in-an-interface"><a href="#Q-Can-we-use-private-or-protected-member-variables-in-an-interface" class="headerlink" title="Q. Can we use private or protected member variables in an interface?"></a>Q. <strong><em>Can we use private or protected member variables in an interface?</em></strong></h4><p>The java compiler adds public and abstract keywords before the interface method and <strong>public, static and final keyword</strong> before data members automatically<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> string name1;</span><br><span class="line">   <span class="keyword">private</span> String email;</span><br><span class="line">   <span class="keyword">protected</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>as you have declare variable in test interface with private and protected it will give error. if you do not specify the modifier the compiler will add public static final automatically.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> string name1;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span>  String email;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> pass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>interfaces cannot be instantiated that is why the variable are <strong>static</strong></li>
+<li>interface are used to achieve the 100% abstraction there for the variable are <strong>final</strong></li>
+<li>An interface provide a way for the client to interact with the object. If variables were not public, the clients would not have access to them. that is why variable are <strong>public</strong></li>
+</ul>
+<h4 id="Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference"><a href="#Q-When-can-an-object-reference-be-cast-to-a-Java-interface-reference" class="headerlink" title="Q. When can an object reference be cast to a Java interface reference?"></a>Q. <strong><em>When can an object reference be cast to a Java interface reference?</em></strong></h4><p>An interface reference can point to any object of a class that implements this interface </p>
+<pre><code class="lang-java">interface Foo {
+  void display();
+}
+
+public class TestFoo implements Foo {
+
+    void display() {
+      System.out.println(&quot;Hello World&quot;);
+    }
+
+    public static void main(String[] args) {
+      Foo foo = new TestFoo();
+      foo.display();
+    }
+}
+</code></pre>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Heap-and-Stack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1334,96 +1461,11 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/15/LeetCode-199/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/15/LeetCode-199/" class="post-title-link" itemprop="url">LeetCode:199</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-15 22:12:32 / Modified: 22:21:33" itemprop="dateCreated datePublished" datetime="2020-05-15T22:12:32-04:00">2020-05-15</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;Integer&gt; rightSideView(TreeNode root) &#123;</span><br><span class="line">        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">        helper(root,res,0);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void helper(TreeNode root, List&lt;Integer&gt; res, int level) &#123;</span><br><span class="line">        if(root==null) &#123;return;&#125;</span><br><span class="line">        if(res.size()==level) &#123;res.add(root.val);&#125;</span><br><span class="line">        helper(root.right,res,level+1);</span><br><span class="line">        helper(root.left,res,level+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>考虑到会出现树不平衡的情况:<br>               1<br>            /    \\<br>           2      3<br>           \\<br>            5<br>所以既要考虑到左边的子树，也要考虑到右边的子树。此例中如果每次递归都只考虑最右边的子树的节点，会发现3没有子节点，这时候就没办法回到2节点了。<br>这种解法的技巧在于用level来确保每一层只会选取一个节点。先递归右子树再递归左子树则解决了不平衡的问题：如果右子树没了，再考虑同一层的左子树。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1459,7 +1501,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
