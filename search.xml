@@ -520,29 +520,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Django踩坑：数据迁移遇到的问题</title>
-    <url>/2019/08/14/Django%E8%B8%A9%E5%9D%91%EF%BC%9A%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;在学习过程中我在同一个APP（名为’tst’）下反复修改模型（注释旧的模型，创建新的模型），在创建新模型后尝试进行数据迁移，出现如下错误信息:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No migrations to apply</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在尝试从数据库中删除所有与tst相关的字段后再次尝试迁移：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1050, &quot;Table &apos;django_content_type&apos; already exists&quot;</span><br></pre></td></tr></table></figure></p>
-<h1 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h1><p>&emsp;&emsp;造成多次应用migrations失败的原因是，当前model是修改过的，原来的migrations已经被我删除，但是，重新生成的migrations使用递增整数记名，所以，在django_migrations表中0001，0002等前面几个数字的文件都已被记录，在Django看来，被记录了就相当于已应用，所以，会出现刚开始的No migrations to apply.</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;python manage.py migrate —fake-initial<br>&emsp;&emsp;python manage.py makemigrations<br>&emsp;&emsp;python manage.py migrate</p>
-<h1 id="关于—fake-initial和—fake"><a href="#关于—fake-initial和—fake" class="headerlink" title="关于—fake-initial和—fake"></a>关于—fake-initial和—fake</h1><h2 id="—fake-initial"><a href="#—fake-initial" class="headerlink" title="—fake-initial"></a>—fake-initial</h2><p>Allows Django to skip an app’s initial migration if all database tables with the names of all models created by all CreateModel operations in that migration already exist. This option is intended for use when first running migrations against a database that preexisted the use of migrations. This option does not, however, check for matching database schema beyond matching table names and so is only safe to use if you are confident that your existing schema matches what is recorded in your initial migration.</p>
-<h2 id="—fake"><a href="#—fake" class="headerlink" title="—fake"></a>—fake</h2><p>Marks the migrations up to the target one (following the rules above) as applied, but without actually running the SQL to change your database schema.</p>
-<p>This is intended for advanced users to manipulate the current migration state directly if they’re manually applying changes; be warned that using —fake runs the risk of putting the migration state table into a state where manual recovery will be needed to make migrations run correctly.</p>
-<h1 id="引用参考"><a href="#引用参考" class="headerlink" title="引用参考"></a>引用参考</h1><blockquote>
-<p><a href="https://blog.csdn.net/qq_25730711/article/details/60327344" target="_blank" rel="noopener">cdsn</a><br><a href="https://docs.djangoproject.com/en/2.2/topics/migrations/" target="_blank" rel="noopener">Django2.0官方文档</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Django</tag>
-        <tag>踩坑</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Django踩坑：python manage.py migrate报错</title>
     <url>/2019/08/01/Django%E8%B8%A9%E5%9D%91%EF%BC%9Apython-manage-py-migrate%E6%8A%A5%E9%94%99/</url>
     <content><![CDATA[<p>&emsp;&emsp;在配置Django开发环境时，为了用到Django自带的数据模型，使用<code>python manage.py migrate</code>对数据进行迁移，所谓迁移，就是根据模型自动生成关系数据库中的二维表。</p>
@@ -561,6 +538,29 @@
 <hr>
 <h2 id="更新-2019-08-04"><a href="#更新-2019-08-04" class="headerlink" title="更新(2019-08-04)"></a>更新(2019-08-04)</h2><p>&emsp;&emsp;之前的学习都是跟着Github上的<a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener">Python-100-Days</a>操作的，全程用命令行Vim操作，用了一段时间觉得操作不是很方便，今天重新用Pycharm操作Django项目，另外为了避免之前的问题用的是Django自带的Sqlite数据库而不是Mysql，一路下来很顺畅。另外个人觉得Python-100-Days的教程太过笼统，更适合作为一个学习路线和查漏补缺。</p>
 <h2 id="参考引用-1"><a href="#参考引用-1" class="headerlink" title="参考引用"></a>参考引用</h2><p><a href="http://www.liujiangblog.com/course/django/" target="_blank" rel="noopener">刘江的博客教程</a></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Django</tag>
+        <tag>踩坑</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django踩坑：数据迁移遇到的问题</title>
+    <url>/2019/08/14/Django%E8%B8%A9%E5%9D%91%EF%BC%9A%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>&emsp;&emsp;在学习过程中我在同一个APP（名为’tst’）下反复修改模型（注释旧的模型，创建新的模型），在创建新模型后尝试进行数据迁移，出现如下错误信息:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No migrations to apply</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在尝试从数据库中删除所有与tst相关的字段后再次尝试迁移：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1050, &quot;Table &apos;django_content_type&apos; already exists&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h1><p>&emsp;&emsp;造成多次应用migrations失败的原因是，当前model是修改过的，原来的migrations已经被我删除，但是，重新生成的migrations使用递增整数记名，所以，在django_migrations表中0001，0002等前面几个数字的文件都已被记录，在Django看来，被记录了就相当于已应用，所以，会出现刚开始的No migrations to apply.</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>&emsp;&emsp;python manage.py migrate —fake-initial<br>&emsp;&emsp;python manage.py makemigrations<br>&emsp;&emsp;python manage.py migrate</p>
+<h1 id="关于—fake-initial和—fake"><a href="#关于—fake-initial和—fake" class="headerlink" title="关于—fake-initial和—fake"></a>关于—fake-initial和—fake</h1><h2 id="—fake-initial"><a href="#—fake-initial" class="headerlink" title="—fake-initial"></a>—fake-initial</h2><p>Allows Django to skip an app’s initial migration if all database tables with the names of all models created by all CreateModel operations in that migration already exist. This option is intended for use when first running migrations against a database that preexisted the use of migrations. This option does not, however, check for matching database schema beyond matching table names and so is only safe to use if you are confident that your existing schema matches what is recorded in your initial migration.</p>
+<h2 id="—fake"><a href="#—fake" class="headerlink" title="—fake"></a>—fake</h2><p>Marks the migrations up to the target one (following the rules above) as applied, but without actually running the SQL to change your database schema.</p>
+<p>This is intended for advanced users to manipulate the current migration state directly if they’re manually applying changes; be warned that using —fake runs the risk of putting the migration state table into a state where manual recovery will be needed to make migrations run correctly.</p>
+<h1 id="引用参考"><a href="#引用参考" class="headerlink" title="引用参考"></a>引用参考</h1><blockquote>
+<p><a href="https://blog.csdn.net/qq_25730711/article/details/60327344" target="_blank" rel="noopener">cdsn</a><br><a href="https://docs.djangoproject.com/en/2.2/topics/migrations/" target="_blank" rel="noopener">Django2.0官方文档</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Python</category>
@@ -595,26 +595,6 @@
 <p>&emsp;&emsp;注意：可以在任一个模型中定义ManyToManyField，但是不能两个都定义。<br>对于多对多关系，Django会在数据库中额外创建一张关系表，关系表的命名规则是：应用程序名_模型1名_模型2名s，在上例中生成的表名为app_employee_departments<br>访问方法（类似反向查询）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">d = Department.objects.get(id=3)</span><br><span class="line">d.Employee_set.all()</span><br></pre></td></tr></table></figure></p>
 <h2 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h2><p>&emsp;&emsp;使用OneToOneField表示一对一关系，第一个参数是模型名。这种关系用的少。</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Docker: Install on Windows10 (Home edition)</title>
-    <url>/2020/08/08/Docker-Install-on-Windows10-Home-edition/</url>
-    <content><![CDATA[<p>During the process of developing my OCR application on AWS, I needed to use container to build my project. However, Docker doesn’t support Windows10 (Home edition) perfectly. Using Docker toolbox can be a solution but I failed. So, I take this note to record the steps and mistakes I made to install Docker Desktop.</p>
-<h1 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h1><ol>
-<li><p>Generate a file <code>hyperv.cmd</code>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pushd &quot;%~dp0&quot;</span><br><span class="line"></span><br><span class="line">dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum &gt;hyper-v.txt</span><br><span class="line"></span><br><span class="line">for /f %%i in (&apos;findstr /i . hyper-v.txt 2^&gt;nul&apos;) do dism /online /norestart /add-package:&quot;%SystemRoot%\servicing\Packages\%%i&quot;</span><br><span class="line"></span><br><span class="line">del hyper-v.txt</span><br><span class="line"></span><br><span class="line">Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /ALL</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Run <code>hyperv.cmd</code> with administrator privileges and restart may be required.</p>
-</li>
-<li>Turn on Windows features Hyper-V (Control Panel: Turn Windows features on or off)<br><img src="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/reference/media/hyper_v_feature_screenshot.png" alt></li>
-<li>“Change” the edition of Windows<br>Here we don’t really change the edition, we just change the value in registery. Run Command Line with administrator privileges:<br><code>REG ADD &quot;HKEY_LOCAL_MACHINE\software\Microsoft\Windows NT\CurrentVersion&quot; /v EditionId /T REG_EXPAND_SZ /d Professional /F</code></li>
-<li>Download Docker on <a href="https://store.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">https://store.docker.com/editions/community/docker-ce-desktop-windows</a></li>
-</ol>
-<h1 id="Mistake"><a href="#Mistake" class="headerlink" title="Mistake"></a>Mistake</h1><p>Q. “Error with docker-compose: docker-credential-desktop not installed or not available in PATH”<br>A. There is an typo in the <code>~/.docker/config.json</code>:”credSstore” instead of “credsStore”. This is not an issue only happens to me because I found the solution on <a href="https://github.com/docker/for-mac/issues/3785" target="_blank" rel="noopener">Github</a>. Obviously, this typo exists not only Windows but also MacOS</p>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-      </tags>
   </entry>
   <entry>
     <title>HashMap面试题</title>
@@ -797,6 +777,26 @@
 ]]></content>
       <tags>
         <tag>HashMap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker: Install on Windows10 (Home edition)</title>
+    <url>/2020/08/08/Docker-Install-on-Windows10-Home-edition/</url>
+    <content><![CDATA[<p>During the process of developing my OCR application on AWS, I needed to use container to build my project. However, Docker doesn’t support Windows10 (Home edition) perfectly. Using Docker toolbox can be a solution but I failed. So, I take this note to record the steps and mistakes I made to install Docker Desktop.</p>
+<h1 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h1><ol>
+<li><p>Generate a file <code>hyperv.cmd</code>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pushd &quot;%~dp0&quot;</span><br><span class="line"></span><br><span class="line">dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum &gt;hyper-v.txt</span><br><span class="line"></span><br><span class="line">for /f %%i in (&apos;findstr /i . hyper-v.txt 2^&gt;nul&apos;) do dism /online /norestart /add-package:&quot;%SystemRoot%\servicing\Packages\%%i&quot;</span><br><span class="line"></span><br><span class="line">del hyper-v.txt</span><br><span class="line"></span><br><span class="line">Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /ALL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run <code>hyperv.cmd</code> with administrator privileges and restart may be required.</p>
+</li>
+<li>Turn on Windows features Hyper-V (Control Panel: Turn Windows features on or off)<br><img src="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/reference/media/hyper_v_feature_screenshot.png" alt></li>
+<li>“Change” the edition of Windows<br>Here we don’t really change the edition, we just change the value in registery. Run Command Line with administrator privileges:<br><code>REG ADD &quot;HKEY_LOCAL_MACHINE\software\Microsoft\Windows NT\CurrentVersion&quot; /v EditionId /T REG_EXPAND_SZ /d Professional /F</code></li>
+<li>Download Docker on <a href="https://store.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">https://store.docker.com/editions/community/docker-ce-desktop-windows</a></li>
+</ol>
+<h1 id="Mistake"><a href="#Mistake" class="headerlink" title="Mistake"></a>Mistake</h1><p>Q. “Error with docker-compose: docker-credential-desktop not installed or not available in PATH”<br>A. There is an typo in the <code>~/.docker/config.json</code>:”credSstore” instead of “credsStore”. This is not an issue only happens to me because I found the solution on <a href="https://github.com/docker/for-mac/issues/3785" target="_blank" rel="noopener">Github</a>. Obviously, this typo exists not only Windows but also MacOS</p>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -1029,18 +1029,6 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>Java: String</title>
-    <url>/2020/05/26/Java-String/</url>
-    <content><![CDATA[<h4 id="Q-Why-string-is-immutable-in-java"><a href="#Q-Why-string-is-immutable-in-java" class="headerlink" title="Q. Why string is immutable in java?"></a>Q. <strong><em>Why string is immutable in java?</em></strong></h4><p>The string is Immutable in Java because String objects are cached in String pool. Since cached String literals are shared between multiple clients there is always a risk, where one client’s action would affect all another client. </p>
-<p>Since string is immutable it can safely share between many threads and avoid any synchronization issues in java.</p>
-<h4 id="Q-What-is-Java-String-Pool"><a href="#Q-What-is-Java-String-Pool" class="headerlink" title="Q. What is Java String Pool?"></a>Q. <strong><em>What is Java String Pool?</em></strong></h4><p>String Pool in java is a pool of Strings stored in Java Heap Memory. String pool helps in saving a lot of space for Java Runtime although it takes more time to create the String.</p>
-<p>When we use double quotes to create a String, it first looks for String with the same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference. However using <strong>new</strong> operator, we force String class to create a new String object in heap space.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Java program to illustrate String Pool</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringPool</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"Java"</span>;</span><br><span class="line">        String s2 = <span class="string">"Java"</span>;</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"s1 == s2 :"</span> +(s1==s2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"s1 == s3 :"</span> +(s1==s3)); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java: Heap and Stack</title>
     <url>/2020/05/26/Java-Heap-and-Stack/</url>
     <content><![CDATA[<h4 id="Q-What-is-difference-between-Heap-and-Stack-Memory-in-java"><a href="#Q-What-is-difference-between-Heap-and-Stack-Memory-in-java" class="headerlink" title="Q. What is difference between Heap and Stack Memory in java?"></a>Q. <strong><em>What is difference between Heap and Stack Memory in java?</em></strong></h4><p><strong>Java Heap Space</strong>  </p>
@@ -1100,6 +1088,18 @@ public class TestFoo implements Foo {
 </table>
 </div>
 ]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java: String</title>
+    <url>/2020/05/26/Java-String/</url>
+    <content><![CDATA[<h4 id="Q-Why-string-is-immutable-in-java"><a href="#Q-Why-string-is-immutable-in-java" class="headerlink" title="Q. Why string is immutable in java?"></a>Q. <strong><em>Why string is immutable in java?</em></strong></h4><p>The string is Immutable in Java because String objects are cached in String pool. Since cached String literals are shared between multiple clients there is always a risk, where one client’s action would affect all another client. </p>
+<p>Since string is immutable it can safely share between many threads and avoid any synchronization issues in java.</p>
+<h4 id="Q-What-is-Java-String-Pool"><a href="#Q-What-is-Java-String-Pool" class="headerlink" title="Q. What is Java String Pool?"></a>Q. <strong><em>What is Java String Pool?</em></strong></h4><p>String Pool in java is a pool of Strings stored in Java Heap Memory. String pool helps in saving a lot of space for Java Runtime although it takes more time to create the String.</p>
+<p>When we use double quotes to create a String, it first looks for String with the same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference. However using <strong>new</strong> operator, we force String class to create a new String object in heap space.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Java program to illustrate String Pool</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringPool</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"Java"</span>;</span><br><span class="line">        String s2 = <span class="string">"Java"</span>;</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"s1 == s2 :"</span> +(s1==s2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"s1 == s3 :"</span> +(s1==s3)); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Java</tag>
       </tags>
@@ -1608,24 +1608,6 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>LeetCode: 1.Two Sum</title>
-    <url>/2019/09/20/LeetCode-1-Two-Sum/</url>
-    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i =0; i &lt;nums.length; i++)&#123;</span><br><span class="line">            hashMap.put(nums[i], i);</span><br><span class="line">            if(hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = i;</span><br><span class="line">                res[1] = hashMap.get(target-nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>When nums= [3, 3], target = 6，expected outcome is[0, 1]，but [1, 1].</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I was trying to store the array into a hashmap. Considering that hashmap can only get value from key, so I put the value of array at the place of K while incremental i is V.<br>Then reason why I was wrong was not considering the situation of repeated numbers. During the debugging I found that the size of hashMap is 1 when the nums=[3,3] which means key is unique in hashMap.</p>
-<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The key of making mistake is ignoring the situation of repeated numbers in array, so directely transform array into hashmap by reversing the index to value  is not feasible since the repeated numbers won’t be stored twice in hashmap as a key.</p>
-<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Given that the input would have exactly one solution, and the same element won’t be used twice, situation like multi-resolution and non-resolution will not be considered.<br>Because hashMap can get value by key, we still need hashmap to do this but in another way.<br>Instead of transforming the array into hashmap one time, I decide to use <code>hashMap.containskey(target-nums[i])</code> to search the hashmap, if returns false, then I put this number into the hashmap instead, otherwise we can get the right answer.<br>If the number is repeated but still cannot find the answer, then it means the resolution is not unique which doesn’t obey the rule of question. For example: nums = [3, 3, 6], target = 9. Obviously, the solution is not unique.</p>
-<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">            if (hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = hashMap.get(target - nums[i]);</span><br><span class="line">                res[1] = i;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                hashMap.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java：静态代码块、非静态代码块、构造函数以及Java类初始化顺序</title>
     <url>/2019/09/07/Java%EF%BC%9A%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97%E3%80%81%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8AJava%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/</url>
     <content><![CDATA[<h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>&emsp;&emsp;今天在做笔试题时遇到这样一个问题：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">        static Test t1 = new Test();</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockA&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        static</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(&quot;blockB&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void main(String[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Test t2 = new Test();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1657,6 +1639,24 @@ public class TestFoo implements Foo {
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode: 1.Two Sum</title>
+    <url>/2019/09/20/LeetCode-1-Two-Sum/</url>
+    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i =0; i &lt;nums.length; i++)&#123;</span><br><span class="line">            hashMap.put(nums[i], i);</span><br><span class="line">            if(hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = i;</span><br><span class="line">                res[1] = hashMap.get(target-nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>When nums= [3, 3], target = 6，expected outcome is[0, 1]，but [1, 1].</p>
+<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>I was trying to store the array into a hashmap. Considering that hashmap can only get value from key, so I put the value of array at the place of K while incremental i is V.<br>Then reason why I was wrong was not considering the situation of repeated numbers. During the debugging I found that the size of hashMap is 1 when the nums=[3,3] which means key is unique in hashMap.</p>
+<h1 id="How-Did-I-Correct-the-Code"><a href="#How-Did-I-Correct-the-Code" class="headerlink" title="How Did I Correct the Code"></a>How Did I Correct the Code</h1><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>The key of making mistake is ignoring the situation of repeated numbers in array, so directely transform array into hashmap by reversing the index to value  is not feasible since the repeated numbers won’t be stored twice in hashmap as a key.</p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Given that the input would have exactly one solution, and the same element won’t be used twice, situation like multi-resolution and non-resolution will not be considered.<br>Because hashMap can get value by key, we still need hashmap to do this but in another way.<br>Instead of transforming the array into hashmap one time, I decide to use <code>hashMap.containskey(target-nums[i])</code> to search the hashmap, if returns false, then I put this number into the hashmap instead, otherwise we can get the right answer.<br>If the number is repeated but still cannot find the answer, then it means the resolution is not unique which doesn’t obey the rule of question. For example: nums = [3, 3, 6], target = 9. Obviously, the solution is not unique.</p>
+<h2 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">        int[] res = new int[2];</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">            if (hashMap.containsKey(target-nums[i]))&#123;</span><br><span class="line">                res[0] = hashMap.get(target - nums[i]);</span><br><span class="line">                res[1] = i;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                hashMap.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1704,22 +1704,6 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>LeetCode:27.Remove Element</title>
-    <url>/2019/11/06/LeetCode-27-Remove-Element/</url>
-    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
-<p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
-<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>Same as the Question 26, change the array and only part of them is required.<br>Try the same thinking as Question 26.<br>Use two cursors, 1(int index) is for index and 1(int i) is for going through all the elements.<br>If only the nums[i] does not equal to the target value, put it at the nums[index]</p>
-<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int removeElement(int[] nums, int val) &#123;</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">            if (nums[i] != val) &#123;</span><br><span class="line">                nums[index++] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return index;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode:35.Search Insert Position</title>
     <url>/2019/11/06/LeetCode-35-Search-Insert-Position/</url>
     <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
@@ -1740,17 +1724,13 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>LeetCode:53.Maximum Subarray</title>
-    <url>/2019/11/06/LeetCode-53-Maximum-Subarray/</url>
-    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.</p>
-<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">    int sum = nums[0];</span><br><span class="line">    for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp = nums[i];</span><br><span class="line">        for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">            temp += nums[j];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Input [-2,1]<br>Output -1<br>Expected 1</p>
-<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>My program will stop entering the second layer loop when i = nums.length-1 which refer to the last digit. In this situation, when the sum has already been decided and cannot be changed anymore. So I have take this situation into account.</p>
-<h1 id="Correct-Code"><a href="#Correct-Code" class="headerlink" title="Correct Code"></a>Correct Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int sum = nums[0];</span><br><span class="line">        for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">            int temp = nums[i];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">                temp += nums[j];</span><br><span class="line">                if(temp&gt;sum)&#123;</span><br><span class="line">                    sum = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>Just take the situation into account and add another statement in the first layer loop</p>
-<h1 id="Better-Code"><a href="#Better-Code" class="headerlink" title="Better Code"></a>Better Code</h1><h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>Usually problem about optimization can be solved by dynamic programming. As for DP, the most important thing is finding the recursion within the problem.<br>In terms of this problem, we define the problem as <code>maxSubArray(int A[],int i)</code>. Assume we have the result of problem<code>maxSubArray(A, i-1)</code>, we can get a equation as:<br><code>maxSubArray(A,i) = maxSubArray(A,i-1)&gt;0?maxSubArray(A,i-1):0+A[i];</code><br>In short, if you know the solution of the maxSubArray which ends up with index i-1, there are two choices: 1. Start a new subarray from index i; 2. Expand the previous subarray with index i.</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int n = nums.length;</span><br><span class="line">        int res = nums[0];</span><br><span class="line">        int cmp = res;</span><br><span class="line">        for(int i = 1; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp = cmp;</span><br><span class="line">            res = Math.max(res+nums[i],nums[i]);</span><br><span class="line">            cmp = Math.max(res, temp);</span><br><span class="line">        &#125;</span><br><span class="line">        return cmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>res: biggest value if subarray ends up with nums[i]<br>cmp: biggest value so far</p>
+    <title>LeetCode:27.Remove Element</title>
+    <url>/2019/11/06/LeetCode-27-Remove-Element/</url>
+    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>Same as the Question 26, change the array and only part of them is required.<br>Try the same thinking as Question 26.<br>Use two cursors, 1(int index) is for index and 1(int i) is for going through all the elements.<br>If only the nums[i] does not equal to the target value, put it at the nums[index]</p>
+<h1 id="Right-Code"><a href="#Right-Code" class="headerlink" title="Right Code"></a>Right Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int removeElement(int[] nums, int val) &#123;</span><br><span class="line">        int index = 0;</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">            if (nums[i] != val) &#123;</span><br><span class="line">                nums[index++] = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return index;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -1771,6 +1751,26 @@ public class TestFoo implements Foo {
 <li>空间复杂度：最坏情况下需要空间O(n)，平均情况为O(logn)。</li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode:53.Maximum Subarray</title>
+    <url>/2019/11/06/LeetCode-53-Maximum-Subarray/</url>
+    <content><![CDATA[<h1 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h1><p>Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.</p>
+<h1 id="Wrong-Code"><a href="#Wrong-Code" class="headerlink" title="Wrong Code"></a>Wrong Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">    int sum = nums[0];</span><br><span class="line">    for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">        int temp = nums[i];</span><br><span class="line">        for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">            temp += nums[j];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Error-Information"><a href="#Error-Information" class="headerlink" title="Error Information"></a>Error Information</h2><p>Input [-2,1]<br>Output -1<br>Expected 1</p>
+<h2 id="Wrong-Thinking"><a href="#Wrong-Thinking" class="headerlink" title="Wrong Thinking"></a>Wrong Thinking</h2><p>My program will stop entering the second layer loop when i = nums.length-1 which refer to the last digit. In this situation, when the sum has already been decided and cannot be changed anymore. So I have take this situation into account.</p>
+<h1 id="Correct-Code"><a href="#Correct-Code" class="headerlink" title="Correct Code"></a>Correct Code</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int sum = nums[0];</span><br><span class="line">        for (int i=0; i&lt;nums.length;i++)&#123;</span><br><span class="line">            int temp = nums[i];</span><br><span class="line">            if(temp&gt;sum)&#123;</span><br><span class="line">                sum = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            for (int j=i+1; j&lt;nums.length; j++)&#123;</span><br><span class="line">                temp += nums[j];</span><br><span class="line">                if(temp&gt;sum)&#123;</span><br><span class="line">                    sum = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>Just take the situation into account and add another statement in the first layer loop</p>
+<h1 id="Better-Code"><a href="#Better-Code" class="headerlink" title="Better Code"></a>Better Code</h1><h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>Usually problem about optimization can be solved by dynamic programming. As for DP, the most important thing is finding the recursion within the problem.<br>In terms of this problem, we define the problem as <code>maxSubArray(int A[],int i)</code>. Assume we have the result of problem<code>maxSubArray(A, i-1)</code>, we can get a equation as:<br><code>maxSubArray(A,i) = maxSubArray(A,i-1)&gt;0?maxSubArray(A,i-1):0+A[i];</code><br>In short, if you know the solution of the maxSubArray which ends up with index i-1, there are two choices: 1. Start a new subarray from index i; 2. Expand the previous subarray with index i.</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public int maxSubArray(int[] nums) &#123;</span><br><span class="line">        int n = nums.length;</span><br><span class="line">        int res = nums[0];</span><br><span class="line">        int cmp = res;</span><br><span class="line">        for(int i = 1; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp = cmp;</span><br><span class="line">            res = Math.max(res+nums[i],nums[i]);</span><br><span class="line">            cmp = Math.max(res, temp);</span><br><span class="line">        &#125;</span><br><span class="line">        return cmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>res: biggest value if subarray ends up with nums[i]<br>cmp: biggest value so far</p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
       <tags>
         <tag>LeetCode</tag>
       </tags>
@@ -1849,6 +1849,27 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
+    <title>MyBatis:collection</title>
+    <url>/2020/04/11/MyBatis-collection/</url>
+    <content><![CDATA[<p>和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
+<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
+<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>根据teacher的id查出老师手下的所有学生</p>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select t.name tname, s.id sid, s.name sname</span><br><span class="line">from teacher t, student s</span><br><span class="line">where t.id=s.tid and t.id=#&#123;tid&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int tid;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private List&lt;Student&gt; students;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>与association的要求不同，此处的要求是根据老师的id属性去查询学生，因此构建实体类时也需要变化。</p>
+<h2 id="接口类"><a href="#接口类" class="headerlink" title="接口类"></a>接口类</h2><p>用了@Param(“tid”)后，xml中的输入也要注意用tid，xml中会进一步解释。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface TeacherMapper &#123;</span><br><span class="line">    Teacher getTeacher(@Param(&quot;tid&quot;) int id);</span><br><span class="line">    Teacher getTeacher2(@Param(&quot;tid&quot;) int id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="TeacherMapper-xml"><a href="#TeacherMapper-xml" class="headerlink" title="TeacherMapper.xml"></a>TeacherMapper.xml</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先根据输入的id查询老师，然后从根据tid查询出学生<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher&quot; resultMap=&quot;TeacherStudent&quot; &gt;</span><br><span class="line">&lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; column=&quot;id&quot; javaType=&quot;ArrayList&quot; ofType=&quot;Student&quot; select=&quot;getStudentByTeacherID&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getStudentByTeacherID&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select * from student where tid=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>此方法需要注意的是collection标签中的column对应的是Teacher类中的id属性（注意resultMap的type是Teacher），javaType应该写ArrayList，因为student属性是一个集合，ofType用于获取集合中的泛型。</p>
+<h3 id="结果集嵌套查询"><a href="#结果集嵌套查询" class="headerlink" title="结果集嵌套查询"></a>结果集嵌套查询</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher2&quot; resultMap=&quot;TeacherStudent2&quot;&gt;</span><br><span class="line">    select t.name tname, s.id sid, s.name sname</span><br><span class="line">    from teacher t, student s</span><br><span class="line">    &lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    where t.id=s.tid and t.id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent2&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;!-- 集合中泛型的信息，用ofType获取 --&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; ofType=&quot;Student&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;tid&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;/collection&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
+<p>同association，先查询出结果，然后再用resultMap进行说明。</p>
+]]></content>
+      <tags>
+        <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MyBatis:resultMap</title>
     <url>/2020/01/22/MyBatis-resultMap/</url>
     <content><![CDATA[<h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>之前学习所用到的代码相关内容如下：</p>
@@ -1905,27 +1926,6 @@ public class TestFoo implements Foo {
     <url>/2020/04/08/MyBatis-%E5%88%86%E9%A1%B5/</url>
     <content><![CDATA[<h1 id="用Limit控制分页"><a href="#用Limit控制分页" class="headerlink" title="用Limit控制分页"></a>用Limit控制分页</h1><p>UserMapper.xml:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;getUserByLimit&quot; parameterType=&quot;map&quot; resultType=&quot;User&quot;&gt;</span><br><span class="line">    select * from user limit #&#123;startIndex&#125;,#&#123;pageSize&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Test.java:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">   public void getUserByLimit() &#123;</span><br><span class="line">       SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">       UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">       Map&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();</span><br><span class="line">       map.put(&quot;startIndex&quot;,1);</span><br><span class="line">       map.put(&quot;pageSize&quot;,2);</span><br><span class="line">       List&lt;User&gt; userByLimit = mapper.getUserByLimit(map);</span><br><span class="line">       for (User user : userByLimit) &#123;</span><br><span class="line">           System.out.println(user);</span><br><span class="line">       &#125;</span><br><span class="line">       sqlSession.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>MyBatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MyBatis:collection</title>
-    <url>/2020/04/11/MyBatis-collection/</url>
-    <content><![CDATA[<p>和association一样，collection用于处理复杂关系。不同的是association用于映射单个对象，而collection用于映射集合对象。</p>
-<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>创建student表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE `student` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     `tid` INT(10) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`),</span><br><span class="line">     KEY `fktid` (`tid`),</span><br><span class="line">     CONSTRAINT `fktid` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`)</span><br><span class="line">     ) ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<p>创建teacher表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE `teacher` (</span><br><span class="line">     `id` INT(10) NOT NULL,</span><br><span class="line">     `name` VARCHAR(30) DEFAULT NULL,</span><br><span class="line">     PRIMARY KEY (`id`)</span><br><span class="line">     )ENGINE=INNODB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure></p>
-<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>根据teacher的id查出老师手下的所有学生</p>
-<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select t.name tname, s.id sid, s.name sname</span><br><span class="line">from teacher t, student s</span><br><span class="line">where t.id=s.tid and t.id=#&#123;tid&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="MyBatis实现"><a href="#MyBatis实现" class="headerlink" title="MyBatis实现"></a>MyBatis实现</h1><h2 id="实体类-pojo"><a href="#实体类-pojo" class="headerlink" title="实体类(pojo)"></a>实体类(pojo)</h2><p>Student.java:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private int tid;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Teacher.java:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Teacher &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line">    private List&lt;Student&gt; students;</span><br><span class="line">    &lt;!-- getter,setter,toString --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>与association的要求不同，此处的要求是根据老师的id属性去查询学生，因此构建实体类时也需要变化。</p>
-<h2 id="接口类"><a href="#接口类" class="headerlink" title="接口类"></a>接口类</h2><p>用了@Param(“tid”)后，xml中的输入也要注意用tid，xml中会进一步解释。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface TeacherMapper &#123;</span><br><span class="line">    Teacher getTeacher(@Param(&quot;tid&quot;) int id);</span><br><span class="line">    Teacher getTeacher2(@Param(&quot;tid&quot;) int id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="TeacherMapper-xml"><a href="#TeacherMapper-xml" class="headerlink" title="TeacherMapper.xml"></a>TeacherMapper.xml</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>先根据输入的id查询老师，然后从根据tid查询出学生<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher&quot; resultMap=&quot;TeacherStudent&quot; &gt;</span><br><span class="line">&lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    select * from teacher where id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; column=&quot;id&quot; javaType=&quot;ArrayList&quot; ofType=&quot;Student&quot; select=&quot;getStudentByTeacherID&quot;/&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;getStudentByTeacherID&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select * from student where tid=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此方法需要注意的是collection标签中的column对应的是Teacher类中的id属性（注意resultMap的type是Teacher），javaType应该写ArrayList，因为student属性是一个集合，ofType用于获取集合中的泛型。</p>
-<h3 id="结果集嵌套查询"><a href="#结果集嵌套查询" class="headerlink" title="结果集嵌套查询"></a>结果集嵌套查询</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;getTeacher2&quot; resultMap=&quot;TeacherStudent2&quot;&gt;</span><br><span class="line">    select t.name tname, s.id sid, s.name sname</span><br><span class="line">    from teacher t, student s</span><br><span class="line">    &lt;!-- id=#&#123;tid&#125;意为接受参数 --&gt;</span><br><span class="line">    where t.id=s.tid and t.id=#&#123;tid&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap id=&quot;TeacherStudent2&quot; type=&quot;Teacher&quot;&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;tname&quot;/&gt;</span><br><span class="line">    &lt;result property=&quot;id&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;!-- 集合中泛型的信息，用ofType获取 --&gt;</span><br><span class="line">    &lt;collection property=&quot;students&quot; ofType=&quot;Student&quot;&gt;</span><br><span class="line">        &lt;result property=&quot;id&quot; column=&quot;sid&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;name&quot; column=&quot;sname&quot;/&gt;</span><br><span class="line">        &lt;result property=&quot;tid&quot; column=&quot;tid&quot;/&gt;</span><br><span class="line">    &lt;/collection&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
-<p>同association，先查询出结果，然后再用resultMap进行说明。</p>
 ]]></content>
       <tags>
         <tag>MyBatis</tag>
@@ -2365,21 +2365,6 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>Spring Boot学习笔记(一)</title>
-    <url>/2020/01/19/Spring-Boot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
-    <content><![CDATA[<h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><ol>
-<li>新建一个Module-&gt;Spring Initializr</li>
-<li>Dependencies: Spring Web, JDBC API, MyBatis Framework, MySQL Driver</li>
-<li><code>pom.xml</code> 文件中已经把依赖配置好了</li>
-</ol>
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>application.properties<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port=8080  // 服务端口</span><br><span class="line"></span><br><span class="line"># jdbc</span><br><span class="line">spring.datasource.password=pwd // 数据库密码</span><br><span class="line">spring.datasource.username=root // 数据库用户</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&amp;serverTimezone=GMT-5 // 数据库url记得要在3306后面写数据库的名字，serverTimezone也要手动设置，不然可能会报错</span><br><span class="line"></span><br><span class="line"># mybatis</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*Mapper.xml  // 读取mapper目录下所有以Mapper.xml结尾的文件，即映射器文件的位置</span><br><span class="line">mybatis.configuration.map-underscore-to-camel-case=true // MySQL一般定义字段用下划线表示，该配置项就是指将带有下划线的表字段映射为驼峰格式的实体类属性</span><br></pre></td></tr></table></figure></p>
-<h1 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h1><p>controller层负责具体的业务模块流程的控制，在此层要调用service层的接口实现业务逻辑</p>
-<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><p>服务是一个相对独立的功能模块，主要负责业务逻辑应用设计。首先也要设计接口，然后再设计其实现该接口的类。这样我们就可以在应用中调用service接口进行业务处理。service层业务实现，具体调用到已经定义的Mapper的接口，封装service层的业务逻辑有利于通用的业务逻辑的独立性和重复利用性 。</p>
-<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p>通常我们在mapper层里面写接口，里面有与数据打交道的方法。SQL语句通常写在mapper文件里面的</p>
-<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p>bean实体类，映射数据库中的表，里面有表的属性以及get/set方法</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Spring: Factory Pattern</title>
     <url>/2020/06/27/Spring-Factory-Pattern/</url>
     <content><![CDATA[<p>Simple factory:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class BeanFactory &#123;</span><br><span class="line">    private static Properties env = new Properties();</span><br><span class="line">    </span><br><span class="line">    static&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //Step 1: get IO Stream</span><br><span class="line">            InputStream inputStream = BeanFactory.class.getResourceAsStream(&quot;/applicationContext.properties&quot;);</span><br><span class="line">            //Step 2: load() method reads a property list (key and element pairs) from the input byte stream.</span><br><span class="line">            env.load(inputStream);</span><br><span class="line">            //Stream source doesn&apos;t belong to JVM, so it can&apos;t be handled by GC and needs to be closed mannualy</span><br><span class="line">            inputStream.close();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /*</span><br><span class="line">        Way to initial an object:</span><br><span class="line">            1. Constructor: UserService userService = new UserServiceImpl();</span><br><span class="line">            2. Refelction: This method can loose coupling</span><br><span class="line">                    Class clazz = Class.forName(&quot;com.baizhiedu.basic.UserServiceImpl&quot;);</span><br><span class="line">	                UserService userService = (UserService)clazz.newInstance();</span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    public static UserService getUserService() &#123;</span><br><span class="line">        UserService userService = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class clazz = Class.forName(env.getProperty(&quot;userService&quot;));</span><br><span class="line">            userService = (UserService) clazz.newInstance();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return userService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static UserDAO getUserDAO()&#123;</span><br><span class="line">        UserDAO userDAO = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class clazz = Class.forName(env.getProperty(&quot;userDAO&quot;));</span><br><span class="line">            userDAO = (UserDAO) clazz.newInstance();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return userDAO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -2437,6 +2422,32 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
+    <title>Spring Boot学习笔记(一)</title>
+    <url>/2020/01/19/Spring-Boot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
+    <content><![CDATA[<h1 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h1><ol>
+<li>新建一个Module-&gt;Spring Initializr</li>
+<li>Dependencies: Spring Web, JDBC API, MyBatis Framework, MySQL Driver</li>
+<li><code>pom.xml</code> 文件中已经把依赖配置好了</li>
+</ol>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>application.properties<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port=8080  // 服务端口</span><br><span class="line"></span><br><span class="line"># jdbc</span><br><span class="line">spring.datasource.password=pwd // 数据库密码</span><br><span class="line">spring.datasource.username=root // 数据库用户</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&amp;serverTimezone=GMT-5 // 数据库url记得要在3306后面写数据库的名字，serverTimezone也要手动设置，不然可能会报错</span><br><span class="line"></span><br><span class="line"># mybatis</span><br><span class="line">mybatis.mapper-locations=classpath:mapper/*Mapper.xml  // 读取mapper目录下所有以Mapper.xml结尾的文件，即映射器文件的位置</span><br><span class="line">mybatis.configuration.map-underscore-to-camel-case=true // MySQL一般定义字段用下划线表示，该配置项就是指将带有下划线的表字段映射为驼峰格式的实体类属性</span><br></pre></td></tr></table></figure></p>
+<h1 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h1><p>controller层负责具体的业务模块流程的控制，在此层要调用service层的接口实现业务逻辑</p>
+<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><p>服务是一个相对独立的功能模块，主要负责业务逻辑应用设计。首先也要设计接口，然后再设计其实现该接口的类。这样我们就可以在应用中调用service接口进行业务处理。service层业务实现，具体调用到已经定义的Mapper的接口，封装service层的业务逻辑有利于通用的业务逻辑的独立性和重复利用性 。</p>
+<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p>通常我们在mapper层里面写接口，里面有与数据打交道的方法。SQL语句通常写在mapper文件里面的</p>
+<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p>bean实体类，映射数据库中的表，里面有表的属性以及get/set方法</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Spring Note 3</title>
+    <url>/2020/03/28/Spring-Note-3/</url>
+    <content><![CDATA[<h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?</p>
+<p>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.</p>
+<p>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
+]]></content>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Note 1: p-namespace &amp; c-namespace</title>
     <url>/2020/01/01/Spring-Note-1-p-namespace-c-namespace/</url>
     <content><![CDATA[<h1 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h1><p>As we already know, we can define bean properties and constructor arguments as references to other managed beans or as values defined inline.<br>Spring supports extensible configuration formats with namespaces, which are based on an XML Schema definition.</p>
@@ -2455,6 +2466,24 @@ public class TestFoo implements Foo {
 <p>equals to:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id=&quot;user2&quot; class=&quot;com.xliu.pojo.User&quot;&gt;</span><br><span class="line">    &lt;constructor-arg name=&quot;age&quot; value=&quot;19&quot;/&gt;</span><br><span class="line">    &lt;constructor-arg name=&quot;name&quot; value=&quot;xliu&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Same, the constructor is defined.</p>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>Both p-namespace and c-namespace can be replaced by either<code>&lt;property&gt;</code>or<code>&lt;constructor-arg&gt;</code>, they are more elegant alternatives.</p>
+]]></content>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Note 4: 第一个程序</title>
+    <url>/2020/03/28/Spring-Note-4-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="XML文件模板"><a href="#XML文件模板" class="headerlink" title="XML文件模板"></a>XML文件模板</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;  </span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;</span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- more bean definitions go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="使用Spring来创建对象"><a href="#使用Spring来创建对象" class="headerlink" title="使用Spring来创建对象"></a>使用Spring来创建对象</h1><p>在Spring中，通过配置文件<code>beans.xml</code>来创建对象，通常来说一个类对应一个bean。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;com.xliu.dao.UserDaoImpl&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;userDaoMysql&quot; class=&quot;com.xliu.dao.UserDaoMysqlImpl&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;userServiceImpl&quot; class=&quot;com.xliu.service.UserServiceImpl&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;userDao&quot; ref=&quot;userDaoMysql&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>id = 变量名</p>
+<p>class = new的对象</p>
+<p>property相当于给对象中的属性设置一个值,只要有一个属性，就写一个<property>来赋值</property></p>
+<p>因为在com.xliu.service.UserServiceImpl这个类中，有setUserDao这个方法，因此name=”userDao”, ref=”userDaoMysql”代表的是创建对象的类，ref的值对应bean的id。</p>
+<h1 id="MyTest"><a href="#MyTest" class="headerlink" title="MyTest"></a>MyTest</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.xliu.dao.UserDao;</span><br><span class="line">import com.xliu.dao.UserDaoImpl;</span><br><span class="line">import com.xliu.dao.UserDaoMysqlImpl;</span><br><span class="line">import com.xliu.service.UserService;</span><br><span class="line">import com.xliu.service.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class Mytest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">//        获取Spring的上下文对象</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">//        我们的对象现在都在Spring中管理了，我们要使用，直接去里面取出来就可以了</span><br><span class="line">        UserServiceImpl userService = (UserServiceImpl) context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：<code>MySQL获取用户数据</code></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>如果需要使用别的UserDao实现类，只需要在配置文件中改ref的值，例如<code>ref=&quot;userDao&quot;</code>，即可输出<code>获取用户数据</code></p>
 ]]></content>
       <tags>
         <tag>Spring</tag>
@@ -2488,35 +2517,6 @@ public class TestFoo implements Foo {
 <p>Turn on the support for annotaion in xml:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;context:annotation-config/&gt;</span><br></pre></td></tr></table></figure></p>
 <p>With such configuration, many lines can be omitted, we only need:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id=&quot;people&quot; class=&quot;com.xliu.pojo.People&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
 <p>So, this method is based on byType</p>
-]]></content>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Note 4: 第一个程序</title>
-    <url>/2020/03/28/Spring-Note-4-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="XML文件模板"><a href="#XML文件模板" class="headerlink" title="XML文件模板"></a>XML文件模板</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;  </span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;...&quot; class=&quot;...&quot;&gt;</span><br><span class="line">        &lt;!-- collaborators and configuration for this bean go here --&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- more bean definitions go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="使用Spring来创建对象"><a href="#使用Spring来创建对象" class="headerlink" title="使用Spring来创建对象"></a>使用Spring来创建对象</h1><p>在Spring中，通过配置文件<code>beans.xml</code>来创建对象，通常来说一个类对应一个bean。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;com.xliu.dao.UserDaoImpl&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;userDaoMysql&quot; class=&quot;com.xliu.dao.UserDaoMysqlImpl&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=&quot;userServiceImpl&quot; class=&quot;com.xliu.service.UserServiceImpl&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;userDao&quot; ref=&quot;userDaoMysql&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<p>id = 变量名</p>
-<p>class = new的对象</p>
-<p>property相当于给对象中的属性设置一个值,只要有一个属性，就写一个<property>来赋值</property></p>
-<p>因为在com.xliu.service.UserServiceImpl这个类中，有setUserDao这个方法，因此name=”userDao”, ref=”userDaoMysql”代表的是创建对象的类，ref的值对应bean的id。</p>
-<h1 id="MyTest"><a href="#MyTest" class="headerlink" title="MyTest"></a>MyTest</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.xliu.dao.UserDao;</span><br><span class="line">import com.xliu.dao.UserDaoImpl;</span><br><span class="line">import com.xliu.dao.UserDaoMysqlImpl;</span><br><span class="line">import com.xliu.service.UserService;</span><br><span class="line">import com.xliu.service.UserServiceImpl;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class Mytest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">//        获取Spring的上下文对象</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">//        我们的对象现在都在Spring中管理了，我们要使用，直接去里面取出来就可以了</span><br><span class="line">        UserServiceImpl userService = (UserServiceImpl) context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.getUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出：<code>MySQL获取用户数据</code></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>如果需要使用别的UserDao实现类，只需要在配置文件中改ref的值，例如<code>ref=&quot;userDao&quot;</code>，即可输出<code>获取用户数据</code></p>
-]]></content>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Note 3</title>
-    <url>/2020/03/28/Spring-Note-3/</url>
-    <content><![CDATA[<h1 id="UserDao-userdao-new-UserDaoImpl"><a href="#UserDao-userdao-new-UserDaoImpl" class="headerlink" title="UserDao userdao = new UserDaoImpl();"></a>UserDao userdao = new UserDaoImpl();</h1><p>UserDao is an interface class, UserDaoImpl is its implementation class. This code can also be replaced by <code>UserDaoImpl userdaoimpl = new UserDaoImpl()</code>, but why we don’t do so?</p>
-<p>This is about the polymorphism. Knowing an interface can be implemented many times, imaging another implementation is provided and will be used, we name it <code>UserDaoMySQLImpl</code>. If I want to call this class in service layer, I have to rewrite as <code>userDaoMySQLImpl userdaomysqlimpl = new UserDaoMySQLImpl()</code>. If I use the code <code>UserDao userdao = new UserDaoImpl()</code>, I only have to change the <code>new UserDaoImpl()</code> to <code>new UserDaoMySQLImpl()</code>.</p>
-<p>After comparing these two codes, I can easily find the use of interface and can feel the sense of polymorphism.</p>
 ]]></content>
       <tags>
         <tag>Spring</tag>
@@ -2647,6 +2647,38 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
+    <title>Spring REST 3: REST over HTTP</title>
+    <url>/2020/07/25/Spring-REST-3-REST-over-HTTP/</url>
+    <content><![CDATA[<ul>
+<li>Leverage HTTP methods for CRUD operations<br>|Http Method|CRUD Operation|<br>| ——      | ——         |<br>|POST|Create a new entity|<br>|GET|Read a list of entities or single entity|<br>|PUT|Update an existing entity|<br>|DELETE|Delete an existing entity|</li>
+</ul>
+<h1 id="HTTP-Messages"><a href="#HTTP-Messages" class="headerlink" title="HTTP Messages"></a>HTTP Messages</h1><p>Client seds HTTP Request Message to Server then Server sends HTTP Response Message to Client.</p>
+<h2 id="HTTP-Request-Message"><a href="#HTTP-Request-Message" class="headerlink" title="HTTP Request Message"></a>HTTP Request Message</h2><ul>
+<li>Request line: the HTTP command<ul>
+<li>get method / post method</li>
+</ul>
+</li>
+<li>Header variables: request metadata<ul>
+<li>basic information of request</li>
+</ul>
+</li>
+<li>Message body: contents of message<h2 id="HTTP-Response-Message"><a href="#HTTP-Response-Message" class="headerlink" title="HTTP Response Message"></a>HTTP Response Message</h2></li>
+<li>Request line: server protocol and status code<ul>
+<li>200/404/500</li>
+</ul>
+</li>
+<li>Header variables: response metadata<ul>
+<li>content type of data(xml/JSON/…)</li>
+</ul>
+</li>
+<li>Message body: contents of message</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Spring REST</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring REST 2: POJO JSON Conversion</title>
     <url>/2020/07/25/Spring-REST-2-POJO-JSON-Conversion/</url>
     <content><![CDATA[<h1 id="Spring-and-Jackson-Support"><a href="#Spring-and-Jackson-Support" class="headerlink" title="Spring and Jackson Support"></a>Spring and Jackson Support</h1><ul>
@@ -2683,38 +2715,6 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
-    <title>Spring REST 3: REST over HTTP</title>
-    <url>/2020/07/25/Spring-REST-3-REST-over-HTTP/</url>
-    <content><![CDATA[<ul>
-<li>Leverage HTTP methods for CRUD operations<br>|Http Method|CRUD Operation|<br>| ——      | ——         |<br>|POST|Create a new entity|<br>|GET|Read a list of entities or single entity|<br>|PUT|Update an existing entity|<br>|DELETE|Delete an existing entity|</li>
-</ul>
-<h1 id="HTTP-Messages"><a href="#HTTP-Messages" class="headerlink" title="HTTP Messages"></a>HTTP Messages</h1><p>Client seds HTTP Request Message to Server then Server sends HTTP Response Message to Client.</p>
-<h2 id="HTTP-Request-Message"><a href="#HTTP-Request-Message" class="headerlink" title="HTTP Request Message"></a>HTTP Request Message</h2><ul>
-<li>Request line: the HTTP command<ul>
-<li>get method / post method</li>
-</ul>
-</li>
-<li>Header variables: request metadata<ul>
-<li>basic information of request</li>
-</ul>
-</li>
-<li>Message body: contents of message<h2 id="HTTP-Response-Message"><a href="#HTTP-Response-Message" class="headerlink" title="HTTP Response Message"></a>HTTP Response Message</h2></li>
-<li>Request line: server protocol and status code<ul>
-<li>200/404/500</li>
-</ul>
-</li>
-<li>Header variables: response metadata<ul>
-<li>content type of data(xml/JSON/…)</li>
-</ul>
-</li>
-<li>Message body: contents of message</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Spring REST</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring REST 4: @RestController</title>
     <url>/2020/07/25/Spring-REST-4-RestController/</url>
     <content><![CDATA[<p><em>@Restcontroller</em></p>
@@ -2727,6 +2727,31 @@ public class TestFoo implements Foo {
 <h2 id="All-Java-Config-Servlet-Initializer"><a href="#All-Java-Config-Servlet-Initializer" class="headerlink" title="All Java Config: Servlet Initializer"></a>All Java Config: Servlet Initializer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpringMvcDispatcherServletInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class[]&#123;DemoAppConfig.class&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;<span class="string">"/"</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Create-Spring-REST-Service-using-RestController"><a href="#Create-Spring-REST-Service-using-RestController" class="headerlink" title="Create Spring REST Service using @RestController"></a>Create Spring REST Service using @RestController</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoRestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Address: <a href="http://localhost:8080/test/hello" target="_blank" rel="noopener">http://localhost:8080/test/hello</a></p>
+]]></content>
+      <tags>
+        <tag>Spring REST</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring REST 5: @PathVariable</title>
+    <url>/2020/07/25/Spring-REST-5-PathVariable/</url>
+    <content><![CDATA[<p>Previously, we used @RestController to handle the REST request to get the list of students(<a href="http://localhost:8080/api/students" target="_blank" rel="noopener">http://localhost:8080/api/students</a>).<br>Now, assume we have a list of students, and the client only wants the first one. So we need to retrieve a single student by id: api/getStudentById/{studentId}</p>
+<h1 id="Behind-the-scenes"><a href="#Behind-the-scenes" class="headerlink" title="Behind the scenes"></a>Behind the scenes</h1><ol>
+<li>We’ll make a request across for /api/students/{studentId}</li>
+<li>We’ll have Spring REST along with Jackson and they’ll make a call to the REST service</li>
+<li>In our code, we’ll actually return that given student</li>
+<li>Jackson will actually convert that student object or that student POJO to JSON and then send it back across to the REST client<h1 id="Development-Process"><a href="#Development-Process" class="headerlink" title="Development Process"></a>Development Process</h1></li>
+</ol>
+<ul>
+<li><p>Add request mapping to Spring REST Service</p>
+<ul>
+<li>Bind path variable to method parameter using @PathVariable<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getStudentById/&#123;studentId&#125;"</span>)</span><br><span class="line">    &lt;!-- <span class="function">the parameter should be the same as the content in the <span class="title">bracket</span><span class="params">(studentId)</span> --&gt;</span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> Student <span class="title">getStudentById</span><span class="params">(@PathVariable <span class="keyword">int</span> studentId)</span> </span>&#123;</span><br><span class="line">    List&lt;Student&gt; theStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Poornima"</span>,<span class="string">"Patel"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mario"</span>,<span class="string">"Rossi"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mary"</span>,<span class="string">"Smith"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> theStudents.get(studentId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Test<br>Postman:<br>GET:<a href="http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1" target="_blank" rel="noopener">http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1</a></p>
+</li>
+</ul>
 ]]></content>
       <tags>
         <tag>Spring REST</tag>
@@ -2752,31 +2777,6 @@ public class TestFoo implements Foo {
 <li>Select ‘JSON’</li>
 <li>Input data in JSON fashion</li>
 <li>Send request</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Spring REST</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring REST 5: @PathVariable</title>
-    <url>/2020/07/25/Spring-REST-5-PathVariable/</url>
-    <content><![CDATA[<p>Previously, we used @RestController to handle the REST request to get the list of students(<a href="http://localhost:8080/api/students" target="_blank" rel="noopener">http://localhost:8080/api/students</a>).<br>Now, assume we have a list of students, and the client only wants the first one. So we need to retrieve a single student by id: api/getStudentById/{studentId}</p>
-<h1 id="Behind-the-scenes"><a href="#Behind-the-scenes" class="headerlink" title="Behind the scenes"></a>Behind the scenes</h1><ol>
-<li>We’ll make a request across for /api/students/{studentId}</li>
-<li>We’ll have Spring REST along with Jackson and they’ll make a call to the REST service</li>
-<li>In our code, we’ll actually return that given student</li>
-<li>Jackson will actually convert that student object or that student POJO to JSON and then send it back across to the REST client<h1 id="Development-Process"><a href="#Development-Process" class="headerlink" title="Development Process"></a>Development Process</h1></li>
-</ol>
-<ul>
-<li><p>Add request mapping to Spring REST Service</p>
-<ul>
-<li>Bind path variable to method parameter using @PathVariable<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getStudentById/&#123;studentId&#125;"</span>)</span><br><span class="line">    &lt;!-- <span class="function">the parameter should be the same as the content in the <span class="title">bracket</span><span class="params">(studentId)</span> --&gt;</span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> Student <span class="title">getStudentById</span><span class="params">(@PathVariable <span class="keyword">int</span> studentId)</span> </span>&#123;</span><br><span class="line">    List&lt;Student&gt; theStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Poornima"</span>,<span class="string">"Patel"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mario"</span>,<span class="string">"Rossi"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mary"</span>,<span class="string">"Smith"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> theStudents.get(studentId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Test<br>Postman:<br>GET:<a href="http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1" target="_blank" rel="noopener">http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1</a></p>
-</li>
 </ul>
 ]]></content>
       <tags>
@@ -2866,6 +2866,18 @@ public class TestFoo implements Foo {
       </tags>
   </entry>
   <entry>
+    <title>Spring Security 6: Customize Access Denied Page</title>
+    <url>/2020/07/24/Spring-Security-6-Customize-Access-Denied-Page/</url>
+    <content><![CDATA[<p>Since we don’t want the default access denied page, we can create a customized one.</p>
+<h1 id="Update-DemoSecurityConfig"><a href="#Update-DemoSecurityConfig" class="headerlink" title="Update DemoSecurityConfig"></a>Update DemoSecurityConfig</h1><p>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>).hasRole(<span class="string">"EMPLOYEE"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/leaders/**"</span>).hasRole(<span class="string">"MANAGER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admins/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll()</span><br><span class="line">                <span class="comment">// new added</span></span><br><span class="line">                .and()</span><br><span class="line">                <span class="comment">// "/access-denied" needs a new controller</span></span><br><span class="line">                .exceptionHandling().accessDeniedPage(<span class="string">"/access-denied"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Update-LoginController"><a href="#Update-LoginController" class="headerlink" title="Update LoginController"></a>Update LoginController</h1><p>LoginController.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/access-denied"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">accessDenied</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"access-denied"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Create-page-access-denied"><a href="#Create-page-access-denied" class="headerlink" title="Create page /access-denied"></a>Create page /access-denied</h1><p>Skip</p>
+]]></content>
+      <tags>
+        <tag>Spring Security</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Security 5: Restric Access</title>
     <url>/2020/07/24/Spring-Security-5-Restric-Access/</url>
     <content><![CDATA[<h1 id="Create-supporting-controller-code-and-view-pages"><a href="#Create-supporting-controller-code-and-view-pages" class="headerlink" title="Create supporting controller code and view pages"></a>Create supporting controller code and view pages</h1><ul>
@@ -2879,28 +2891,6 @@ public class TestFoo implements Foo {
 <p>or<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Any role in the list, comma-delimited list. E.g. "ADMIN","DEVELOPER","VIP","PLATINUM"</span></span><br><span class="line">    .antMatchers(&lt;&lt; add path to match on &gt;&gt;).hasAnyRole(&lt;&lt; authorized role &gt;&gt;)</span><br></pre></td></tr></table></figure></p>
 <p>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>).hasRole(<span class="string">"EMPLOYEE"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/leaders/**"</span>).hasRole(<span class="string">"MANAGER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admins/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>In this way, if a user tries to access in a page which he is not authorized to, he will be denied by “HTTP Status 403 - Forbidden”.</p>
-]]></content>
-      <tags>
-        <tag>Spring Security</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Security 6: Customize Access Denied Page</title>
-    <url>/2020/07/24/Spring-Security-6-Customize-Access-Denied-Page/</url>
-    <content><![CDATA[<p>Since we don’t want the default access denied page, we can create a customized one.</p>
-<h1 id="Update-DemoSecurityConfig"><a href="#Update-DemoSecurityConfig" class="headerlink" title="Update DemoSecurityConfig"></a>Update DemoSecurityConfig</h1><p>DemoSecurityConfig.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>).hasRole(<span class="string">"EMPLOYEE"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/leaders/**"</span>).hasRole(<span class="string">"MANAGER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admins/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin()</span><br><span class="line">                .loginPage(<span class="string">"/showMyLoginPage"</span>)</span><br><span class="line">                .loginProcessingUrl(<span class="string">"/authenticateTheUser"</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .permitAll()</span><br><span class="line">                <span class="comment">// new added</span></span><br><span class="line">                .and()</span><br><span class="line">                <span class="comment">// "/access-denied" needs a new controller</span></span><br><span class="line">                .exceptionHandling().accessDeniedPage(<span class="string">"/access-denied"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Update-LoginController"><a href="#Update-LoginController" class="headerlink" title="Update LoginController"></a>Update LoginController</h1><p>LoginController.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/access-denied"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">accessDenied</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"access-denied"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Create-page-access-denied"><a href="#Create-page-access-denied" class="headerlink" title="Create page /access-denied"></a>Create page /access-denied</h1><p>Skip</p>
-]]></content>
-      <tags>
-        <tag>Spring Security</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Security 7: Spring Security JSP Tags</title>
-    <url>/2020/07/24/Spring-Security-7-Spring-Security-JSP-Tags/</url>
-    <content><![CDATA[<p>Sometimes we want to show specific content to different users based on their roles, like show system links to admins only. Spring Security provided JSP tags to solve this problem.<br>General syntax:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;!-- content in <span class="keyword">this</span> tag will show according to the authorization --&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
-<p>home.jsp:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/leaders"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Manager peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br><span class="line">&lt;security:authorize access=<span class="string">"hasRole('ADMIN')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/admins"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Admin peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>Spring Security</tag>
@@ -2940,6 +2930,16 @@ public class TestFoo implements Foo {
 </li>
 </ol>
 <p>Here we no longer use hard-coding users.</p>
+]]></content>
+      <tags>
+        <tag>Spring Security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Security 7: Spring Security JSP Tags</title>
+    <url>/2020/07/24/Spring-Security-7-Spring-Security-JSP-Tags/</url>
+    <content><![CDATA[<p>Sometimes we want to show specific content to different users based on their roles, like show system links to admins only. Spring Security provided JSP tags to solve this problem.<br>General syntax:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;!-- content in <span class="keyword">this</span> tag will show according to the authorization --&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
+<p>home.jsp:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;security:authorize access=<span class="string">"hasRole('MANAGER')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/leaders"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Manager peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br><span class="line">&lt;security:authorize access=<span class="string">"hasRole('ADMIN')"</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;a href="$&#123;pageContext.request.contextPath&#125;/admins"&gt;LeaderShip Meeting&lt;/a&gt;</span><br><span class="line">    (Only <span class="keyword">for</span> Admin peeps)</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;/security:authorize&gt;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>Spring Security</tag>
