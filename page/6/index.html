@@ -238,6 +238,105 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/08/MyBatis-注解开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/08/MyBatis-注解开发/" class="post-title-link" itemprop="url">MyBatis:注解开发</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-04-08 21:52:57 / Modified: 22:38:28" itemprop="dateCreated datePublished" datetime="2020-04-08T21:52:57-04:00">2020-04-08</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>使用注解开发可以完全省略掉<code>XXXMapper.xml</code>文件<br>UserMapper(接口)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface UserMapper &#123;</span><br><span class="line"></span><br><span class="line">@Select(&quot;select * from user&quot;)</span><br><span class="line">List&lt;User&gt; getUser();</span><br><span class="line"></span><br><span class="line">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id&quot;) int id);</span><br><span class="line"></span><br><span class="line">// 与实体类属性保持一致，虽然数据库里的字段是pwd，但是实体类中是password所以#&#123;password&#125;</span><br><span class="line">@Insert(&quot;insert into user(id,name,pwd) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;password&#125;)&quot;)</span><br><span class="line">int addUser(User user);</span><br><span class="line"></span><br><span class="line">@Update(&quot;update user set name=#&#123;name&#125;,pwd=#&#123;password&#125; where id=#&#123;id&#125;&quot;)</span><br><span class="line">int updateUser(User user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Test.java:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class UserMapperTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void getUserTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        List&lt;User&gt; user = mapper.getUser();</span><br><span class="line">        for (User user1 : user) &#123;</span><br><span class="line">            System.out.println(user1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void getUserByIdTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        User userById = mapper.getUserById(1);</span><br><span class="line">        System.out.println(userById);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void addUserTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.addUser(new User(5,&quot;leo&quot;,&quot;666&quot;));</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void updateTest() &#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">        UserMapper mapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        mapper.updateUser(new User(1,&quot;xiaoke&quot;,&quot;666&quot;));</span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注解开发的底层实现是应用反射。<br>但是这个例子中有个问题，实体类中是password但是数据库字段为pwd，获取数据时，pwd会为null，所以官网上说注解开发只适用于简单场景，如果场景复杂还是建议xml</p>
+<h1 id="与-的区别"><a href="#与-的区别" class="headerlink" title="#与$的区别"></a>#与$的区别</h1><p>#{} 的作用主要是替换预编译语句(PrepareStatement)中的占位符?:</p>
+<p>对于 : INSERT INTO user (name) VALUES (#{name}); ==&gt; INSERT INTO user (name) VALUES (?);</p>
+<p>${} 符号的作用是直接进行字符串替换:</p>
+<p>对于 : INSERT INTO user (name) VALUES (‘${name}’); ==&gt; INSERT INTO user (name) VALUES (‘tianshozhi’);</p>
+<p>为了防止SQL注入，建议使用#{}.</p>
+<h1 id="关于-Param-注解"><a href="#关于-Param-注解" class="headerlink" title="关于@Param()注解"></a>关于@Param()注解</h1><ul>
+<li>基本类型的参数或者String类型，需要加上</li>
+<li>引用类型不需加</li>
+<li>如果只有一个基本类型的话，可以忽略，但是建议大家都加上</li>
+<li>我们在SQL中引用的就是我们这里@Param()中设定的属性名<br>例如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from user where id = #&#123;id&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id&quot;) int id);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果吧@Param改成(“id2”),上面的#{}也要改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from user where id = #&#123;id2&#125;&quot;)</span><br><span class="line">User getUserById(@Param(&quot;id2&quot;) int id);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/04/08/MyBatis-分页/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1230,111 +1329,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/01/23/MyBatis-日志/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/23/MyBatis-日志/" class="post-title-link" itemprop="url">MyBatis:日志</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-01-23 15:45:32" itemprop="dateCreated datePublished" datetime="2020-01-23T15:45:32-05:00">2020-01-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-04-08 14:45:49" itemprop="dateModified" datetime="2020-04-08T14:45:49-04:00">2020-04-08</time>
-              </span>
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>如果一个数据库操作出现了异常，我们需要排错。日志就是最好的助手。<br>日志在核心配置文件中配置，使用标签<code>&lt;settings&gt;</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;setting name=&quot;logImpl&quot; value=&quot;&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
-<p>其中<code>name=&quot;logImpl&quot;</code>是固定的，表示日志的具体实现，value的值有SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING</p>
-<h1 id="STDOUT-LOGGING"><a href="#STDOUT-LOGGING" class="headerlink" title="STDOUT_LOGGING"></a>STDOUT_LOGGING</h1><p>标准化日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;setting name=&quot;logImpl&quot; value=&quot;STDOUT_LOGGING&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h1><p>通过Log4j，我们可以控制日志信息输送的目的地是控制台、文件、GUI组件，甚至是套接口服务器、NT的事件记录器、UNIX Syslog守护进程等。<br>我们可以控制每一条日志的输出格式：通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。<br>这些可以通过一个配置文件来灵活地进行配置，而不需要修改里面的代码。</p>
-<h2 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https://mvnrepository.com/artifact/log4j/log4j --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.17&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h2><p>在应用的类路径中创建一个名为 log4j.properties 的文件，文件的具体内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码</span><br><span class="line">log4j.rootLogger=DEBUG,console,file</span><br><span class="line"></span><br><span class="line">#控制台输出的相关设置</span><br><span class="line">log4j.appender.console = org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.console.Target = System.out</span><br><span class="line">log4j.appender.console.Threshold=DEBUG</span><br><span class="line">log4j.appender.console.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.console.layout.ConversionPattern=[%c]-%m%n</span><br><span class="line"></span><br><span class="line">#文件输出的相关设置</span><br><span class="line">log4j.appender.file = org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.file.File=./log/xliu.log</span><br><span class="line">log4j.appender.file.MaxFileSize=10mb</span><br><span class="line">log4j.appender.file.Threshold=DEBUG</span><br><span class="line">log4j.appender.file.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.file.layout.ConversionPattern=[%p][%d&#123;yy-MM-dd&#125;][%c]%m%n</span><br><span class="line"></span><br><span class="line">#日志输出级别</span><br><span class="line">log4j.logger.org.mybatis=DEBUG</span><br><span class="line">log4j.logger.java.sql=DEBUG</span><br><span class="line">log4j.logger.java.sql.Statement=DEBUG</span><br><span class="line">log4j.logger.java.sql.ResultSet=DEBUG</span><br><span class="line">log4j.logger.java.sql.PreparedStatement=DEBUG</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置log4j为日志的实现"><a href="#配置log4j为日志的实现" class="headerlink" title="配置log4j为日志的实现"></a>配置log4j为日志的实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;setting name=&quot;logImpl&quot; value=&quot;LOG4J&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><ol>
-<li>导包<br> 在要使用Log4j的类中，导入包<code>import org.apache.log4j.Logger;</code></li>
-<li>日志对象，参数为当前类的class<br><code>static Logger logger = Logger.getLogger(UserMapperTest.class);</code></li>
-<li>日志级别<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">logger.info(&quot;info:进入了testLog4j&quot;);</span><br><span class="line">logger.debug(&quot;debug:进入了testLog4J&quot;);</span><br><span class="line">logger.error(&quot;error:进入了testLog4J&quot;);</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1375,7 +1369,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1459,7 +1453,9 @@
         
           
         
-        <span class="site-state-item-count">23</span>
+          
+        
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

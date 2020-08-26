@@ -238,6 +238,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/21/Java：泛型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/21/Java：泛型/" class="post-title-link" itemprop="url">Java：泛型</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-21 14:33:52" itemprop="dateCreated datePublished" datetime="2019-10-21T14:33:52-04:00">2019-10-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-05-26 22:09:24" itemprop="dateModified" datetime="2020-05-26T22:09:24-04:00">2020-05-26</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>第一次在《Java编程思想》中接触到泛型这个概念是在第十一章中，这一章讲的是持有对象。<br>首先来看一份没有使用泛型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">class Apple &#123;</span><br><span class="line">    private static long counter;</span><br><span class="line">    private final long id = counter++;</span><br><span class="line">    public long id() &#123; return id; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Orange &#123;&#125;</span><br><span class="line"></span><br><span class="line">public class ApplesAndOrangesWithoutGenerics &#123;</span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList apples = new ArrayList();</span><br><span class="line">        for (int i = 0; i &lt; 3; i++)</span><br><span class="line">            apples.add(new Apple());</span><br><span class="line">        apples.add(new Orange());</span><br><span class="line">        for(int i = 0; i &lt; apples.size(); i++)</span><br><span class="line">            ((Apple)apples.get(i)).id();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码分析：<br>首先定义两个类（Apple和Orange），两个类除了都默认继承自Object类之外没有任何共性。<br>主函数中尝试将三个Apple对象和一个Orange对象放入容器<code>ArrayList apples</code>中，使用了@SuppressWarnings注解及其参数表示只有有关“不受检查的异常”的警告信息应该被抑制。<br>最后一个for循环用于获取容器apples中的对象的id。<br>运行结果：<br>报错信息<code>holding.Orange cannot be cast to holding.Apple</code>，Orange类型不能转型为Apple类型</p>
+<p>然后来看一份使用了泛型的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class ApplesAndOrangesWithGenerics &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList&lt;Apple&gt; apples =  new ArrayList&lt;Apple&gt;();</span><br><span class="line">        for (int i = 0; i &lt; 3; i++)</span><br><span class="line">            apples.add(new Apple());</span><br><span class="line">//        apples.add(new Orange());</span><br><span class="line">        for (int i = 0; i &lt; apples.size(); i++)</span><br><span class="line">            System.out.println(apples.get(i));</span><br><span class="line">        for (Apple c : apples)</span><br><span class="line">            System.out.println(c.id());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码分析：<br>执行的操作和之前的代码一样，区别在于初始化容器时<code>ArrayList</code>后面加了一个<code>&lt;Apple&gt;</code>，尖括号括起来的是类型参数（可以有多个），它指定了这个容器实例可以保存的类型。在此处我将添加Orange对象到容器注释掉了，因为它在编译期就会报错，而上一份代码在运行时才能看出错误。</p>
+<h1 id="个人理解-2019-10-21"><a href="#个人理解-2019-10-21" class="headerlink" title="个人理解(2019-10-21)"></a>个人理解(2019-10-21)</h1><p>因为目前还没有对泛型进行深入的学习，所以仅仅通过上面的代码我个人对泛型的理解类似于方法的形参，编译期就规定好了容器内对象的类型，这样可以减少运行时错误（变成编译期错误）。并且注意到在将元素从List中取出时，类型转换也不再是必须的了。因为List知道它保存的是什么类型，因此它会在调用get()时替你执行转型。这样，通过使用泛型，你不仅知道编译器将会检查你放置到容器中的对象类型，而且在使用容器中的对象时，可以使用更加清晰的语法。<br>后续深入学习泛型后再做补充。</p>
+<hr>
+<h4 id="Q-Do-you-know-Generics-How-did-you-used-in-your-coding"><a href="#Q-Do-you-know-Generics-How-did-you-used-in-your-coding" class="headerlink" title="Q. Do you know Generics? How did you used in your coding?"></a>Q. <strong><em>Do you know Generics? How did you used in your coding?</em></strong></h4><p><code>Generics</code> allows type (Integer, String, … etc and user defined types) to be a parameter to methods, classes and interfaces. For example, classes like HashSet, ArrayList, HashMap, etc use generics very well.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li><strong>Type-safety</strong>: We can hold only a single type of objects in generics. It doesn’t allow to store other objects.</li>
+<li><strong>Type Casting</strong>: There is no need to typecast the object.</li>
+<li><strong>Compile-Time Checking</strong>: It is checked at compile time so problem will not occur at runtime.</li>
+</ul>
+<p>Example:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* A Simple Java program to show multiple </span></span><br><span class="line"><span class="comment">* type parameters in Java Generics </span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* We use &lt; &gt; to specify Parameter type</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenericClass</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; </span>&#123; </span><br><span class="line">    T obj1;  <span class="comment">// An object of type T </span></span><br><span class="line">    U obj2;  <span class="comment">// An object of type U </span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">// constructor </span></span><br><span class="line">    GenericClass(T obj1, U obj2) &#123; </span><br><span class="line">        <span class="keyword">this</span>.obj1 = obj1; </span><br><span class="line">        <span class="keyword">this</span>.obj2 = obj2; </span><br><span class="line">    &#125; </span><br><span class="line">  </span><br><span class="line">    <span class="comment">// To print objects of T and U </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(obj1); </span><br><span class="line">        System.out.println(obj2); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">  </span><br><span class="line"><span class="comment">// Driver class to test above </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">        GenericClass &lt;String, Integer&gt; obj = </span><br><span class="line">            <span class="keyword">new</span> GenericClass&lt;String, Integer&gt;(<span class="string">"Generic Class Example !"</span>, <span class="number">100</span>); </span><br><span class="line">  </span><br><span class="line">        obj.print(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generic Class Example !</span><br><span class="line">100</span><br></pre></td></tr></table></figure></p>
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/10/19/Java：Lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1220,146 +1346,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2019/08/31/Java：前期绑定和后期绑定/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/31/Java：前期绑定和后期绑定/" class="post-title-link" itemprop="url">Java：前期绑定和后期绑定</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-31 20:29:20" itemprop="dateCreated datePublished" datetime="2019-08-31T20:29:20-04:00">2019-08-31</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-01 21:17:04" itemprop="dateModified" datetime="2019-09-01T21:17:04-04:00">2019-09-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="程序绑定"><a href="#程序绑定" class="headerlink" title="程序绑定"></a>程序绑定</h2><p>&emsp;&emsp;绑定指的是一个方法的调用与方法所在的类（方法主体）关联起来。对Java来说，绑定分为静态绑定和动态绑定；或者叫做前期绑定和后期绑定。</p>
-<h2 id="静态绑定"><a href="#静态绑定" class="headerlink" title="静态绑定"></a>静态绑定</h2><p>&emsp;&emsp;编译器在编译的时候就能解析的绑定叫做静态绑定或者前期绑定，Java当中的方法只有final，static和private方法是前期绑定。</p>
-<p><strong>为什么static,final和private方法总是静态绑定的？</strong><br>&emsp;&emsp;静态绑定在性能方面更好（不需要额外开销）。编译器知道这些方法不能被重写并且一直都可以被本地类的对象访问。因此编译器很轻松就能确定类的对象（肯定是本地类），所以被这种方法绑定是静态的。<br>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class NewClass &#123;</span><br><span class="line">    public static class superclass &#123;</span><br><span class="line">        static void print()&#123;</span><br><span class="line">            System.out.println(&quot;print in superclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class subclass extends superclass &#123;</span><br><span class="line">        static void print() &#123;</span><br><span class="line">            System.out.println(&quot;print in subclass.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        superclass A = new superclass();</span><br><span class="line">        superclass B = new subclass();  // 如果把此处的引用改成subclass，输出的就是&quot;print in subclass&quot;</span><br><span class="line">        A.print();</span><br><span class="line">        B.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print in superclass</span><br><span class="line">print in superclass</span><br></pre></td></tr></table></figure></p>
-<p>分析：</p>
-<ul>
-<li>我们创建了一个subclass的对象和一个superclass的对象，并且引用了superclass</li>
-<li>superclass的print方法是静态的，编译器知道它不会在子类中被重写，因此编译器在编译期间知道要调用哪种打印方法，因此不存在歧义</li>
-</ul>
-<h2 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h2><p>&emsp;&emsp;在动态绑定中编译器不决定调用的方法，因为对象无法知道它是属于方法所在的那个类，还是属于那个类的导出类。重写是动态绑定的一个完美例子。在重写中子类和父类都有同样的方法。例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class NewClass &#123;</span><br><span class="line">    // 和上一个代码的区别在于print()方法不再static了</span><br><span class="line">    public static class superclass &#123;</span><br><span class="line">        void print()&#123;</span><br><span class="line">            System.out.println(&quot;print in superclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class subclass extends superclass &#123;</span><br><span class="line">        void print() &#123;</span><br><span class="line">            System.out.println(&quot;print in subclass&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        superclass A = new superclass();</span><br><span class="line">        superclass B = new subclass();</span><br><span class="line">        A.print();</span><br><span class="line">        B.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print in superclass</span><br><span class="line">print in subclass</span><br></pre></td></tr></table></figure></p>
-<p>分析：</p>
-<ul>
-<li>这个代码中的方法不是静态的</li>
-<li>编译过程中，编译器不知道哪一个print方法被调用了，因为编译器只通过引用变量而不是对象类型来引用，于是绑定会被延迟到运行时而且因此对应版本的print会被根据对象类型调用</li>
-</ul>
-<p><strong>重点</strong></p>
-<ul>
-<li>private, final和静态成员（方法和变量）用静态绑定，然而对虚拟方法（Java方法默认为虚拟方法）绑定是在运行时基于运行时对象完成的</li>
-<li>静态绑定使用类型信息用于绑定然而动态绑定用对象来解析绑定</li>
-<li>重载方法通过静态绑定被解析（当有很多个同名方法时决定调用哪一个）然而重写方法用动态绑定</li>
-</ul>
-<hr>
-<p>Q：<br>以下代码中发生了什么？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Animal</span><br><span class="line">&#123;</span><br><span class="line">    void eat()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;Animal is eating&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog extends Animal</span><br><span class="line">&#123;</span><br><span class="line">    void eat()</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;Dog is eating&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String args[])</span><br><span class="line">&#123;</span><br><span class="line">    Animal a=new Animal();</span><br><span class="line">    a.eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>A：<br>这个例子是一个动态绑定，因为a的类型实在运行时被确定的，于是相似的方法被调用了<br>现在假设有以下两个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void callEat(Animal animal) &#123;</span><br><span class="line">    System.out.println(&quot;Animal is eating&quot;);</span><br><span class="line">&#125;</span><br><span class="line">public static void callEat(Dog dog) &#123;</span><br><span class="line">    System.out.println(&quot;Dog is eating&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>把main方法改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String args[])</span><br><span class="line">&#123;</span><br><span class="line">    Animal a = new Dog();</span><br><span class="line">    callEat(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出会是<code>Animal is eating</code>，因为对<code>callEat</code>的调用是静态绑定，编译器只知道a是一种Animal。</p>
-<hr>
-<p>参考</p>
-<blockquote>
-<p><a href="https://www.geeksforgeeks.org/static-vs-dynamic-binding-in-java/" target="_blank" rel="noopener">Geeksforgeeks</a><br><a href="https://stackoverflow.com/questions/16647590/static-binding-and-dynamic-binding" target="_blank" rel="noopener">stackoverflow</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1400,7 +1386,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1484,7 +1470,9 @@
         
           
         
-        <span class="site-state-item-count">23</span>
+          
+        
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

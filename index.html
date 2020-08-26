@@ -238,6 +238,103 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/08/25/Spring-Boot-Unified-Response-Body/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/08/25/Spring-Boot-Unified-Response-Body/" class="post-title-link" itemprop="url">Spring Boot: Unified Response Body</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-08-25 16:28:50" itemprop="dateCreated datePublished" datetime="2020-08-25T16:28:50-04:00">2020-08-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-26 14:38:49" itemprop="dateModified" datetime="2020-08-26T14:38:49-04:00">2020-08-26</time>
+              </span>
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Front and rear separation is very popular nowadays, so how to design a good RESTful API and how to enable front end programmers to handle standard response JSON data structure are significant. In order for the front end to have a better logical display and page interaction processing, every RESTful request should contain the following information:<br>|  Name   | Description  |<br>|  ——  | ——  |<br>| status  | Indicate the request success or not |<br>| errorCode  | Give a specific error code to match the service exception |<br>| errorMsg  | More specific error message |<br>| resultBody  | Result, usually Bean object in JSON format |<br><strong>Note:</strong>  As for the resultBody, usually we declare it as Generic Class to adapt different return type.</p>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><h2 id="Define-the-generic-return-class"><a href="#Define-the-generic-return-class" class="headerlink" title="Define the generic return class"></a>Define the generic return class</h2><p>According to the form above, the Java Bean code would be like:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonResult</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> status = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String errorCode = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String errorMsg = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T resultBody;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CommonResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CommonResult</span><span class="params">(T resultBody)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.resultBody = resultBody;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnifiedReturnConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RestControllerAdvice</span>(<span class="string">"com.example.unifiedreturn.api"</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonResultResponseAdvice</span> <span class="keyword">implements</span> <span class="title">ResponseBodyAdvice</span>&lt;<span class="title">Object</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(MethodParameter methodParameter, Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; aClass)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">beforeBodyWrite</span><span class="params">(Object body, MethodParameter methodParameter, MediaType mediaType, Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (body <span class="keyword">instanceof</span> CommonResult)&#123;</span><br><span class="line">                <span class="keyword">return</span> body;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> CommonResult&lt;Object&gt;(body);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In this step, we create a static class <code>CommonResultResponseAdvice</code> which implementes interface <code>ResponseBodyAdvice&lt;Object&gt;</code>. By doing this, the response body will be intercepted and we override the method <code>beforeBodyWrite()</code> which can do conversion between body and our customized CommonResult.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/08/17/Spring-Security-Define-secured-URLS-dynamically/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,11 +371,21 @@
                 
               
 
-              <time title="Created: 2020-08-17 14:53:15 / Modified: 16:28:06" itemprop="dateCreated datePublished" datetime="2020-08-17T14:53:15-04:00">2020-08-17</time>
+              <time title="Created: 2020-08-17 14:53:15" itemprop="dateCreated datePublished" datetime="2020-08-17T14:53:15-04:00">2020-08-17</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-08-25 16:29:16" itemprop="dateModified" datetime="2020-08-25T16:29:16-04:00">2020-08-25</time>
+              </span>
             
           
 
@@ -300,7 +407,7 @@
 <li>Provide data which describes the rules of access.<br> <code>SecurityMetadataSource</code> obtains the metadata for a particular method or filter invocation</li>
 <li>Customize an interceptor and add it into the Spring Security’s filterChain.</li>
 </ol>
-<h1 id="Authorization-datasource"><a href="#Authorization-datasource" class="headerlink" title="Authorization datasource"></a>Authorization datasource</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Config authentication data source to implement dynamically authorization load</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilterInvocationSecurityMetadataSource</span> <span class="keyword">implements</span> <span class="title">FilterInvocationSecurityMetadataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Authorization data</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; requestMap;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Find the authorization data according to current url in the initial authorization datasource</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAttributes</span><span class="params">(Object object)</span> <span class="keyword">throws</span> IllegalArgumentException </span>&#123;</span><br><span class="line">        FilterInvocation fi = (FilterInvocation) object;</span><br><span class="line">        HttpServletRequest request = fi.getRequest();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// traverse the initialized authorization data and find authorization according to current url</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; entry : requestMap</span><br><span class="line">                .entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (entry.getKey().matches(request)) &#123;</span><br><span class="line">                <span class="keyword">return</span> entry.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAllConfigAttributes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FilterInvocation.class.isAssignableFrom(clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Update authorization collection</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequestMap</span><span class="params">(List&lt;SysAuthorityVo&gt; authorityVoList)</span></span>&#123;</span><br><span class="line">        Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; map = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (SysAuthorityVo sysAuthorityVo : authorityVoList) &#123;</span><br><span class="line">            String authorityName = sysAuthorityVo.getAuthorityName();</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(sysAuthorityVo.getAuthorityContent())) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (String url : sysAuthorityVo.getAuthorityContent().split(<span class="string">","</span>)) &#123;</span><br><span class="line">                Collection&lt;ConfigAttribute&gt; value = map.get(<span class="keyword">new</span> AntPathRequestMatcher(url));</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isEmpty(value)) &#123;</span><br><span class="line">                    ArrayList&lt;ConfigAttribute&gt; configs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    configs.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                    map.put(<span class="keyword">new</span> AntPathRequestMatcher(url), configs);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    value.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.requestMap = map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Authorization-Datasource"><a href="#Authorization-Datasource" class="headerlink" title="Authorization Datasource"></a>Authorization Datasource</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Config authentication data source to implement dynamically authorization load</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilterInvocationSecurityMetadataSource</span> <span class="keyword">implements</span> <span class="title">FilterInvocationSecurityMetadataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Authorization data</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; requestMap;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Find the authorization data according to current url in the initial authorization datasource</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAttributes</span><span class="params">(Object object)</span> <span class="keyword">throws</span> IllegalArgumentException </span>&#123;</span><br><span class="line">        FilterInvocation fi = (FilterInvocation) object;</span><br><span class="line">        HttpServletRequest request = fi.getRequest();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// traverse the initialized authorization data and find authorization according to current url</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; entry : requestMap</span><br><span class="line">                .entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (entry.getKey().matches(request)) &#123;</span><br><span class="line">                <span class="keyword">return</span> entry.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;ConfigAttribute&gt; <span class="title">getAllConfigAttributes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FilterInvocation.class.isAssignableFrom(clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Update authorization collection</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequestMap</span><span class="params">(List&lt;SysAuthorityVo&gt; authorityVoList)</span></span>&#123;</span><br><span class="line">        Map&lt;RequestMatcher, Collection&lt;ConfigAttribute&gt;&gt; map = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (SysAuthorityVo sysAuthorityVo : authorityVoList) &#123;</span><br><span class="line">            String authorityName = sysAuthorityVo.getAuthorityName();</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(sysAuthorityVo.getAuthorityContent())) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (String url : sysAuthorityVo.getAuthorityContent().split(<span class="string">","</span>)) &#123;</span><br><span class="line">                Collection&lt;ConfigAttribute&gt; value = map.get(<span class="keyword">new</span> AntPathRequestMatcher(url));</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isEmpty(value)) &#123;</span><br><span class="line">                    ArrayList&lt;ConfigAttribute&gt; configs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    configs.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                    map.put(<span class="keyword">new</span> AntPathRequestMatcher(url), configs);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    value.add(<span class="keyword">new</span> SecurityConfig(authorityName));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.requestMap = map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="Customize-Dynamically-Url-Interceptor"><a href="#Customize-Dynamically-Url-Interceptor" class="headerlink" title="Customize Dynamically Url Interceptor"></a>Customize Dynamically Url Interceptor</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  Customize DynamicallyUrlInterceptor</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicallyUrlInterceptor</span> <span class="keyword">extends</span> <span class="title">AbstractSecurityInterceptor</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// label customized url interceptor has already been loaded</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILTER_APPLIED = <span class="string">"__spring_security_filterSecurityInterceptor_filterApplied_dynamically"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FilterInvocationSecurityMetadataSource securityMetadataSource;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> observeOncePerRequest = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getSecureObjectClass() &#123;</span><br><span class="line">        <span class="keyword">return</span> FilterInvocation.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        FilterInvocation fi = <span class="keyword">new</span> FilterInvocation(request, response, chain);</span><br><span class="line">        invoke(fi);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterInvocationSecurityMetadataSource <span class="title">getSecurityMetadataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.securityMetadataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SecurityMetadataSource <span class="title">obtainSecurityMetadataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.securityMetadataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecurityMetadataSource</span><span class="params">(FilterInvocationSecurityMetadataSource newSource)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.securityMetadataSource = newSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessDecisionManager</span><span class="params">(AccessDecisionManager accessDecisionManager)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.setAccessDecisionManager(accessDecisionManager);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(FilterInvocation fi)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ((fi.getRequest() != <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; (fi.getRequest().getAttribute(FILTER_APPLIED) != <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; observeOncePerRequest) &#123;</span><br><span class="line">            <span class="comment">// filter already applied to this request and user wants us to observe</span></span><br><span class="line">            <span class="comment">// once-per-request handling, so don't re-do security checking</span></span><br><span class="line">            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// first time this request being called, so perform security checking</span></span><br><span class="line">            <span class="keyword">if</span> (fi.getRequest() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                fi.getRequest().setAttribute(FILTER_APPLIED, Boolean.TRUE);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            InterceptorStatusToken token = <span class="keyword">super</span>.beforeInvocation(fi);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="keyword">super</span>.finallyInvocation(token);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">super</span>.afterInvocation(token, <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="Decision-Manager"><a href="#Decision-Manager" class="headerlink" title="Decision Manager"></a>Decision Manager</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Decision Manager</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAccessDecisionManager</span> <span class="keyword">extends</span> <span class="title">AbstractAccessDecisionManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    MyAccessDecisionManager(List&lt;AccessDecisionVoter&lt;?&gt;&gt; decisionVoters) &#123;</span><br><span class="line">        <span class="keyword">super</span>(decisionVoters);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decide</span><span class="params">(Authentication authentication, Object object, Collection&lt;ConfigAttribute&gt; configAttributes)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> AccessDeniedException, InsufficientAuthenticationException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> deny = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (AccessDecisionVoter voter : getDecisionVoters()) &#123;</span><br><span class="line">            <span class="keyword">int</span> result = voter.vote(authentication, object, configAttributes);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">                logger.debug(<span class="string">"Voter: "</span> + voter + <span class="string">", returned: "</span> + result);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (result) &#123;</span><br><span class="line">                <span class="keyword">case</span> AccessDecisionVoter.ACCESS_GRANTED:</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> AccessDecisionVoter.ACCESS_DENIED:</span><br><span class="line">                    deny++;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (deny &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AccessDeniedException(messages.getMessage(</span><br><span class="line">                    <span class="string">"AbstractAccessDecisionManager.accessDenied"</span>, <span class="string">"Access is denied"</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// To get this far, every AccessDecisionVoter abstained</span></span><br><span class="line">        checkAllowIfAllAbstainDecisions();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Spring Security provided several authorization strategy, here we are using RoleVoter.</p>
@@ -1321,106 +1428,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/07/25/Spring-REST-5-PathVariable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/25/Spring-REST-5-PathVariable/" class="post-title-link" itemprop="url">Spring REST 5: @PathVariable</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-07-25 21:01:02 / Modified: 21:22:52" itemprop="dateCreated datePublished" datetime="2020-07-25T21:01:02-04:00">2020-07-25</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>Previously, we used @RestController to handle the REST request to get the list of students(<a href="http://localhost:8080/api/students" target="_blank" rel="noopener">http://localhost:8080/api/students</a>).<br>Now, assume we have a list of students, and the client only wants the first one. So we need to retrieve a single student by id: api/getStudentById/{studentId}</p>
-<h1 id="Behind-the-scenes"><a href="#Behind-the-scenes" class="headerlink" title="Behind the scenes"></a>Behind the scenes</h1><ol>
-<li>We’ll make a request across for /api/students/{studentId}</li>
-<li>We’ll have Spring REST along with Jackson and they’ll make a call to the REST service</li>
-<li>In our code, we’ll actually return that given student</li>
-<li>Jackson will actually convert that student object or that student POJO to JSON and then send it back across to the REST client<h1 id="Development-Process"><a href="#Development-Process" class="headerlink" title="Development Process"></a>Development Process</h1></li>
-</ol>
-<ul>
-<li><p>Add request mapping to Spring REST Service</p>
-<ul>
-<li>Bind path variable to method parameter using @PathVariable<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getStudentById/&#123;studentId&#125;"</span>)</span><br><span class="line">    &lt;!-- <span class="function">the parameter should be the same as the content in the <span class="title">bracket</span><span class="params">(studentId)</span> --&gt;</span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> Student <span class="title">getStudentById</span><span class="params">(@PathVariable <span class="keyword">int</span> studentId)</span> </span>&#123;</span><br><span class="line">    List&lt;Student&gt; theStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Poornima"</span>,<span class="string">"Patel"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mario"</span>,<span class="string">"Rossi"</span>));</span><br><span class="line">    theStudents.add(<span class="keyword">new</span> Student(<span class="string">"Mary"</span>,<span class="string">"Smith"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> theStudents.get(studentId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Test<br>Postman:<br>GET:<a href="http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1" target="_blank" rel="noopener">http://localhost:8080/SpringRESTDemo_war_exploded/api/getStudentById/1</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1461,7 +1468,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1545,7 +1552,9 @@
         
           
         
-        <span class="site-state-item-count">23</span>
+          
+        
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

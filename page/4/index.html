@@ -238,6 +238,93 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-String/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feb 1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Feb 1997">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/Java-String/" class="post-title-link" itemprop="url">Java: String</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-26 18:38:11 / Modified: 19:33:44" itemprop="dateCreated datePublished" datetime="2020-05-26T18:38:11-04:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h4 id="Q-Why-string-is-immutable-in-java"><a href="#Q-Why-string-is-immutable-in-java" class="headerlink" title="Q. Why string is immutable in java?"></a>Q. <strong><em>Why string is immutable in java?</em></strong></h4><p>The string is Immutable in Java because String objects are cached in String pool. Since cached String literals are shared between multiple clients there is always a risk, where one client’s action would affect all another client. </p>
+<p>Since string is immutable it can safely share between many threads and avoid any synchronization issues in java.</p>
+<h4 id="Q-What-is-Java-String-Pool"><a href="#Q-What-is-Java-String-Pool" class="headerlink" title="Q. What is Java String Pool?"></a>Q. <strong><em>What is Java String Pool?</em></strong></h4><p>String Pool in java is a pool of Strings stored in Java Heap Memory. String pool helps in saving a lot of space for Java Runtime although it takes more time to create the String.</p>
+<p>When we use double quotes to create a String, it first looks for String with the same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference. However using <strong>new</strong> operator, we force String class to create a new String object in heap space.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Java program to illustrate String Pool</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringPool</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"Java"</span>;</span><br><span class="line">        String s2 = <span class="string">"Java"</span>;</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"s1 == s2 :"</span> +(s1==s2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"s1 == s3 :"</span> +(s1==s3)); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/26/Java-Abstraction-and-Encapsulation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1373,94 +1460,6 @@ public class TestFoo implements Foo {
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xiaokeliu666.github.io/2020/05/16/Leetcode-105-106/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feb 1997">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Feb 1997">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/16/Leetcode-105-106/" class="post-title-link" itemprop="url">Leetcode:105 & 106</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2020-05-16 00:33:40 / Modified: 14:30:57" itemprop="dateCreated datePublished" datetime="2020-05-16T00:33:40-04:00">2020-05-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br/>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>前序遍历：根-左-右<br>中序遍历：左-根-右<br>后序遍历：右-左-根<br>前序遍历和后续遍历可以确定根节点的位置（第一个或最后一个），中序遍历可以确定左子树上有哪些节点，右子树上有哪些节点。这两道题的大致思路就是通过前序或者后序遍历，确定根节点的位置，再通过中序遍历确定左右两边子树的节点，依次迭代。</p>
-<h1 id="105"><a href="#105" class="headerlink" title="105"></a>105</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] preorder, int[] inorder) &#123;</span><br><span class="line">        return helper(0,0,inorder.length-1,preorder,inorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public TreeNode helper(int preStart,int inStart, int inEnd, int[] preorder, int[] inorder) &#123;</span><br><span class="line">        if(inStart&gt;inEnd || preStart &gt;= preorder.length) &#123;return null;&#125;</span><br><span class="line">        // root</span><br><span class="line">        TreeNode root = new TreeNode(preorder[preStart]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = index; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==preorder[preStart]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(preStart+1,inStart,index-1,preorder,inorder);</span><br><span class="line">        root.right = helper(preStart+index-inStart+1,index+1,inEnd,preorder,inorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>难点在于计算右子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
-<h1 id="106"><a href="#106" class="headerlink" title="106"></a>106</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public TreeNode buildTree(int[] inorder, int[] postorder) &#123;</span><br><span class="line">        return helper(postorder.length-1,0,inorder.length-1,inorder,postorder);</span><br><span class="line">    &#125;</span><br><span class="line">    public static TreeNode helper(int postEnd, int inStart, int inEnd, int[] inorder, int[] postorder) &#123;</span><br><span class="line">        if(postEnd&gt;=postorder.length || inStart&gt;inEnd) &#123;return null;&#125;</span><br><span class="line">        TreeNode root = new TreeNode(postorder[postEnd]);</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(int i = 0; i &lt; inorder.length; i++) &#123;</span><br><span class="line">            if(inorder[i]==postorder[postEnd]) &#123;</span><br><span class="line">                index = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        root.left = helper(postEnd-inEnd+index-1,inStart,index-1,inorder,postorder);</span><br><span class="line">        root.right = helper(postEnd-1,index+1,inEnd,inorder,postorder);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>难点在于计算左子树的preStart。因为题中给出的例子左子树只有一个节点，容易忽略考虑左子树的长度。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1501,7 +1500,7 @@ public class TestFoo implements Foo {
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1585,7 +1584,9 @@ public class TestFoo implements Foo {
         
           
         
-        <span class="site-state-item-count">23</span>
+          
+        
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
